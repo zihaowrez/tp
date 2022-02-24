@@ -24,5 +24,8 @@ docs/_site/
 # Java files
 *.class
 
+#vscode stuff
+/.vscode/
+
 #AB3
 /bin/
