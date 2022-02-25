@@ -312,11 +312,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+Technical:
+1. System should work on any mainstream Operating System, provided it has Java `11` or above installed
+2. System should be fully functional without an internet connection
 
-*{More to be added}*
+Quality:
+1. A non-experienced user should be able to navigate and use the application as intended
+2. Users should be able to accomplish most tasks faster with the CLI as compared to using the mouse
+3. Able to run smoothly on low-end systems
+
+Constraints:
+1. User has to manually type out the command using the Command Line Interface instead of using a mouse
+2. uMessage is able to hold up to *{to be decided}* contacts before experiencing a drop in performance
+
 
 ### Glossary
 
