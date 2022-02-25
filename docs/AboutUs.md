@@ -7,7 +7,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Our Team
 
-### Chris Ong Weng Qi
+### Ong Weng Qi
 <img src="images/chriswengqi.jpg" width="200px">
 
 [[github](https://github.com/chriswengqi)] [[portfolio](team/chriswengqi.md)]
