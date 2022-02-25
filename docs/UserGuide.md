@@ -47,7 +47,7 @@ Format: `help`
 
 ### Adding a person : `add`
 
-**Format:** `add n/NAME [d/{SOCIAL MEDIA PLATFORM} {ID}]… [t/TAG]…`
+**Format:** `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 Tip: A person can have one or more details
 Tip: A person can have zero or more tags
@@ -138,7 +138,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME [d/{SOCIAL MEADIA PLATFORM} {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone 99900099 d/Email e0123456@gmail.com`
+**Add** | `add n/NAME [d/{SOCIAL MEADIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone 99900099 d/Email e0123456@gmail.com`
 **Clear** | `clear`
 **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2` 
 **Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
