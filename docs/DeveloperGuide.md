@@ -285,30 +285,65 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+Precondition - User has started up the uMessage application
+
+### Use case 1: Add a contact
 
 **MSS**
+1. User types in the command to add a person into the address book
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+2. uMessage adds the person into the list of contacts and updates it to the user
 
-    Use case ends.
+Use case ends
 
 **Extensions**
+* 1a. Incorrect syntax is used
+    * 1a1. uMessage displays an error message
 
-* 2a. The list is empty.
+Use case resumes at step 1
 
-  Use case ends.
+### Use case 2: Deletes a contact
 
-* 3a. The given index is invalid.
+**MSS**
+1. User types in the command to delete a contact from the list
 
-    * 3a1. AddressBook shows an error message.
+2. If there are multiple users with the same name in the list, uMessage will display a list of relevant contacts and prompt the user to select by entering a valid index
 
-      Use case resumes at step 2.
+3. uMessage removes the specified contact in the list and displays the updated version to the user
 
-*{More to be added}*
+**Extensions**
+* 1a. User enters an invalid syntax
+    * 1a1. uMessage shows an error
+
+Use case resumes at step 1
+
+* 1b. User enters an invalid index (if there are multiple occurrences)
+    * 1b1. uMessage shows an error
+
+Use case resumes at step 2
+
+### Use case 3: Find Contact
+
+**MSS**
+1. User types in the command to find a contact
+2. If the person specified has multiple occurrences, uMessage will show a list of contacts and prompt the user to choose based on the index
+3. uMessage will display the details of that contact
+
+**Extensions**
+* 1a. If the user enters a wrong syntax
+    * 1a1. uMessage will display an error
+
+Use case resumes at step 1
+
+* 1b. If the user enters a person not present inside the contact list
+    * 1b1. uMessage will display “no such person exists”
+
+Use case resumes at step 1
+
+* 1c. User enters a person with multiple occurrences and proceeds to enter an invalid index or a non-integer input
+    * 1c1. uMessage will display an error
+
+Use case resumes at step 2
 
 ### Non-Functional Requirements
 
