@@ -108,7 +108,7 @@ The search will attempt to search all fields and tags to return a match.
 
 **Examples:**
 
-`find kaaviya` (finds the name kaaviya)  
+`find kaaviya` (finds the name "Kaaviya")  
 `Kaaviya` (does the same as above)
 
 ### Deleting a person : `delete`
@@ -167,7 +167,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME [d/{SOCIAL MEADIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
+**Add** | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
 **Clear** | `clear`
 **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2` 
 **Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
