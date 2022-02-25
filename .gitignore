@@ -20,3 +20,12 @@ src/test/data/sandbox/
 # MacOS custom attributes files created by Finder
 .DS_Store
 docs/_site/
+
+# Java files
+*.class
+
+#vscode stuff
+/.vscode/
+
+#AB3
+/bin/
