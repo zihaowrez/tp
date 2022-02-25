@@ -270,14 +270,43 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                                                                 | I want to …​                                                  | So that I can…​                                                   |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------------|
+| `* * *`  | student with many contacts                                              | manage my contacts easily                                     |                                                                   |
+| `* * *`  | new user                                                                | find help on how to use the app                               | be more proficient in using the app                               |
+| `* * *`  | new user struggling to keep track of everybody's communication channels | save people's communication channels                          | find their contacts easily                                        |
+| `* * *`  | new user                                                                | access the user guide                                         | learn how to use the app better                                   |
+| `* * *`  | new user                                                                | view a list of available commands                             | know which command to use for what I want to do                   |
+| `* * *`  | user                                                                    | delete specific contacts                                      | remove irrelevant information to me                               |           
+| `* * *`  | user                                                                    | delete all my contacts in one go                              |                                                                   |  
+| `* * *`  | new user                                                                | view my contacts when I open the app                          | see only relevant information                                     |  
+| `* * *`  | new user                                                                | add new people and their communication handles to my contacts |                                                                   |  
+| `* * *`  | user                                                                    | add new communication handles to existing contacts            |                                                                   |   
+| `* * *`  | university student using a lot of communication channels                | organise my contacts' communication channels neatly           | see my contacts displayed neatly through GUI                      |  
+| `* * *`  | user who likes tidy interfaces                                          | organise my contacts neatly                                   |                                                                   |  
+| `* * *`  | university student taking a lot of modules every semester               | organise my module teammates into their respective labels     |                                                                   |  
+| `* * *`  | user                                                                    | look up the list of communication channels for any contact    | see what options I have to communicate with that individual       |  
+| `* * *`  | user                                                                    | update a specific handle/contact                              |                                                                   | 
+| `* * *`  | user                                                                    | clear all my contacts                                         |                                                                   |  
+| `* * *`  | user                                                                    | list all my contacts                                          |                                                                   |  
+| `* * *`  | student with many CCAs                                                  | tag contacts with CCA tags                                    | manage my contacts better                                         | 
+| `* * *`  | student taking many modules a semester                                  | tag contacts with modules tags                                | manage my contacts better                                         | 
+| `* * *`  | user                                                                    | remove tags which I think are not relevant to me anymore      |                                                                   | 
+| `* * *`  | user                                                                    | search ny names or tags                                       |                                                                   |
+| `* * *`  | user who prefers typing                                                 | use a CLi interface over GUI                                  |                                                                   | 
+| `* * *`  | user                                                                    | separate academic and non-academic contacts                   |                                                                   | 
+| `* *`    | student with many meetings                                              | add my meetings to my contacts                                | manage my meetings easily                                         |
+| `* *`    | user                                                                    | list most recently searched contacts                          |                                                                   |  
+| `* *`    | university student                                                      | find university-specific helpline contacts                    | contact specific helplines when I need help                       |  
+| `* *`    | new university student                                                  | find specific university department's contacts                | contact specific departments related to specific queries/problems |
+| `* *`    | user                                                                    | add additional information about any contact as extra details |                                                                   |  
+| `* *`    | new user                                                                | open the contacts that are saved                              | see the communication channels I have with that person            |  
+| `* *`    | user who has to keep track of a lot of meetings                         | save meetings so that I can keep track of them                |                                                                   |
+| `* *`    | university student                                                      | find a link to an online class                                |                                                                   |
+| `*`      | student who likes to be visually stimulated                             | set my preferred themes of the app                            |                                                                   | 
+| `*`      | colour-blind user                                                       | view the app in colour blind mode                             |                                                                   | 
+| `*`      | student who prefers multi-tasking                                       | resize the app window without limiting functionalities        |                                                                   | 
+| `*`      | user                                                                    | export consolidated contacts to other users                   |                                                                   | 
 
 *{More to be added}*
 
