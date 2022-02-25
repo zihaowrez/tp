@@ -394,7 +394,8 @@ Constraints:
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **Command Line Interface (CLI)**: A user interface whereby users interact with the program with lines of text. 
+* **Graphical User Interface (GUI)**: A user interface that allows users to interact with the program with graphical components, like clickable menus.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
