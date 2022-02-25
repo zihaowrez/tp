@@ -1,33 +1,92 @@
-# uMessage User Guide
+---
+layout: page
+title: uMessage (v1.2) User Guide
+---
 
-*uMessage* is an app that helps university students manage contacts, academics and CCAs that communicate and hold meetings on various platforms. It is optimized for keyboard users.
+*uMessage* is a desktop app that helps university students manage contacts, academics and CCAs that communicate and hold meetings on various platforms. It is optimized for keyboard users.
 
-## Feature List (v1.2)
+* Table of Contents
+{:toc}
 
-### Add Contact: `add`
+--------------------------------------------------------------------------------------------------------------------
 
-Add communication channels under contact (e.g. telegram, slack)
+## Features
 
-Adding a person: add
+<div markdown="block" class="alert alert-info">
 
-**Format:** `add n/NAME \[d/{Social Media Platform} {ID} d/{Social Media Platform} {ID}\] \[t/cs2103\]...`
+**:information_source: Notes about the command format:**<br>
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+
+* Items in square brackets are optional.<br>
+  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+
+* Items with `…`​ after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+
+* Parameters can be in any order.<br>
+  e.g. if the command specifies `n/NAME t/TAG`, `t/TAG n/NAME` is also acceptable.
+
+* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+  e.g. if you specify `n/John n/Joe`, only `n/Joe` will be taken.
+
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+</div>
+
+### Viewing help : `help`
+
+Shows a message explaning how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+
+### Adding a person : `add`
+
+**Format:** `add n/NAME [d/{SOCIAL MEDIA PLATFORM} {ID}]… [t/TAG]…`
 
 Tip: A person can have one or more details
 Tip: A person can have zero or more tags
 
 **Examples:**
 
-`add n/John Doe d/Telegram kaaviya`  
+`add n/John Doe d/Telegram johndoe` 
 `add n/Betsy Crowe d/Phone 99900099 d/Email e0123456@gmail.com`  
-`add n/Potter d/Phone 49502583 t/cs2012`  
+`add n/Potter d/Phone 49502583 t/cs2030`
 
-### Delete Contact: `delete`
-Delete communication channels/information under contact
-Deletes the specified person from the address book.
+### Listing all persons : `list`
+
+Shows a list of all persons in the address book.
+
+Format: `list`
+
+### Locating persons by name : `[find]`
+
+Finds persons whose name contain any of the given keywords.
+
+**Format:**  `[find] KEYWORD [MORE_KEYWORDS]`
+
+The search is case-insensitive. e.g `hans` will match `Hans`  
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`  
+Only the name is searched.  
+Only full words will be matched e.g. `Han` will not match `Hans`  
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`  
+The search will attempt to search all fields and tags to return a match.   
+
+**Examples:**
+
+`find kaaviya` (finds the name kaaviya)  
+`Kaaviya` (does the same as above)
+
+### Deleting a person : `delete`
 
 **Format:**  
 `delete NAME`			(in event of single occurrence of NAME)  
-`delete NAME` {index}	(otherwise)
+`delete NAME {INDEX}`	(otherwise)
 
 Deletes the person with the specified NAME.  
 NAME is insensitive (like find)  
@@ -41,29 +100,52 @@ Scenario 2 (multiple occurrences):
 `delete kaaviya`   (ERROR: multiple occurrences detected)  
 `delete kaaviya 2`  
 
-### View: `home`
+### Clearing all entries : `clear`
 
-Returns the user back to the original contact list
+Clears all entries from the address book.
 
-Returns to the main list of all contacts displayed in alphabetical order by default.
+Format: `clear`
 
-### Find Contact: `find` OR `[KEYWORD]`
+### Exiting the program : `exit`
 
-Finds persons whose name contain any of the given keywords.
+Exits the program.
 
-**Format:**  `find` KEYWORD \[MORE_KEYWORDS\]
+Format: `exit`
 
-    KEYWORD \[MORE_KEYWORDS\]
+### Saving the data
 
-The search is case-insensitive. e.g `hans` will match `Hans`  
-The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`  
-Only the name is searched.  
-Only full words will be matched e.g. `Han` will not match `Hans`  
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`  
-The search will attempt to search all fields and tags to return a match.   
+AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-**Examples:**
+### Editing the data file
 
-`find kaaviya` (finds the name kaaviya)  
-`Kaaviya` (does the same as above)
+AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+</div>
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## FAQ
+
+**Q**: How do I transfer my data to another Computer?<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Command summary
+
+Action | Format, Examples
+--------|------------------
+**Add** | `add n/NAME [d/{SOCIAL MEADIA PLATFORM} {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone 99900099 d/Email e0123456@gmail.com`
+**Clear** | `clear`
+**Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2` 
+**Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
+**List** | `list`
+**Help** | `help`
+
+
+
+
 
