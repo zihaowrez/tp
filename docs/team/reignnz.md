@@ -15,10 +15,19 @@ and it has a GUI created with JavaFX. It is written in Java, and has about 10 kL
 
 Given below are my contributions to the project.
 
+**Code Contributed**: [RepoSense link](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=reignnz&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2022-02-18)
+
+**Enhancements implemented**:
 *{Coming Soon}*
-Code Contributed: 
-Enhancements implemented: 
-Contributions to the UG: 
-Contributions to the DG: 
-Review/mentoring contributions: 
-Contributions beyond the project team- 
+
+**Contributions to the UG**:
+*{Coming Soon}*
+
+**Contributions to the DG**:
+*{Coming Soon}*
+
+**Review/mentoring contributions**:
+*{Coming Soon}*
+
+**Contributions beyond the project team**
+*{Coming Soon}*
