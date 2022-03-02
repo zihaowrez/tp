@@ -5,55 +5,45 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
+## Our Team
 
-## Project team
+### Ong Weng Qi
+<img src="images/chriswengqi.png" width="200px">
 
-### John Doe
+[[github](https://github.com/chriswengqi)] [[portfolio](team/chriswengqi.md)]
+- Role: Team Lead
+- Responsibilities: Deliverables and Deadlines
 
-<img src="images/johndoe.png" width="200px">
+### Kaaviya Selvam
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+<img src="images/kavxya.png" width="200px">
 
-* Role: Project Advisor
+[[github](http://github.com/kavxya)] [[portfolio](team/kavxya.md)]
 
-### Jane Doe
+* Role: Documentation
+* Responsibilities: UI design
 
-<img src="images/johndoe.png" width="200px">
+### Chow Yung Jie Kenneth
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/reignnz.md)]
+<img src="images/reignnz.png" width="200px">
 
-* Role: Team Lead
-* Responsibilities: UI
+[[github](http://github.com/reignnz)] [[portfolio](team/reignnz.md)]
 
-### Johnny Doe
+* Role: Testing
 
-<img src="images/johndoe.png" width="200px">
+### Wong Chee Hong
 
-[[github](http://github.com/johndoe)] [[portfolio](team/reignnz.md)]
+<img src="images/cheehongw.png" width="200px">
 
-* Role: Developer
-* Responsibilities: Data
+[[github](http://github.com/cheehongw)] [[portfolio](team/cheehongw.md)]
 
-### Jean Doe
+* Role: Code Quality
 
-<img src="images/johndoe.png" width="200px">
+### Wu Zihao
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/reignnz.md)]
+<img src="images/zihaowrez.png" width="200px">
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+[[github](http://github.com/zihaowrez)] [[portfolio](team/zihaowrez.md)]
 
-### James Doe
+* Role: Integration
 
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/reignnz.md)]
-
-* Role: Developer
-* Responsibilities: UI

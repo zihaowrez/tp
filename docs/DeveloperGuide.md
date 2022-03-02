@@ -270,14 +270,43 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                                                                 | I want to …​                                                  | So that I can…​                                                   |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------------|
+| `* * *`  | student with many contacts                                              | manage my contacts easily                                     |                                                                   |
+| `* * *`  | new user                                                                | find help on how to use the app                               | be more proficient in using the app                               |
+| `* * *`  | new user struggling to keep track of everybody's communication channels | save people's communication channels                          | find their contacts easily                                        |
+| `* * *`  | new user                                                                | access the user guide                                         | learn how to use the app better                                   |
+| `* * *`  | new user                                                                | view a list of available commands                             | know which command to use for what I want to do                   |
+| `* * *`  | user                                                                    | delete specific contacts                                      | remove irrelevant information to me                               |           
+| `* * *`  | user                                                                    | delete all my contacts in one go                              |                                                                   |  
+| `* * *`  | new user                                                                | view my contacts when I open the app                          | see only relevant information                                     |  
+| `* * *`  | new user                                                                | add new people and their communication handles to my contacts |                                                                   |  
+| `* * *`  | user                                                                    | add new communication handles to existing contacts            |                                                                   |   
+| `* * *`  | university student using a lot of communication channels                | organise my contacts' communication channels neatly           | see my contacts displayed neatly through GUI                      |  
+| `* * *`  | user who likes tidy interfaces                                          | organise my contacts neatly                                   |                                                                   |  
+| `* * *`  | university student taking a lot of modules every semester               | organise my module teammates into their respective labels     |                                                                   |  
+| `* * *`  | user                                                                    | look up the list of communication channels for any contact    | see what options I have to communicate with that individual       |  
+| `* * *`  | user                                                                    | update a specific handle/contact                              |                                                                   | 
+| `* * *`  | user                                                                    | clear all my contacts                                         |                                                                   |  
+| `* * *`  | user                                                                    | list all my contacts                                          |                                                                   |  
+| `* * *`  | student with many CCAs                                                  | tag contacts with CCA tags                                    | manage my contacts better                                         | 
+| `* * *`  | student taking many modules a semester                                  | tag contacts with modules tags                                | manage my contacts better                                         | 
+| `* * *`  | user                                                                    | remove tags which I think are not relevant to me anymore      |                                                                   | 
+| `* * *`  | user                                                                    | search ny names or tags                                       |                                                                   |
+| `* * *`  | user who prefers typing                                                 | use a CLi interface over GUI                                  |                                                                   | 
+| `* * *`  | user                                                                    | separate academic and non-academic contacts                   |                                                                   | 
+| `* *`    | student with many meetings                                              | add my meetings to my contacts                                | manage my meetings easily                                         |
+| `* *`    | user                                                                    | list most recently searched contacts                          |                                                                   |  
+| `* *`    | university student                                                      | find university-specific helpline contacts                    | contact specific helplines when I need help                       |  
+| `* *`    | new university student                                                  | find specific university department's contacts                | contact specific departments related to specific queries/problems |
+| `* *`    | user                                                                    | add additional information about any contact as extra details |                                                                   |  
+| `* *`    | new user                                                                | open the contacts that are saved                              | see the communication channels I have with that person            |  
+| `* *`    | user who has to keep track of a lot of meetings                         | save meetings so that I can keep track of them                |                                                                   |
+| `* *`    | university student                                                      | find a link to an online class                                |                                                                   |
+| `*`      | student who likes to be visually stimulated                             | set my preferred themes of the app                            |                                                                   | 
+| `*`      | colour-blind user                                                       | view the app in colour blind mode                             |                                                                   | 
+| `*`      | student who prefers multi-tasking                                       | resize the app window without limiting functionalities        |                                                                   | 
+| `*`      | user                                                                    | export consolidated contacts to other users                   |                                                                   | 
 
 *{More to be added}*
 
@@ -285,44 +314,88 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+Precondition - User has started up the uMessage application
+
+### Use case 1: Add a contact
 
 **MSS**
+1. User types in the command to add a person into the address book
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+2. uMessage adds the person into the list of contacts and updates it to the user
 
-    Use case ends.
+Use case ends
 
 **Extensions**
+* 1a. Incorrect syntax is used
+    * 1a1. uMessage displays an error message
 
-* 2a. The list is empty.
+Use case resumes at step 1
 
-  Use case ends.
+### Use case 2: Deletes a contact
 
-* 3a. The given index is invalid.
+**MSS**
+1. User types in the command to delete a contact from the list
 
-    * 3a1. AddressBook shows an error message.
+2. If there are multiple users with the same name in the list, uMessage will display a list of relevant contacts and prompt the user to select by entering a valid index
 
-      Use case resumes at step 2.
+3. uMessage removes the specified contact in the list and displays the updated version to the user
 
-*{More to be added}*
+**Extensions**
+* 1a. User enters an invalid syntax
+    * 1a1. uMessage shows an error
+
+Use case resumes at step 1
+
+* 1b. User enters an invalid index (if there are multiple occurrences)
+    * 1b1. uMessage shows an error
+
+Use case resumes at step 2
+
+### Use case 3: Find Contact
+
+**MSS**
+1. User types in the command to find a contact
+2. If the person specified has multiple occurrences, uMessage will show a list of contacts and prompt the user to choose based on the index
+3. uMessage will display the details of that contact
+
+**Extensions**
+* 1a. If the user enters a wrong syntax
+    * 1a1. uMessage will display an error
+
+Use case resumes at step 1
+
+* 1b. If the user enters a person not present inside the contact list
+    * 1b1. uMessage will display “no such person exists”
+
+Use case resumes at step 1
+
+* 1c. User enters a person with multiple occurrences and proceeds to enter an invalid index or a non-integer input
+    * 1c1. uMessage will display an error
+
+Use case resumes at step 2
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+Technical:
+1. System should work on any mainstream Operating System, provided it has Java `11` or above installed
+2. System should be fully functional without an internet connection
 
-*{More to be added}*
+Quality:
+1. A non-experienced user should be able to navigate and use the application as intended
+2. Users should be able to accomplish most tasks faster with the CLI as compared to using the mouse
+3. Able to run smoothly on low-end systems
+
+Constraints:
+1. User has to manually type out the command using the Command Line Interface instead of using a mouse
+2. uMessage is able to hold up to *{to be decided}* contacts before experiencing a drop in performance
+
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **Command Line Interface (CLI)**: A user interface whereby users interact with the program with lines of text. 
+* **Graphical User Interface (GUI)**: A user interface that allows users to interact with the program with graphical components, like clickable menus.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
