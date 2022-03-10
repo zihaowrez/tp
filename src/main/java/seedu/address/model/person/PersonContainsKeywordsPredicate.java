@@ -19,12 +19,12 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         if (keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))) {
+                .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()))) {
             return true;
         }
         for (Tag tag : person.getTags()) {
             if (keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword))) {
+                    .anyMatch(keyword -> tag.tagName.toLowerCase().contains(keyword.toLowerCase()))) {
                 return true;
             }
         }

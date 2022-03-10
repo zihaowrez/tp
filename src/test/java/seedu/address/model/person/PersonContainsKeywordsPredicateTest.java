@@ -55,6 +55,10 @@ public class PersonContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new PersonContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+
+        // Incomplete keywords
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("o"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
 
     @Test
@@ -73,6 +77,10 @@ public class PersonContainsKeywordsPredicateTest {
 
         // Mixed-case keywords
         predicate = new PersonContainsKeywordsPredicate(Arrays.asList("CS2103"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
+
+        // Incomplete keywords
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("12"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
     }
 
