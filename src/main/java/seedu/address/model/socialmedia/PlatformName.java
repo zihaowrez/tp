@@ -3,9 +3,13 @@ package seedu.address.model.socialmedia;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class PlatformName {
-    public static final String MESSAGE_CONSTRAINTS = "PLATFORM NAME CONSTRAINTS!"; //TODO provide actual platform name constraints
+    //TODO provide actual platform name constraints
+    public static final String MESSAGE_CONSTRAINTS = "PLATFORM NAME CONSTRAINTS!";
     private final String platformName;
 
+    /**
+     * Every field must be present and not null.
+     */
     public PlatformName(String platformName) {
         requireAllNonNull(platformName);
         this.platformName = platformName;

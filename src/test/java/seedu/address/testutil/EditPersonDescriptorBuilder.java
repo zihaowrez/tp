@@ -91,18 +91,17 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withSocials(String... socials) {
         Set<SocialMedia> socialsSet = Stream.of(socials)
-        .map(str -> {
-            try {
-                return ParserUtil.parseSocialMedia(str);
-            } catch (Exception e) {
-                return null;
-            }
-        })
-        .filter(Objects::nonNull)
-        .collect(Collectors.toSet());
+            .map(str -> {
+                try {
+                    return ParserUtil.parseSocialMedia(str);
+                } catch (Exception e) {
+                    return null;
+                }
+            })
+            .filter(Objects::nonNull)
+            .collect(Collectors.toSet());
         descriptor.setSocials(socialsSet);
         return this;
-        
     }
 
     public EditPersonDescriptor build() {

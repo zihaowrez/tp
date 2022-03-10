@@ -162,7 +162,7 @@ public class ParserUtil {
     /**
      * Parses {@code String platformName} into a {@code PlatformName}.
      * Leading and trailing whitespaces will be trimmed.
-     * 
+     *
      * @throws ParseException if the given {@code platformName} is invalid.
      */
     public static PlatformName parsePlatformName(String platformName) throws ParseException {
@@ -175,7 +175,7 @@ public class ParserUtil {
     /**
      * Parses {@code String platformDescription} into a {@code PlatformDescription}.
      * Leading and trailing whitespaces will be trimmed.
-     * 
+     *
      * @throws ParseException if the given {@code platformDescription} is invalid.
      */
     public static PlatformDescription parsePlatformDescription(String platformDescription) throws ParseException {

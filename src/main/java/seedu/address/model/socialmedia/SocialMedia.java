@@ -3,11 +3,14 @@ package seedu.address.model.socialmedia;
 import java.util.Objects;
 
 public class SocialMedia {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Provide the name of the platform, followed by the description associated with this platform, separated by a comma.";
+    public static final String MESSAGE_CONSTRAINTS = "Provide the name of the platform, "
+            + "followed by the description associated with this platform, separated by a comma.";
     public final PlatformName platformName;
     public final PlatformDescription platformDescription;
 
+    /**
+     * Every field must be present and not null.
+     */
     public SocialMedia(PlatformName platformName, PlatformDescription platformDescription) {
         assert platformName != null && platformDescription != null;
         this.platformName = platformName;
@@ -26,7 +29,7 @@ public class SocialMedia {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
-        }  
+        }
 
         if (!(other instanceof SocialMedia)) {
             return false;

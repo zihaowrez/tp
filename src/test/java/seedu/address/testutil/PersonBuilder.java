@@ -92,7 +92,7 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
-    
+
 
     /**
      * Parses the {@code socials} into a {@code Set<Social>} and set it to the {@code Person} that we are building.

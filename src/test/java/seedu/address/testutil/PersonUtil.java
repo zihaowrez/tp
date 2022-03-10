@@ -68,7 +68,7 @@ public class PersonUtil {
                 socials.forEach(s -> sb.append(PREFIX_SOCIAL_MEDIA).append(s.toString()).append(" "));
             }
         }
-        
+
         return sb.toString();
     }
 }

@@ -53,14 +53,14 @@ public class Person {
     // public Address getAddress() {
     //     return address;
     // }
-    
+
     /**
      * Returns an immutable set of social medias, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<SocialMedia> getSocialMedias() {
         return Collections.unmodifiableSet(socialMedias);
-    }    
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -109,7 +109,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email,/* address,*/ socialMedias, tags);
+        return Objects.hash(name, phone, email, /* address,*/socialMedias, tags);
     }
 
     @Override

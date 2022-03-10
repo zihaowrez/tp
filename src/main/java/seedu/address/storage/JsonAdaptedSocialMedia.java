@@ -15,14 +15,20 @@ public class JsonAdaptedSocialMedia {
     private final String platformName;
     private final String platformDescription;
 
+    /**
+     * Constructs a {@code JsonAdaptedSocialMedia} with the given SocialMedia details.
+     */
     @JsonCreator
     public JsonAdaptedSocialMedia(@JsonProperty("platformName") String platformName,
         @JsonProperty("platformDescription") String platformDescription) {
-        
+
         this.platformName = platformName;
-        this.platformDescription = platformDescription; 
+        this.platformDescription = platformDescription;
     }
 
+    /**
+     * Converts a given {@code SocialMedia} into this class for Jackson use.
+     */
     public JsonAdaptedSocialMedia(SocialMedia source) {
         platformName = source.getPlatformName().getValue();
         platformDescription = source.getplatformDescription().getValue();
@@ -44,7 +50,7 @@ public class JsonAdaptedSocialMedia {
     public SocialMedia toModelType() {
         final PlatformName modelPlatformName = new PlatformName(platformName);
         final PlatformDescription modelPlatformDescription = new PlatformDescription(platformDescription);
-        
+
         return new SocialMedia(modelPlatformName, modelPlatformDescription);
     }
 

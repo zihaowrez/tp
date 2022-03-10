@@ -7,8 +7,11 @@ public class PlatformDescription {
     public static final String MESSAGE_CONSTRAINTS = "PLATFORM DESCRIPTION CONSTRAINTS!";
     private final String description;
 
+    /**
+     * Every field must be present and not null.
+     */
     public PlatformDescription(String description) {
-        //note that empty string might cause parser to behave strangely...
+        //TODO note that empty string might cause parser to behave strangely...
         this.description = Optional.of(description).orElse("");
     }
 

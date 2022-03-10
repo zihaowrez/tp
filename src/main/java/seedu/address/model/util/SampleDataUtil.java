@@ -40,7 +40,8 @@ public class SampleDataUtil {
                 getTagSet("family")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 //new Address("Blk 47 Tampines Street 20, #17-35"),
-                getSocialMediaSet("Phone, 92492021", "Email, irfan@example.com", "Telegram, irfanI", "Twitter, @notIrfanFandi"),
+                getSocialMediaSet("Phone, 92492021", "Email, irfan@example.com", "Telegram, irfanI",
+                        "Twitter, @notIrfanFandi"),
                 getTagSet("classmates")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 // new Address("Blk 45 Aljunied Street 85, #11-31"),
@@ -72,12 +73,12 @@ public class SampleDataUtil {
     public static Set<SocialMedia> getSocialMediaSet(String... strings) {
         return Arrays.stream(strings)
                 .map(str -> {
-                        try {
-                            return ParserUtil.parseSocialMedia(str);
-                        } catch (Exception e) {
-                            return null;
-                        }
-                    })
+                    try {
+                        return ParserUtil.parseSocialMedia(str);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }

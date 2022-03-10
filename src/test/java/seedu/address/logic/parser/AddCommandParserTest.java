@@ -59,7 +59,7 @@ public class AddCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB// + ADDRESS_DESC_BOB 
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB// + ADDRESS_DESC_BOB
                 + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple phones - last phone accepted
@@ -84,10 +84,10 @@ public class AddCommandParserTest {
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
 
         //multiple socials - all accepted
-        Person expectedPersonMultipleSocials = new PersonBuilder(BOB).withSocials(VALID_SOCIAL_GMAIL, VALID_SOCIAL_TELEGRAM)
-                .build();
+        Person expectedPersonMultipleSocials = new PersonBuilder(BOB)
+                .withSocials(VALID_SOCIAL_GMAIL, VALID_SOCIAL_TELEGRAM).build();
 
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB 
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + SOCIAL_DESC_GMAIL + SOCIAL_DESC_TELEGRAM + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new AddCommand(expectedPersonMultipleSocials));
 
@@ -96,7 +96,7 @@ public class AddCommandParserTest {
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
 
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB 
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + SOCIAL_DESC_GMAIL + SOCIAL_DESC_TELEGRAM
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, new AddCommand(expectedPersonMultipleSocialsMultipleTags));
     }
@@ -105,7 +105,7 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,// + ADDRESS_DESC_AMY,
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY, // + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
     }
 
@@ -114,7 +114,7 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,// + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB, // + ADDRESS_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix
@@ -122,7 +122,7 @@ public class AddCommandParserTest {
                 expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB,// + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB, // + ADDRESS_DESC_BOB,
                 expectedMessage);
 
         // // missing address prefix
@@ -130,7 +130,7 @@ public class AddCommandParserTest {
         //         expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB,// + VALID_ADDRESS_BOB,
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB, // + VALID_ADDRESS_BOB,
                 expectedMessage);
     }
 
@@ -158,13 +158,13 @@ public class AddCommandParserTest {
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC +PHONE_DESC_BOB + EMAIL_DESC_BOB// + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB// + INVALID_ADDRESS_DESC,
                 + SOCIAL_DESC_GMAIL + INVALID_TAG_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                //+ ADDRESS_DESC_BOB 
+                //+ ADDRESS_DESC_BOB
                 + SOCIAL_DESC_GMAIL + SOCIAL_DESC_TELEGRAM
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

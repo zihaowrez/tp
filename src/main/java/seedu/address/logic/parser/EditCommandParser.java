@@ -59,7 +59,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         // }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
         parseSocialsForEdit(argMultimap.getAllValues(PREFIX_SOCIAL_MEDIA)).ifPresent(editPersonDescriptor::setSocials);
-        
+
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
