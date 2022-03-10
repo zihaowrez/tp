@@ -42,4 +42,9 @@ public class SocialMedia {
         return Objects.hash(platformName, platformDescription);
     }
 
+    @Override
+    public String toString() {
+        return platformName.toString() + ", " + platformDescription.toString();
+    }
+
 }

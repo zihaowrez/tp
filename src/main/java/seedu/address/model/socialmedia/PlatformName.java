@@ -11,6 +11,10 @@ public class PlatformName {
         this.platformName = platformName;
     }
 
+    public String getValue() {
+        return platformName;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof PlatformName)) {

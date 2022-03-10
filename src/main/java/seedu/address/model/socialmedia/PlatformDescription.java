@@ -12,6 +12,10 @@ public class PlatformDescription {
         this.description = Optional.of(description).orElse("");
     }
 
+    public String getValue() {
+        return description;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof PlatformDescription)) {
