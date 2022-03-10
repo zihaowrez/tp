@@ -17,6 +17,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+
 /**
  * Parses user input.
  */
@@ -25,7 +26,10 @@ public class AddressBookParser {
     /**
      * Used for initial separation of command word and args.
      */
+
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern DYNAMIC_COMMAND_FORMAT = Pattern.compile("(?<inputType>\\S+)(?<arguments>.*)");
+
 
     /**
      * Parses user input into command for execution.
@@ -36,41 +40,57 @@ public class AddressBookParser {
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
+        final Matcher dynamicMatcher = DYNAMIC_COMMAND_FORMAT.matcher(userInput.trim());
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        if (dynamicMatcher.matches() && dynamicMatcher.group("inputType").equals("dynamic")) {
+            final String arguments = dynamicMatcher.group("arguments").trim();
+            String splitArgs[] = arguments.split(" ");
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            // add more commands to the list
+            if (arguments.equals("") || arguments.equals(" ") || arguments.equals("add") ||
+                splitArgs[0].equals("add") || arguments.equals("find") || splitArgs[0].equals("find")
+                || arguments.equals("edit") || splitArgs[0].equals("edit")) {
+                return new ListCommand();
+            } else {
+                return new FindCommandParser().parse(arguments);
+            }
+        } else {
+            if (!matcher.matches()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            final String commandWord = matcher.group("commandWord");
+            final String arguments = matcher.group("arguments");
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            switch (commandWord) {
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+                case AddCommand.COMMAND_WORD:
+                    return new AddCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+                case EditCommand.COMMAND_WORD:
+                    return new EditCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+                case DeleteCommand.COMMAND_WORD:
+                    return new DeleteCommandParser().parse(arguments);
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+                case ClearCommand.COMMAND_WORD:
+                    return new ClearCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+                case FindCommand.COMMAND_WORD:
+                    return new FindCommandParser().parse(arguments);
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                case ListCommand.COMMAND_WORD:
+                    return new ListCommand();
+
+                case ExitCommand.COMMAND_WORD:
+                    return new ExitCommand();
+
+                case HelpCommand.COMMAND_WORD:
+                    return new HelpCommand();
+
+                default:
+                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
         }
     }
-
 }

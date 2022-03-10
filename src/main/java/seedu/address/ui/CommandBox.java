@@ -27,9 +27,13 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        //commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> handleDynamicInput());
+
     }
+
 
     /**
      * Handles the Enter button pressed event.
@@ -44,6 +48,23 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandText);
             commandTextField.setText("");
+        } catch (CommandException | ParseException e) {
+            setStyleToIndicateCommandFailure();
+        }
+    }
+
+    /**
+     * Handles the dynamic input line
+     */
+    private void handleDynamicInput() {
+        String commandText = commandTextField.getText();
+        setStyleToDefault();
+        try {
+            if (commandText.equals("") || commandText.equals(" ")) {
+                commandExecutor.execute("dynamic " + " ");
+            } else {
+                commandExecutor.execute("dynamic " + commandText);
+            }
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
