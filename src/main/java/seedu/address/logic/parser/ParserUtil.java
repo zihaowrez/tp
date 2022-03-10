@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -13,6 +15,9 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.socialmedia.PlatformDescription;
+import seedu.address.model.socialmedia.PlatformName;
+import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +125,63 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String socialMedia} into a {@code SocialMedia}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
+    public static SocialMedia parseSocialMedia(String socialMedia) throws ParseException {
+        requireNonNull(socialMedia);
+        List<String> socialMediaDetails = Arrays.asList(socialMedia.split(","));
+        if (socialMediaDetails.size() != 2) {
+            throw new ParseException(SocialMedia.MESSAGE_CONSTRAINTS);
+        }
+
+        socialMediaDetails.forEach(detail -> detail.trim());
+        PlatformName platformName = parsePlatformName(socialMediaDetails.get(0));
+        PlatformDescription platformDescription = parsePlatformDescription(socialMediaDetails.get(1));
+
+        return new SocialMedia(platformName, platformDescription);
+    }
+
+    /**
+     * Parses {@code Collection<String> socialMedias} into a {@code Set<SocialMedia>}.
+     */
+    public static Set<SocialMedia> parseSocialMedias(Collection<String> socialMedias) throws ParseException {
+        requireNonNull(socialMedias);
+        final Set<SocialMedia> socialMediaSet = new HashSet<>();
+        for (String socialMedia : socialMedias) {
+            socialMediaSet.add(parseSocialMedia(socialMedia));
+        }
+        return socialMediaSet;
+    }
+
+    /**
+     * Parses {@code String platformName} into a {@code PlatformName}.
+     * Leading and trailing whitespaces will be trimmed.
+     * 
+     * @throws ParseException if the given {@code platformName} is invalid.
+     */
+    public static PlatformName parsePlatformName(String platformName) throws ParseException {
+        requireNonNull(platformName);
+        String trimmedPlatformName = platformName.trim();
+
+        return new PlatformName(trimmedPlatformName);
+    }
+
+    /**
+     * Parses {@code String platformDescription} into a {@code PlatformDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     * 
+     * @throws ParseException if the given {@code platformDescription} is invalid.
+     */
+    public static PlatformDescription parsePlatformDescription(String platformDescription) throws ParseException {
+        requireNonNull(platformDescription);
+        String trimmedPlatformName = platformDescription.trim();
+
+        return new PlatformDescription(trimmedPlatformName);
     }
 }
