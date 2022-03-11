@@ -42,7 +42,7 @@ public class ContactDetailPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot()); // create new class for ContactCard
+                setGraphic(new ContactDetailCard(person).getRoot()); // create new class for ContactCard
             }
         }
     }
