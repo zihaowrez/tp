@@ -46,10 +46,7 @@ public class AddressBookParser {
             final String arguments = dynamicMatcher.group("arguments").trim();
             String splitArgs[] = arguments.split(" ");
 
-            // add more commands to the list
-            if (arguments.equals("") || arguments.equals(" ") || arguments.equals("add") ||
-                splitArgs[0].equals("add") || arguments.equals("find") || splitArgs[0].equals("find")
-                || arguments.equals("edit") || splitArgs[0].equals("edit")) {
+            if (isCommand(arguments, splitArgs)) {
                 return new ListCommand();
             } else {
                 return new FindCommandParser().parse(arguments);
@@ -92,5 +89,18 @@ public class AddressBookParser {
                     throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
+    }
+
+    /**
+     * Checks if the user input matches a valid command
+     *
+     * @param command
+     * @param splitCommand
+     * @return true if command is a valid command and false otherwise
+     */
+    public boolean isCommand(String command, String[] splitCommand) {
+        return (command.equals("") || command.equals(" ") || command.equals("add") ||
+                splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
+                || command.equals("edit") || splitCommand[0].equals("edit"));
     }
 }
