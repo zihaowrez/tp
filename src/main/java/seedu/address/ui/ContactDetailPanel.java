@@ -18,32 +18,31 @@ public class ContactDetailPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> contactDetailListView; // update Object to Contact Details
+    private ListView<Person> contactDetailView;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public ContactDetailPanel(ObservableList<Person> emailList) {
+    public ContactDetailPanel(ObservableList<Person> contactDetailList) {
         super(FXML);
-        // contactDetailListView.setItems(emailList);
-        // contactDetailListView.setCellFactory(listView -> new ContactDetailListViewCell());
+        contactDetailView.setItems(contactDetailList);
+        contactDetailView.setCellFactory(listView -> new ContactDetailListViewCell());
 
-        // to do
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class ContactDetailListViewCell extends ListCell<Person> { // update Object to Contact Details
+    class ContactDetailListViewCell extends ListCell<Person> { // update Object to relevant class
         @Override
-        protected void updateItem(Person person, boolean empty) {
+        protected void updateItem(Person person, boolean empty) { // change class of parameters
             super.updateItem(person, empty);
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot()); // update to contact card.
+                setGraphic(new PersonCard(person, getIndex() + 1).getRoot()); // create new class for ContactCard
             }
         }
     }

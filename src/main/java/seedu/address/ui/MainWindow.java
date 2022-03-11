@@ -117,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        contactDetailPanel = new ContactDetailPanel(logic.getFilteredPersonList()); // change parameters
+        contactDetailPanel = new ContactDetailPanel(logic.getContactDetails());
         contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
