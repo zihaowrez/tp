@@ -1,15 +1,17 @@
 package seedu.address.testutil;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Address;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,7 +37,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(person.getName());
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
+        descriptor.setSocials(person.getSocialMedias());
         descriptor.setTags(person.getTags());
     }
 
@@ -64,20 +66,31 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
-        return this;
-    }
-
-    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code socials} into a {@code Set<SocialMedia>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withSocials(String... socials) {
+        Set<SocialMedia> socialsSet = Stream.of(socials)
+            .map(str -> {
+                try {
+                    return ParserUtil.parseSocialMedia(str);
+                } catch (Exception e) {
+                    return null;
+                }
+            })
+            .filter(Objects::nonNull)
+            .collect(Collectors.toSet());
+        descriptor.setSocials(socialsSet);
         return this;
     }
 
