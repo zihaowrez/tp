@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.model.socialmedia.PlatformDescription;
 import seedu.address.model.socialmedia.PlatformName;
@@ -34,12 +33,10 @@ public class JsonAdaptedSocialMedia {
         platformDescription = source.getplatformDescription().getValue();
     }
 
-    @JsonValue
     public String getplatformName() {
         return platformName;
     }
 
-    @JsonValue
     public String getPlatformDescription() {
         return platformDescription;
     }

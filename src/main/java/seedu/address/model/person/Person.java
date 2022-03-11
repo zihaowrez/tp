@@ -36,6 +36,7 @@ public class Person {
         this.email = email;
         // this.address = address;
         this.tags.addAll(tags);
+        this.socialMedias.addAll(socialMedias);
     }
 
     public Name getName() {
@@ -120,8 +121,6 @@ public class Person {
                 .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail());
-        // .append("; Address: ")
-        // .append(getAddress());
 
         Set<SocialMedia> socialMedias = getSocialMedias();
         if (!socialMedias.isEmpty()) {
