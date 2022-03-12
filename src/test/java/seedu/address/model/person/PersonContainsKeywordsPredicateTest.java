@@ -39,80 +39,108 @@ public class PersonContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
-        // One keyword
+    public void test_keywordContainsName_returnsTrue() {
+        // Full
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Multiple keywords
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
+        // Partial
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("lic"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
-
-        // Mixed-case keywords
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("alex", "Bob"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Incomplete keywords
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("o"));
+        // Mixed-case keywords
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("LiC"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
 
     @Test
-    public void test_tagContainsKeywords_returnsTrue() {
-        // One keyword
+    public void test_keywordContainsPhone_returnsTrue() {
+        // Full
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("73063958"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withPhone("73063958").build()));
+
+        // Partial
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("7306"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withPhone("73063958").build()));
+
+        // Only one matching keyword
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("alex", "73063958"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withPhone("73063958").build()));
+    }
+
+    @Test
+    public void test_keywordContainsEmail_returnsTrue() {
+        // Full
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("e091963@u.nus.edu"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withEmail("e091963@u.nus.edu").build()));
+
+        // Partial
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("0919"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withEmail("e091963@u.nus.edu").build()));
+
+        // Only one matching keyword
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("alex", "0919"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withEmail("e091963@u.nus.edu").build()));
+    }
+
+    @Test
+    public void test_keywordContainsSocialMedia_returnsTrue() {
+        // Full platform name
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("Telegram"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withSocials("Telegram, @handle").build()));
+
+        // Partial platform name
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("tele"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withSocials("Telegram, @handle").build()));
+
+        // Full platform description
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("@handle"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withSocials("Telegram, @handle").build()));
+
+        // Partial platform description
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("hand"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withSocials("Telegram, @handle").build()));
+
+        // Only one matching keyword
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("alex", "@handle"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withSocials("Telegram, @handle").build()));
+    }
+
+    @Test
+    public void test_keywordContainsTag_returnsTrue() {
+        // Full
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("cs2103"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withTags("cs2103", "cs1231").build()));
 
-        // Multiple keywords
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("cs2103", "cs1231"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
+        // Partial
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("cs"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withTags("cs2103", "cs1231").build()));
 
         // Only one matching keyword
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("cs2103", "ma1521"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
-
-        // Mixed-case keywords
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("CS2103"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
-
-        // Incomplete keywords
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("12"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("alex", "cs1231"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").withTags("cs2103", "cs1231").build()));
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_personDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("73063958")
+                .withEmail("e091963@u.nus.edu").withSocials("Telegram, @handle").withTags("cs2103", "cs1231").build()));
 
         // Non-matching keyword
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        predicate = new PersonContainsKeywordsPredicate(Collections.singletonList("java"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("73063958")
+                .withEmail("e091963@u.nus.edu").withSocials("Telegram, @handle").withTags("cs2103", "cs1231").build()));
 
-        // Keywords match phone, email and address, but does not match name
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
-    }
+        // Non-matching keywords
+        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("Alice's", "mother", "likes", "coffee"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("73063958")
+                .withEmail("e091963@u.nus.edu").withSocials("Telegram, @handle").withTags("cs2103", "cs1231").build()));
 
-    @Test
-    public void test_tagDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
-        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
-
-        // Non-matching keyword
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("cs2102"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withTags("cs2103", "cs1231").build()));
-
-        // Keywords match phone, email, and address, but does not match any tag
-        predicate = new PersonContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withTags("cs2103", "cs1231").build()));
     }
 }

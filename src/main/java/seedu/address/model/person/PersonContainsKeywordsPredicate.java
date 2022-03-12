@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,6 +22,26 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
         if (keywords.stream()
                 .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()))) {
             return true;
+        }
+        if (keywords.stream()
+                .anyMatch(keyword -> person.getPhone().value.toLowerCase().contains(keyword.toLowerCase()))) {
+            return true;
+        }
+        if (keywords.stream()
+                .anyMatch(keyword -> person.getEmail().value.toLowerCase().contains(keyword.toLowerCase()))) {
+            return true;
+        }
+        for (SocialMedia socialMedia : person.getSocialMedias()) {
+            if (keywords.stream()
+                    .anyMatch(keyword -> socialMedia.getPlatformName().toString().toLowerCase()
+                            .contains(keyword.toLowerCase()))) {
+                return true;
+            }
+            if (keywords.stream()
+                    .anyMatch(keyword -> socialMedia.getPlatformDescription().toString().toLowerCase()
+                            .contains(keyword.toLowerCase()))) {
+                return true;
+            }
         }
         for (Tag tag : person.getTags()) {
             if (keywords.stream()
