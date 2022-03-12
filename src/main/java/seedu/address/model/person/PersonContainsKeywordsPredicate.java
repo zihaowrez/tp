@@ -8,7 +8,8 @@ import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 /**
- * Tests that a {@code Person}'s {@code Name} or {@code Tag} matches any of the keywords given.
+ * Tests that a {@code Person}'s information (including name, phone, email, social media handles, and tags)
+ * matches any of the keywords given.
  */
 public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
