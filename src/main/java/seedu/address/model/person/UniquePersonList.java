@@ -39,6 +39,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
+     * @param positionInList must be either "head" or "tail".
      */
     public void add(Person toAdd, String positionInList) {
         requireNonNull(toAdd);
