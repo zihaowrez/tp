@@ -40,12 +40,16 @@ public class UniquePersonList implements Iterable<Person> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(Person toAdd, String positionInList) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
-        internalList.add(0, toAdd);
+        if (positionInList.equals("head")) {
+            internalList.add(0, toAdd);
+        } else if (positionInList.equals("tail")) {
+            internalList.add(toAdd);
+        }
     }
 
     /**
