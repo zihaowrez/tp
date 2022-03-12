@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -10,6 +11,10 @@ import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
+import com.sandec.mdfx.MarkdownView;
+import org.apache.commons.io.IOUtils;
+
+
 /**
  * Controller for a help page
  */
@@ -17,6 +22,10 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+
+    String mdfxTxt;
+
+
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -32,10 +41,26 @@ public class HelpWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
+
     public HelpWindow(Stage root) {
+
         super(FXML, root);
+
+        MarkdownView mdfx = new MarkdownView(mdfxTxt);
+
+        try {
+            mdfxTxt = IOUtils.toString(getClass().getResourceAsStream("/com/sandec/mdfx/example/sample.md"), "UTF-8");
+        } catch (IOException e) {
+            mdfxTxt = "";
+        }
+
+
+
         helpMessage.setText(HELP_MESSAGE);
+
+
     }
+
 
     /**
      * Creates a new HelpWindow.
