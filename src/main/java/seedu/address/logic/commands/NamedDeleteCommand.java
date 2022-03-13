@@ -5,14 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed Name from the address book.
+ * Deletes a person identified using it's displayed name from the address book.
  */
 public class NamedDeleteCommand extends DeleteCommand {
 
@@ -32,7 +31,7 @@ public class NamedDeleteCommand extends DeleteCommand {
                 .filter(person -> person.getName().equals(targetName))
                 .findFirst();
         if (personToDeleteOptional.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_PERSON_NOT_EXIST);
+            throw new CommandException(String.format(DeleteCommand.MESSAGE_PERSON_NOT_EXIST, targetName));
         } else {
             Person personToDelete = personToDeleteOptional.get();
             model.deletePerson(personToDelete);
