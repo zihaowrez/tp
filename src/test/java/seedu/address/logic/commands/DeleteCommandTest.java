@@ -69,7 +69,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_NameNotExistUnfilteredList_throwsCommandException() {
+    public void execute_nameNotExistUnfilteredList_throwsCommandException() {
         Person personToDelete = ALICE;
         Name targetName = new Name("Bob Pauline");
         DeleteCommand deleteCommand = new NamedDeleteCommand(targetName);
