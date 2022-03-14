@@ -27,10 +27,8 @@ public class AddressBookParser {
     /**
      * Used for initial separation of command word and args.
      */
-
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern DYNAMIC_COMMAND_FORMAT = Pattern.compile("(?<inputType>\\S+)(?<arguments>.*)");
-
 
     /**
      * Parses user input into command for execution.
@@ -45,7 +43,7 @@ public class AddressBookParser {
 
         if (dynamicMatcher.matches() && dynamicMatcher.group("inputType").equals("dynamic")) {
             final String arguments = dynamicMatcher.group("arguments").trim();
-            String splitArgs[] = arguments.split(" ");
+            String[] splitArgs = arguments.split(" ");
 
             if (isCommand(arguments, splitArgs)) {
                 commandBox.setDynamicAsFalse();
@@ -64,32 +62,32 @@ public class AddressBookParser {
 
             switch (commandWord) {
 
-                case AddCommand.COMMAND_WORD:
-                    return new AddCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-                case EditCommand.COMMAND_WORD:
-                    return new EditCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
-                case DeleteCommand.COMMAND_WORD:
-                    return new DeleteCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-                case ClearCommand.COMMAND_WORD:
-                    return new ClearCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-                case FindCommand.COMMAND_WORD:
-                    return new FindCommandParser().parse(arguments);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand();
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
 
-                case ExitCommand.COMMAND_WORD:
-                    return new ExitCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
-                case HelpCommand.COMMAND_WORD:
-                    return new HelpCommand();
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
 
-                default:
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
     }
@@ -97,13 +95,13 @@ public class AddressBookParser {
     /**
      * Checks if the user input matches a valid command
      *
-     * @param command
-     * @param splitCommand
+     * @param command Raw user inputted command
+     * @param splitCommand Array of user command separated by space
      * @return true if command is a valid command and false otherwise
      */
     public boolean isCommand(String command, String[] splitCommand) {
-        return (command.equals("") || command.equals(" ") || command.equals("add") ||
-                splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
+        return (command.equals("") || command.equals(" ") || command.equals("add")
+                || splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
                 || command.equals("edit") || splitCommand[0].equals("edit"));
     }
 }
