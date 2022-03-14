@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -95,8 +93,8 @@ public class ContactDetailCard extends UiPart<Region> {
             person.getSocialMedias().stream()
                     .sorted(Comparator.comparing(sm -> sm.platformName.getValue()))
                     .forEach(sm -> {
-                        socialMedias.getChildren().add(new Label(sm.getPlatformName() +
-                                ": " + sm.getplatformDescription()));
+                        socialMedias.getChildren().add(new Label(sm.getPlatformName()
+                                + ": " + sm.getplatformDescription()));
                     });
             index.set(1);
         }
