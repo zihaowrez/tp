@@ -1,13 +1,12 @@
 package seedu.address.ui;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -20,8 +19,12 @@ import org.apache.commons.io.IOUtils;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    // public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    // public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+
+    public static final String USERGUIDE_PATH = "..\\..\\..\\..\\..\\..\\docs\\UserGuide.md";
+
+    // public static final String TEST_PATH = "/test.md";
 
     String mdfxTxt;
 
@@ -30,11 +33,9 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
-    @FXML
-    private Button copyButton;
 
     @FXML
-    private Label helpMessage;
+    private ScrollPane content;
 
     /**
      * Creates a new HelpWindow.
@@ -46,17 +47,27 @@ public class HelpWindow extends UiPart<Stage> {
 
         super(FXML, root);
 
-        MarkdownView mdfx = new MarkdownView(mdfxTxt);
-
         try {
-            mdfxTxt = IOUtils.toString(getClass().getResourceAsStream("/com/sandec/mdfx/example/sample.md"), "UTF-8");
-        } catch (IOException e) {
-            mdfxTxt = "";
+            mdfxTxt = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
+        } catch (IOException | NullPointerException e) { // could not find path
+            logger.info("Invalid path! ");
+            mdfxTxt = "`Markdown` No Markdown";
         }
 
+        // To note: Path returns null -> Need to fix!
+
+        MarkdownView mdfx = new MarkdownView(mdfxTxt);
+
+        ScrollPane content = new ScrollPane(mdfx);
+
+        content.setFitToWidth(true);
+
+        Scene scene = new Scene(content, 700,700);
+
+        root.setScene(scene);
 
 
-        helpMessage.setText(HELP_MESSAGE);
+
 
 
     }
@@ -114,14 +125,5 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
-    }
+
 }
