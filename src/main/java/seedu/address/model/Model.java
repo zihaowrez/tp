@@ -80,8 +80,23 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Resets the filter of the view person list to empty.
+     */
+    void resetContactDetails();
+
+    /** Returns an unmodifiable view of the viewed person */
+    ObservableList<Person> getContactDetails();
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateContactDetails(Predicate<Person> predicate);
+
 }

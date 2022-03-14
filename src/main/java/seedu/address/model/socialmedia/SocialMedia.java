@@ -21,7 +21,7 @@ public class SocialMedia {
         return platformName;
     }
 
-    public PlatformDescription getplatformDescription() {
+    public PlatformDescription getPlatformDescription() {
         return platformDescription;
     }
 
