@@ -94,7 +94,7 @@ public class ContactDetailCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(sm -> sm.platformName.getValue()))
                     .forEach(sm -> {
                         socialMedias.getChildren().add(new Label(sm.getPlatformName()
-                                + ": " + sm.getplatformDescription()));
+                                + ": " + sm.getPlatformDescription()));
                     });
             index.set(1);
         }
