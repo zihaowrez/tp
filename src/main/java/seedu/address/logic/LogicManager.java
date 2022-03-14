@@ -40,7 +40,7 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText, CommandBox commandBox) throws CommandException, ParseException {
-        if (commandBox.isDynamic()) {
+        if (commandBox != null && commandBox.isDynamic()) {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
         }
         CommandResult commandResult;

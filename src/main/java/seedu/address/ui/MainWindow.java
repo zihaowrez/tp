@@ -172,7 +172,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String, CommandBox)
      */
-    private CommandResult executeCommand(String commandText, CommandBox commandBox) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText, CommandBox commandBox)
+            throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText, commandBox);
             if (commandBox.isDynamic()) {
