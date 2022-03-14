@@ -16,6 +16,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CommandBox;
 
 
 /**
@@ -38,7 +39,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, CommandBox commandBox) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         final Matcher dynamicMatcher = DYNAMIC_COMMAND_FORMAT.matcher(userInput.trim());
 
@@ -47,8 +48,10 @@ public class AddressBookParser {
             String splitArgs[] = arguments.split(" ");
 
             if (isCommand(arguments, splitArgs)) {
+                commandBox.setDynamicAsFalse();
                 return new ListCommand();
             } else {
+                commandBox.setDynamicAsTrue();
                 return new FindCommandParser().parse(arguments);
             }
         } else {
