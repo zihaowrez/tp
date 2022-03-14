@@ -19,18 +19,26 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        if (keywords.stream()
-                .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()))) {
-            return true;
-        }
-        if (keywords.stream()
-                .anyMatch(keyword -> person.getPhone().value.toLowerCase().contains(keyword.toLowerCase()))) {
-            return true;
-        }
-        if (keywords.stream()
-                .anyMatch(keyword -> person.getEmail().value.toLowerCase().contains(keyword.toLowerCase()))) {
-            return true;
-        }
+        return testName(person) || testPhone(person) || testEmail(person) || testSocialMedias(person)
+                || testTags(person);
+    }
+
+    private boolean testName(Person person) {
+        return keywords.stream()
+                .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()));
+    }
+
+    private boolean testPhone(Person person) {
+        return keywords.stream()
+                .anyMatch(keyword -> person.getPhone().value.toLowerCase().contains(keyword.toLowerCase()));
+    }
+
+    private boolean testEmail(Person person) {
+        return keywords.stream()
+                .anyMatch(keyword -> person.getEmail().value.toLowerCase().contains(keyword.toLowerCase()));
+    }
+
+    private boolean testSocialMedias(Person person) {
         for (SocialMedia socialMedia : person.getSocialMedias()) {
             if (keywords.stream()
                     .anyMatch(keyword -> socialMedia.getPlatformName().toString().toLowerCase()
@@ -43,6 +51,10 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
                 return true;
             }
         }
+        return false;
+    }
+
+    private boolean testTags(Person person) {
         for (Tag tag : person.getTags()) {
             if (keywords.stream()
                     .anyMatch(keyword -> tag.tagName.toLowerCase().contains(keyword.toLowerCase()))) {
