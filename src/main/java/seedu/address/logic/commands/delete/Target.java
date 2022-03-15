@@ -10,7 +10,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
- * Encapsulates a targeted Person on a given list of persons, identified 
+ * Encapsulates a targeted Person on a given list of persons, identified
  * either by {@code Name} or {@code Index}.
  */
 public abstract class Target {
@@ -53,7 +53,7 @@ public abstract class Target {
     /*----------------------Start of private classes---------------------------------------*/
 
     private static class NamedTarget extends Target {
-        Name targetName;
+        private Name targetName;
 
         protected NamedTarget(Name targetName) {
             super(null);
@@ -93,14 +93,14 @@ public abstract class Target {
                 return this.targetName.equals(other.targetName)
                     && personsOptional.equals(Optional.ofNullable(other.persons));
             }
-            
+
             return false;
-            
+
         }
     }
 
     private static class IndexedTarget extends Target {
-        Index targetIndex;
+        private Index targetIndex;
 
         protected IndexedTarget(Index targetIndex) {
             super(null);
@@ -133,9 +133,9 @@ public abstract class Target {
                 return this.targetIndex.equals(other.targetIndex)
                     && personsOptional.equals(Optional.ofNullable(other.persons));
             }
-            
+
             return false;
-            
+
         }
     }
 }

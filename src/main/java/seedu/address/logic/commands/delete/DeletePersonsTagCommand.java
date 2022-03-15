@@ -19,19 +19,28 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
 
+
+/**
+ * Deletes a Tag from a person.
+ * The person in the list is identified using it's displayed index or name in the address book.
+ */
 public class DeletePersonsTagCommand extends DeleteCommand {
     private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
     private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
     private Target target;
     private Tag tagToDelete;
 
+    /**
+     * @param target the {@code Index} or {@code Name} being targetted in the addressbook list
+     * @param tagToDelete the tag to delete
+     */
     public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
         assert target instanceof Name || target instanceof Index;
-        
+
         this.tagToDelete = tagToDelete;
 
         if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);    
+            this.target = Target.of((Name) target, null);
         } else if (target instanceof Index) {
             this.target = Target.of((Index) target, null);
         } else {
@@ -45,7 +54,7 @@ public class DeletePersonsTagCommand extends DeleteCommand {
         List<Person> lastShownList = model.getFilteredPersonList();
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
-        
+
         Set<Tag> personsTags = targetPerson.getTags();
         Set<Tag> updatedTags = new HashSet<>(personsTags);
 

@@ -11,16 +11,23 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
+/**
+ * Deletes a person from the addressbook.
+ * The person in the list is identified using it's displayed index or name in the address book.
+ */
 public class DeletePersonCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private Target target;
 
+    /**
+     * @param target the {@code Index} or {@code Name} being targetted in the addressbook list
+     */
     public DeletePersonCommand(Object target) {
         assert target instanceof Name || target instanceof Index;
 
         if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);    
+            this.target = Target.of((Name) target, null);
         } else if (target instanceof Index) {
             this.target = Target.of((Index) target, null);
         } else {
