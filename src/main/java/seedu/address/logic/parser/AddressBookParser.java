@@ -100,8 +100,9 @@ public class AddressBookParser {
      * @return true if command is a valid command and false otherwise
      */
     public boolean isCommand(String command, String[] splitCommand) {
-        return (command.equals("") || command.equals(" ") || command.equals("add")
+        return (command.equals("") || command.equals("add")
                 || splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
-                || command.equals("edit") || splitCommand[0].equals("edit"));
+                || command.equals("edit") || splitCommand[0].equals("edit")) || command.equals("delete")
+                || splitCommand[0].equals("delete");
     }
 }

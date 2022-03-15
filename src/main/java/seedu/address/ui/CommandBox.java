@@ -22,6 +22,7 @@ public class CommandBox extends UiPart<Region> {
     private TextField commandTextField;
 
     private boolean isDynamic = true;
+    private boolean recentlyEnter = false;
 
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
@@ -30,8 +31,7 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
 
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        //commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        // calls #handleDynamicInput() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> handleDynamicInput());
 
     }
@@ -49,6 +49,7 @@ public class CommandBox extends UiPart<Region> {
 
         try {
             commandExecutor.execute(commandText, this);
+            this.recentlyEnter = true;
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
@@ -62,9 +63,12 @@ public class CommandBox extends UiPart<Region> {
         String commandText = commandTextField.getText();
         setStyleToDefault();
         try {
-            if (commandText.equals("") || commandText.equals(" ")) {
+            if (commandText.equals("") && !this.recentlyEnter) {
                 commandExecutor.execute("dynamic " + " ", this);
+            } else if (commandText.equals("") && this.recentlyEnter) {
+                this.recentlyEnter = false;
             } else {
+                this.recentlyEnter = false;
                 commandExecutor.execute("dynamic " + commandText, this);
             }
         } catch (CommandException | ParseException e) {
