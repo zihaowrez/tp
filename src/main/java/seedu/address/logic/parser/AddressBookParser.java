@@ -68,14 +68,14 @@ public class AddressBookParser {
             case EditCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
 
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
+
             case DeleteCommand.COMMAND_WORD:
                 return new DeleteCommandParser().parse(arguments);
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
-
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
@@ -87,7 +87,7 @@ public class AddressBookParser {
                 return new HelpCommand();
 
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                return new FindCommandParser().parse(commandWord);
             }
         }
     }
