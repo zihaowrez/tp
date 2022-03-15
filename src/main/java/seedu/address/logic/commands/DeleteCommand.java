@@ -16,8 +16,6 @@ public abstract class DeleteCommand extends Command {
             + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " Alex Yeoh\n";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;
 

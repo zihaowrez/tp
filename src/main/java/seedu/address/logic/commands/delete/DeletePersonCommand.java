@@ -12,15 +12,20 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 public class DeletePersonCommand extends DeleteCommand {
-    
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+
     private Target target;
 
-    public DeletePersonCommand(Name name) {
-        this.target = Target.of(name, null);
-    }
+    public DeletePersonCommand(Object target) {
+        assert target instanceof Name || target instanceof Index;
 
-    public DeletePersonCommand(Index index) {
-        this.target = Target.of(index, null);
+        if (target instanceof Name) {
+            this.target = Target.of((Name) target, null);    
+        } else if (target instanceof Index) {
+            this.target = Target.of((Index) target, null);
+        } else {
+            this.target = null;
+        }
     }
 
     @Override

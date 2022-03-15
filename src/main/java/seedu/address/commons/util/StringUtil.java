@@ -65,4 +65,20 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code str} represents an integer.
+     * Will return false for any other non-null string input.
+     * 
+     * @throws NullPointerException if {@code str} is null.
+     */
+    public static boolean isInt(String str) {
+        requireNonNull(str);
+        try {
+            Integer.parseInt(str);  
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
 }
