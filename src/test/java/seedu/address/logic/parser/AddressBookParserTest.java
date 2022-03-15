@@ -19,12 +19,11 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.delete.DeletePersonCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.IndexedDeleteCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.NamedDeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
@@ -53,14 +52,14 @@ public class AddressBookParserTest {
     public void parseCommand_deleteIndex() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new IndexedDeleteCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new DeletePersonCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
     public void parseCommand_deleteName() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + ALICE.getName());
-        assertEquals(new NamedDeleteCommand(ALICE.getName()), command);
+        assertEquals(new DeletePersonCommand(ALICE.getName()), command);
     }
 
     @Test

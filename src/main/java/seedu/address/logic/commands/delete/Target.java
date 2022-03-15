@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
  * either by {@code Name} or {@code Index}.
  */
 public abstract class Target {
-
+    public static final String MESSAGE_PERSON_NOT_EXIST = "The person with full name %1$s does not exist!";
     private static final String NO_TARGET_LIST = "Cannot identify target on a list when no list is specified!";
 
     protected List<Person> persons;
@@ -53,7 +53,6 @@ public abstract class Target {
     /*----------------------Start of private classes---------------------------------------*/
 
     private static class NamedTarget extends Target {
-        public static final String MESSAGE_PERSON_NOT_EXIST = "The person with full name %1$s does not exist!";
         Name targetName;
 
         protected NamedTarget(Name targetName) {
