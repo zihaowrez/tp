@@ -57,6 +57,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Person> getContactDetails() {
+        return model.getContactDetails();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
