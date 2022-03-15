@@ -4,7 +4,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes something from person identified using it's displayed index or name from the address book.
  */
 public abstract class DeleteCommand extends Command {
 
@@ -17,7 +17,6 @@ public abstract class DeleteCommand extends Command {
             + "Example 2: " + COMMAND_WORD + " Alex Yeoh\n";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-    public static final String MESSAGE_PERSON_NOT_EXIST = "The person with full name %1$s does not exist!";
 
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;
