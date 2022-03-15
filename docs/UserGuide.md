@@ -69,8 +69,6 @@ title: uMessage (v1.2) User Guide
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
-
 Format: `help`
 
 
@@ -165,14 +163,14 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
-**Clear** | `clear`
-**Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2` 
-**Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
-**List** | `list`
-**Help** | `help`
+| Action     | Format, Examples                                                                                                                      |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**    | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
+| **Clear**  | `clear`                                                                                                                               |
+| **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`                                                         |
+| **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
+| **List**   | `list`                                                                                                                                |
+| **Help**   | `help`                                                                                                                                |
 
 
 

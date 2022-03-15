@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -48,7 +50,8 @@ public class HelpWindow extends UiPart<Stage> {
         super(FXML, root);
 
         try {
-            mdfxTxt = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
+            final String USERGUIDE_PATH = Paths.get("docs","UserGuide.md").toString();
+            mdfxTxt = IOUtils.toString(new FileInputStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
             mdfxTxt = "`Markdown` No Markdown";
