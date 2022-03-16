@@ -108,6 +108,18 @@ _Tip: Specify the person that you want to add the tag to by using their full nam
 > `add John Doe t/friend`
 > `add 2 t/friend`
 
+### Copying a person : `copy`
+
+**Format:** `copy NAME`
+
+Deletes the person with the specified NAME.
+NAME is insensitive (like find)
+
+**Examples:**
+
+`copy David Li`
+`copy Bernice Yu`
+
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
@@ -200,6 +212,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
 **Clear** | `clear`
+**Copy**  | `copy NAME`
 **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`
 **Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
 **List** | `list`
