@@ -184,4 +184,19 @@ public class ParserUtil {
 
         return new PlatformDescription(trimmedPlatformName);
     }
+
+    /**
+     * Parses {@code String args} into a {@code Object target}.
+     * The runtime type of {@code Object} is guaranteed to be a {@code Name} or {@code Index}
+     * @param args The index or name to be parsed.
+     * @throws ParseException if the given Index/Name is invalid
+     */
+    public static Object parseTarget(String args) throws ParseException {
+
+        if (StringUtil.isInt(args)) {
+            return ParserUtil.parseIndex(args);
+        } else {
+            return ParserUtil.parseName(args);
+        }
+    }
 }
