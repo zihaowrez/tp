@@ -86,7 +86,7 @@ public class AddressBookParser {
 
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
-                
+
             case ViewCommand.COMMAND_WORD:
                 return new ViewCommandParser().parse(arguments);
 
