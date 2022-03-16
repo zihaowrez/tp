@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.IndexedDeleteCommand;
-import seedu.address.logic.commands.NamedDeleteCommand;
+import seedu.address.logic.commands.delete.DeletePersonCommand;
+import seedu.address.logic.commands.delete.DeletePersonsTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -20,17 +20,20 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new IndexedDeleteCommand(index);
-        } catch (ParseException e) {
-            try {
-                Name name = ParserUtil.parseName(args);
-                return new NamedDeleteCommand(name);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-            }
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+        String preamble = argMultimap.getPreamble();
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        Object target = ParserUtil.parseTarget(preamble);
+
+        if (!argMultimap.arePrefixesPresent(PREFIX_TAG)) {
+            return new DeletePersonCommand(target);
+        } else {
+            Tag targetTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+            return new DeletePersonsTagCommand(target, targetTag);
         }
     }
 

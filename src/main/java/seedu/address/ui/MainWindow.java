@@ -108,6 +108,7 @@ public class MainWindow extends UiPart<Stage> {
                 event.consume();
             }
         });
+
     }
 
     /**
