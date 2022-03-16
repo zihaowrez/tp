@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.delete.DeletePersonCommand;
 import seedu.address.logic.commands.delete.DeletePersonsTagCommand;
@@ -28,22 +27,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        Object target = parseTarget(preamble);
+        Object target = ParserUtil.parseTarget(preamble);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             return new DeletePersonCommand(target);
         } else {
             Tag targetTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new DeletePersonsTagCommand(target, targetTag);
-        }
-    }
-
-    private Object parseTarget(String args) throws ParseException {
-
-        if (StringUtil.isInt(args)) {
-            return ParserUtil.parseIndex(args);
-        } else {
-            return ParserUtil.parseName(args);
         }
     }
 
