@@ -7,7 +7,7 @@ title: Ong Weng Qi's Project Portfolio Page
 
 **Overview**
 
-uMessage is an app that helps university students manage their **contacts** and **meetings**. 
+uMessage is an app that helps university students manage their **contacts** and **meetings**.
 It is optimized for keyboard users.
 
 
