@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.add.AddPersonCommand;
+import seedu.address.logic.commands.add.AddTagToPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,6 +36,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_SOCIAL_MEDIA, PREFIX_TAG);
 
+        if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
+                && argMultimap.noOtherPrefixes(PREFIX_TAG)) {
+
+            Object target = ParserUtil.parseTarget(argMultimap.getPreamble());
+            Tag newTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+            return new AddTagToPersonCommand(target, newTag);
+        }
+
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -42,13 +52,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        // Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<SocialMedia> socialMedias = ParserUtil.parseSocialMedias(argMultimap.getAllValues(PREFIX_SOCIAL_MEDIA));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Person person = new Person(name, phone, email, socialMedias, tagList);
 
-        return new AddCommand(person);
+        return new AddPersonCommand(person);
     }
 
     /**

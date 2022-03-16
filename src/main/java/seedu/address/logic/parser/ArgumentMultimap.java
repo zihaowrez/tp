@@ -2,9 +2,11 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -65,5 +67,17 @@ public class ArgumentMultimap {
      */
     public boolean arePrefixesPresent(Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> this.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if there are no other prefixes in {@code ArgumentMultimap} other than
+     * {@code prefixes}.
+     */
+    public boolean noOtherPrefixes(Prefix... prefixes) {
+        Set<Prefix> excludedPrefixes = Set.of(prefixes);
+        Set<Prefix> allRemainingPrefixes = new HashSet<>(argMultimap.keySet());
+        allRemainingPrefixes.removeAll(excludedPrefixes);
+
+        return allRemainingPrefixes.size() == 1; //I have no idea why there is an extra item
     }
 }
