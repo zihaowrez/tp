@@ -25,11 +25,7 @@ title: uMessage (v1.2) User Guide
 
    * **`list`** : Lists all contacts.
 
-<<<<<<< HEAD
    * **`add`**`n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`: Adds a contact named `Betsy Crowe` to the Address Book.
-=======
-   * **`add`**`n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` : Adds a contact named `Betsy Crowe` to the Address Book.
->>>>>>> 56b8f95b3b6363d4ef8b70bec8e31b59d2b984b3
 
    * `alex` or **`find`**`alex` : Finds the name "Alex" in the list
 
@@ -72,8 +68,6 @@ title: uMessage (v1.2) User Guide
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
 
 Format: `help`
 
@@ -135,11 +129,8 @@ The search will attempt to search all fields and tags to return a match.
 
 Deletes the person with the specified NAME.
 NAME is insensitive (like find)
-<<<<<<< HEAD
+
 In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
-=======
-In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
->>>>>>> 56b8f95b3b6363d4ef8b70bec8e31b59d2b984b3
 The index must be a positive integer 1, 2, 3, ...
 
 **Examples:**
@@ -185,12 +176,12 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
-**Clear** | `clear`
-**Copy**  | `copy NAME`
-**Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`
-**Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
-**List** | `list`
-**Help** | `help`
+| Action     | Format, Examples                                                                                                                      |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**    | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
+| **Clear**  | `clear`                                                                                                                               |
+| **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`                                                         |
+| **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
+| **List**   | `list`                                                                                                                                |
+| **Help**   | `help`                                                                                                                                |
+
