@@ -6,14 +6,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
+
+import com.sandec.mdfx.MarkdownView;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-import com.sandec.mdfx.MarkdownView;
-import org.apache.commons.io.IOUtils;
+
+
 
 
 /**
@@ -21,23 +25,14 @@ import org.apache.commons.io.IOUtils;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    // public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    // public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-
-    public static final String USERGUIDE_PATH = "..\\..\\..\\..\\..\\..\\docs\\UserGuide.md";
-
-    // public static final String TEST_PATH = "/test.md";
-
-    String mdfxTxt;
-
-
+    public static final String USERGUIDE_PATH = Paths.get("docs", "UserGuide.md").toString();
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
-
     @FXML
     private ScrollPane content;
+
 
     /**
      * Creates a new HelpWindow.
@@ -49,23 +44,21 @@ public class HelpWindow extends UiPart<Stage> {
 
         super(FXML, root);
 
+        String mdfxTxt;
         try {
-            final String USERGUIDE_PATH = Paths.get("docs","UserGuide.md").toString();
             mdfxTxt = IOUtils.toString(new FileInputStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
-            mdfxTxt = "`Markdown` No Markdown";
+            mdfxTxt = "This page is empty!";
         }
-
-        // To note: Path returns null -> Need to fix!
 
         MarkdownView mdfx = new MarkdownView(mdfxTxt);
 
-        ScrollPane content = new ScrollPane(mdfx);
+        content = new ScrollPane(mdfx);
 
         content.setFitToWidth(true);
 
-        Scene scene = new Scene(content, 700,700);
+        Scene scene = new Scene(content, 700, 700);
 
         root.setScene(scene);
 
