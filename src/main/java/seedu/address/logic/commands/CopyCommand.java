@@ -2,20 +2,19 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-
-import java.util.List;
-import java.util.Optional;
-
 /**
- * Finds, displays and copies the first instance of a person in address book whose name contains any of the argument keywords
- * to the system clipboard.
+ * Finds, displays and copies the first instance of a person in address book whose name contains any
+ * of the argument keywords to the system clipboard.
  * Keyword matching is case-insensitive.
  */
-public class CopyCommand extends Command{
+public class CopyCommand extends Command {
 
 
     public static final String COMMAND_WORD = "copy";
