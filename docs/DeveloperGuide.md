@@ -256,14 +256,15 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Product scope
 
 **Target user profile**:
+A university student who:
 
-* has a need to manage a significant number of contacts
+* has a need to organise a significant number of contacts and meetings across various social media platforms
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: organise contacts and meetings across various social media platforms so that they can be retrieved more conveniently when needed
 
 
 ### User stories
