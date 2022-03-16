@@ -25,8 +25,12 @@ title: uMessage (v1.2) User Guide
 
    * **`list`** : Lists all contacts.
 
+<<<<<<< HEAD
+   * **`add`**`n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`: Adds a contact named `Betsy Crowe` to the Address Book.
+=======
    * **`add`**`n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` : Adds a contact named `Betsy Crowe` to the Address Book.
-   
+>>>>>>> 56b8f95b3b6363d4ef8b70bec8e31b59d2b984b3
+
    * `alex` or **`find`**`alex` : Finds the name "Alex" in the list
 
    * **`delete`**`alex` : Deletes Alex if the person exists.
@@ -83,8 +87,8 @@ Tip: A person can have zero or more tags
 
 **Examples:**
 
-`add n/John Doe d/Telegram, johndoe` 
-`add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`  
+`add n/John Doe d/Telegram, johndoe`
+`add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
 `add n/Potter d/Phone, 49502583 t/cs2030`
 
 ### Listing all persons : `list`
@@ -99,35 +103,39 @@ Finds persons whose name contain any of the given keywords.
 
 **Format:**  `[find] KEYWORD [MORE_KEYWORDS]`
 
-The search is case-insensitive. e.g `hans` will match `Hans`  
-The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`  
-Only the name is searched.  
-Only full words will be matched e.g. `Han` will not match `Hans`  
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`  
-The search will attempt to search all fields and tags to return a match.   
+The search is case-insensitive. e.g `hans` will match `Hans`
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+Only the name is searched.
+Only full words will be matched e.g. `Han` will not match `Hans`
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+The search will attempt to search all fields and tags to return a match.
 
 **Examples:**
 
-`find kaaviya` (finds the name "Kaaviya")  
+`find kaaviya` (finds the name "Kaaviya")
 `Kaaviya` (does the same as above)
 
 ### Deleting a person : `delete`
 
-**Format:**  
-`delete NAME`			(in event of single occurrence of NAME)  
+**Format:**
+`delete NAME`			(in event of single occurrence of NAME)
 `delete NAME {INDEX}`	(otherwise)
 
-Deletes the person with the specified NAME.  
-NAME is insensitive (like find)  
-In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.  
+Deletes the person with the specified NAME.
+NAME is insensitive (like find)
+<<<<<<< HEAD
+In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
+=======
+In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
+>>>>>>> 56b8f95b3b6363d4ef8b70bec8e31b59d2b984b3
 The index must be a positive integer 1, 2, 3, ...
 
 **Examples:**
 
-Scenario 1 (only one occurrence of the  name): `delete kaaviya`  
-Scenario 2 (multiple occurrences):   
-`delete kaaviya`   (ERROR: multiple occurrences detected)  
-`delete kaaviya 2`  
+Scenario 1 (only one occurrence of the  name): `delete kaaviya`
+Scenario 2 (multiple occurrences):
+`delete kaaviya`   (ERROR: multiple occurrences detected)
+`delete kaaviya 2`
 
 ### Clearing all entries : `clear`
 
@@ -169,12 +177,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
 **Clear** | `clear`
-**Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2` 
+**Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`
 **Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
 **List** | `list`
 **Help** | `help`
-
-
-
-
-
