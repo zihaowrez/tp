@@ -86,6 +86,8 @@ Adds either:
 _Tip: A person can have one or more details_
 _Tip: A person can have zero or more tags_
 
+The newly added person will be placed at the top of the contact list.  
+
 **Examples:**
 
 > `add n/John Doe d/Telegram, johndoe`
@@ -123,21 +125,23 @@ Format: `list`
 
 ### Locating persons by name : `[find]`
 
-Finds persons whose name contain any of the given keywords.
+Finds persons with the given keywords.
 
 **Format:**  `[find] KEYWORD [MORE_KEYWORDS]`
 
-The search is case-insensitive. e.g `hans` will match `Hans`
-The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-Only the name is searched.
-Only full words will be matched e.g. `Han` will not match `Hans`
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-The search will attempt to search all fields and tags to return a match.
+If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.  
+  
+The keywords are compared to all fields of each person.  
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.  
+The search is case-insensitive. e.g `hans` will match `Hans`.  
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.  
 
 **Examples:**
 
-`find kaaviya` (finds the name "Kaaviya")
-`Kaaviya` (does the same as above)
+`find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).  
+`a` does the same as above.  
+`find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).  
+When the user types `add`, the whole list is displayed.
 
 ### Deletion : `delete`
 
@@ -166,6 +170,9 @@ _Tip: The index must be a positive integer 1, 2, 3, ..._
 **Examples:**
 > delete kaaviya t/friend
 > delete 1 t/colleague
+> `delete 2` deletes the contact at index 2
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh`
+> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
 ### Viewing a person : `view`
 
