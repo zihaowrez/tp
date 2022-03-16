@@ -18,7 +18,7 @@ Given below are my contributions to the project.
 * **Documentation**:
   * Developer Guide:
     * Add Product Scope: [#53](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/53)
-    
+
 * **Contributions to team-based tasks**
   * Update site-wide settings: [#26](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/26)
   * Update `AboutUs.md`: [#2](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/2)
