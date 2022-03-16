@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
+import seedu.address.ui.CommandBox;
 
 /**
  * The main LogicManager of the app.
@@ -38,11 +39,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
+    public CommandResult execute(String commandText, CommandBox commandBox) throws CommandException, ParseException {
+        if (commandBox != null && commandBox.isDynamic()) {
+            logger.info("----------------[USER COMMAND][" + commandText + "]");
+        }
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = addressBookParser.parseCommand(commandText, commandBox);
         commandResult = command.execute(model);
 
         try {
@@ -52,6 +54,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public ObservableList<Person> getContactDetails() {
+        return model.getContactDetails();
     }
 
     @Override

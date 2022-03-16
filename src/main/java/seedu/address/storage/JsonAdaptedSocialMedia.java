@@ -30,10 +30,10 @@ public class JsonAdaptedSocialMedia {
      */
     public JsonAdaptedSocialMedia(SocialMedia source) {
         platformName = source.getPlatformName().getValue();
-        platformDescription = source.getplatformDescription().getValue();
+        platformDescription = source.getPlatformDescription().getValue();
     }
 
-    public String getplatformName() {
+    public String getPlatformName() {
         return platformName;
     }
 

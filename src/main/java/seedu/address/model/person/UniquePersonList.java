@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.ClipboardManager;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -28,6 +29,8 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    private final ClipboardManager clipboard = new ClipboardManager();
+
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
@@ -39,13 +42,18 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
+     * @param positionInList must be either "head" or "tail".
      */
-    public void add(Person toAdd) {
+    public void add(Person toAdd, String positionInList) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
-        internalList.add(toAdd);
+        if (positionInList.equals("head")) {
+            internalList.add(0, toAdd);
+        } else if (positionInList.equals("tail")) {
+            internalList.add(toAdd);
+        }
     }
 
     /**
@@ -76,6 +84,19 @@ public class UniquePersonList implements Iterable<Person> {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
+        }
+    }
+
+    /**
+     * Copies the equivalent person from the list.
+     * The person must exist in the list.
+     */
+    public void copy(Person toCopy) {
+        requireNonNull(toCopy);
+        if (!internalList.contains(toCopy)) {
+            throw new PersonNotFoundException();
+        } else {
+            clipboard.copy(toCopy);
         }
     }
 
