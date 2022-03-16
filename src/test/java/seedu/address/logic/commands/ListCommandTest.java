@@ -28,7 +28,8 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        int expectedSize = expectedModel.getFilteredPersonList().size();
+        assertCommandSuccess(new ListCommand(), model, expectedSize + ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
