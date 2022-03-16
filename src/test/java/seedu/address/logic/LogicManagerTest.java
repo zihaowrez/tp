@@ -52,13 +52,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_invalidCommandFormat_throwsParseException() {
-        String invalidCommand = "uicfhmowqewca";
-        CommandBox commandBox = null;
-        assertParseException(invalidCommand, commandBox, MESSAGE_UNKNOWN_COMMAND);
-    }
-
-    @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         CommandBox commandBox = null;
