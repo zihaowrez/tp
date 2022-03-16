@@ -78,18 +78,35 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person : `add`
+### Adding: `add`
 
-**Format:** `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+Adds either: 
+  1. a person, or 
+  2. a new tag to an existing person.
 
-Tip: A person can have one or more details
-Tip: A person can have zero or more tags
+##### Format:
+**1. Adding a person:**
+  - `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+
+_Tip: A person can have one or more details_
+_Tip: A person can have zero or more tags_
 
 **Examples:**
 
-`add n/John Doe d/Telegram, johndoe`
-`add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
-`add n/Potter d/Phone, 49502583 t/cs2030`
+> `add n/John Doe d/Telegram, johndoe`
+> `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
+> `add n/Potter d/Phone, 49502583 t/cs2030`
+
+**2. Adding new tag to a person:**
+  - `add NAME t/NEWTAG`
+  - `add INDEX t/NEWTAG`
+
+_Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
+
+**Examples:**
+
+> `add John Doe t/friend`
+> `add 2 t/friend`
 
 ### Listing all persons : `list`
 
@@ -115,27 +132,33 @@ The search will attempt to search all fields and tags to return a match.
 `find kaaviya` (finds the name "Kaaviya")
 `Kaaviya` (does the same as above)
 
-### Deleting a person : `delete`
+### Deletion : `delete`
 
-**Format:**
-`delete NAME`			(in event of single occurrence of NAME)
-`delete NAME {INDEX}`	(otherwise)
+Deletes either: 
+  1. a person, or 
+  2. a tag from an existing person.
 
-Deletes the person with the specified NAME.
-NAME is insensitive (like find)
-<<<<<<< HEAD
-In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
-=======
-In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
->>>>>>> 56b8f95b3b6363d4ef8b70bec8e31b59d2b984b3
-The index must be a positive integer 1, 2, 3, ...
+##### Format:
+**1. Deleting Person**
+Deletes the person with the specified `NAME` or `INDEX`.
+- `delete NAME`
+- `delete INDEX`
 
 **Examples:**
+> delete kaaviya
+> delete 1
 
-Scenario 1 (only one occurrence of the  name): `delete kaaviya`
-Scenario 2 (multiple occurrences):
-`delete kaaviya`   (ERROR: multiple occurrences detected)
-`delete kaaviya 2`
+**2. Deleting Tag from a Person**
+Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
+- `delete NAME t/TAG`
+- `delete INDEX t/TAG`
+
+_Tip: Name is case sensitive._
+_Tip: The index must be a positive integer 1, 2, 3, ..._
+
+**Examples:**
+> delete kaaviya t/friend
+> delete 1 t/colleague
 
 ### Clearing all entries : `clear`
 
