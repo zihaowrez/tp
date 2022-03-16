@@ -9,7 +9,7 @@
   * as a consolidated place to store information
   * managing contacts from modules and CCAs
   * managing meeting links for various platforms.
-  
+
   <br>
 * The project simulates an ongoing software project for a desktop application (called _AddressBook_) used for managing contact details.
   * It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
