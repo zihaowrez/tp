@@ -67,9 +67,7 @@ title: uMessage (v1.2) User Guide
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
+Displays a new window showing `UserGuide.md` as the help page.
 
 Format: `help`
 
@@ -129,6 +127,17 @@ Scenario 2 (multiple occurrences):
 `delete kaaviya`   (ERROR: multiple occurrences detected)  
 `delete kaaviya 2`  
 
+### Viewing a person : `view`
+
+**Format:**  
+`view INDEX`			
+
+Views the person's contact details with the selected index in the RHS window.
+
+**Examples:**
+
+`view 2`
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -165,14 +174,14 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
-**Clear** | `clear`
-**Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2` 
-**Find** | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`
-**List** | `list`
-**Help** | `help`
+| Action     | Format, Examples                                                                                                                      |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**    | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
+| **Clear**  | `clear`                                                                                                                               |
+| **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`                                                         |
+| **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
+| **List**   | `list`                                                                                                                                |
+| **Help**   | `help`                                                                                                                                |
 
 
 
