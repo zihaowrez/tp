@@ -106,6 +106,6 @@ public class AddressBookParser {
         return (command.equals("") || command.equals("add")
                 || splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
                 || command.equals("edit") || splitCommand[0].equals("edit")) || command.equals("delete")
-                || splitCommand[0].equals("delete");
+                || splitCommand[0].equals("delete") || command.equals("view") || splitCommand[0].equals("view");
     }
 }
