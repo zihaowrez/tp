@@ -8,10 +8,17 @@ import seedu.address.model.person.Person;
 
 public class ClipboardManager {
 
+    /**
+     * Initializes a ClipboardManager
+     */
     public ClipboardManager(){
 
     }
 
+    /**
+     * Copies the person to the system clipboard.
+     * @param toCopy
+     */
     public void copy(Person toCopy) {
 
         String str = toCopy.toString();

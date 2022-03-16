@@ -95,8 +95,7 @@ public class UniquePersonList implements Iterable<Person> {
         requireNonNull(toCopy);
         if (!internalList.contains(toCopy)) {
             throw new PersonNotFoundException();
-        }
-        else {
+        } else {
             clipboard.copy(toCopy);
         }
     }
