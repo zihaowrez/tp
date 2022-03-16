@@ -67,7 +67,8 @@ title: uMessage (v1.2) User Guide
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Displays a new window showing `UserGuide.md` as the help page.
+
 
 Format: `help`
 
@@ -140,6 +141,17 @@ Scenario 2 (multiple occurrences):
 `delete kaaviya`   (ERROR: multiple occurrences detected)
 `delete kaaviya 2`
 
+### Viewing a person : `view`
+
+**Format:**  
+`view INDEX`			
+
+Views the person's contact details with the selected index in the RHS window.
+
+**Examples:**
+
+`view 2`
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -184,4 +196,5 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 | **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
 | **List**   | `list`                                                                                                                                |
 | **Help**   | `help`                                                                                                                                |
+
 
