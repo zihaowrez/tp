@@ -32,6 +32,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.add.AddPersonCommand;
 // import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -51,22 +52,22 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB// + ADDRESS_DESC_BOB
-                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB// + ADDRESS_DESC_BOB
-                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 //+ ADDRESS_DESC_BOB
-                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
                 // + ADDRESS_DESC_BOB
-                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + SOCIAL_DESC_GMAIL + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
 
         // // multiple addresses - last address accepted
         // assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
@@ -77,7 +78,7 @@ public class AddCommandParserTest {
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB// + ADDRESS_DESC_BOB
                 + SOCIAL_DESC_GMAIL + SOCIAL_DESC_TELEGRAM
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddPersonCommand(expectedPersonMultipleTags));
 
         //multiple socials - all accepted
         Person expectedPersonMultipleSocials = new PersonBuilder(BOB)
@@ -85,7 +86,7 @@ public class AddCommandParserTest {
 
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + SOCIAL_DESC_GMAIL + SOCIAL_DESC_TELEGRAM + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCommand(expectedPersonMultipleSocials));
+                new AddPersonCommand(expectedPersonMultipleSocials));
 
         Person expectedPersonMultipleSocialsMultipleTags = new PersonBuilder(BOB)
                 .withSocials(VALID_SOCIAL_GMAIL, VALID_SOCIAL_TELEGRAM)
@@ -94,7 +95,7 @@ public class AddCommandParserTest {
 
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + SOCIAL_DESC_GMAIL + SOCIAL_DESC_TELEGRAM
-                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, new AddCommand(expectedPersonMultipleSocialsMultipleTags));
+                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, new AddPersonCommand(expectedPersonMultipleSocialsMultipleTags));
     }
 
     @Test
@@ -102,7 +103,7 @@ public class AddCommandParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().withSocials().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddPersonCommand(expectedPerson));
     }
 
     @Test

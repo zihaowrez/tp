@@ -1,41 +1,73 @@
 package seedu.address.ui;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
+
+import com.sandec.mdfx.MarkdownView;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+
+
+
+
 
 /**
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_PATH = Paths.get("docs", "UserGuide.md").toString();
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    private Button copyButton;
+    private ScrollPane content;
 
-    @FXML
-    private Label helpMessage;
 
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
+
     public HelpWindow(Stage root) {
+
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+
+        String mdfxTxt;
+        try {
+            mdfxTxt = IOUtils.toString(new FileInputStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
+        } catch (IOException | NullPointerException e) { // could not find path
+            logger.info("Invalid path! ");
+            mdfxTxt = "This page is empty!";
+        }
+
+        MarkdownView mdfx = new MarkdownView(mdfxTxt);
+
+        content = new ScrollPane(mdfx);
+
+        content.setFitToWidth(true);
+
+        Scene scene = new Scene(content, 700, 700);
+
+        root.setScene(scene);
+
+
+
+
+
     }
+
 
     /**
      * Creates a new HelpWindow.
@@ -89,14 +121,5 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
-    }
+
 }
