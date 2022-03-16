@@ -278,7 +278,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | new user struggling to keep track of everybody's communication channels | save people's communication channels                          | find their contacts easily                                        |
 | `* * *`  | new user                                                                | access the user guide                                         | learn how to use the app better                                   |
 | `* * *`  | new user                                                                | view a list of available commands                             | know which command to use for what I want to do                   |
-| `* * *`  | user                                                                    | delete specific contacts                                      | remove irrelevant information to me                               |        
+| `* * *`  | user                                                                    | delete specific contacts                                      | remove irrelevant information to me                               |      
 | `* * *`  | user                                                                    | delete all my contacts in one go                              |                                                                   |
 | `* * *`  | new user                                                                | view my contacts when I open the app                          | see only relevant information                                     |
 | `* * *`  | new user                                                                | add new people and their communication handles to my contacts |                                                                   |
@@ -395,7 +395,7 @@ Constraints:
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Command Line Interface (CLI)**: A user interface whereby users interact with the program with lines of text. 
+* **Command Line Interface (CLI)**: A user interface whereby users interact with the program with lines of text.
 * **Graphical User Interface (GUI)**: A user interface that allows users to interact with the program with graphical components, like clickable menus.
 --------------------------------------------------------------------------------------------------------------------
 

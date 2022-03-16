@@ -124,7 +124,7 @@ The search will attempt to search all fields and tags to return a match.
 Deletes the person with the specified NAME.
 NAME is insensitive (like find)
 <<<<<<< HEAD
-In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.  
+In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
 =======
 In the case of multiple occurrences, the user is prompted to specify which occurrence of the name is to be deleted with the index as shown in the displayed person list when the name is searched.
 >>>>>>> 56b8f95b3b6363d4ef8b70bec8e31b59d2b984b3
