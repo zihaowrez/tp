@@ -42,8 +42,8 @@ public class HelpWindow extends UiPart<Stage> {
         super(FXML, root);
 
         try {
-            public static final String USERGUIDE_PATH = Paths.get("docs", "UserGuide.md").toString();
-            mdfxTxt = IOUtils.toString(new FileInputStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
+            public static final String userGuidePath = Paths.get("docs", "UserGuide.md").toString();
+            mdfxTxt = IOUtils.toString(new FileInputStream(userGuidePath), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
             mdfxTxt = "This page is empty!";
