@@ -10,11 +10,9 @@ import org.apache.commons.io.IOUtils;
 
 import com.sandec.mdfx.MarkdownView;
 
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -42,7 +40,7 @@ public class HelpWindow extends UiPart<Stage> {
         super(FXML, root);
 
         try {
-            public static final String userGuidePath = Paths.get("docs", "UserGuide.md").toString();
+            String userGuidePath = Paths.get("docs", "UserGuide.md").toString();
             mdfxTxt = IOUtils.toString(new FileInputStream(userGuidePath), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
