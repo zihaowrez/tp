@@ -79,12 +79,14 @@ Adds either:
   1. a person, or 
   2. a new tag to an existing person.
 
-##### Format:
+**Format:**  
 **1. Adding a person:**
   - `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
-_Tip: A person can have one or more details_
+_Tip: A person can have one or more details_  
 _Tip: A person can have zero or more tags_
+
+The newly added person will be placed at the top of the contact list.  
 
 **Examples:**
 
@@ -112,8 +114,8 @@ NAME is insensitive (like find)
 
 **Examples:**
 
-`copy David Li`
-`copy Bernice Yu`
+> `copy David Li`
+> `copy Bernice Yu`
 
 ### Listing all persons : `list`
 
@@ -123,21 +125,23 @@ Format: `list`
 
 ### Locating persons by name : `[find]`
 
-Finds persons whose name contain any of the given keywords.
+Finds persons with the given keywords.
 
 **Format:**  `[find] KEYWORD [MORE_KEYWORDS]`
 
-The search is case-insensitive. e.g `hans` will match `Hans`
-The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-Only the name is searched.
-Only full words will be matched e.g. `Han` will not match `Hans`
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-The search will attempt to search all fields and tags to return a match.
+If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.  
+  
+The keywords are compared to all fields of each person.  
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.  
+The search is case-insensitive. e.g `hans` will match `Hans`.  
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.  
 
 **Examples:**
 
-`find kaaviya` (finds the name "Kaaviya")
-`Kaaviya` (does the same as above)
+> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).  
+> `a` does the same as above.  
+> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).  
+When the user types `add`, the whole list is displayed.
 
 ### Deletion : `delete`
 
@@ -145,27 +149,28 @@ Deletes either:
   1. a person, or 
   2. a tag from an existing person.
 
-##### Format:
-**1. Deleting Person**
-Deletes the person with the specified `NAME` or `INDEX`.
+**Format:**  
+
+**1. Deleting Person:** Deletes the person with the specified `NAME` or `INDEX`.
 - `delete NAME`
 - `delete INDEX`
 
-**Examples:**
-> delete kaaviya
-> delete 1
-
-**2. Deleting Tag from a Person**
-Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
-- `delete NAME t/TAG`
-- `delete INDEX t/TAG`
-
-_Tip: Name is case sensitive._
+_Tip: Deletion by name is case sensitive and must match the full name._  
 _Tip: The index must be a positive integer 1, 2, 3, ..._
 
 **Examples:**
-> delete kaaviya t/friend
-> delete 1 t/colleague
+> `delete 2` deletes the contact at index 2  
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh`  
+> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`  
+
+**2. Deleting Tag from a Person:** Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
+- `delete NAME t/TAG`
+- `delete INDEX t/TAG`
+
+**Examples:**
+> `delete kaaviya t/friend`
+> `delete 1 t/colleague`
+
 
 ### Viewing a person : `view`
 
