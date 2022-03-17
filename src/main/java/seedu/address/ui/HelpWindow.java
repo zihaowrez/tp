@@ -6,6 +6,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
+
+import com.sandec.mdfx.MarkdownView;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,8 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-import com.sandec.mdfx.MarkdownView;
-import org.apache.commons.io.IOUtils;
+
+
 
 
 /**
@@ -33,20 +37,17 @@ public class HelpWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-
     public HelpWindow(Stage root) {
 
         super(FXML, root);
 
+        String mdfxTxt;
         try {
-            final String USERGUIDE_PATH = Paths.get("docs","UserGuide.md").toString();
             mdfxTxt = IOUtils.toString(new FileInputStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
-            mdfxTxt = "`Markdown` No Markdown";
+            mdfxTxt = "This page is empty!";
         }
-
-        // To note: Path returns null -> Need to fix!
 
         MarkdownView mdfx = new MarkdownView(mdfxTxt);
 
