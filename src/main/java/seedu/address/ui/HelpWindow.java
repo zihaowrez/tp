@@ -7,8 +7,10 @@ import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -21,23 +23,10 @@ import org.apache.commons.io.IOUtils;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    // public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    // public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-
-    public static final String USERGUIDE_PATH = "..\\..\\..\\..\\..\\..\\docs\\UserGuide.md";
-
-    // public static final String TEST_PATH = "/test.md";
-
-    String mdfxTxt;
-
-
-
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
-
-    @FXML
-    private ScrollPane content;
+    private String mdfxTxt;
 
     /**
      * Creates a new HelpWindow.
@@ -61,17 +50,23 @@ public class HelpWindow extends UiPart<Stage> {
 
         MarkdownView mdfx = new MarkdownView(mdfxTxt);
 
-        ScrollPane content = new ScrollPane(mdfx);
+        mdfx.setPadding(new Insets(40));
 
-        content.setFitToWidth(true);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mdfx);
+        scrollPane.setFitToWidth(true);
+        mdfx.setOnScroll(event -> {
+            double deltaY = event.getDeltaY() * 3; // * 3 to make the scrolling a bit faster
+            double height = mdfx.getBoundsInLocal().getHeight();
+            double vvalue = scrollPane.getVvalue();
+            System.out.println(vvalue - deltaY);
+            scrollPane.setVvalue(vvalue - deltaY / height);
+            // deltaY / height to make the scrolling equally fast regardless of the total height
+        });
 
-        Scene scene = new Scene(content, 700,700);
+        Scene scene = new Scene(scrollPane);
 
         root.setScene(scene);
-
-
-
-
 
     }
 
