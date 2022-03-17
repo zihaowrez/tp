@@ -75,7 +75,7 @@ public class EditCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Person editedPerson = EditPersonDescriptor.createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -84,24 +84,6 @@ public class EditCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
-
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-
-        //TODO: currently does not support editing of socials
-        Set<SocialMedia> updatedSocials = editPersonDescriptor.getSocials().orElse(personToEdit.getSocialMedias());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedSocials, updatedTags);
     }
 
     @Override
@@ -211,6 +193,22 @@ public class EditCommand extends Command {
          */
         public Optional<Set<SocialMedia>> getSocials() {
             return (socials != null) ? Optional.of(Collections.unmodifiableSet(socials)) : Optional.empty();
+        }
+
+        /**
+         * Creates and returns a {@code Person} with the details of {@code personToEdit}
+         * edited with {@code editPersonDescriptor}.
+         */
+        public static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+            assert personToEdit != null;
+
+            Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+            Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+            Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+            Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+            Set<SocialMedia> updatedSocials = editPersonDescriptor.getSocials().orElse(personToEdit.getSocialMedias());
+
+            return new Person(updatedName, updatedPhone, updatedEmail, updatedSocials, updatedTags);
         }
 
 
