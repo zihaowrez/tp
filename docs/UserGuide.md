@@ -1,12 +1,6 @@
----
-layout: page
-title: uMessage (v1.2) User Guide
----
+# uMessage (v1.2) User Guide
 
-*uMessage* is a desktop app that helps university students manage contacts, academics and CCAs that communicate and hold meetings on various platforms. It is optimized for keyboard users.
-
-* Table of Contents
-{:toc}
+***uMessage*** is a desktop app that helps university students manage contacts, academics and CCAs that communicate and hold meetings on various platforms. It is optimized for keyboard users.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -210,10 +204,12 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 | Action     | Format, Examples                                                                                                                      |
 |------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**    | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
-| **Clear**  | `clear`                                                                                                                               |
-| **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`                                                         |
+| **Add Person**    | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
+| **Add Tag**    | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG` <br> e.g., `add Betsy t/Friend`, `add 2 t/Friend` |
+| **Clear**  | `clear` 
+| **Copy Details of a Person** | `copy FULL_NAME`<br> e.g., `copy Alex Yeoh`  |
+| **Delete Person** | `delete FULL_NAME` or `delete INDEX`<br> e.g., `delete Alex Yeoh`, `delete 2`                                                         |
 | **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
 | **List**   | `list`                                                                                                                                |
 | **Help**   | `help`                                                                                                                                |
-| **View**   | `view INDEX`  e.g. `view 1`                                                                                                           |
+| **View**   | `view INDEX`<br> e.g. `view 1`                                                                                                           |
