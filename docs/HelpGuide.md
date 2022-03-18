@@ -1,49 +1,11 @@
----
-layout: page
-title: uMessage (v1.2) User Guide
----
+# HelpGuide
+
 
 *uMessage* is a desktop app that helps university students manage contacts, academics and CCAs that communicate and hold meetings on various platforms. It is optimized for keyboard users.
 
-* Table of Contents
-{:toc}
-
---------------------------------------------------------------------------------------------------------------------
-
-## Quick start
-
-1. Ensure you have Java `11` or above installed in your Computer.
-
-1. Download the latest `uMessage.jar` from
-
-1. Copy the file to the folder you want to use as the _home folder_ for *uMessage*.
-
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
-
-   * **`list`** : Lists all contacts.
-
-   * **`add`**`n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`: Adds a contact named `Betsy Crowe` to the Address Book.
-
-   * `alex` or **`find`**`alex` : Finds the name "Alex" in the list
-
-   * **`delete`**`alex` : Deletes Alex if the person exists.
-
-   * **`clear`** : Deletes all contacts.
-
-   * **`exit`** : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
-
---------------------------------------------------------------------------------------------------------------------
-
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
+**Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -63,11 +25,10 @@ title: uMessage (v1.2) User Guide
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-</div>
 
 ### Viewing help : `help`
 
-Displays a new window showing `UserGuide.md` as the help page.
+Displays a new window showing `HelpGuide.md` as the help page.
 
 
 Format: `help`
@@ -76,12 +37,12 @@ Format: `help`
 ### Adding: `add`
 
 Adds either:
-  1. a person, or
-  2. a new tag to an existing person.
+1. a person, or
+2. a new tag to an existing person.
 
 **Format:**
 **1. Adding a person:**
-  - `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+- `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 _Tip: A person can have one or more details_
 _Tip: A person can have zero or more tags_
@@ -95,8 +56,8 @@ The newly added person will be placed at the top of the contact list.
 > `add n/Potter d/Phone, 49502583 t/cs2030`
 
 **2. Adding new tag to a person:**
-  - `add NAME t/NEWTAG`
-  - `add INDEX t/NEWTAG`
+- `add NAME t/NEWTAG`
+- `add INDEX t/NEWTAG`
 
 _Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
 
@@ -141,12 +102,13 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 > `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).
 > `a` does the same as above.
 > `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
+When the user types `add`, the whole list is displayed.
 
 ### Deletion : `delete`
 
 Deletes either:
-  1. a person, or
-  2. a tag from an existing person.
+1. a person, or
+2. a tag from an existing person.
 
 **Format:**
 
@@ -202,28 +164,4 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
-</div>
 
-
---------------------------------------------------------------------------------------------------------------------
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-| Action     | Format, Examples                                                                                                                      |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**    | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
-| **Clear**  | `clear`                                                                                                                               |
-| **Delete** | `delete NAME` or `delete NAME INDEX`<br> e.g., `delete Alex`, `delete Alex 2`                                                         |
-| **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
-| **List**   | `list`                                                                                                                                |
-| **Help**   | `help`                                                                                                                                |
-| **View**   | `view INDEX`  e.g. `view 1`                                                                                                           |
