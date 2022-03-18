@@ -58,7 +58,6 @@ public class HelpWindow extends UiPart<Stage> {
             double deltaY = event.getDeltaY() * 3; // * 3 to make the scrolling a bit faster
             double height = mdfx.getBoundsInLocal().getHeight();
             double vvalue = scrollPane.getVvalue();
-            System.out.println(vvalue - deltaY);
             scrollPane.setVvalue(vvalue - deltaY / height);
             // deltaY / height to make the scrolling equally fast regardless of the total height
         });
