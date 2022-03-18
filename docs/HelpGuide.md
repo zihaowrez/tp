@@ -40,11 +40,11 @@ Adds either:
 1. a person, or
 2. a new tag to an existing person.
 
-**Format:**  
+**Format:**
 **1. Adding a person:**
 - `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
-_Tip: A person can have one or more details_  
+_Tip: A person can have one or more details_
 _Tip: A person can have zero or more tags_
 
 The newly added person will be placed at the top of the contact list.
@@ -92,16 +92,16 @@ Finds persons with the given keywords.
 
 If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.
 
-The keywords are compared to all fields of each person.  
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.  
-The search is case-insensitive. e.g `hans` will match `Hans`.  
+The keywords are compared to all fields of each person.
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
+The search is case-insensitive. e.g `hans` will match `Hans`.
 The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 **Examples:**
 
-> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).  
-> `a` does the same as above.  
-> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).  
+> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).
+> `a` does the same as above.
+> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
 When the user types `add`, the whole list is displayed.
 
 ### Deletion : `delete`
@@ -116,12 +116,12 @@ Deletes either:
 - `delete NAME`
 - `delete INDEX`
 
-_Tip: Deletion by name is case sensitive and must match the full name._  
+_Tip: Deletion by name is case sensitive and must match the full name._
 _Tip: The index must be a positive integer 1, 2, 3, ..._
 
 **Examples:**
-> `delete 2` deletes the contact at index 2  
-> `delete Alex Yeoh` deletes the contact `Alex Yeoh`  
+> `delete 2` deletes the contact at index 2
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh`
 > `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
 **2. Deleting Tag from a Person:** Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
@@ -135,7 +135,7 @@ _Tip: The index must be a positive integer 1, 2, 3, ..._
 
 ### Viewing a person : `view`
 
-**Format:**  
+**Format:**
 `view INDEX`
 
 Views the contact details of the person with the selected index in the RHS window.
