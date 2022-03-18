@@ -10,7 +10,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.sandec.mdfx.MarkdownView;
 
-import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
@@ -25,28 +25,23 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_PATH = Paths.get("docs", "UserGuide.md").toString();
-
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
-    @FXML
-    private ScrollPane content;
-
+    private String mdfxTxt;
 
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-
     public HelpWindow(Stage root) {
 
         super(FXML, root);
 
-        String mdfxTxt;
         try {
-            mdfxTxt = IOUtils.toString(new FileInputStream(USERGUIDE_PATH), StandardCharsets.UTF_8);
+            String userGuidePath = Paths.get("docs", "UserGuide.md").toString();
+            mdfxTxt = IOUtils.toString(new FileInputStream(userGuidePath), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
             mdfxTxt = "This page is empty!";
@@ -54,17 +49,22 @@ public class HelpWindow extends UiPart<Stage> {
 
         MarkdownView mdfx = new MarkdownView(mdfxTxt);
 
-        content = new ScrollPane(mdfx);
+        mdfx.setPadding(new Insets(40));
 
-        content.setFitToWidth(true);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mdfx);
+        scrollPane.setFitToWidth(true);
+        mdfx.setOnScroll(event -> {
+            double deltaY = event.getDeltaY() * 3; // * 3 to make the scrolling a bit faster
+            double height = mdfx.getBoundsInLocal().getHeight();
+            double vvalue = scrollPane.getVvalue();
+            scrollPane.setVvalue(vvalue - deltaY / height);
+            // deltaY / height to make the scrolling equally fast regardless of the total height
+        });
 
-        Scene scene = new Scene(content, 700, 700);
+        Scene scene = new Scene(scrollPane);
 
         root.setScene(scene);
-
-
-
-
 
     }
 
