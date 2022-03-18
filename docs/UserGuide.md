@@ -76,16 +76,16 @@ Adds either:
 
 ### 2.1 Adding a person
 
-**Format:** `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+**Format:** `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 A person can have one or more details and zero or more tags.  
 The newly added person will be placed at the top of the contact list.
 
 **Examples:**
 
-> `add n/John Doe d/Telegram, johndoe`
-> `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
-> `add n/Potter d/Phone, 49502583 t/cs2030`
+> `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`
+> `add n/Betsy Crowe p/99900099 e/e0123456@gmail.com`
+> `add n/Potter p/49502583 e/harrypotter@hogwarts.edu t/cs2030`
 
 ### 2.2 Adding new tag to a person
 **Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
