@@ -177,7 +177,7 @@ _Tip: The index must be a positive integer 1, 2, 3, ..._
 **Format:**  
 `view INDEX`			
 
-Views the person's contact details with the selected index in the RHS window.
+Views the contact details of the person with the selected index in the RHS window.
 
 **Examples:**
 
@@ -227,3 +227,4 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 | **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
 | **List**   | `list`                                                                                                                                |
 | **Help**   | `help`                                                                                                                                |
+| **View**   | `view INDEX`  e.g. `view 1`                                                                                                           |
