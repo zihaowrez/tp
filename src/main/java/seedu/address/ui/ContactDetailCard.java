@@ -10,6 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
+/**
+ * An UI component that displays {@code ContactDetail} of a {@code Person}.
+ */
+
 public class ContactDetailCard extends UiPart<Region> {
     private static final String FXML = "ContactDetailCard.fxml";
 
@@ -53,7 +57,7 @@ public class ContactDetailCard extends UiPart<Region> {
 
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code ContactDetailCard} of the given {@code Person} to be displayed on the RHS Window.
      */
     public ContactDetailCard(Person person) {
         super(FXML);
@@ -62,8 +66,6 @@ public class ContactDetailCard extends UiPart<Region> {
         nameView.setText(person.getName().fullName);
         phoneView.setText(person.getPhone().value);
         emailView.setText(person.getEmail().value);
-
-        // TO DO ADD SOCIAL MEDIA LABELS
 
         phoneLabel.setText("Phone: ");
         emailLabel.setText("Email:");

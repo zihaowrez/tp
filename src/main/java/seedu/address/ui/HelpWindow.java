@@ -40,7 +40,7 @@ public class HelpWindow extends UiPart<Stage> {
         super(FXML, root);
 
         try {
-            String userGuidePath = Paths.get("docs", "UserGuide.md").toString();
+            String userGuidePath = Paths.get("docs", "HelpGuide.md").toString();
             mdfxTxt = IOUtils.toString(new FileInputStream(userGuidePath), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
