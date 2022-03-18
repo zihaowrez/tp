@@ -10,7 +10,7 @@ title: uMessage (v1.2) User Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+# Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -39,7 +39,7 @@ title: uMessage (v1.2) User Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+# Features
 
 <div markdown="block" class="alert alert-info">
 
@@ -65,27 +65,24 @@ title: uMessage (v1.2) User Guide
 
 </div>
 
-### Viewing help : `help`
+## 1. Viewing help: `help`
 
-Displays a new window showing `UserGuide.md` as the help page.
+Displays a new window showing `UserGuide.md` as the help page.  
+
+**Format:** `help` or click "Help" on the menu bar.
 
 
-Format: `help`
-
-
-### Adding: `add`
+## 2. Adding: `add`
 
 Adds either:
   1. a person, or
   2. a new tag to an existing person.
 
-**Format:**
-**1. Adding a person:**
-  - `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+### 2.1 Adding a person
 
-_Tip: A person can have one or more details_
-_Tip: A person can have zero or more tags_
+**Format:** `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
+A person can have one or more details and zero or more tags.  
 The newly added person will be placed at the top of the contact list.
 
 **Examples:**
@@ -94,9 +91,8 @@ The newly added person will be placed at the top of the contact list.
 > `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`
 > `add n/Potter d/Phone, 49502583 t/cs2030`
 
-**2. Adding new tag to a person:**
-  - `add NAME t/NEWTAG`
-  - `add INDEX t/NEWTAG`
+### 2.2 Adding new tag to a person
+**Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
 _Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
 
@@ -105,100 +101,94 @@ _Tip: Specify the person that you want to add the tag to by using their full nam
 > `add John Doe t/friend`
 > `add 2 t/friend`
 
-### Copying a person : `copy`
+## 3. Copying the details of a person: `copy`
 
 **Format:** `copy NAME`
 
-Deletes the person with the specified NAME.
-NAME is insensitive (like find)
+Copies the details of the person with the specified NAME.
+Copy by name is case sensitive and must match the full name.
 
 **Examples:**
 
 > `copy David Li`
 > `copy Bernice Yu`
 
-### Listing all persons : `list`
+## 4. Listing all persons: `list`
 
 Shows a list of all persons in the address book.
 
-Format: `list`
+**Format:** `list`
 
-### Locating persons by name : `[find]`
+## 5. Find by keyword: `[find]`
 
 Finds persons with the given keywords.
 
-**Format:**  `[find] KEYWORD [MORE_KEYWORDS]`
+**Format:** `[find] KEYWORD [MORE_KEYWORDS]`
 
 If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.
 
-The keywords are compared to all fields of each person.
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
-The search is case-insensitive. e.g `hans` will match `Hans`.
-The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
+The keywords are compared to all fields of each person.  
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.  
+The search is case-insensitive. e.g `hans` will match `Hans`.  
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.  
 
 **Examples:**
 
-> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).
-> `a` does the same as above.
-> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
+> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).  
+> `a` does the same as above.  
+> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).  
 
-### Deletion : `delete`
+## 6. Deleting: `delete`
 
 Deletes either:
   1. a person, or
   2. a tag from an existing person.
 
-**Format:**
+### 6.1 Deleting Person
 
-**1. Deleting Person:** Deletes the person with the specified `NAME` or `INDEX`.
-- `delete NAME`
-- `delete INDEX`
+**Format:** `delete NAME` or `delete INDEX`
 
-_Tip: Deletion by name is case sensitive and must match the full name._
-_Tip: The index must be a positive integer 1, 2, 3, ..._
+Deletes the person with the specified `NAME` or `INDEX`.  
+Deletion by name is case sensitive and must match the full name.  
+INDEX must be a positive integer.
 
 **Examples:**
-> `delete 2` deletes the contact at index 2
-> `delete Alex Yeoh` deletes the contact `Alex Yeoh`
-> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
+> `delete 2` deletes the contact at index 2  
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh`  
+> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`  
 
-**2. Deleting Tag from a Person:** Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
-- `delete NAME t/TAG`
-- `delete INDEX t/TAG`
+### 6.2 Deleting Tag from a Person 
+**Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
+
+Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.  
 
 **Examples:**
 > `delete kaaviya t/friend`
 > `delete 1 t/colleague`
 
+## 7. Viewing a person: `view`
 
-### Viewing a person : `view`
-
-**Format:**
-`view INDEX`
+**Format:** `view INDEX`
 
 Views the contact details of the person with the selected index in the RHS window.
 
 **Examples:**
 
-`view 2`
+> `view 2`
 
-### Clearing all entries : `clear`
+## 8. Clearing all entries: `clear`
 
 Clears all entries from the address book.
 
-Format: `clear`
-
-### Exiting the program : `exit`
+## 9. Exiting the program: `exit`
 
 Exits the program.
 
-Format: `exit`
-
-### Saving the data
+## 10. Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+## 11. Editing the data file
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
