@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -42,18 +43,14 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
-     * @param positionInList must be either "head" or "tail".
      */
-    public void add(Person toAdd, String positionInList) {
+    public void add(Person toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
-        if (positionInList.equals("head")) {
-            internalList.add(0, toAdd);
-        } else if (positionInList.equals("tail")) {
-            internalList.add(toAdd);
-        }
+        internalList.add(toAdd);
+        internalList.sort(Comparator.comparing(p -> p.getName().fullName));
     }
 
     /**
