@@ -116,9 +116,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Sorts contacts according to the {@code comparator} given.
      * {@code comparator} must not be null.
      */
-    public SortedList<Person> sortPersons(Comparator<Person> comparator) {
+    public void sortPersons(Comparator<Person> comparator) {
         requireAllNonNull(comparator);
-        return persons.sortPersons(comparator);
+        this.setPersons(persons.sortPersons(comparator));
     }
 
     //// util methods

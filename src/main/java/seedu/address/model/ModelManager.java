@@ -141,7 +141,7 @@ public class ModelManager implements Model {
     @Override
     public void updateAndSortFilteredPersonList(Predicate<Person> predicate, Comparator<Person> comparator) {
         requireNonNull(comparator);
-        filteredPersons = new FilteredList<>(addressBook.sortPersons(comparator));
+        addressBook.sortPersons(comparator);
         filteredPersons.setPredicate(predicate);
     }
 
