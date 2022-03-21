@@ -50,7 +50,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
-        internalList.sort(Comparator.comparing(p -> p.getName().fullName));
+        internalList.sort((p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
     }
 
     /**
@@ -71,6 +71,7 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.set(index, editedPerson);
+        internalList.sort((p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
     }
 
     /**
