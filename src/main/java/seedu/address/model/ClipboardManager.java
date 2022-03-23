@@ -4,6 +4,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 public class ClipboardManager {
@@ -28,6 +29,15 @@ public class ClipboardManager {
         StringSelection strSel = new StringSelection(str);
         clipboard.setContents(strSel, null);
 
+    }
+
+    public void copy(Meeting toCopy) {
+        String str = toCopy.toString();
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = toolkit.getSystemClipboard();
+        StringSelection strSel = new StringSelection(str);
+        clipboard.setContents(strSel, null);
     }
 
 }

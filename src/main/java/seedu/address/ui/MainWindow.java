@@ -149,7 +149,6 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         contactDetailPanel = new ContactDetailPanel(logic.getContactDetails());
         contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
 

@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -7,8 +8,14 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.model.MeetingsTab;
 import seedu.address.model.ReadOnlyAddressBook;
 // import seedu.address.model.person.Address;
+import seedu.address.model.ReadOnlyMeetingsTab;
+import seedu.address.model.meeting.DateTime;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.MeetingName;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -56,6 +63,24 @@ public class SampleDataUtil {
             sampleAb.addPerson(samplePerson, "tail");
         }
         return sampleAb;
+    }
+
+    public static Meeting[] getSampleMeetings() {
+        return new Meeting[] {
+                new Meeting(new MeetingName("CS2103 Meeting"), new Link("https://wwww.zoom.sg"),
+                        new DateTime(LocalDateTime.of(2022, 10, 10, 18, 0),
+                                LocalDateTime.of(2022, 10, 10, 20, 0)), getTagSet("friends")),
+                new Meeting(new MeetingName("CS2106 Project Meeting"), new Link("https://wwww.zoom.sg"),
+                        new DateTime(LocalDateTime.of(2022, 9, 10, 13, 0),
+                                LocalDateTime.of(2022, 9, 12, 15, 0)), getTagSet("friends")),
+        };
+    }
+    public static ReadOnlyMeetingsTab getSampleMeetingsTab() {
+        MeetingsTab sampleMt = new MeetingsTab();
+        for (Meeting sampleMeeting : getSampleMeetings()) {
+            sampleMt.addMeeting(sampleMeeting, "tail");
+        }
+        return sampleMt;
     }
 
     /**

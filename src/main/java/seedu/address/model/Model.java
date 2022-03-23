@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**
@@ -13,6 +14,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -33,6 +37,8 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    //-----------------Address Book ----------------------------------------------------//
 
     /**
      * Returns the user prefs' address book file path.
@@ -105,5 +111,31 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateContactDetails(Predicate<Person> predicate);
+
+
+    //-----------------Meetings Tab ----------------------------------------------------//
+
+    Path getMeetingsTabFilePath();
+
+    void setMeetingsTabFilePath(Path meetingsTabFilePath);
+
+    void setMeetingsTab(ReadOnlyMeetingsTab meetingsTab);
+
+    ReadOnlyMeetingsTab getMeetingsTab();
+
+    void deleteMeeting(Meeting meeting);
+
+    void copyMeeting(Meeting meeting);
+
+    boolean hasMeeting(Meeting meeting);
+
+    void addMeeting(Meeting meeting);
+
+    void setMeeting(Meeting target, Meeting editedMeeting);
+
+    ObservableList<Meeting> getFilteredMeetingList();
+
+    void updateFilteredMeetingList(Predicate<Meeting> meeting);
+
 
 }

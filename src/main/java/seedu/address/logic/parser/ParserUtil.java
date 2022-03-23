@@ -2,15 +2,21 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.DateTime;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.MeetingName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -53,6 +59,16 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    public static MeetingName parseMeetingName(String name) throws ParseException {
+        requireNonNull(name);
+
+        String trimmedName = name.trim();
+        if (!MeetingName.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new MeetingName(trimmedName);
     }
 
     /**
@@ -198,5 +214,23 @@ public class ParserUtil {
         } else {
             return ParserUtil.parseName(args);
         }
+    }
+
+    public static DateTime parseDateTime(String startDateTime, String endDateTime) throws ParseException {
+        Pattern DATE_TIME_FORMAT = Pattern.compile("(\\d{4})/(0?[1-9]|1[0-2])/(0?[1-9]|[12]\\d|3[01]) ([01]?\\d|2[0-3])([0-5]?\\d)");
+        Matcher matcherStart = DATE_TIME_FORMAT.matcher(startDateTime.trim());
+        Matcher matcherEnd = DATE_TIME_FORMAT.matcher(endDateTime.trim());
+
+        LocalDateTime localStartDateTime = LocalDateTime.of(Integer.parseInt(matcherStart.group(1)), Integer.parseInt(matcherStart.group(2)),
+                Integer.parseInt(matcherStart.group(3)), Integer.parseInt(matcherStart.group(4)), Integer.parseInt(matcherStart.group(5)));
+
+        LocalDateTime localEndDateTime = LocalDateTime.of(Integer.parseInt(matcherEnd.group(1)), Integer.parseInt(matcherEnd.group(2)),
+                Integer.parseInt(matcherEnd.group(3)), Integer.parseInt(matcherEnd.group(4)), Integer.parseInt(matcherEnd.group(5)));
+
+        return new DateTime(localStartDateTime, localEndDateTime);
+    }
+
+    public static Link parseLink(String link) throws ParseException {
+        return new Link("");
     }
 }
