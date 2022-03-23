@@ -44,10 +44,13 @@ public class EditMeetingCommandParser {
         if (argMultimap.getValue(PREFIX_LINK).isPresent()) {
             editMeetingDescriptor.setLink(ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get()));
         }
-        if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent() &&
-                argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
-            editMeetingDescriptor.setDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get(),
-                    argMultimap.getValue(PREFIX_END_DATETIME).get()));
+        if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent() && argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
+            editMeetingDescriptor.setStartDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get()));
+            editMeetingDescriptor.setEndDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get()));
+        } else if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
+            editMeetingDescriptor.setStartDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get()));
+        } else if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
+            editMeetingDescriptor.setEndDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editMeetingDescriptor::setTags);

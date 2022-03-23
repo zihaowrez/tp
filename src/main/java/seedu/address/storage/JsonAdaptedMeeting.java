@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,9 +75,6 @@ class JsonAdaptedMeeting {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MeetingName.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(MeetingName.MESSAGE_CONSTRAINTS);
-        }
         final MeetingName modelName = new MeetingName(name);
 
         if (link == null) {
@@ -101,7 +99,10 @@ class JsonAdaptedMeeting {
             throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
         }
 
-        final DateTime modelDateTime = new DateTime(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+        final DateTime modelDateTime = new DateTime(LocalDateTime.parse(startDateTime, formatter),
+                LocalDateTime.parse(endDateTime, formatter));
 
         final Set<Tag> modelTags = new HashSet<>(meetingTags);
         return new Meeting(modelName, modelLink, modelDateTime, modelTags);

@@ -2,6 +2,7 @@ package seedu.address.model.meeting;
 
 import seedu.address.model.tag.Tag;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Set;
 
@@ -26,12 +27,33 @@ public class Meeting {
 
     public DateTime getDateTime() { return this.dateTime; }
 
+    public LocalDateTime getStartDateTime() { return this.dateTime.startDateTime; }
+
+    public LocalDateTime getEndDateTime() { return this.dateTime.endDateTime; }
+
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
     public boolean isSameMeeting(Meeting meeting) {
         return meeting.getName().equals(this.name) && meeting.getDateTime().equals(this.dateTime);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append("; Link: ")
+                .append(getLink())
+                .append("; Date and time: ")
+                .append(getDateTime());
+
+        Set<Tag> tags = getTags();
+        if (!tags.isEmpty()) {
+            builder.append("; Tags: ");
+            tags.forEach(builder::append);
+        }
+        return builder.toString();
     }
 
 }

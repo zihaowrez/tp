@@ -61,13 +61,9 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
-    public static MeetingName parseMeetingName(String name) throws ParseException {
+    public static MeetingName parseMeetingName(String name) {
         requireNonNull(name);
-
         String trimmedName = name.trim();
-        if (!MeetingName.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        }
         return new MeetingName(trimmedName);
     }
 
@@ -217,20 +213,39 @@ public class ParserUtil {
     }
 
     public static DateTime parseDateTime(String startDateTime, String endDateTime) throws ParseException {
-        Pattern DATE_TIME_FORMAT = Pattern.compile("(\\d{4})/(0?[1-9]|1[0-2])/(0?[1-9]|[12]\\d|3[01]) ([01]?\\d|2[0-3])([0-5]?\\d)");
+        Pattern DATE_TIME_FORMAT = Pattern.compile("(\\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\\d|3[01])\\s+([01]\\d|2[0-3])([0-5]?\\d)");
         Matcher matcherStart = DATE_TIME_FORMAT.matcher(startDateTime.trim());
         Matcher matcherEnd = DATE_TIME_FORMAT.matcher(endDateTime.trim());
 
+        matcherStart.find();
         LocalDateTime localStartDateTime = LocalDateTime.of(Integer.parseInt(matcherStart.group(1)), Integer.parseInt(matcherStart.group(2)),
                 Integer.parseInt(matcherStart.group(3)), Integer.parseInt(matcherStart.group(4)), Integer.parseInt(matcherStart.group(5)));
 
+        matcherEnd.find();
         LocalDateTime localEndDateTime = LocalDateTime.of(Integer.parseInt(matcherEnd.group(1)), Integer.parseInt(matcherEnd.group(2)),
                 Integer.parseInt(matcherEnd.group(3)), Integer.parseInt(matcherEnd.group(4)), Integer.parseInt(matcherEnd.group(5)));
 
+        if (localEndDateTime.isBefore(localStartDateTime)) {
+            throw new ParseException(DateTime.ENDDATETIME_AFTER_STARTDATETIME);
+        }
         return new DateTime(localStartDateTime, localEndDateTime);
     }
 
+    public static LocalDateTime parseDateTime(String dateTime) {
+        Pattern DATE_TIME_FORMAT = Pattern.compile("(\\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\\d|3[01])\\s+([01]\\d|2[0-3])([0-5]?\\d)");
+        Matcher matcherDateTime = DATE_TIME_FORMAT.matcher(dateTime.trim());
+
+        matcherDateTime.find();
+        return LocalDateTime.of(Integer.parseInt(matcherDateTime.group(1)), Integer.parseInt(matcherDateTime.group(2)),
+                Integer.parseInt(matcherDateTime.group(3)), Integer.parseInt(matcherDateTime.group(4)), Integer.parseInt(matcherDateTime.group(5)));
+    }
+
     public static Link parseLink(String link) throws ParseException {
-        return new Link("");
+        requireNonNull(link);
+        String trimmedLink = link.trim();
+        if (!Link.isValidLink(link)) {
+            throw new ParseException(Link.MESSAGE_CONSTRAINTS);
+        }
+        return new Link(trimmedLink);
     }
 }

@@ -18,7 +18,7 @@ public class Link {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    public static final String VALIDATION_REGEX = "^(https?|ftp|file)?(://)?[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     public final String link;
 
@@ -29,8 +29,14 @@ public class Link {
      */
     public Link(String link) {
         requireNonNull(link);
-        checkArgument(isValidLink(link), MESSAGE_CONSTRAINTS);
-        this.link = link;
+        checkArgument(isValidLink(link.trim()), MESSAGE_CONSTRAINTS);
+        StringBuilder updatedLink = new StringBuilder();
+        if (!link.contains("https://")) {
+            updatedLink.append("https://");
+        }
+        updatedLink.append(link);
+
+        this.link = updatedLink.toString();
     }
 
     /**

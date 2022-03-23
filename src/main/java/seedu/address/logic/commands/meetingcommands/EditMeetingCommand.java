@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -109,6 +110,8 @@ public class EditMeetingCommand extends Command {
         private MeetingName name;
         private Link link;
         private DateTime dateTime;
+        private LocalDateTime startDateTime;
+        private LocalDateTime endDateTime;
         private Set<Tag> tags;
 
         public EditMeetingDescriptor() {}
@@ -121,6 +124,8 @@ public class EditMeetingCommand extends Command {
             setName(toCopy.name);
             setLink(toCopy.link);
             setDateTime(toCopy.dateTime);
+            setStartDateTime(toCopy.startDateTime);
+            setEndDateTime(toCopy.endDateTime);
             setTags(toCopy.tags);
         }
 
@@ -128,7 +133,7 @@ public class EditMeetingCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, dateTime, tags);
+            return CollectionUtil.isAnyNonNull(name, link, dateTime, startDateTime, endDateTime, tags);
         }
 
         public void setName(MeetingName name) {
@@ -150,6 +155,14 @@ public class EditMeetingCommand extends Command {
         public void setDateTime(DateTime dateTime) {
             this.dateTime = dateTime;
         }
+
+        public void setStartDateTime(LocalDateTime startDateTime) { this.startDateTime = startDateTime; }
+
+        public void setEndDateTime(LocalDateTime endDateTime) { this.endDateTime = endDateTime; }
+
+        public Optional<LocalDateTime> getStartDateTime() { return Optional.ofNullable(this.startDateTime); }
+
+        public Optional<LocalDateTime> getEndDateTime() { return Optional.ofNullable(this.endDateTime); }
 
         public Optional<DateTime> getDateTime() {
             return Optional.ofNullable(dateTime);
@@ -181,7 +194,9 @@ public class EditMeetingCommand extends Command {
 
             MeetingName updatedName = editMeetingDescriptor.getName().orElse(meetingToEdit.getName());
             Link updatedLink = editMeetingDescriptor.getLink().orElse(meetingToEdit.getLink());
-            DateTime updatedDateTime = editMeetingDescriptor.getDateTime().orElse(meetingToEdit.getDateTime());
+            LocalDateTime updatedStartTime = editMeetingDescriptor.getStartDateTime().orElse(meetingToEdit.getStartDateTime());
+            LocalDateTime updatedEndTime = editMeetingDescriptor.getEndDateTime().orElse(meetingToEdit.getEndDateTime());
+            DateTime updatedDateTime = new DateTime(updatedStartTime, updatedEndTime);
             Set<Tag> updatedTags = editMeetingDescriptor.getTags().orElse(meetingToEdit.getTags());
 
             return new Meeting(updatedName, updatedLink, updatedDateTime, updatedTags);

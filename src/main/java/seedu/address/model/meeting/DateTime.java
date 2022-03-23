@@ -14,6 +14,8 @@ public class DateTime {
     public static final String MESSAGE_CONSTRAINTS =
             "DATE AND TIME SHOULD BE IN THE FORMAT YYYY-MM-DD HHmm";
 
+    public static final String ENDDATETIME_AFTER_STARTDATETIME =
+            "End Date/Time cannot be before Start Date/Time";
     /*
      * The year must have 4 characters, i.e. 2019
      * The month must have 2 characters, i.e. 01
@@ -21,7 +23,7 @@ public class DateTime {
      * The hour must have 2 characters, i.e. 18
      * The minute can have 1 to 2 characters, i.e. 0 or 30
      */
-    public static final String VALIDATION_REGEX = "(\\d{4})/(0?[1-9]|1[0-2])/(0?[1-9]|[12]\\d|3[01]) ([01]?\\d|2[0-3])([0-5]?\\d)";
+    public static final String VALIDATION_REGEX = "(\\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\\d|3[01]) ([01]?\\d|2[0-3])([0-5]?\\d)";
 
     public final LocalDateTime startDateTime;
     public final LocalDateTime endDateTime;
@@ -66,11 +68,16 @@ public class DateTime {
         if (startDateTime.toLocalDate().equals(endDateTime.toLocalDate())) {
             dateTimeString.append(this.startDateTime.toLocalDate());
             dateTimeString.append(" (");
-            dateTimeString.append(startDateTime.toLocalTime().toString() + " ");
+            dateTimeString.append(startDateTime.toLocalTime().toString() + "-");
             dateTimeString.append(endDateTime.toLocalTime().toString() + ")");
         } else {
-            dateTimeString.append(this.startDateTime);
-            dateTimeString.append(this.endDateTime);
+            dateTimeString.append(this.startDateTime.toLocalDate().toString());
+            dateTimeString.append(" ");
+            dateTimeString.append(this.startDateTime.toLocalTime().toString());
+            dateTimeString.append(" to ");
+            dateTimeString.append(this.endDateTime.toLocalDate().toString());
+            dateTimeString.append(" ");
+            dateTimeString.append(this.endDateTime.toLocalTime().toString());
         }
         return dateTimeString.toString();
     }
