@@ -7,6 +7,10 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -22,7 +26,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private FilteredList<Person> contactDetails;
+    private final SimpleObjectProperty<Person> currentlySelectedPersonProperty;
+    private final SimpleIntegerProperty selectionIndex;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,8 +40,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        contactDetails = new FilteredList<>(this.addressBook.getPersonList());
-        resetContactDetails();
+        this.currentlySelectedPersonProperty = new SimpleObjectProperty<Person>();
+        selectionIndex = new SimpleIntegerProperty();
     }
 
     public ModelManager() {
@@ -138,25 +143,26 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //============ Currently Selected Person Accessors ===================================================
+
     @Override
-    public ObservableList<Person> getContactDetails() {
-        return contactDetails;
+    public void updateSelectedPerson(Person newPerson) {
+        currentlySelectedPersonProperty.set(newPerson);
     }
 
     @Override
-    public void resetContactDetails() {
-        contactDetails.setPredicate(new Predicate<Person>() {
-            @Override
-            public boolean test(Person p) {
-                return false;
-            }
-        });
+    public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
+        return currentlySelectedPersonProperty;
     }
 
     @Override
-    public void updateContactDetails(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        contactDetails.setPredicate(predicate);
+    public ObservableIntegerValue getSelectedIndex() {
+        return selectionIndex;
+    }
+
+    @Override
+    public void updateSelectedIndex(Integer newIndex) {
+        selectionIndex.setValue(newIndex);
     }
 
     @Override
