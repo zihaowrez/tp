@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ContactDetailPanel contactDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TagPanel tagPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane tagPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -152,6 +156,9 @@ public class MainWindow extends UiPart<Stage> {
 
         contactDetailPanel = new ContactDetailPanel(logic.getContactDetails());
         contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
+
+        tagPanel = new TagPanel(logic.getFilteredTagList());
+        tagPanelPlaceholder.getChildren().add(tagPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

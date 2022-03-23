@@ -69,6 +69,11 @@ public class AddTagToPersonCommand extends AddCommand {
 
         model.setPerson(targetPerson, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (!model.hasTag(newTag)) {
+            model.addTag(newTag);
+        }
+
         return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, updatedPerson));
     }
 

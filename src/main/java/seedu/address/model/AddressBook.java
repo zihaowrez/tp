@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -48,12 +52,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the tag list with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     */
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setTags(newData.getTagList());
     }
 
     //// person-level operations
@@ -97,6 +110,48 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.copy(key);
     }
 
+    //// tag-level operations
+
+    /**
+     * Returns true if a tag with the same identity as {@code tag} exists in the address book.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.contains(tag);
+    }
+
+    /**
+     * Adds a tag to the address book.
+     * The tag must not already exist in the address book.
+     */
+    public void addTag(Tag t, String positionInList) {
+        tags.add(t, positionInList);
+    }
+
+    /**
+     * Replaces the given tag {@code target} in the list with {@code editedTag}.
+     * {@code target} must exist in the address book.
+     * The tag identity of {@code editedTag} must not be the same as another existing tag in the address book.
+     */
+    public void setTag(Tag target, Tag editedTag) {
+        requireNonNull(editedTag);
+
+        tags.setTag(target, editedTag);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTag(Tag key) {
+        tags.remove(key);
+    }
+
+    public void copyTag(Tag key) {
+        tags.copy(key);
+    }
+
+
     //// util methods
 
     @Override
@@ -108,6 +163,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     @Override
