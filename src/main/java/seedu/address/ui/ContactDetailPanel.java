@@ -25,7 +25,7 @@ public class ContactDetailPanel extends UiPart<Region> {
     private Pane panel;
 
     @FXML
-    private VBox emptyRHSPanelPlaceHolder;
+    private VBox emptyRhsPanelPlaceHolder;
 
     /**
      * Creates a {@code RightHandSidePanel} with the given {@code ObservableList}.
@@ -45,7 +45,7 @@ public class ContactDetailPanel extends UiPart<Region> {
 
     public void setPanel(Node childPanel) {
         Optional<Node> optionalChildPanel = Optional.of(childPanel);
-        logger.info(String.format("Setting RHS panel to: %s", optionalChildPanel.orElse(emptyRHSPanelPlaceHolder)));
-        panel.getChildren().setAll(optionalChildPanel.orElse(emptyRHSPanelPlaceHolder));
+        logger.info(String.format("Setting RHS panel to: %s", optionalChildPanel.orElse(emptyRhsPanelPlaceHolder)));
+        panel.getChildren().setAll(optionalChildPanel.orElse(emptyRhsPanelPlaceHolder));
     }
 }

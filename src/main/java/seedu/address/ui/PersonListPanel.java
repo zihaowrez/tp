@@ -26,7 +26,7 @@ public class PersonListPanel extends UiPart<Region> {
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
-     * 
+     *
      * @param rhsPanel The right-hand side panel instance to update on selection change
      */
     public PersonListPanel(Logic logic) {
