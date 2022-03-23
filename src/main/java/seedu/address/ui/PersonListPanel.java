@@ -54,10 +54,6 @@ public class PersonListPanel extends UiPart<Region> {
         logic.setObservableIndex((Integer) newIdx);
     }
 
-    public void changeSelectedPerson(int index) {
-        personListView.getSelectionModel().clearAndSelect(index);
-    }
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
