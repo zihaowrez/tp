@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
@@ -139,10 +138,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateAndSortFilteredPersonList(Predicate<Person> predicate, Comparator<Person> comparator) {
+    public void sortFilteredPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
         addressBook.sortPersons(comparator);
-        filteredPersons.setPredicate(predicate);
     }
 
     @Override

@@ -8,8 +8,8 @@ import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.model.person.PersonKeywordMatchnessComparator;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all persons in the contacts' list who matches any of the argument keywords.
+ * Results are sorted according to the {@code comparator}.
  */
 public class FindCommand extends Command {
 
@@ -31,7 +31,8 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateAndSortFilteredPersonList(predicate, comparator);
+        model.updateFilteredPersonList(predicate);
+        model.sortFilteredPersonList(comparator);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }

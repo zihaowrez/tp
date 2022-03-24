@@ -10,13 +10,17 @@ import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.model.person.PersonKeywordMatchnessComparator;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new {@code FindCommand} object
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the {@code FindCommand}
+     * and returns a {@code FindCommand} object for execution.
+     *
+     * The {@code PersonContainsKeywordsPredicate} and {@code PersonKeywordMatchnessComparator}
+     * are used as the conditions.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
