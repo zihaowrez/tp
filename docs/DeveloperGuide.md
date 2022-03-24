@@ -154,6 +154,46 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Selecting targets by name or index
+
+uMessage allows users to perform certain indexed-based operations by specifying the index of the contact in the addressbook. However, it is noted that users may find referring to the contact **by name** to be more natural, and hence uMessage also exposes certain indexed based operations to work with names as well. Some examples of indexed-based operations include:
+
+- Adding/removing new tags from a particular person in the list.
+- Deleting a person from the list.
+- Adding/removing new social media information from a person in the list.
+
+The syntax of these commands are typically:
+`command_word INDEX relevant_options` or `command_word NAME_OF_PERSON relevant_options`. 
+
+Thus for each operation, there is usually a index-based version and a name-based version. However, this will become unwieldy overtime as we would have to make two versions of the same command. In both cases, we *target* a `Person` in the `filteredList` exposed by `ModelManager` by specifying their `name` or `index`.
+
+This idea of a targeting some Person in the addressbook list is thus encapsulated in an abstract `Target` class. Within the `Target` class, we have nested, private subclasses that implement the abstract methods declared in the `Target` class:
+
+![UndoRedoState0](images/TargetClass.png)
+
+To instantiate these concrete classes, `Target` provides overloaded factory methods that will return the appropriate subtype of `Target` casted as Target at compile time. The developer will need to invoke the correct factory method by passing in the correct type at compile time:
+
+```java
+public static Target of(Name target, List<Person> persons) {
+    return new NamedTarget(target, persons);
+}
+
+public static Target of(Index target, List<Person> persons) {
+    return new IndexedTarget(target, persons);
+}
+```
+
+
+The abstract method declarations in `Target` dictate the API of the `Target` class, which currently only includes:
+
+```java
+/** Returns the {@code Person} that is targetted */
+public abstract Person targetPerson() throws CommandException;
+```
+
+
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
