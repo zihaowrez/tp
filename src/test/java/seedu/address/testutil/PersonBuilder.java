@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 // import seedu.address.model.person.Address;
@@ -25,8 +27,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    // private Address address;
-    private Set<SocialMedia> socials;
+    private List<SocialMedia> socials;
     private Set<Tag> tags;
 
     /**
@@ -37,7 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         // address = new Address(DEFAULT_ADDRESS);
-        socials = new HashSet<>();
+        socials = new ArrayList<>();
         tags = new HashSet<>();
     }
 
@@ -49,7 +50,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         // address = personToCopy.getAddress();
-        socials = new HashSet<>(personToCopy.getSocialMedias());
+        socials = new ArrayList<>(personToCopy.getSocialMedias());
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -68,14 +69,6 @@ public class PersonBuilder {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
-
-    // /**
-    //  * Sets the {@code Address} of the {@code Person} that we are building.
-    //  */
-    // public PersonBuilder withAddress(String address) {
-    //     this.address = new Address(address);
-    //     return this;
-    // }
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
@@ -61,7 +62,7 @@ public class PersonUtil {
         }
 
         if (descriptor.getSocials().isPresent()) {
-            Set<SocialMedia> socials = descriptor.getSocials().get();
+            List<SocialMedia> socials = descriptor.getSocials().get();
             if (socials.isEmpty()) {
                 sb.append(PREFIX_SOCIAL_MEDIA).append(" ");
             } else {

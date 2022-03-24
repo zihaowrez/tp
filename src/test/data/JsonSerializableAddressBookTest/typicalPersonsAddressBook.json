@@ -13,11 +13,11 @@
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "socialMedias" : [ {
-      "platformName" : "Slack",
-      "platformDescription" : "Benson Meier"
-    }, {
       "platformName" : "Tinder",
       "platformDescription" : "bennybenben"
+    }, {
+      "platformName" : "Slack",
+      "platformDescription" : "Benson Meier"
     } ],
     "tagged" : [ "owesMoney", "friends" ]
   }, {

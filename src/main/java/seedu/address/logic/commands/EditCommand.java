@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -113,7 +114,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Set<Tag> tags;
-        private Set<SocialMedia> socials;
+        private List<SocialMedia> socials;
 
         public EditPersonDescriptor() {}
 
@@ -182,17 +183,17 @@ public class EditCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setSocials(Set<SocialMedia> socials) {
-            this.socials = (socials != null) ? new HashSet<>(socials) : null;
+        public void setSocials(List<SocialMedia> socials) {
+            this.socials = (socials != null) ? new ArrayList<>(socials) : null;
         }
 
         /**
-         * Returns an unmodifiable social media set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable social media list, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code socials} is null.
          */
-        public Optional<Set<SocialMedia>> getSocials() {
-            return (socials != null) ? Optional.of(Collections.unmodifiableSet(socials)) : Optional.empty();
+        public Optional<List<SocialMedia>> getSocials() {
+            return (socials != null) ? Optional.of(Collections.unmodifiableList(socials)) : Optional.empty();
         }
 
         /**
@@ -206,7 +207,7 @@ public class EditCommand extends Command {
             Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
             Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
             Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-            Set<SocialMedia> updatedSocials = editPersonDescriptor.getSocials().orElse(personToEdit.getSocialMedias());
+            List<SocialMedia> updatedSocials = editPersonDescriptor.getSocials().orElse(personToEdit.getSocialMedias());
 
             return new Person(updatedName, updatedPhone, updatedEmail, updatedSocials, updatedTags);
         }

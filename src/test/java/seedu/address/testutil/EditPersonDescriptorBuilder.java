@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -80,7 +81,7 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withSocials(String... socials) {
-        Set<SocialMedia> socialsSet = Stream.of(socials)
+        List<SocialMedia> socialsList = Stream.of(socials)
             .map(str -> {
                 try {
                     return ParserUtil.parseSocialMedia(str);
@@ -89,8 +90,8 @@ public class EditPersonDescriptorBuilder {
                 }
             })
             .filter(Objects::nonNull)
-            .collect(Collectors.toSet());
-        descriptor.setSocials(socialsSet);
+            .collect(Collectors.toList());
+        descriptor.setSocials(socialsList);
         return this;
     }
 

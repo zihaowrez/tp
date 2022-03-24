@@ -83,7 +83,7 @@ public class DeletePersonsTagCommand extends DeleteCommand {
         Name name = personToEdit.getName();
         Phone phone = personToEdit.getPhone();
         Email email = personToEdit.getEmail();
-        Set<SocialMedia> socialMedias = personToEdit.getSocialMedias();
+        List<SocialMedia> socialMedias = personToEdit.getSocialMedias();
 
         return new Person(name, phone, email, socialMedias, updatedTags);
     }
