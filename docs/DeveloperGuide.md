@@ -169,7 +169,7 @@ Thus for each operation, there is usually a index-based version and a name-based
 
 This idea of a targeting some Person in the addressbook list is thus encapsulated in an abstract `Target` class. Within the `Target` class, we have nested, private subclasses that implement the abstract methods declared in the `Target` class:
 
-![UndoRedoState0](images/TargetClass.png)
+![Target Class Diagram](images/TargetClass.png)
 
 To instantiate these concrete classes, `Target` provides overloaded factory methods that will return the appropriate subtype of `Target` casted as Target at compile time. The developer will need to invoke the correct factory method by passing in the correct type at compile time:
 
@@ -191,6 +191,7 @@ The abstract method declarations in `Target` dictate the API of the `Target` cla
 public abstract Person targetPerson() throws CommandException;
 ```
 
+### Selecting Users via UI
 
 
 
