@@ -12,6 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Tab?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="uMessage" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -24,53 +27,99 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+      <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+        <Menu mnemonicParsing="false" text="File">
+          <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+        </Menu>
+        <Menu fx:id="helpMenu" mnemonicParsing="false">
+          <graphic>
+            <Label onMouseClicked="#handleHelp" text="Help" />
+          </graphic>
+        </Menu>
+      </MenuBar>
 
-          </Menu>
-          <Menu fx:id="helpMenu" mnemonicParsing="false" onAction="#handleHelp" >
-            <graphic>
-              <Label text="Help" onMouseClicked="#handleHelp"/>
-            </graphic>
-          </Menu>
+      <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
 
-        </MenuBar>
+        <Tab fx:id="contactsTab" text="Contacts">
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+          <VBox>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
 
-        <SplitPane VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                       minHeight="100" prefHeight="100" maxHeight="100">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+
+            <SplitPane VBox.vgrow="ALWAYS">
+              <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                <padding>
+                  <Insets top="10" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+
+              <VBox fx:id="contactDetail" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                <padding>
+                  <Insets top="10" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="contactDetailPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+            </SplitPane>
+
+            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+
           </VBox>
 
-          <VBox fx:id="contactDetail" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        </Tab>
+
+        <Tab fx:id="meetingsTab" text="Meetings">
+
+          <StackPane VBox.vgrow="NEVER" fx:id="meetingsCommandBoxPlaceholder" styleClass="pane-with-border">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="5" right="10" bottom="5" left="10" />
             </padding>
-            <StackPane fx:id="contactDetailPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          </StackPane>
 
+          <StackPane VBox.vgrow="NEVER" fx:id="meetingsResultDisplayPlaceholder" styleClass="pane-with-border"
+                     minHeight="100" prefHeight="100" maxHeight="100">
+            <padding>
+              <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+          </StackPane>
 
-        </SplitPane>
+          <SplitPane VBox.vgrow="ALWAYS">
+            <VBox fx:id="meetingList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
+            <VBox fx:id="meetingDetail" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="meetingDetailPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+          </SplitPane>
+
+          <StackPane fx:id="meetingsStatusbarPlaceholder" VBox.vgrow="NEVER" />
+
+        </Tab>
+
+        <Tab fx:id="helpTab" text="Help">
+
+        </Tab>
+
+      </TabPane>
     </Scene>
   </scene>
 </fx:root>
