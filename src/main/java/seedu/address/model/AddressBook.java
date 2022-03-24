@@ -102,15 +102,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Filters contacts according to the {@code predicate} given.
-     * {@code predicate} must not be null.
-     */
-    public FilteredList<Person> filterPersons(Predicate<Person> predicate) {
-        requireAllNonNull(predicate);
-        return persons.filterPersons(predicate);
-    }
-
-    /**
      * Sorts contacts according to the {@code comparator} given.
      * {@code comparator} must not be null.
      */
