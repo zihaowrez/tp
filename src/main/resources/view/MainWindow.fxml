@@ -3,17 +3,19 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<?import javafx.scene.control.Label?>
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -24,46 +26,55 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+      <VBox style="-fx-background-color: #ededed;">
+            <HBox prefHeight="0.0" prefWidth="691.0">
+               <children>
+              <MenuBar fx:id="menuBar" prefHeight="32.0" prefWidth="900.0">
+                <Menu mnemonicParsing="false" text="File">
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+      
+                </Menu>
+                <Menu fx:id="helpMenu" mnemonicParsing="false" onAction="#handleHelp">
+                  <graphic>
+                    <Label onMouseClicked="#handleHelp" text="Help" />
+                  </graphic>
+                </Menu>
+              </MenuBar>
 
-          </Menu>
-          <Menu fx:id="helpMenu" mnemonicParsing="false" onAction="#handleHelp" >
-            <graphic>
-              <Label text="Help" onMouseClicked="#handleHelp"/>
-            </graphic>
-          </Menu>
+                 <ImageView fx:id="imageView" fitHeight="32.0" fitWidth="200.0" layoutX="61.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                     <Image url="@../../../../docs/images/uMessageLogo.png" />
+                   </image>
+                 </ImageView>
 
-        </MenuBar>
+               </children>
+            </HBox>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="commandBoxPlaceholder" style="-fx-background-color: #ededed#ededed;" styleClass="stack-pane" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" style="-fx-background-color: #ededed#ededed;" styleClass="stack-pane" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <SplitPane VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <SplitPane dividerPositions="0.5" style="-fx-background-color: #ededed;" VBox.vgrow="ALWAYS">
+          <VBox fx:id="personList" minWidth="340" prefWidth="340" style="-fx-background-color: #ededed#ededed;" styleClass="stack-pane" VBox.vgrow="ALWAYS">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
-          <VBox fx:id="contactDetail" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+          <VBox fx:id="contactDetail" minWidth="340" prefWidth="340" style="-fx-background-color: #ededed;" styleClass="stack-pane" VBox.vgrow="ALWAYS">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="contactDetailPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="contactDetailPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
 
