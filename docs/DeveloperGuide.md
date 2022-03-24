@@ -171,7 +171,7 @@ This idea of a targeting some Person in the addressbook list is thus encapsulate
 
 ![Target Class Diagram](images/TargetClass.png)
 
-To instantiate these concrete classes, `Target` provides overloaded factory methods that will return the appropriate subtype of `Target` casted as Target at compile time. The developer will need to invoke the correct factory method by passing in the correct type at compile time:
+To instantiate these concrete classes, `Target` provides an overloaded factory method `Target::of`, that will return one of the two subtypes of `Target` casted as `Target` at compile time. 
 
 ```java
 public static Target of(Name target, List<Person> persons) {
@@ -183,8 +183,26 @@ public static Target of(Index target, List<Person> persons) {
 }
 ```
 
+The developer will need to invoke the correct factory method by passing in the correct type (either `Name` or `Index`) at compile time. To do so, the command using the Target class will need to perform `instanceof` checks in the constructor. The following is an example from `DeletePersonsTagCommand`
 
-The abstract method declarations in `Target` dictate the API of the `Target` class, which currently only includes:
+```java
+public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
+    assert target instanceof Name || target instanceof Index;
+
+    this.tagToDelete = tagToDelete;
+
+    if (target instanceof Name) {
+        this.target = Target.of((Name) target, null);
+    } else if (target instanceof Index) {
+        this.target = Target.of((Index) target, null);
+    } else {
+        this.target = null;
+    }
+}
+```
+
+
+The abstract method declarations in `Target` dictates the API of the `Target` class, which currently only includes:
 
 ```java
 /** Returns the {@code Person} that is targetted */
