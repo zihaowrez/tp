@@ -6,11 +6,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.logging.Filter;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 

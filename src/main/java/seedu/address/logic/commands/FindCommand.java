@@ -28,6 +28,11 @@ public class FindCommand extends Command {
         this.comparator = comparator;
     }
 
+    /**
+     * Finds and lists all persons in the contacts' list who matches any of the argument keywords.
+     * Results are sorted according to the {@code comparator}.
+     * @param model {@code Model} which the command should operate on.
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
