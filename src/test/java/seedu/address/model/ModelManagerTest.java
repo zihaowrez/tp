@@ -98,6 +98,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
+        MeetingsTab meetingsTab = new MeetingsTabBuilder().
 
         // same values -> returns true
         modelManager = new ModelManager(addressBook, userPrefs);
