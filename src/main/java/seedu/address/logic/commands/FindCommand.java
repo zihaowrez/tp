@@ -23,6 +23,9 @@ public class FindCommand extends Command {
     private final PersonContainsKeywordsPredicate predicate;
     private final PersonKeywordMatchnessComparator comparator;
 
+    /**
+     * Constructor for the {@code FindCommand} object.
+     */
     public FindCommand(PersonContainsKeywordsPredicate predicate, PersonKeywordMatchnessComparator comparator) {
         this.predicate = predicate;
         this.comparator = comparator;
@@ -42,10 +45,15 @@ public class FindCommand extends Command {
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 
+    /**
+     * Checks whether a {@code FindCommand} is the same as another {@code FindCommand}.
+     * They must have the same {@code predicate} and the same {@code comparator} in order to be the same.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && predicate.equals(((FindCommand) other).predicate)
+                && comparator.equals(((FindCommand) other).comparator)); // state check
     }
 }

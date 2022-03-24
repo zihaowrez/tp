@@ -87,4 +87,14 @@ public class PersonKeywordMatchnessComparator implements Comparator<Person> {
         return matchness;
     }
 
+    /**
+     * Checks whether this {@code PersonKeywordMatchnessComparator} equals another object.
+     */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonKeywordMatchnessComparator // instanceof handles nulls
+                && keywords.equals(((PersonKeywordMatchnessComparator) other).keywords)); // state check
+    }
+
 }
