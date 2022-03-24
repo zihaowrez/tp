@@ -41,7 +41,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a person to the list while maintaining alphabetical order.
      * The person must not already exist in the list.
      */
     public void add(Person toAdd) {
@@ -54,7 +54,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the person {@code target} in the list with {@code editedPerson} while maintaining alphabetical order.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
