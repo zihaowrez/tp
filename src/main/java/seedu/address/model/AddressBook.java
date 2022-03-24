@@ -101,15 +101,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.copy(key);
     }
 
-    /**
-     * Sorts contacts according to the {@code comparator} given.
-     * {@code comparator} must not be null.
-     */
-    public void sortPersons(Comparator<Person> comparator) {
-        requireAllNonNull(comparator);
-        this.setPersons(persons.sortPersons(comparator));
-    }
-
     //// util methods
 
     @Override

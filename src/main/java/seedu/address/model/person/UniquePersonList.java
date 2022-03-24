@@ -123,15 +123,6 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Sorts this list according to the {@code comparator} given.
-     * {@code comparator} must not be null.
-     */
-    public SortedList<Person> sortPersons(Comparator<Person> comparator) {
-        requireAllNonNull(comparator);
-        return internalList.sorted(comparator);
-    }
-
-    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
