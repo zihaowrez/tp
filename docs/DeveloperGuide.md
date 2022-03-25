@@ -322,6 +322,35 @@ list of commands: “add”, “delete”, “list”, “find”, “view”, �
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Copy feature
+
+#### Implementation
+The copy mechanism is facilitated by `ClipboardManager`. It implements the following operation of copying the `Person` to the clipboard.
+
+These operations are exposed in the `Model` interface as `Model#copyPerson()`.
+
+Given below is an example usage scenario and how the copy mechanism behaves.
+
+Step 1. The user launches the application.
+
+Step 2. The user call the inputs copy [PERSON]
+
+Step 3. The `CopyCommandParser` implements `Parser<CopyCommand>` parses the command and initalizes the CopyCommand with the name of the [PERSON]
+
+Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is called from the model.
+
+#### Design Considerations:
+**Aspect: Ease of copying data from uMessage:**
+
+* **Alternative 1 (current choice):** Saves the entire contact book.
+    * Pros: Easy to implement.
+    * Cons: User may have to manually delete unwanted information from the contact.
+
+* **Alternative 2:** Individual copy command to copy individual information stored in the contact
+    * Pros: Will be easier for the user to copy information needed.
+    * Cons: There must be an additional input from the user after the `copy` command with the field name.
+
+_{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -443,6 +472,24 @@ Use case ends
 * 1b. User deletes all keywords
     * 1b1. uMessage displays the full list
     * 1b2. Use case resumes at step 1
+
+### Use case 4: Copies a contact
+
+**MSS**
+1. User types in the command to copy a contact from the list
+
+2. uMessage copies the specified contact to the clipboard in the list and displays the same in the `resultDisplay`.
+
+**Extensions**
+* 1a. User does not enter a case-sensitive contact within the contact list.
+    * 1a1. uMessage shows an error
+
+Use case resumes at step 1
+
+* 1b. User enters an index
+    * 1b1. uMessage shows an error
+   
+Use case resumes at step 1
 
 ### Non-Functional Requirements
 
