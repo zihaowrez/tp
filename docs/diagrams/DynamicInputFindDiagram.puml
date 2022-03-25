@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant “:CommandBox” as CommandBox LOGIC_COLOR
+participant “:MainWindow” as MainWindow LOGIC_COLOR
+participant “:LogicManager” as LogicManager LOGIC_COLOR
+participant “:AddressBookParser” as AddressBookParser LOGIC_COLOR
+participant “:FindCommandParser” as FindCommandParser LOGIC_COLOR
+end box
+
+[-> CommandBox : handleDynamicInput()
+activate CommandBox
+
+CommandBox -> MainWindow : executeCommand(“dynamic Alex”, commandBox)
+activate MainWindow
+
+MainWindow -> LogicManager : execute(“dynamic Alex”, commandBox)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(“dynamic Alex”, commandBox)
+activate AddressBookParser
+
+create FindCommandParser
+AddressBookParser -> FindCommandParser
+activate FindCommandParser
+
+FindCommandParser -> AddressBookParser
+deactivate FindCommandParser
+
+AddressBookParser -> FindCommandParser : parse(“Alex)
+activate FindCommandParser
+
+FindCommandParser -> AddressBookParser
+deactivate FindCommandParser
+
+AddressBookParser -> LogicManager
+deactivate AddressBookParser
+
+LogicManager -> MainWindow
+deactivate LogicManager
+
+MainWindow -> CommandBox
+deactivate MainWindow
+
+[<-- CommandBox
+deactivate CommandBox
+@enduml

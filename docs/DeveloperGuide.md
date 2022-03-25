@@ -251,6 +251,8 @@ subsequently AddressBookParser#parseCommand and FindCommand#parse(arguments).
 The above is assuming that the user inputs a string not included in the
 list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”.
 
+![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
+
 #### Alternatives considered
 * **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
     * Pros: No changes needed.
