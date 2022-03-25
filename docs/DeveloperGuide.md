@@ -491,6 +491,20 @@ Use case resumes at step 1
    
 Use case resumes at step 1
 
+### Use case 5: View Contact
+
+**MSS**
+1. User types command to view a specific contact from the contact list
+2. uMessage displays the specific contact and all of its details in the RHS Window.
+
+Use case ends
+
+**Extensions**
+* 1a. Incorrect syntax is used
+    * 1a1. uMessage displays an error message
+    * 1a2. Use case resumes at step 1
+
+
 ### Non-Functional Requirements
 
 Technical:
