@@ -40,24 +40,20 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a person to the list while maintaining alphabetical order.
      * The person must not already exist in the list.
-     * @param positionInList must be either "head" or "tail".
      */
-    public void add(Person toAdd, String positionInList) {
+    public void add(Person toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
-        if (positionInList.equals("head")) {
-            internalList.add(0, toAdd);
-        } else if (positionInList.equals("tail")) {
-            internalList.add(toAdd);
-        }
+        internalList.add(toAdd);
+        internalList.sort((p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the person {@code target} in the list with {@code editedPerson} while maintaining alphabetical order.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
@@ -74,6 +70,7 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.set(index, editedPerson);
+        internalList.sort((p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
     }
 
     /**

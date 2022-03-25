@@ -28,14 +28,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        int expectedSize = expectedModel.getFilteredPersonList().size();
+        int expectedSize = expectedModel.getSortedAndFilteredPersonList().size();
         assertCommandSuccess(new ListCommand(), model, expectedSize + ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        int expectedSize = expectedModel.getFilteredPersonList().size();
+        int expectedSize = expectedModel.getSortedAndFilteredPersonList().size();
         assertCommandSuccess(new ListCommand(), model, expectedSize + ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
