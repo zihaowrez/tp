@@ -24,7 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final SortedList<Person> sortedPersons;
+    private final SortedList<Person> sortedAndFilteredPersons;
     private FilteredList<Person> contactDetails;
 
     /**
@@ -40,7 +40,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         contactDetails = new FilteredList<>(this.addressBook.getPersonList());
         resetContactDetails();
-        sortedPersons = filteredPersons.sorted();
+        sortedAndFilteredPersons = filteredPersons.sorted();
     }
 
     public ModelManager() {
@@ -129,8 +129,8 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return sortedPersons;
+    public ObservableList<Person> getSortedAndFilteredPersonList() {
+        return sortedAndFilteredPersons;
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ModelManager implements Model {
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
-        sortedPersons.setComparator(comparator);
+        sortedAndFilteredPersons.setComparator(comparator);
     }
 
     @Override
