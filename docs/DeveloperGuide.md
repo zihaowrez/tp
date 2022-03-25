@@ -331,14 +331,14 @@ Use case ends
     * 1a1. uMessage displays an error message
     * 1a2. Use case resumes at step 1
 
-### Use case 2: Deletes a contact
+### Use case 2: Delete a contact
 
 **MSS**
 1. User types in the command to delete a contact from the list
 2. uMessage removes the specified contact in the list and displays the updated list to the user
 
 **Extensions**
-* 1a. User enters an invalid syntax or an index greater than the size of the list
+* 1a. User enters an invalid syntax / a target index greater than the size of the list / a non-existing target name
     * 1a1. uMessage shows an error
     * 1a2. Use case resumes at step 1
 
