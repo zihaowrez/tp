@@ -4,10 +4,10 @@
 
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.HBox?>
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-           xmlns:fx="http://javafx.com/fxml/1">
-    <HBox spacing="5" alignment="CENTER_LEFT">
-        <FlowPane fx:id="tags" />
-    </HBox>
+<?import javafx.scene.control.ListView?>
 
-</StackPane>
+
+<?import javafx.scene.control.ListCell?>
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <ListCell fx:id="tagView" HBox.hgrow="ALWAYS" ></ListCell>
+</HBox>
