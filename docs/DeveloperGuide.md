@@ -246,10 +246,10 @@ CLI and calls MainWindow#executeCommand. It passes the command inputted by the u
 string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
 
 The user input and instance of commandBox object is then passed to LogicManager#execute and
-subsequently AddressBookParser#parseCommand and FindCommand#parse(arguments).
+subsequently AddressBookParser#parseCommand and FindCommandParser#parse(arguments).
 
 The above is assuming that the user inputs a string not included in the
-list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”.
+list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy".
 
 ![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
 
