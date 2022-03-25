@@ -238,6 +238,35 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Copy feature
+
+#### Implementation
+The copy mechanism is facilitated by `ClipboardManager`. It implements the following operation of copying the `Person` to the clipboard.
+
+These operations are exposed in the `Model` interface as `Model#copyPerson()`.
+
+Given below is an example usage scenario and how the copy mechanism behaves.
+
+Step 1. The user launches the application.
+
+Step 2. The user call the inputs copy [PERSON]
+
+Step 3. The `CopyCommandParser` implements `Parser<CopyCommand>` parses the command and initalizes the CopyCommand with the name of the [PERSON]
+
+Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is called from the model.
+
+#### Design Considerations:
+**Aspect: Ease of copying data from uMessage:**
+
+* **Alternative 1 (current choice):** Saves the entire contact book.
+    * Pros: Easy to implement.
+    * Cons: User may have to manually delete unwanted information from the contact.
+
+* **Alternative 2:** Individual copy command to copy individual information stored in the contact
+    * Pros: Will be easier for the user to copy information needed.
+    * Cons: There must be an additional input from the user after the `copy` command with the field name.
+
+_{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
