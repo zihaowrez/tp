@@ -28,7 +28,7 @@ activate FindCommandParser
 FindCommandParser -> AddressBookParser
 deactivate FindCommandParser
 
-AddressBookParser -> FindCommandParser : parse(“Alex)
+AddressBookParser -> FindCommandParser : parse(“Alex")
 activate FindCommandParser
 
 FindCommandParser -> AddressBookParser
