@@ -375,6 +375,24 @@ Use case resumes at step 1
 
 Use case resumes at step 2
 
+### Use case 4: Copies a contact
+
+**MSS**
+1. User types in the command to copy a contact from the list
+
+2. uMessage copies the specified contact to the clipboard in the list and displays the same in the `resultDisplay`.
+
+**Extensions**
+* 1a. User does not enter a case-sensitive contact within the contact list.
+    * 1a1. uMessage shows an error
+
+Use case resumes at step 1
+
+* 1b. User enters an index
+    * 1b1. uMessage shows an error
+   
+Use case resumes at step 1
+
 ### Non-Functional Requirements
 
 Technical:
