@@ -251,6 +251,11 @@ subsequently AddressBookParser#parseCommand and FindCommand#parse(arguments).
 The above is assuming that the user inputs a string not included in the
 list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”.
 
+#### Alternatives considered
+* **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
+    * Pros: No changes needed.
+    * Cons: May have performance issues in terms of responsiveness.
+
 
 ### \[Proposed\] Data archiving
 
