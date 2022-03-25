@@ -329,51 +329,36 @@ Use case ends
 **Extensions**
 * 1a. Incorrect syntax is used
     * 1a1. uMessage displays an error message
+    * 1a2. Use case resumes at step 1
 
-Use case resumes at step 1
-
-### Use case 2: Deletes a contact
+### Use case 2: Delete a contact
 
 **MSS**
 1. User types in the command to delete a contact from the list
+2. uMessage removes the specified contact in the list and displays the updated list to the user
 
-2. If there are multiple users with the same name in the list, uMessage will display a list of relevant contacts and prompt the user to select by entering a valid index
-
-3. uMessage removes the specified contact in the list and displays the updated version to the user
+Use case ends
 
 **Extensions**
-* 1a. User enters an invalid syntax
+* 1a. User enters an invalid syntax / a target index greater than the size of the list / a non-existing target name
     * 1a1. uMessage shows an error
-
-Use case resumes at step 1
-
-* 1b. User enters an invalid index (if there are multiple occurrences)
-    * 1b1. uMessage shows an error
-
-Use case resumes at step 2
+    * 1a2. Use case resumes at step 1
 
 ### Use case 3: Find Contact
 
 **MSS**
-1. User types in the command to find a contact
-2. If the person specified has multiple occurrences, uMessage will show a list of contacts and prompt the user to choose based on the index
-3. uMessage will display the details of that contact
+1. User types keyword(s) in the searchbar
+2. uMessage updates the contact list to display matching contacts
+
+Use case ends
 
 **Extensions**
-* 1a. If the user enters a wrong syntax
-    * 1a1. uMessage will display an error
+* 1a. The first word the user types is a command word
+    * 1a1. uMessage displays the full list
 
-Use case resumes at step 1
-
-* 1b. If the user enters a person not present inside the contact list
-    * 1b1. uMessage will display “no such person exists”
-
-Use case resumes at step 1
-
-* 1c. User enters a person with multiple occurrences and proceeds to enter an invalid index or a non-integer input
-    * 1c1. uMessage will display an error
-
-Use case resumes at step 2
+* 1b. User deletes all keywords
+    * 1b1. uMessage displays the full list
+    * 1b2. Use case resumes at step 1
 
 ### Non-Functional Requirements
 
