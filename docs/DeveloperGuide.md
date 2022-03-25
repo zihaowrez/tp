@@ -337,6 +337,8 @@ Use case ends
 1. User types in the command to delete a contact from the list
 2. uMessage removes the specified contact in the list and displays the updated list to the user
 
+Use case ends
+
 **Extensions**
 * 1a. User enters an invalid syntax / a target index greater than the size of the list / a non-existing target name
     * 1a1. uMessage shows an error
@@ -347,6 +349,8 @@ Use case ends
 **MSS**
 1. User types keyword(s) in the searchbar
 2. uMessage updates the contact list to display matching contacts
+
+Use case ends
 
 **Extensions**
 * 1a. The first word the user types is a command word
