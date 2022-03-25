@@ -234,6 +234,31 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### [Implemented] Dynamic Command Text Field
+
+#### Implementation
+
+Implementation
+This implementation involves enabling the CommandText Field to read input as it is typed in
+the Command Line Interface (CLI). In the CommandBox.java, a listener function named
+handleDynamicInput(), reads the user input at each deletion or addition of the command in the
+CLI and calls MainWindow#executeCommand. It passes the command inputted by the user with the
+string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
+
+The user input and instance of commandBox object is then passed to LogicManager#execute and
+subsequently AddressBookParser#parseCommand and FindCommandParser#parse(arguments).
+
+The above is assuming that the user inputs a string not included in the
+list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy".
+
+![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
+
+#### Alternatives considered
+* **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
+    * Pros: No changes needed.
+    * Cons: May have performance issues in terms of responsiveness.
+
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
