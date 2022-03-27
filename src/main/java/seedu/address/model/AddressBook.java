@@ -70,8 +70,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p, String positionInList) {
-        persons.add(p, positionInList);
+    public void addPerson(Person p) {
+        persons.add(p);
     }
 
     /**
