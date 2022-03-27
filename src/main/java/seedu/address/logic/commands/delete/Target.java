@@ -45,7 +45,7 @@ public abstract class Target {
         this.persons = persons;
     }
 
-    /** Returns the {@code Person} that is target */
+    /** Returns the {@code Person} that is targetted */
     public abstract Person targetPerson() throws CommandException;
 
     @Override

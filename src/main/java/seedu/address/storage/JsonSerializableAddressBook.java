@@ -52,7 +52,7 @@ class JsonSerializableAddressBook {
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person, "tail");
+            addressBook.addPerson(person);
         }
         return addressBook;
     }
