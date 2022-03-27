@@ -116,7 +116,7 @@ public interface Model {
     ObservableIntegerValue getSelectedIndex();
 
     /**
-     * Updates the selected index to with a new {@code Index}. 
+     * Updates the selected index to with a new {@code Index}.
      * @param newIndex The new index to be selected.
      */
     void updateSelectedIndex(Index newIndex);
