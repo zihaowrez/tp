@@ -180,7 +180,7 @@ public class AddCommandTest {
         public void updateSelectedIndex(Integer newIndex) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         public void sortFilteredPersonList(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
         }

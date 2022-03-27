@@ -35,7 +35,7 @@ public class PersonListPanel extends UiPart<Region> {
         selectedIndex = logic.getObservableIndex();
         selectedIndex.addListener(this::handleModelIndexChange);
 
-        personListView.setItems(logic.getFilteredPersonList());
+        personListView.setItems(logic.getSortedAndFilteredPersonList());
         personListView.setCellFactory(listView -> new PersonListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener(this::handleUserSelectionChange);
         personListView.getSelectionModel().selectedIndexProperty().addListener(this::handleIndexSelectionChange);
