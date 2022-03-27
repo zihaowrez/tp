@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 
 /**
@@ -114,5 +115,9 @@ public interface Model {
 
     ObservableIntegerValue getSelectedIndex();
 
-    void updateSelectedIndex(Integer newIndex);
+    /**
+     * Updates the selected index to with a new {@code Index}. 
+     * @param newIndex The new index to be selected.
+     */
+    void updateSelectedIndex(Index newIndex);
 }

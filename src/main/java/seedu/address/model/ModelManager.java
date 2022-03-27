@@ -17,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 
 /**
@@ -168,8 +169,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateSelectedIndex(Integer newIndex) {
-        selectionIndex.setValue(newIndex);
+    public void updateSelectedIndex(Index newIndex) {
+        if (newIndex == null) {
+            selectionIndex.setValue(-1);
+        } else {
+            selectionIndex.setValue(newIndex.getZeroBased());
+        }
     }
 
     @Override

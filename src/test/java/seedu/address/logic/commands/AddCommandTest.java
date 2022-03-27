@@ -18,6 +18,7 @@ import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.add.AddPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -177,7 +178,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateSelectedIndex(Integer newIndex) {
+        public void updateSelectedIndex(Index newIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

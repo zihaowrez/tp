@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -44,7 +45,7 @@ public interface Logic {
 
     ObservableIntegerValue getObservableIndex();
 
-    void setObservableIndex(Integer index);
+    void setObservableIndex(Index index);
 
     /**
      * Returns the user prefs' address book file path.

@@ -9,6 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.model.person.Person;
 
@@ -47,11 +48,16 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     private void handleModelIndexChange(ObservableValue<? extends Number> ov, Number oldInt, Number newInt) {
-        personListView.getSelectionModel().clearAndSelect((Integer) newInt);
+        if ((Integer) newInt < 0) {
+            personListView.getSelectionModel().clearSelection();
+        } else {
+            personListView.getSelectionModel().clearAndSelect((Integer) newInt);
+        }
     }
 
     private void handleIndexSelectionChange(ObservableValue<? extends Number> ov, Number oldIdx, Number newIdx) {
-        logic.setObservableIndex((Integer) newIdx);
+        Index idx = Index.fromZeroBased((Integer) newIdx);
+        logic.setObservableIndex(idx);
     }
 
     /**
