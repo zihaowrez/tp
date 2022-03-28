@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -78,26 +77,29 @@ class JsonAdaptedMeeting {
         if (!Link.isValidLink(link)) {
             throw new IllegalValueException(Link.MESSAGE_CONSTRAINTS);
         }
-        final Link modelLink = new Link(link);
 
         if (startTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartTime.class.getSimpleName()));
         }
-        if (!DateTime.isValidDateTime(startTime)) {
-            throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
+        if (!StartTime.isValidStartTime(startTime)) {
+            throw new IllegalValueException(StartTime.MESSAGE_CONSTRAINTS);
         }
 
         if (duration == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartTime.class.getSimpleName()));
+        }
+        if (!Duration.isValidDuration(Integer.parseInt(duration))) {
+            throw new IllegalValueException(Duration.MESSAGE_CONSTRAINTS);
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        final Link modelLink = new Link(link);
 
         final StartTime modelStartTime = new StartTime(startTime);
 
-        final int modelDuration = Integer.parseInt(duration);
+        final Duration modelDuration = new Duration(Integer.parseInt(duration));
 
         final Set<Tag> modelTags = new HashSet<>(meetingTags);
+
         return new Meeting(modelName, modelLink, modelStartTime, modelDuration, modelTags);
     }
 }

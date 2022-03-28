@@ -2,6 +2,8 @@ package seedu.address.model.meeting;
 
 import seedu.address.model.tag.Tag;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Set;
 
@@ -10,10 +12,10 @@ public class Meeting {
     private final Title title;
     private final Link link;
     private final StartTime startTime;
-    private final int duration;
+    private final Duration duration;
     private final Set<Tag> tags;
 
-    public Meeting(Title title, Link link, StartTime startTime, int duration, Set<Tag> tags) {
+    public Meeting(Title title, Link link, StartTime startTime, Duration duration, Set<Tag> tags) {
         this.title = title;
         this.link = link;
         this.startTime = startTime;
@@ -27,7 +29,7 @@ public class Meeting {
 
     public StartTime getStartTime() { return this.startTime; }
 
-    public int getDuration() { return this.duration; }
+    public Duration getDuration() { return this.duration; }
 
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
@@ -35,6 +37,17 @@ public class Meeting {
 
     public boolean isSameMeeting(Meeting meeting) {
         return meeting.getTitle().equals(this.title) && meeting.getStartTime().equals(this.startTime);
+    }
+
+    public String getTimeString() {
+        String endTime;
+        LocalDateTime endDateTime = startTime.startTime.plusMinutes(duration.mins);
+        if (!endDateTime.toLocalDate().isEqual(startTime.startTime.toLocalDate())) {
+            endTime = " to " + endDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } else {
+            endTime = "-" + endDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+        }
+        return startTime.toString() + endTime;
     }
 
     @Override

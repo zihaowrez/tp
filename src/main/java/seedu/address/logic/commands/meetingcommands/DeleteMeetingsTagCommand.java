@@ -79,7 +79,7 @@ public class DeleteMeetingsTagCommand extends DeleteCommand {
         Title name = meetingToEdit.getTitle();
         Link link = meetingToEdit.getLink();
         StartTime startTime = meetingToEdit.getStartTime();
-        int duration = meetingToEdit.getDuration();
+        Duration duration = meetingToEdit.getDuration();
 
         return new Meeting(name, link, startTime, duration, updatedTags);
     }

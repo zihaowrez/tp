@@ -15,6 +15,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
@@ -61,10 +62,7 @@ public class UpcomingMeetingCard extends UiPart<Region> {
         this.meeting = meeting;
 
         title.setText(meeting.getTitle().title);
-        time.setText(meeting.getStartTime().toString() + "-" +
-                meeting.getStartTime().startTime.plusMinutes(meeting.getDuration()).format(
-                        DateTimeFormatter.ofPattern("HHmm")
-                ));
+        time.setText(meeting.getTimeString());
         link.setText(meeting.getLink().link);
         link.setOnAction(event -> {
                     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {

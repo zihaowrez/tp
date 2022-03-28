@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.meeting.Meeting;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 
 /**
@@ -36,6 +38,9 @@ public class MeetingCard extends UiPart<Region> {
     private Label id;
 
     @FXML
+    private Label time;
+
+    @FXML
     private FlowPane tags;
 
     /**
@@ -45,6 +50,7 @@ public class MeetingCard extends UiPart<Region> {
         super(FXML);
         this.meeting = meeting;
         id.setText(displayedIndex + ". ");
+        time.setText(meeting.getTimeString());
         title.setText(meeting.getTitle().title);
         meeting.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

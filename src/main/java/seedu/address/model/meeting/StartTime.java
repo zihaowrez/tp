@@ -43,12 +43,12 @@ public class StartTime {
      * Returns a startTime string for Storage purposes.
      */
     public String jsonStartTime() {
-        return toString();
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm").format(startTime);
     }
 
     @Override
     public String toString() {
-        return DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm").format(startTime);
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(startTime);
     }
 
     @Override

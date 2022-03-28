@@ -18,10 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.Link;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.StartTime;
-import seedu.address.model.meeting.Title;
+import seedu.address.model.meeting.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -109,7 +106,7 @@ public class EditMeetingCommand extends Command {
         private Title title;
         private Link link;
         private StartTime startTime;
-        private int duration;
+        private Duration duration;
         private Set<Tag> tags;
 
         public EditMeetingDescriptor() {}
@@ -118,7 +115,8 @@ public class EditMeetingCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditMeetingDescriptor(seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor toCopy) {
+        public EditMeetingDescriptor(
+                seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor toCopy) {
             setTitle(toCopy.title);
             setLink(toCopy.link);
             setStartTime(toCopy.startTime);
@@ -151,12 +149,12 @@ public class EditMeetingCommand extends Command {
 
         public void setStartTime(StartTime startTime) { this.startTime = startTime; }
 
-        public void setDuration(int duration) {
+        public void setDuration(Duration duration) {
             this.duration = duration;
         }
         public Optional<StartTime> getStartTime() { return Optional.ofNullable(this.startTime); }
 
-        public Optional<Integer> getDuration() { return Optional.ofNullable(this.duration); }
+        public Optional<Duration> getDuration() { return Optional.ofNullable(this.duration); }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -185,7 +183,7 @@ public class EditMeetingCommand extends Command {
             Title updatedTitle = editMeetingDescriptor.getTitle().orElse(meetingToEdit.getTitle());
             Link updatedLink = editMeetingDescriptor.getLink().orElse(meetingToEdit.getLink());
             StartTime updatedStartTime = editMeetingDescriptor.getStartTime().orElse(meetingToEdit.getStartTime());
-            int updatedDuration = editMeetingDescriptor.getDuration().orElse(meetingToEdit.getDuration());
+            Duration updatedDuration = editMeetingDescriptor.getDuration().orElse(meetingToEdit.getDuration());
             Set<Tag> updatedTags = editMeetingDescriptor.getTags().orElse(meetingToEdit.getTags());
 
             return new Meeting(updatedTitle, updatedLink, updatedStartTime, updatedDuration, updatedTags);

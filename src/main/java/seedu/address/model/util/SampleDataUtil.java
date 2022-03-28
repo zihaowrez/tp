@@ -65,13 +65,13 @@ public class SampleDataUtil {
         return new Meeting[] {
                 new Meeting(new Title("CS2103 Meeting"), new Link("https://www.zoom.sg"),
                         new StartTime("2022-3-14 1700"),
-                        120, getTagSet("friends")),
+                        new Duration(120), getTagSet("friends")),
                 new Meeting(new Title("CS2106 Project Presentation"), new Link("https://www.zoom.sg"),
                         new StartTime("2022-4-10 1700"),
-                        120, getTagSet("friends")),
+                        new Duration(120), getTagSet("friends")),
                 new Meeting(new Title("CS2102 Demonstration"), new Link("https://www.google.com"),
                         new StartTime("2022-3-29 0900"),
-                        60, getTagSet("friends")),
+                        new Duration(60), getTagSet("friends")),
         };
     }
     public static ReadOnlyMeetingsBook getSampleMeetingsBook() {

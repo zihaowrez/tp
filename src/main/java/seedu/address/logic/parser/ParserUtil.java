@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Link;
 import seedu.address.model.meeting.StartTime;
 import seedu.address.model.meeting.Title;
@@ -226,4 +228,19 @@ public class ParserUtil {
         }
         return new StartTime(trimmedStartTime);
     }
+
+    public static Duration parseDuration(String duration) throws ParseException {
+        requireNonNull(duration);
+        int mins;
+        try {
+            mins = Integer.parseInt(duration);
+        } catch (NumberFormatException ite) {
+            throw new ParseException(Duration.MESSAGE_CONSTRAINTS);
+        }
+        if (!Duration.isValidDuration(mins)) {
+            throw new ParseException(Duration.MESSAGE_CONSTRAINTS);
+        }
+        return new Duration(mins);
+    }
+
 }

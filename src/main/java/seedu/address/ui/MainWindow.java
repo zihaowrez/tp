@@ -202,7 +202,7 @@ public class MainWindow extends UiPart<Stage> {
         meetingsResultDisplay = new ResultDisplay();
         meetingsResultDisplayPlaceholder.getChildren().add(meetingsResultDisplay.getRoot());
 
-        StatusBarFooter meetingsStatusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter meetingsStatusBarFooter = new StatusBarFooter(logic.getMeetingsBookFilePath());
         meetingsStatusbarPlaceholder.getChildren().add(meetingsStatusBarFooter.getRoot());
 
         CommandBox meetingCommandBox = new CommandBox(this::executeCommandForMeetings);

@@ -5,10 +5,7 @@ import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand;
 import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.meeting.StartTime;
-import seedu.address.model.meeting.Title;
-import seedu.address.model.meeting.Link;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.*;
 import seedu.address.model.tag.Tag;
 
 import java.time.format.DateTimeFormatter;
@@ -46,7 +43,7 @@ public class AddMeetingCommandParser implements Parser<AddCommand> {
         Title name = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
         Link link = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get());
         StartTime startTime = ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get());
-        int duration = Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get());
+        Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Meeting meeting = new Meeting(name, link, startTime, duration, tagList);

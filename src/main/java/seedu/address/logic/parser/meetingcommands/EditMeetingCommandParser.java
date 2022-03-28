@@ -48,7 +48,7 @@ public class EditMeetingCommandParser {
             editMeetingDescriptor.setStartTime(ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get()));
         }
         if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
-            editMeetingDescriptor.setDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
+            editMeetingDescriptor.setDuration(ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editMeetingDescriptor::setTags);
