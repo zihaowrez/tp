@@ -33,7 +33,6 @@
               <MenuBar fx:id="menuBar" prefHeight="32.0" prefWidth="900.0">
                 <Menu mnemonicParsing="false" text="File">
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-      
                 </Menu>
                 <Menu fx:id="helpMenu" mnemonicParsing="false" onAction="#handleHelp">
                   <graphic>
