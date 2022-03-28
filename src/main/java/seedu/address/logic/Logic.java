@@ -18,13 +18,22 @@ import seedu.address.ui.CommandBox;
  */
 public interface Logic {
     /**
-     * Executes the command and returns the result.
+     * Executes the command under the Contacts tab and returns the result.
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText, CommandBox commandBox) throws CommandException, ParseException;
+    CommandResult executeForContacts(String commandText, CommandBox commandBox) throws CommandException, ParseException;
+
+    /**
+     * Executes the command under the Meetings tab and returns the result.
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    CommandResult executeForMeetings(String commandText, CommandBox commandBox) throws CommandException, ParseException;
 
     /**
      * Returns the AddressBook.

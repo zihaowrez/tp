@@ -28,6 +28,7 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final Meeting
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
@@ -41,7 +42,25 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText, CommandBox commandBox) throws CommandException, ParseException {
+    public CommandResult executeForContacts(String commandText, CommandBox commandBox) throws CommandException, ParseException {
+        if (commandBox != null && commandBox.isDynamic()) {
+            logger.info("----------------[USER COMMAND][" + commandText + "]");
+        }
+        CommandResult commandResult;
+        Command command = addressBookParser.parseCommand(commandText, commandBox);
+        commandResult = command.execute(model);
+
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        return commandResult;
+    }
+
+    @Override
+    public CommandResult executeForMeetings(String commandText, CommandBox commandBox) throws CommandException, ParseException {
         if (commandBox != null && commandBox.isDynamic()) {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
         }

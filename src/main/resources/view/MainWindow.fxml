@@ -79,41 +79,45 @@
 
         </Tab>
 
-        <Tab fx:id="meetingsTab" text="Meetings">
+          <Tab fx:id="meetingsTab" text="Meetings">
 
-          <StackPane VBox.vgrow="NEVER" fx:id="meetingsCommandBoxPlaceholder" styleClass="pane-with-border">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-          </StackPane>
+            <VBox>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="meetingsResultDisplayPlaceholder" styleClass="pane-with-border"
-                     minHeight="100" prefHeight="100" maxHeight="100">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-          </StackPane>
+              <StackPane VBox.vgrow="NEVER" fx:id="meetingsCommandBoxPlaceholder" styleClass="pane-with-border">
+                <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+              </StackPane>
 
-          <SplitPane VBox.vgrow="ALWAYS">
-            <VBox fx:id="meetingList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-              <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane VBox.vgrow="NEVER" fx:id="meetingsResultDisplayPlaceholder" styleClass="pane-with-border"
+                         minHeight="100" prefHeight="100" maxHeight="100">
+                <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+              </StackPane>
+
+              <SplitPane VBox.vgrow="ALWAYS">
+                <VBox fx:id="meetingList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+
+                <VBox fx:id="meetingDetail" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="meetingDetailPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+
+              </SplitPane>
+
+              <StackPane fx:id="meetingsStatusbarPlaceholder" VBox.vgrow="NEVER" />
+
             </VBox>
 
-            <VBox fx:id="meetingDetail" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-              <StackPane fx:id="meetingDetailPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-
-          </SplitPane>
-
-          <StackPane fx:id="meetingsStatusbarPlaceholder" VBox.vgrow="NEVER" />
-
-        </Tab>
+          </Tab>
 
         <Tab fx:id="helpTab" text="Help">
 
