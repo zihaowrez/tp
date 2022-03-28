@@ -40,12 +40,18 @@ public class ContactDetailPanel extends UiPart<Region> {
         if (newPerson != null) {
             ContactDetailCard contactDetailCard = new ContactDetailCard(newPerson);
             setPanel(contactDetailCard.getRoot());
+        } else {
+            setPanel(null);
         }
     }
 
     public void setPanel(Node childPanel) {
-        Optional<Node> optionalChildPanel = Optional.of(childPanel);
-        logger.info(String.format("Setting RHS panel to: %s", optionalChildPanel.orElse(emptyRhsPanelPlaceHolder)));
-        panel.getChildren().setAll(optionalChildPanel.orElse(emptyRhsPanelPlaceHolder));
+        if (childPanel != null) {
+            logger.info(String.format("Setting RHS panel to: %s", childPanel));
+            panel.getChildren().setAll(childPanel);
+        } else {
+            logger.info("Clearing RHS panel");
+            panel.getChildren().clear();
+        }
     }
 }

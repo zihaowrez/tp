@@ -56,8 +56,12 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     private void handleIndexSelectionChange(ObservableValue<? extends Number> ov, Number oldIdx, Number newIdx) {
-        Index idx = Index.fromZeroBased((Integer) newIdx);
-        logic.setObservableIndex(idx);
+        if ((Integer) newIdx == -1) {
+            logic.setObservableIndex(null);
+        } else {
+            Index idx = Index.fromZeroBased((Integer) newIdx);
+            logic.setObservableIndex(idx);
+        }
     }
 
     /**
