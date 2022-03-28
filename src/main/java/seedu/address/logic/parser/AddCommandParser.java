@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddPersonCommand;
+import seedu.address.logic.commands.add.AddSocialsToPersonCommand;
 import seedu.address.logic.commands.add.AddTagToPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
@@ -42,6 +43,14 @@ public class AddCommandParser implements Parser<AddCommand> {
             Object target = ParserUtil.parseTarget(argMultimap.getPreamble());
             Tag newTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new AddTagToPersonCommand(target, newTag);
+        }
+
+        if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_SOCIAL_MEDIA)
+                && argMultimap.noOtherPrefixes(PREFIX_SOCIAL_MEDIA)) {
+
+            Object target = ParserUtil.parseTarget(argMultimap.getPreamble());
+            SocialMedia newSocialMedia = ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_SOCIAL_MEDIA).get());
+            return new AddSocialsToPersonCommand(target, newSocialMedia);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
