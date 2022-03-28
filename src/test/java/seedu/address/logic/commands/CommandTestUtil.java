@@ -3,23 +3,27 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 // import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.meetingcommands.*;
 import seedu.address.model.AddressBook;
+import seedu.address.model.MeetingsTab;
 import seedu.address.model.Model;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.MeetingContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
+import seedu.address.testutil.EditMeetingDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -33,8 +37,6 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    // public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    // public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_SOCIAL_TELEGRAM = "Telegram, amybakingcompany";
     public static final String VALID_SOCIAL_GMAIL = "Gmail, bobbybobbeebob@gmail.com";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -46,8 +48,6 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    // public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    // public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String SOCIAL_DESC_TELEGRAM = " " + PREFIX_SOCIAL_MEDIA + VALID_SOCIAL_TELEGRAM;
     public static final String SOCIAL_DESC_GMAIL = " " + PREFIX_SOCIAL_MEDIA + VALID_SOCIAL_GMAIL;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -56,7 +56,6 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    // public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     //TODO add invalid tests for social media
 
@@ -66,15 +65,55 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final String VALID_MEETING_NAME = "CS2103 Meeting";
+    public static final String VALID_NEXT_MEETING_NAME = "CS3230 Meeting";
+    public static final String VALID_LINK = "https://zoom.sg";
+    public static final String VALID_LINK_TEAMS = "https://teams.sg";
+    public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final LocalDateTime VALID_START_DATETIME = LocalDateTime.parse("2020-10-10 1800", dateTimeFormatter);
+    public static final LocalDateTime VALID_END_DATETIME = LocalDateTime.parse("2020-10-10 2000", dateTimeFormatter);
+    public static final String VALID_START_DATETIME_STRING = "2020-10-10 1800";
+    public static final String VALID_END_DATETIME_STRING = "2020-10-10 2000";
+    public static final String VALID_END_DATETIME_ALT_STRING = "2020-10-10 2300";
+
+
+    public static final String INVALID_LINK = "https://zoom.com.sg 123456";
+    public static final String INVALID_START_DATETIME = "2020-10-10 180";
+    public static final String INVALID_END_DATETIME = "202-10-10 2000";
+    public static final String INVALID_END_DATETIME_RELATIVE_TO_START = "2020-10-10 1300";
+
+    public static final String MEETING_NAME_CS2103 = " " + PREFIX_NAME + VALID_MEETING_NAME;
+    public static final String LINK_ZOOM = " " + PREFIX_LINK + VALID_LINK;
+    public static final String LINK_TEAMS = " " + PREFIX_LINK + VALID_LINK_TEAMS;
+    public static final String START_DATE_TIME = " " + PREFIX_START_DATETIME + VALID_START_DATETIME_STRING;
+    public static final String END_DATE_TIME = " " + PREFIX_END_DATETIME + VALID_END_DATETIME_STRING;
+    public static final String END_DATE_TIME_ALT = " " + PREFIX_END_DATETIME + VALID_END_DATETIME_ALT_STRING;
+    public static final String INVALID_LINK_DESC = " " + PREFIX_LINK + INVALID_LINK;
+    public static final String INVALID_START_DATETIME_DESC = " " + PREFIX_START_DATETIME + INVALID_START_DATETIME;
+    public static final String INVALID_END_DATETIME_DESC = " " + PREFIX_END_DATETIME + INVALID_END_DATETIME;
+
+
+
+
+    public static final EditMeetingCommand.EditMeetingDescriptor DESC_CS2103;
+    public static final EditMeetingCommand.EditMeetingDescriptor DESC_CS3230;
+
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 //TODO Handle descriptor with socials and no phones/emails/addresses
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)//.withAddress(VALID_ADDRESS_AMY)
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 //TODO Handle descriptor with socials and no phones/emails/addresses
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)//.withAddress(VALID_ADDRESS_BOB)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_CS2103 = new EditMeetingDescriptorBuilder().withName(VALID_MEETING_NAME)
+                .withLink(VALID_LINK).withDateTime(VALID_START_DATETIME, VALID_END_DATETIME)
+                .withTags(VALID_TAG_FRIEND).build();
+        DESC_CS3230 = new EditMeetingDescriptorBuilder().withName(VALID_NEXT_MEETING_NAME)
+                .withLink(VALID_LINK).withDateTime(VALID_START_DATETIME, VALID_END_DATETIME)
+                .withTags(VALID_TAG_FRIEND).build();
     }
 
     /**
@@ -115,7 +154,17 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
+        MeetingsTab expectedMeetingsTab = new MeetingsTab(actualModel.getMeetingsTab());
+        List<Meeting> expectedFilteredMeetingList = new ArrayList<>(actualModel.getFilteredMeetingList());
+
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+
+        if (isMeetingCommand(command)) {
+            assertEquals(expectedMeetingsTab, actualModel.getMeetingsTab());
+            assertEquals(expectedFilteredMeetingList, actualModel.getFilteredMeetingList());
+            return;
+        }
+
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
@@ -131,6 +180,27 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new PersonContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s meetingsTab.
+     */
+    public static void showMeetingAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+
+        Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
+        final String[] splitName = meeting.getName().name.split("\\s+");
+        model.updateFilteredMeetingList(new MeetingContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredMeetingList().size());
+    }
+
+    public static boolean isMeetingCommand(Command command) {
+        return (command instanceof FindMeetingCommand || command instanceof AddMeetingCommand ||
+                command instanceof AddTagToMeetingCommand || command instanceof DeleteMeetingCommand ||
+                command instanceof DeleteMeetingCommand || command instanceof DeleteMeetingsTagCommand ||
+                command instanceof ListMeetingCommand || command instanceof EditMeetingCommand);
     }
 
 }
