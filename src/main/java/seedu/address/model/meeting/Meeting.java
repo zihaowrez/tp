@@ -1,5 +1,6 @@
 package seedu.address.model.meeting;
 
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 import java.time.LocalDateTime;
@@ -35,8 +36,19 @@ public class Meeting {
         return Collections.unmodifiableSet(tags);
     }
 
-    public boolean isSameMeeting(Meeting meeting) {
-        return meeting.getName().equals(this.name) && meeting.getDateTime().equals(this.dateTime);
+    public boolean isSameMeeting(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Meeting)) {
+            return false;
+        }
+
+        Meeting meeting = (Meeting) other;
+        return meeting.getName().equals(this.name)
+                && meeting.getLink().equals(this.link)
+                && meeting.getDateTime().equals(this.dateTime);
     }
 
     @Override
