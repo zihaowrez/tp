@@ -62,7 +62,7 @@ public class LogicManagerTest {
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         CommandBox commandBox = null;
-        int size = model.getFilteredPersonList().size();
+        int size = model.getSortedAndFilteredPersonList().size();
         assertCommandSuccess(listCommand, commandBox, size + ListCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -88,7 +88,7 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getSortedAndFilteredPersonList().remove(0));
     }
 
     /**
