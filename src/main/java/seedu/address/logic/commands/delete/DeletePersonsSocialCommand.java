@@ -21,23 +21,23 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Deletes a Tag from a person.
+ * Deletes a Social from a person.
  * The person in the list is identified using it's displayed index or name in the address book.
  */
-public class DeletePersonsTagCommand extends DeleteCommand {
-    private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
-    private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
+public class DeletePersonsSocialCommand extends DeleteCommand {
+    private static final String MESSAGE_SOCIALS_NOT_FOUND = "Social %s not found in %s!";
+    private static final String MESSAGE_DELETE_SOCIAL_SUCCESS = "Deleted Social Media Handle: %1$s";
     private Target target;
-    private Tag tagToDelete;
+    private SocialMedia socialsToDelete;
 
     /**
      * @param target the {@code Index} or {@code Name} being targetted in the addressbook list
-     * @param tagToDelete the tag to delete
+     * @param socialsToDelete the social media handle to delete
      */
-    public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
+    public DeletePersonsSocialCommand(Object target, SocialMedia socialsToDelete) {
         assert target instanceof Name || target instanceof Index;
 
-        this.tagToDelete = tagToDelete;
+        this.socialsToDelete = socialsToDelete;
 
         if (target instanceof Name) {
             this.target = Target.of((Name) target, null);
@@ -55,36 +55,37 @@ public class DeletePersonsTagCommand extends DeleteCommand {
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
 
-        Set<Tag> personsTags = targetPerson.getTags();
-        Set<Tag> updatedTags = new HashSet<>(personsTags);
+        Set<SocialMedia> personsSocials = targetPerson.getSocialMedias();
+        Set<SocialMedia> updatedSocials = new HashSet<>(personsSocials);
 
-        if (!updatedTags.remove(tagToDelete)) {
-            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete, targetPerson));
+        if (!updatedSocials.remove(socialsToDelete)) {
+            throw new CommandException(String.format(MESSAGE_SOCIALS_NOT_FOUND, socialsToDelete, targetPerson));
         }
 
-        Person updatedPerson = createUpdatedPerson(targetPerson, updatedTags);
+        Person updatedPerson = createUpdatedPerson(targetPerson, updatedSocials);
 
         model.setPerson(targetPerson, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_SOCIAL_SUCCESS, socialsToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeletePersonsTagCommand // instanceof handles nulls
-                && target.equals(((DeletePersonsTagCommand) other).target) // state check
-                && tagToDelete.equals(((DeletePersonsTagCommand) other).tagToDelete));
+                || (other instanceof DeletePersonsSocialCommand // instanceof handles nulls
+                && target.equals(((DeletePersonsSocialCommand) other).target) // state check
+                && socialsToDelete.equals(((DeletePersonsSocialCommand) other).socialsToDelete));
     }
 
-    private Person createUpdatedPerson(Person personToEdit, Set<Tag> updatedTags) {
+
+    private Person createUpdatedPerson(Person personToEdit, Set<SocialMedia> updatedSocials) {
         assert personToEdit != null;
 
         Name name = personToEdit.getName();
         Phone phone = personToEdit.getPhone();
         Email email = personToEdit.getEmail();
-        Set<SocialMedia> socialMedias = personToEdit.getSocialMedias();
+        Set<Tag> tags = personToEdit.getTags();
 
-        return new Person(name, phone, email, socialMedias, updatedTags);
+        return new Person(name, phone, email, updatedSocials, tags);
     }
 }
