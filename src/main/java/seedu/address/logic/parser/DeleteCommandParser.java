@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.delete.DeletePersonCommand;
 import seedu.address.logic.commands.delete.DeletePersonsSocialCommand;
@@ -35,12 +34,12 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         if (!argMultimap.arePrefixesPresent(PREFIX_TAG) && !argMultimap.arePrefixesPresent(PREFIX_SOCIAL_MEDIA)) {
             return new DeletePersonCommand(target);
-        } else if (argMultimap.arePrefixesPresent(PREFIX_TAG)){
+        } else if (argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             Tag targetTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new DeletePersonsTagCommand(target, targetTag);
         } else {
-            SocialMedia targetSocialMedia = ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_SOCIAL_MEDIA).get());
-            return new DeletePersonsSocialCommand(target, targetSocialMedia);
+            SocialMedia targetSocial = ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_SOCIAL_MEDIA).get());
+            return new DeletePersonsSocialCommand(target, targetSocial);
 
         }
     }
