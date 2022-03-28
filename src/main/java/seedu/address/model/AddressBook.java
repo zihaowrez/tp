@@ -1,14 +1,10 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -99,24 +95,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void copyPerson(Person key) {
         persons.copy(key);
-    }
-
-    /**
-     * Filters contacts according to the {@code predicate} given.
-     * {@code predicate} must not be null.
-     */
-    public FilteredList<Person> filterPersons(Predicate<Person> predicate) {
-        requireAllNonNull(predicate);
-        return persons.filterPersons(predicate);
-    }
-
-    /**
-     * Sorts contacts according to the {@code comparator} given.
-     * {@code comparator} must not be null.
-     */
-    public void sortPersons(Comparator<Person> comparator) {
-        requireAllNonNull(comparator);
-        this.setPersons(persons.sortPersons(comparator));
     }
 
     //// util methods

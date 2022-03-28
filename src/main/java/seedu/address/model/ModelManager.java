@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
@@ -23,9 +24,12 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final MeetingsTab meetingsTab;
+
     private final FilteredList<Person> filteredPersons;
+    private final SortedList<Person> sortedAndFilteredPersons;
     private FilteredList<Person> contactDetails;
+
+    private final MeetingsTab meetingsTab;
     private final FilteredList<Meeting> filteredMeetings;
 
     /**
@@ -43,6 +47,8 @@ public class ModelManager implements Model {
         contactDetails = new FilteredList<>(this.addressBook.getPersonList());
         filteredMeetings = new FilteredList<>(this.meetingsTab.getMeetingList());
         resetContactDetails();
+
+        sortedAndFilteredPersons = filteredPersons.sorted();
 
     }
 
@@ -122,7 +128,6 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -184,8 +189,8 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Person> getSortedAndFilteredPersonList() {
+        return sortedAndFilteredPersons;
     }
 
     @Override
@@ -197,7 +202,7 @@ public class ModelManager implements Model {
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
-        addressBook.sortPersons(comparator);
+        sortedAndFilteredPersons.setComparator(comparator);
     }
 
     @Override
