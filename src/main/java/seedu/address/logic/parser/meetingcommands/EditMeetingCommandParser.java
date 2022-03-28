@@ -27,7 +27,7 @@ public class EditMeetingCommandParser {
     public EditMeetingCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LINK,
-                PREFIX_START_DATETIME, PREFIX_END_DATETIME, PREFIX_TAG);
+                PREFIX_STARTTIME, PREFIX_DURATION, PREFIX_TAG);
 
         Index index;
 
@@ -39,18 +39,16 @@ public class EditMeetingCommandParser {
 
         EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor = new EditMeetingCommand.EditMeetingDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editMeetingDescriptor.setName(ParserUtil.parseMeetingName(argMultimap.getValue(PREFIX_NAME).get()));
+            editMeetingDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_LINK).isPresent()) {
             editMeetingDescriptor.setLink(ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get()));
         }
-        if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent() && argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
-            editMeetingDescriptor.setStartDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get()));
-            editMeetingDescriptor.setEndDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get()));
-        } else if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
-            editMeetingDescriptor.setStartDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get()));
-        } else if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
-            editMeetingDescriptor.setEndDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get()));
+        if (argMultimap.getValue(PREFIX_STARTTIME).isPresent()) {
+            editMeetingDescriptor.setStartTime(ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
+            editMeetingDescriptor.setDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editMeetingDescriptor::setTags);

@@ -6,17 +6,17 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyMeetingsTab;
+import seedu.address.model.ReadOnlyMeetingsBook;
 
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */
-public interface MeetingsTabStorage {
+public interface MeetingsBookStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getMeetingsTabFilePath();
+    Path getMeetingsBookFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
@@ -24,23 +24,23 @@ public interface MeetingsTabStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyMeetingsTab> readMeetingsTab() throws DataConversionException, IOException;
+    Optional<ReadOnlyMeetingsBook> readMeetingsBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getMeetingsTabFilePath()
+     * @see #getMeetingsBookFilePath()
      */
-    Optional<ReadOnlyMeetingsTab> readMeetingsTab(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyMeetingsBook> readMeetingsBook(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyMeetingsTab} to the storage.
-     * @param meetingsTab cannot be null.
+     * Saves the given {@link ReadOnlyMeetingsBook} to the storage.
+     * @param meetingsBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveMeetingsTab(ReadOnlyMeetingsTab meetingsTab) throws IOException;
+    void saveMeetingsBook(ReadOnlyMeetingsBook meetingsBook) throws IOException;
 
     /**
-     * @see #saveMeetingsTab(ReadOnlyMeetingsTab)
+     * @see #saveMeetingsBook(ReadOnlyMeetingsBook)
      */
-    void saveMeetingsTab(ReadOnlyMeetingsTab meetingsTab, Path filePath) throws IOException;
+    void saveMeetingsBook(ReadOnlyMeetingsBook meetingsBook, Path filePath) throws IOException;
 
 }

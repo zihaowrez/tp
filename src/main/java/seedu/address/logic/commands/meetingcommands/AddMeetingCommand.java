@@ -11,13 +11,13 @@ import static seedu.address.logic.parser.CliSyntax.*;
 
 public class AddMeetingCommand extends AddCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to the Meetings Tab. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME OF MEETING "
-            + PREFIX_LINK + "LINK OR URL "
-            + PREFIX_START_DATETIME + "START DATE AND TIME "
-            + PREFIX_END_DATETIME + "END DATE AND TIME"
-            + "Example: " + COMMAND_WORD + " n/CS2103 Meeting l/https://zoom.sg s/2022-10-10 1800 e/2022-10-10 2000";
+            + PREFIX_NAME + "title "
+            + PREFIX_LINK + "link "
+            + PREFIX_STARTTIME + "start time "
+            + PREFIX_DURATION + "duration in mins\n"
+            + "Example: " + COMMAND_WORD + " n/CS2103 Meeting l/https://zoom.sg s/2022-10-10 1800 d/120";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";

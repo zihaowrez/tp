@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     private MeetingListPanel meetingListPanel;
-    private UpcomingMeetingsPanel upcomingMeetingsPanel;
+    private UpcomingMeetingListPanel upcomingMeetingListPanel;
     private ResultDisplay meetingsResultDisplay;
 
     @FXML
@@ -77,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane meetingListPanelPlaceholder;
 
     @FXML
-    private StackPane upcomingMeetingsPanelPlaceholder;
+    private StackPane upcomingMeetingListPanelPlaceholder;
 
     @FXML
     private StackPane meetingsResultDisplayPlaceholder;
@@ -193,11 +193,11 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommandForContacts);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
+        meetingListPanel = new MeetingListPanel(logic.getSortedAndFilteredMeetingList());
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
-        upcomingMeetingsPanel = new UpcomingMeetingsPanel(logic.getUpcomingMeetings());
-        upcomingMeetingsPanelPlaceholder.getChildren().add(upcomingMeetingsPanel.getRoot());
+        upcomingMeetingListPanel = new UpcomingMeetingListPanel(logic.getUpcomingMeetingList());
+        upcomingMeetingListPanelPlaceholder.getChildren().add(upcomingMeetingListPanel.getRoot());
 
         meetingsResultDisplay = new ResultDisplay();
         meetingsResultDisplayPlaceholder.getChildren().add(meetingsResultDisplay.getRoot());
@@ -206,7 +206,7 @@ public class MainWindow extends UiPart<Stage> {
         meetingsStatusbarPlaceholder.getChildren().add(meetingsStatusBarFooter.getRoot());
 
         CommandBox meetingCommandBox = new CommandBox(this::executeCommandForMeetings);
-        meetingsCommandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        meetingsCommandBoxPlaceholder.getChildren().add(meetingCommandBox.getRoot());
     }
 
     /**
@@ -297,7 +297,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandBox.isDynamic()) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            meetingsResultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -311,7 +311,7 @@ public class MainWindow extends UiPart<Stage> {
 
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            meetingsResultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }

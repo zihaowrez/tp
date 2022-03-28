@@ -11,10 +11,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.MeetingsBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyMeetingsTab;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -28,9 +29,9 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Meeting
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final MeetingsBookParser meetingsBookParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -39,6 +40,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        meetingsBookParser = new MeetingsBookParser();
     }
 
     @Override
@@ -65,7 +67,7 @@ public class LogicManager implements Logic {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
         }
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText, commandBox);
+        Command command = meetingsBookParser.parseCommand(commandText, commandBox);
         commandResult = command.execute(model);
 
         try {
@@ -98,13 +100,20 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyMeetingsTab getMeetingsTab() { return model.getMeetingsTab(); }
+    public ReadOnlyMeetingsBook getMeetingsBook() { return model.getMeetingsBook(); }
 
     @Override
-    public ObservableList<Meeting> getFilteredMeetingList() { return model.getFilteredMeetingList(); }
+    public ObservableList<Meeting> getSortedAndFilteredMeetingList() {
+        return model.getSortedAndFilteredMeetingList();
+    }
 
     @Override
-    public Path getMeetingsTabFilePath() { return model.getMeetingsTabFilePath(); }
+    public ObservableList<Meeting> getUpcomingMeetingList() {
+        return model.getUpcomingMeetingList();
+    }
+
+    @Override
+    public Path getMeetingsBookFilePath() { return model.getMeetingsBookFilePath(); }
 
     @Override
     public GuiSettings getGuiSettings() {

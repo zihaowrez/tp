@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,11 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.meeting.DateTime;
-import seedu.address.model.meeting.Link;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingName;
-import seedu.address.model.person.Name;
+import seedu.address.model.meeting.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,24 +18,24 @@ class JsonAdaptedMeeting {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Meeting's %s field is missing!";
 
-    private final String name;
+    private final String title;
     private final String link;
-    private final String startDateTime;
-    private final String endDateTime;
+    private final String startTime;
+    private final String duration;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMeeting} with the given meeting details.
      */
     @JsonCreator
-    public JsonAdaptedMeeting(@JsonProperty("name") String name, @JsonProperty("link") String link,
-                             @JsonProperty("startDateTime") String startDateTime,
-                             @JsonProperty("endDateTime") String endDateTime,
+    public JsonAdaptedMeeting(@JsonProperty("title") String title, @JsonProperty("link") String link,
+                             @JsonProperty("startTime") String startTime,
+                             @JsonProperty("duration") String duration,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
+        this.title = title;
         this.link = link;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startTime = startTime;
+        this.duration = duration;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -51,10 +46,10 @@ class JsonAdaptedMeeting {
      * Converts a given {@code Meeting} into this class for Jackson use.
      */
     public JsonAdaptedMeeting(Meeting source) {
-        name = source.getName().name;
+        title = source.getTitle().title;
         link = source.getLink().link;
-        startDateTime = source.getDateTime().jsonStartDateTime();
-        endDateTime = source.getDateTime().jsonEndDateTime();
+        startTime = source.getStartTime().jsonStartTime();
+        duration = String.valueOf(source.getDuration());
 
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -72,10 +67,10 @@ class JsonAdaptedMeeting {
             meetingTags.add(tag.toModelType());
         }
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MeetingName.class.getSimpleName()));
+        if (title == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
-        final MeetingName modelName = new MeetingName(name);
+        final Title modelName = new Title(title);
 
         if (link == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Link.class.getSimpleName()));
@@ -85,26 +80,24 @@ class JsonAdaptedMeeting {
         }
         final Link modelLink = new Link(link);
 
-        if (startDateTime == null) {
+        if (startTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
         }
-        if (!DateTime.isValidDateTime(startDateTime)) {
+        if (!DateTime.isValidDateTime(startTime)) {
             throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
         }
 
-        if (endDateTime == null) {
+        if (duration == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
-        }
-        if (!DateTime.isValidDateTime(endDateTime)) {
-            throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-        final DateTime modelDateTime = new DateTime(LocalDateTime.parse(startDateTime, formatter),
-                LocalDateTime.parse(endDateTime, formatter));
+        final StartTime modelStartTime = new StartTime(startTime);
+
+        final int modelDuration = Integer.parseInt(duration);
 
         final Set<Tag> modelTags = new HashSet<>(meetingTags);
-        return new Meeting(modelName, modelLink, modelDateTime, modelTags);
+        return new Meeting(modelName, modelLink, modelStartTime, modelDuration, modelTags);
     }
 }

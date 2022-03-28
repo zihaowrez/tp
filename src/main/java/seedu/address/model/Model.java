@@ -122,13 +122,13 @@ public interface Model {
 
     //-----------------Meetings Tab ----------------------------------------------------//
 
-    Path getMeetingsTabFilePath();
+    Path getMeetingsBookFilePath();
 
-    void setMeetingsTabFilePath(Path meetingsTabFilePath);
+    void setMeetingsBookFilePath(Path meetingsBookFilePath);
 
-    void setMeetingsTab(ReadOnlyMeetingsTab meetingsTab);
+    void setMeetingsBook(ReadOnlyMeetingsBook meetingsBook);
 
-    ReadOnlyMeetingsTab getMeetingsTab();
+    ReadOnlyMeetingsBook getMeetingsBook();
 
     void deleteMeeting(Meeting meeting);
 
@@ -140,9 +140,16 @@ public interface Model {
 
     void setMeeting(Meeting target, Meeting editedMeeting);
 
-    ObservableList<Meeting> getFilteredMeetingList();
+    ObservableList<Meeting> getSortedAndFilteredMeetingList();
 
-    void updateFilteredMeetingList(Predicate<Meeting> meeting);
+    void updateFilteredMeetingList(Predicate<Meeting> predicate);
 
+    void sortFilteredMeetingList(Comparator<Meeting> comparator);
+
+    ObservableList<Meeting> getUpcomingMeetingList();
+
+    void updateFilteredUpcomingMeetingList(Predicate<Meeting> predicate);
+
+    void sortFilteredUpcomingMeetingList(Comparator<Meeting> comparator);
 
 }

@@ -31,8 +31,8 @@ public class DateTime {
     /**
      * Constructs a {@code DateTime}.
      *
-     * @param startDateTime A valid LocalDateTime.
-     * @param endDateTime A valid LocalDateTime.
+     * @param startDateTime A valid StartTime.
+     * @param endDateTime A valid StartTime.
      *
      */
     public DateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
@@ -64,7 +64,7 @@ public class DateTime {
 
     @Override
     public String toString() {
-        StringBuilder dateTimeString = new StringBuilder();
+        /* StringBuilder dateTimeString = new StringBuilder();
         if (startDateTime.toLocalDate().equals(endDateTime.toLocalDate())) {
             dateTimeString.append(this.startDateTime.toLocalDate());
             dateTimeString.append(" (");
@@ -79,7 +79,8 @@ public class DateTime {
             dateTimeString.append(" ");
             dateTimeString.append(this.endDateTime.toLocalTime().toString());
         }
-        return dateTimeString.toString();
+        return dateTimeString.toString(); */
+        return "";
     }
 
     @Override

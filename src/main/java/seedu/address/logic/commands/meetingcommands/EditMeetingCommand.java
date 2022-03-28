@@ -7,7 +7,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -19,14 +18,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Link;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingName;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing meeting in the MeetingsTab.
+ * Edits the details of an existing meeting in the MeetingsBook.
  */
 public class EditMeetingCommand extends Command {
 
@@ -38,8 +37,8 @@ public class EditMeetingCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_LINK + "LINK] "
-            + "[" + PREFIX_START_DATETIME + "DATE AND TIME] "
-            + "[" + PREFIX_START_DATETIME + "DATE AND TIME] "
+            + "[" + PREFIX_STARTTIME + "DATE AND TIME] "
+            + "[" + PREFIX_DURATION + "DATE AND TIME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_LINK + "https://zoom.sg/123456/CS2103 ";
@@ -66,7 +65,7 @@ public class EditMeetingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Meeting> lastShownList = model.getFilteredMeetingList();
+        List<Meeting> lastShownList = model.getSortedAndFilteredMeetingList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -107,11 +106,10 @@ public class EditMeetingCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditMeetingDescriptor {
-        private MeetingName name;
+        private Title title;
         private Link link;
-        private DateTime dateTime;
-        private LocalDateTime startDateTime;
-        private LocalDateTime endDateTime;
+        private StartTime startTime;
+        private int duration;
         private Set<Tag> tags;
 
         public EditMeetingDescriptor() {}
@@ -121,11 +119,10 @@ public class EditMeetingCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditMeetingDescriptor(seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor toCopy) {
-            setName(toCopy.name);
+            setTitle(toCopy.title);
             setLink(toCopy.link);
-            setDateTime(toCopy.dateTime);
-            setStartDateTime(toCopy.startDateTime);
-            setEndDateTime(toCopy.endDateTime);
+            setStartTime(toCopy.startTime);
+            setDuration(toCopy.duration);
             setTags(toCopy.tags);
         }
 
@@ -133,15 +130,15 @@ public class EditMeetingCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, link, dateTime, startDateTime, endDateTime, tags);
+            return CollectionUtil.isAnyNonNull(title, link, startTime, duration, tags);
         }
 
-        public void setName(MeetingName name) {
-            this.name = name;
+        public void setTitle(Title title) {
+            this.title = title;
         }
 
-        public Optional<MeetingName> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable(title);
         }
 
         public void setLink(Link link) {
@@ -152,21 +149,14 @@ public class EditMeetingCommand extends Command {
             return Optional.ofNullable(link);
         }
 
-        public void setDateTime(DateTime dateTime) {
-            this.dateTime = dateTime;
+        public void setStartTime(StartTime startTime) { this.startTime = startTime; }
+
+        public void setDuration(int duration) {
+            this.duration = duration;
         }
+        public Optional<StartTime> getStartTime() { return Optional.ofNullable(this.startTime); }
 
-        public void setStartDateTime(LocalDateTime startDateTime) { this.startDateTime = startDateTime; }
-
-        public void setEndDateTime(LocalDateTime endDateTime) { this.endDateTime = endDateTime; }
-
-        public Optional<LocalDateTime> getStartDateTime() { return Optional.ofNullable(this.startDateTime); }
-
-        public Optional<LocalDateTime> getEndDateTime() { return Optional.ofNullable(this.endDateTime); }
-
-        public Optional<DateTime> getDateTime() {
-            return Optional.ofNullable(dateTime);
-        }
+        public Optional<Integer> getDuration() { return Optional.ofNullable(this.duration); }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -192,14 +182,13 @@ public class EditMeetingCommand extends Command {
         public static Meeting createEditedMeeting(Meeting meetingToEdit, seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor) {
             assert meetingToEdit != null;
 
-            MeetingName updatedName = editMeetingDescriptor.getName().orElse(meetingToEdit.getName());
+            Title updatedTitle = editMeetingDescriptor.getTitle().orElse(meetingToEdit.getTitle());
             Link updatedLink = editMeetingDescriptor.getLink().orElse(meetingToEdit.getLink());
-            LocalDateTime updatedStartTime = editMeetingDescriptor.getStartDateTime().orElse(meetingToEdit.getStartDateTime());
-            LocalDateTime updatedEndTime = editMeetingDescriptor.getEndDateTime().orElse(meetingToEdit.getEndDateTime());
-            DateTime updatedDateTime = new DateTime(updatedStartTime, updatedEndTime);
+            StartTime updatedStartTime = editMeetingDescriptor.getStartTime().orElse(meetingToEdit.getStartTime());
+            int updatedDuration = editMeetingDescriptor.getDuration().orElse(meetingToEdit.getDuration());
             Set<Tag> updatedTags = editMeetingDescriptor.getTags().orElse(meetingToEdit.getTags());
 
-            return new Meeting(updatedName, updatedLink, updatedDateTime, updatedTags);
+            return new Meeting(updatedTitle, updatedLink, updatedStartTime, updatedDuration, updatedTags);
         }
 
 
@@ -216,10 +205,11 @@ public class EditMeetingCommand extends Command {
             }
 
             // state check
-            seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor e = (seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor) other;
+            seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor e =
+                    (seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getDateTime().equals(e.getDateTime())
+            return getTitle().equals(e.getTitle())
+                    && getStartTime().equals(e.getStartTime())
                     && getTags().equals(e.getTags());
         }
     }

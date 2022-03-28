@@ -8,7 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyMeetingsTab;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.ui.CommandBox;
@@ -53,11 +53,20 @@ public interface Logic {
      */
     Path getAddressBookFilePath();
 
-    ReadOnlyMeetingsTab getMeetingsTab();
+    /**
+     * Returns the MeetingsBook.
+     *
+     * @see seedu.address.model.Model#getMeetingsBook()
+     */
+    ReadOnlyMeetingsBook getMeetingsBook();
 
-    ObservableList<Meeting> getFilteredMeetingList();
+    /** Returns an unmodifiable view of the sorted and filtered list of meetings */
+    ObservableList<Meeting> getSortedAndFilteredMeetingList();
 
-    Path getMeetingsTabFilePath();
+    /** Returns an unmodifiable view of the sorted and filtered list of meetings */
+    ObservableList<Meeting> getUpcomingMeetingList();
+
+    Path getMeetingsBookFilePath();
 
 
     /**

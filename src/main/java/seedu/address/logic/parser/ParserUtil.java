@@ -2,21 +2,18 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Link;
-import seedu.address.model.meeting.MeetingName;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -61,10 +58,10 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
-    public static MeetingName parseMeetingName(String name) {
+    public static Title parseTitle(String name) {
         requireNonNull(name);
         String trimmedName = name.trim();
-        return new MeetingName(trimmedName);
+        return new Title(trimmedName);
     }
 
     /**
@@ -212,40 +209,21 @@ public class ParserUtil {
         }
     }
 
-    public static DateTime parseDateTime(String startDateTime, String endDateTime) throws ParseException {
-        Pattern DATE_TIME_FORMAT = Pattern.compile("(\\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\\d|3[01])\\s+([01]\\d|2[0-3])([0-5]?\\d)");
-        Matcher matcherStart = DATE_TIME_FORMAT.matcher(startDateTime.trim());
-        Matcher matcherEnd = DATE_TIME_FORMAT.matcher(endDateTime.trim());
-
-        matcherStart.find();
-        LocalDateTime localStartDateTime = LocalDateTime.of(Integer.parseInt(matcherStart.group(1)), Integer.parseInt(matcherStart.group(2)),
-                Integer.parseInt(matcherStart.group(3)), Integer.parseInt(matcherStart.group(4)), Integer.parseInt(matcherStart.group(5)));
-
-        matcherEnd.find();
-        LocalDateTime localEndDateTime = LocalDateTime.of(Integer.parseInt(matcherEnd.group(1)), Integer.parseInt(matcherEnd.group(2)),
-                Integer.parseInt(matcherEnd.group(3)), Integer.parseInt(matcherEnd.group(4)), Integer.parseInt(matcherEnd.group(5)));
-
-        if (localEndDateTime.isBefore(localStartDateTime)) {
-            throw new ParseException(DateTime.ENDDATETIME_AFTER_STARTDATETIME);
-        }
-        return new DateTime(localStartDateTime, localEndDateTime);
-    }
-
-    public static LocalDateTime parseDateTime(String dateTime) {
-        Pattern DATE_TIME_FORMAT = Pattern.compile("(\\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\\d|3[01])\\s+([01]\\d|2[0-3])([0-5]?\\d)");
-        Matcher matcherDateTime = DATE_TIME_FORMAT.matcher(dateTime.trim());
-
-        matcherDateTime.find();
-        return LocalDateTime.of(Integer.parseInt(matcherDateTime.group(1)), Integer.parseInt(matcherDateTime.group(2)),
-                Integer.parseInt(matcherDateTime.group(3)), Integer.parseInt(matcherDateTime.group(4)), Integer.parseInt(matcherDateTime.group(5)));
-    }
-
     public static Link parseLink(String link) throws ParseException {
         requireNonNull(link);
         String trimmedLink = link.trim();
-        if (!Link.isValidLink(link)) {
+        if (!Link.isValidLink(trimmedLink)) {
             throw new ParseException(Link.MESSAGE_CONSTRAINTS);
         }
         return new Link(trimmedLink);
+    }
+
+    public static StartTime parseStartTime(String startTime) throws ParseException {
+        requireNonNull(startTime);
+        String trimmedStartTime = startTime.trim();
+        if (!StartTime.isValidStartTime(trimmedStartTime)) {
+            throw new ParseException(StartTime.MESSAGE_CONSTRAINTS);
+        }
+        return new StartTime(trimmedStartTime);
     }
 }

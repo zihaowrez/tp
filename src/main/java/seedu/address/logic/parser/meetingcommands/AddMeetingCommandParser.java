@@ -5,12 +5,13 @@ import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand;
 import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.meeting.MeetingName;
-import seedu.address.model.meeting.DateTime;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.meeting.Link;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.tag.Tag;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -27,7 +28,7 @@ public class AddMeetingCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LINK,
-                PREFIX_START_DATETIME, PREFIX_END_DATETIME, PREFIX_TAG);
+                PREFIX_STARTTIME, PREFIX_DURATION, PREFIX_TAG);
 
         if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
                 && argMultimap.noOtherPrefixes(PREFIX_TAG)) {
@@ -37,18 +38,18 @@ public class AddMeetingCommandParser implements Parser<AddCommand> {
             return new AddTagToMeetingCommand(target, newTag);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LINK, PREFIX_START_DATETIME, PREFIX_END_DATETIME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LINK, PREFIX_STARTTIME, PREFIX_DURATION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
         }
 
-        MeetingName name = ParserUtil.parseMeetingName(argMultimap.getValue(PREFIX_NAME).get());
+        Title name = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
         Link link = ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get());
-        DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get(),
-                argMultimap.getValue(PREFIX_END_DATETIME).get());
+        StartTime startTime = ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get());
+        int duration = Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Meeting meeting = new Meeting(name, link, dateTime, tagList);
+        Meeting meeting = new Meeting(name, link, startTime, duration, tagList);
 
         return new AddMeetingCommand(meeting);
     }

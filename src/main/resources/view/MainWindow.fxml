@@ -104,11 +104,11 @@
                   <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                 </VBox>
 
-                <VBox fx:id="meetingDetail" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                <VBox fx:id="upcomingMeetingList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                   <padding>
                     <Insets top="10" right="10" bottom="10" left="10" />
                   </padding>
-                  <StackPane fx:id="meetingDetailPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                  <StackPane fx:id="upcomingMeetingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                 </VBox>
 
               </SplitPane>

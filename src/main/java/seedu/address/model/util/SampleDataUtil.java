@@ -1,6 +1,5 @@
 package seedu.address.model.util;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -8,14 +7,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.MeetingsTab;
+import seedu.address.model.MeetingsBook;
 import seedu.address.model.ReadOnlyAddressBook;
 // import seedu.address.model.person.Address;
-import seedu.address.model.ReadOnlyMeetingsTab;
-import seedu.address.model.meeting.DateTime;
-import seedu.address.model.meeting.Link;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingName;
+import seedu.address.model.ReadOnlyMeetingsBook;
+import seedu.address.model.meeting.*;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -67,18 +63,21 @@ public class SampleDataUtil {
 
     public static Meeting[] getSampleMeetings() {
         return new Meeting[] {
-                new Meeting(new MeetingName("CS2103 Meeting"), new Link("https://wwww.zoom.sg"),
-                        new DateTime(LocalDateTime.of(2022, 10, 10, 18, 0),
-                                LocalDateTime.of(2022, 10, 10, 20, 0)), getTagSet("friends")),
-                new Meeting(new MeetingName("CS2106 Project Meeting"), new Link("https://wwww.zoom.sg"),
-                        new DateTime(LocalDateTime.of(2022, 9, 10, 13, 0),
-                                LocalDateTime.of(2022, 9, 12, 15, 0)), getTagSet("friends")),
+                new Meeting(new Title("CS2103 Meeting"), new Link("https://www.zoom.sg"),
+                        new StartTime("2022-3-14 1700"),
+                        120, getTagSet("friends")),
+                new Meeting(new Title("CS2106 Project Presentation"), new Link("https://www.zoom.sg"),
+                        new StartTime("2022-4-10 1700"),
+                        120, getTagSet("friends")),
+                new Meeting(new Title("CS2102 Demonstration"), new Link("https://www.google.com"),
+                        new StartTime("2022-3-29 0900"),
+                        60, getTagSet("friends")),
         };
     }
-    public static ReadOnlyMeetingsTab getSampleMeetingsTab() {
-        MeetingsTab sampleMt = new MeetingsTab();
+    public static ReadOnlyMeetingsBook getSampleMeetingsBook() {
+        MeetingsBook sampleMt = new MeetingsBook();
         for (Meeting sampleMeeting : getSampleMeetings()) {
-            sampleMt.addMeeting(sampleMeeting, "tail");
+            sampleMt.addMeeting(sampleMeeting);
         }
         return sampleMt;
     }

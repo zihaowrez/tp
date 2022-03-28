@@ -23,7 +23,7 @@ import seedu.address.ui.CommandBox;
 /**
  * Parses user input.
  */
-public class MeetingsTabParser {
+public class MeetingsBookParser {
 
     /**
      * Used for initial separation of command word and args.
