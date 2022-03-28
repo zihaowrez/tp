@@ -6,6 +6,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 
+import java.time.LocalDateTime;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
@@ -21,6 +23,7 @@ public class AddMeetingCommand extends AddCommand {
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
+    public static final String MESSAGE_PAST_MEETING = "Cannot add a meeting in the past";
 
     private final Meeting toAdd;
 
@@ -38,6 +41,10 @@ public class AddMeetingCommand extends AddCommand {
 
         if (model.hasMeeting(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
+        }
+
+        if (toAdd.getStartTime().startTime.isBefore(LocalDateTime.now())) {
+            throw new CommandException(MESSAGE_PAST_MEETING);
         }
 
         model.addMeeting(toAdd);
