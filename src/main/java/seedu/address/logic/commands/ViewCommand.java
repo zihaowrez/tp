@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -36,12 +35,8 @@ public class ViewCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person viewPerson = lastShownList.get(index.getZeroBased());
-        model.updateContactDetails(new Predicate<Person>() {
-            @Override
-            public boolean test(Person p) {
-                return p.equals(viewPerson);
-            }
-        });
+        model.updateSelectedIndex(index);
+        model.updateSelectedPerson(viewPerson);
 
         return new CommandResult(String.format(Messages.MESSAGE_CONTACT_DETAILS, viewPerson.getName()));
     }
