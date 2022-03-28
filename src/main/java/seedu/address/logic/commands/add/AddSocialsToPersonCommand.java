@@ -54,7 +54,7 @@ public class AddSocialsToPersonCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getSortedAndFilteredPersonList();
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
