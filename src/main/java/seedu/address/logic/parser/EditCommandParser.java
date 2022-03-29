@@ -2,10 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PLATFORM_NAME_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -15,9 +16,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.edit.EditPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
@@ -35,17 +36,28 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_SOCIAL_MEDIA, PREFIX_TAG);
+                PREFIX_EMAIL, PREFIX_SOCIAL_MEDIA, PREFIX_TAG, PREFIX_PLATFORM_NAME_FLAG, PREFIX_INDEX);
 
-        Index index;
+        Object target;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            target = ParserUtil.parseTarget(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+
+        if (argMultimap.arePrefixesPresent(PREFIX_INDEX) 
+                && argMultimap.noOtherPrefixes(PREFIX_INDEX, PREFIX_PLATFORM_NAME_FLAG, PREFIX_SOCIAL_MEDIA)) {
+            return new EditSocialMediaCommandParser().parse(args);
+        }
+        
+        if (!argMultimap.atLeastOnePrefix(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SOCIAL_MEDIA, PREFIX_TAG)
+                || argMultimap.doesPrefixesExist(PREFIX_PLATFORM_NAME_FLAG, PREFIX_INDEX)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE));
+        }
+
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -60,10 +72,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseSocialsForEdit(argMultimap.getAllValues(PREFIX_SOCIAL_MEDIA)).ifPresent(editPersonDescriptor::setSocials);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditPersonCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditPersonCommand(target, editPersonDescriptor);
     }
 
     /**
