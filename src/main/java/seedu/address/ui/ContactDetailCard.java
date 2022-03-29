@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.awt.*;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -99,7 +98,7 @@ public class ContactDetailCard extends UiPart<Region> {
                     .forEach(sm -> {
                         TextArea textArea = new TextArea(sm.getPlatformName()
                                 + ": " + sm.getPlatformDescription());
-                        textArea.setPrefHeight(18);  //sets height of the TextArea to 400 pixels
+                        textArea.setPrefHeight(18); //sets height of the TextArea to 400 pixels
                         textArea.setPrefWidth(360);
                         textArea.setEditable(false);
 
