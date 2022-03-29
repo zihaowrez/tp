@@ -1,10 +1,14 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -128,15 +132,7 @@ public interface Model {
     void updateFilteredTagList(Predicate<Tag> predicate);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Resets the filter of the view person list to empty.
-     */
-    void resetContactDetails();
-
-    /** Returns an unmodifiable view of the viewed person */
-    ObservableList<Person> getContactDetails();
+    ObservableList<Person> getSortedAndFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -145,9 +141,27 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Sorts the filter of the filtered person list to filter by the given {@code comparator}.
+     * @throws NullPointerException if {@code comparator} is null.
+     */
+    void sortFilteredPersonList(Comparator<Person> comparator);
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateContactDetails(Predicate<Person> predicate);
+    void updateSelectedPerson(Person newPerson);
 
+    /**
+     * Returns an observable value of the currently selected person.
+     */
+    ObservableObjectValue<Person> getCurrentlySelectedPerson();
+
+    ObservableIntegerValue getSelectedIndex();
+
+    /**
+     * Updates the selected index to with a new {@code Index}.
+     * @param newIndex The new index to be selected.
+     */
+    void updateSelectedIndex(Index newIndex);
 }

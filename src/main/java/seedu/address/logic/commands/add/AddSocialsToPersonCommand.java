@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.add;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
@@ -18,31 +18,30 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.socialmedia.SocialMedia;
 
-public class AddTagToPersonCommand extends AddCommand {
-    public static final String MESSAGE_ADD_NEW_TAG_SUCCESS = "Added new tag %s to %s";
+public class AddSocialsToPersonCommand extends AddCommand {
+    public static final String MESSAGE_ADD_NEW_SOCIALS_SUCCESS = "Added new social media handle %s to %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds new tags to a person in address book. "
+            + ": Adds new social media handles to a person in address book. "
             + "Parameters: "
             + "NAME "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_SOCIAL_MEDIA + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_SOCIAL_MEDIA + "Instagram, @johndoe";
 
     private Target target;
-    private Tag newTag;
+    private SocialMedia newSocials;
 
     /**
      * @param target The target person in the list
-     * @param newTag the new tag to be added
+     * @param newSocials new tag to be added
      */
-    public AddTagToPersonCommand(Object target, Tag newTag) {
+    public AddSocialsToPersonCommand(Object target, SocialMedia newSocials) {
         assert target instanceof Name || target instanceof Index;
 
-        this.newTag = newTag;
+        this.newSocials = newSocials;
         if (target instanceof Name) {
             this.target = Target.of((Name) target, null);
         } else if (target instanceof Index) {
@@ -60,29 +59,24 @@ public class AddTagToPersonCommand extends AddCommand {
         Person targetPerson = target.targetPerson();
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        Set<Tag> personsTags = targetPerson.getTags();
-        Set<Tag> updatedTags = new HashSet<>(personsTags);
-        updatedTags.add(newTag);
-        editPersonDescriptor.setTags(updatedTags);
+        Set<SocialMedia> personsSocials = targetPerson.getSocialMedias();
+        Set<SocialMedia> updatedSocials = new HashSet<>(personsSocials);
+        updatedSocials.add(newSocials);
+        editPersonDescriptor.setSocials(updatedSocials);
 
         Person updatedPerson = EditPersonDescriptor.createEditedPerson(targetPerson, editPersonDescriptor);
 
         model.setPerson(targetPerson, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        if (!model.hasTag(newTag)) {
-            model.addTag(newTag);
-        }
-
-        return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, updatedPerson));
+        return new CommandResult(String.format(MESSAGE_ADD_NEW_SOCIALS_SUCCESS, newSocials, updatedPerson));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddTagToPersonCommand // instanceof handles nulls
-                && target.equals(((AddTagToPersonCommand) other).target)
-                && newTag.equals(((AddTagToPersonCommand) other).newTag));
+                && target.equals(((AddSocialsToPersonCommand) other).target)
+                && newSocials.equals(((AddSocialsToPersonCommand) other).newSocials));
 
     }
 
