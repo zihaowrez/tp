@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyMeetingsTab;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -20,15 +20,15 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-    private MeetingsTabStorage meetingsTabStorage;
+    private MeetingsBookStorage meetingsBookStorage;
 
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, MeetingsTabStorage meetingsTabStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, MeetingsBookStorage meetingsBookStorage) {
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
-        this.meetingsTabStorage = meetingsTabStorage;
+        this.meetingsBookStorage = meetingsBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -78,33 +78,33 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-    // ================ MeetingsTab methods ==============================
+    // ================ MeetingsBook methods ==============================
 
     @Override
-    public Path getMeetingsTabFilePath() {
+    public Path getMeetingsBookFilePath() {
         return addressBookStorage.getAddressBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyMeetingsTab> readMeetingsTab() throws DataConversionException, IOException {
-        return readMeetingsTab(meetingsTabStorage.getMeetingsTabFilePath());
+    public Optional<ReadOnlyMeetingsBook> readMeetingsBook() throws DataConversionException, IOException {
+        return readMeetingsBook(meetingsBookStorage.getMeetingsBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyMeetingsTab> readMeetingsTab(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyMeetingsBook> readMeetingsBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return meetingsTabStorage.readMeetingsTab(filePath);
+        return meetingsBookStorage.readMeetingsBook(filePath);
     }
 
     @Override
-    public void saveMeetingsTab(ReadOnlyMeetingsTab meetingsTab) throws IOException {
-        saveMeetingsTab(meetingsTab, meetingsTabStorage.getMeetingsTabFilePath());
+    public void saveMeetingsBook(ReadOnlyMeetingsBook meetingsBook) throws IOException {
+        saveMeetingsBook(meetingsBook, meetingsBookStorage.getMeetingsBookFilePath());
     }
 
     @Override
-    public void saveMeetingsTab(ReadOnlyMeetingsTab meetingsTab, Path filePath) throws IOException {
+    public void saveMeetingsBook(ReadOnlyMeetingsBook meetingsBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        meetingsTabStorage.saveMeetingsTab(meetingsTab, filePath);
+        meetingsBookStorage.saveMeetingsBook(meetingsBook, filePath);
     }
 
 }

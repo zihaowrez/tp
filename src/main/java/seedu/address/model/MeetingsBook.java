@@ -12,7 +12,7 @@ import seedu.address.model.meeting.UniqueMeetingList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class MeetingsTab implements ReadOnlyMeetingsTab {
+public class MeetingsBook implements ReadOnlyMeetingsBook {
 
     private final UniqueMeetingList meetings;
 
@@ -27,12 +27,12 @@ public class MeetingsTab implements ReadOnlyMeetingsTab {
         meetings = new UniqueMeetingList();
     }
 
-    public MeetingsTab() {}
+    public MeetingsBook() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public MeetingsTab(ReadOnlyMeetingsTab toBeCopied) {
+    public MeetingsBook(ReadOnlyMeetingsBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,7 +48,7 @@ public class MeetingsTab implements ReadOnlyMeetingsTab {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyMeetingsTab newData) {
+    public void resetData(ReadOnlyMeetingsBook newData) {
         requireNonNull(newData);
 
         setMeetings(newData.getMeetingList());
@@ -69,8 +69,8 @@ public class MeetingsTab implements ReadOnlyMeetingsTab {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addMeeting(Meeting m, String positionInList) {
-        meetings.add(m, positionInList);
+    public void addMeeting(Meeting m) {
+        meetings.add(m);
     }
 
     /**
@@ -112,8 +112,8 @@ public class MeetingsTab implements ReadOnlyMeetingsTab {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MeetingsTab // instanceof handles nulls
-                && meetings.equals(((MeetingsTab) other).meetings));
+                || (other instanceof MeetingsBook // instanceof handles nulls
+                && meetings.equals(((MeetingsBook) other).meetings));
     }
 
     @Override

@@ -47,8 +47,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        MeetingsTabStorage meetingsTabStorage = new JsonMeetingsTabStorage(userPrefs.getMeetingsTabFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, meetingsTabStorage);
+        MeetingsBookStorage meetingsBookStorage = new JsonMeetingsBookStorage(userPrefs.getMeetingsBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, meetingsBookStorage);
 
         initLogging(config);
 
@@ -67,7 +67,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
-        ReadOnlyMeetingsTab initialMeetingData = this.loadMeetingData();
+        ReadOnlyMeetingsBook initialMeetingData = this.loadMeetingData();
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -85,24 +85,24 @@ public class MainApp extends Application {
         return new ModelManager(initialData, initialMeetingData, userPrefs);
     }
 
-    public ReadOnlyMeetingsTab loadMeetingData() {
-        Optional<ReadOnlyMeetingsTab> meetingsTabOptional;
-        ReadOnlyMeetingsTab meetingsTab;
+    public ReadOnlyMeetingsBook loadMeetingData() {
+        Optional<ReadOnlyMeetingsBook> meetingsBookOptional;
+        ReadOnlyMeetingsBook meetingsBook;
         try {
-            meetingsTabOptional = storage.readMeetingsTab();
-            if (!meetingsTabOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample MeetingsTab");
+            meetingsBookOptional = storage.readMeetingsBook();
+            if (!meetingsBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample MeetingsBook");
             }
-            meetingsTab = meetingsTabOptional.orElseGet(SampleDataUtil::getSampleMeetingsTab);
+            meetingsBook = meetingsBookOptional.orElseGet(SampleDataUtil::getSampleMeetingsBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MeetingTab");
-            meetingsTab = new MeetingsTab();
+            meetingsBook = new MeetingsBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty MeetingTab");
-            meetingsTab = new MeetingsTab();
+            meetingsBook = new MeetingsBook();
         }
 
-        return meetingsTab;
+        return meetingsBook;
     }
 
     private void initLogging(Config config) {

@@ -9,52 +9,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.MeetingsTab;
-import seedu.address.model.ReadOnlyMeetingsTab;
+import seedu.address.model.MeetingsBook;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.meeting.Meeting;
 
 /**
- * An Immutable MeetingsTab that is serializable to JSON format.
+ * An Immutable MeetingsBook that is serializable to JSON format.
  */
-@JsonRootName(value = "meetingsTab")
-class JsonSerializableMeetingsTab {
+@JsonRootName(value = "meetingsBook")
+class JsonSerializableMeetingsBook {
 
     public static final String MESSAGE_DUPLICATE_MEETINGS = "Meetings list contains duplicate person(s).";
 
     private final List<JsonAdaptedMeeting> meetings = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableMeetingsTab} with the given meetings.
+     * Constructs a {@code JsonSerializableMeetingsBook} with the given meetings.
      */
     @JsonCreator
-    public JsonSerializableMeetingsTab(@JsonProperty("meetings") List<JsonAdaptedMeeting> meetings) {
+    public JsonSerializableMeetingsBook(@JsonProperty("meetings") List<JsonAdaptedMeeting> meetings) {
         this.meetings.addAll(meetings);
     }
 
     /**
-     * Converts a given {@code ReadOnlyMeetingsTab} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyMeetingsBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableMeetingsTab}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableMeetingsBook}.
      */
-    public JsonSerializableMeetingsTab(ReadOnlyMeetingsTab source) {
+    public JsonSerializableMeetingsBook(ReadOnlyMeetingsBook source) {
         meetings.addAll(source.getMeetingList().stream().map(JsonAdaptedMeeting::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this meetings tab into the model's {@code MeetingsTab} object.
+     * Converts this meetings tab into the model's {@code MeetingsBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public MeetingsTab toModelType() throws IllegalValueException {
-        MeetingsTab meetingsTab = new MeetingsTab();
+    public MeetingsBook toModelType() throws IllegalValueException {
+        MeetingsBook meetingsBook = new MeetingsBook();
         for (JsonAdaptedMeeting jsonAdaptedMeeting : meetings) {
             Meeting meeting = jsonAdaptedMeeting.toModelType();
-            if (meetingsTab.hasMeeting(meeting)) {
+            if (meetingsBook.hasMeeting(meeting)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEETINGS);
             }
-            meetingsTab.addMeeting(meeting, "tail");
+            meetingsBook.addMeeting(meeting);
         }
-        return meetingsTab;
+        return meetingsBook;
     }
 
 }

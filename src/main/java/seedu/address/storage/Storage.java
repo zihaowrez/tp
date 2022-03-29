@@ -6,14 +6,14 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyMeetingsTab;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, MeetingsTabStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, MeetingsBookStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -31,13 +31,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, MeetingsT
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
-    // ================ MeetingsTab methods ==============================
+    // ================ MeetingsBook methods ==============================
     @Override
-    Path getMeetingsTabFilePath();
+    Path getMeetingsBookFilePath();
 
     @Override
-    Optional<ReadOnlyMeetingsTab> readMeetingsTab() throws DataConversionException, IOException;
+    Optional<ReadOnlyMeetingsBook> readMeetingsBook() throws DataConversionException, IOException;
 
     @Override
-    void saveMeetingsTab(ReadOnlyMeetingsTab meetingsTab) throws IOException;
+    void saveMeetingsBook(ReadOnlyMeetingsBook meetingsBook) throws IOException;
 }
