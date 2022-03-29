@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddPersonCommand;
+import seedu.address.logic.commands.add.AddTagOnlyCommand;
 import seedu.address.logic.commands.add.AddTagToPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
@@ -34,6 +35,13 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_SOCIAL_MEDIA, PREFIX_TAG);
+
+        if (argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
+                && argMultimap.noOtherPrefixes(PREFIX_TAG)) {
+
+            Tag newTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+            return new AddTagOnlyCommand(newTag);
+        }
 
         if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
                 && argMultimap.noOtherPrefixes(PREFIX_TAG)) {
