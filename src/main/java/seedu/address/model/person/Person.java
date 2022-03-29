@@ -51,9 +51,6 @@ public class Person {
         return email;
     }
 
-    // public Address getAddress() {
-    //     return address;
-    // }
 
     /**
      * Returns an immutable list of social medias, which throws {@code UnsupportedOperationException}
