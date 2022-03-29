@@ -8,11 +8,16 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,8 +29,9 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final SimpleObjectProperty<Person> currentlySelectedPersonProperty;
+    private final SimpleIntegerProperty selectionIndex;
     private final SortedList<Person> sortedAndFilteredPersons;
-    private FilteredList<Person> contactDetails;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,9 +43,9 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.currentlySelectedPersonProperty = new SimpleObjectProperty<Person>();
+        selectionIndex = new SimpleIntegerProperty();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        contactDetails = new FilteredList<>(this.addressBook.getPersonList());
-        resetContactDetails();
         sortedAndFilteredPersons = filteredPersons.sorted();
     }
 
@@ -139,6 +145,13 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //============ Currently Selected Person Accessors ===================================================
+
+    @Override
+    public void updateSelectedPerson(Person newPerson) {
+        currentlySelectedPersonProperty.set(newPerson);
+    }
+
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
@@ -146,24 +159,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Person> getContactDetails() {
-        return contactDetails;
+    public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
+        return currentlySelectedPersonProperty;
     }
 
     @Override
-    public void resetContactDetails() {
-        contactDetails.setPredicate(new Predicate<Person>() {
-            @Override
-            public boolean test(Person p) {
-                return false;
-            }
-        });
+    public ObservableIntegerValue getSelectedIndex() {
+        return selectionIndex;
     }
 
     @Override
-    public void updateContactDetails(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        contactDetails.setPredicate(predicate);
+    public void updateSelectedIndex(Index newIndex) {
+        if (newIndex == null) {
+            selectionIndex.setValue(-1);
+        } else {
+            selectionIndex.setValue(newIndex.getZeroBased());
+        }
     }
 
     @Override
