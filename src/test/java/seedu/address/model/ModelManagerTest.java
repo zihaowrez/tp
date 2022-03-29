@@ -93,7 +93,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getSortedAndFilteredPersonList()
+                .remove(0));
     }
 
     @Test
@@ -101,8 +102,8 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
-        MeetingsTab meetingsTab = new MeetingsTabBuilder().withMeeting(CS2103_MEETING).withMeeting(CS3230_MEETING).build();
-        MeetingsTab differentMeetingsTab = new MeetingsTab();
+        MeetingsBook meetingsTab = new MeetingsTabBuilder().withMeeting(CS2103_MEETING).withMeeting(CS3230_MEETING).build();
+        MeetingsBook differentMeetingsTab = new MeetingsBook();
 
         // same values -> returns true
         modelManager = new ModelManager(addressBook, meetingsTab, userPrefs);

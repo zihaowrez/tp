@@ -56,13 +56,13 @@ public class AddressBookTest {
 
     @Test
     public void addPersonToTop_personAtTopOfList_returnsTrue() {
-        addressBook.addPerson(ALICE, "head");
+        addressBook.addPerson(ALICE);
         assertTrue(addressBook.getPersonList().get(0).isSamePerson(ALICE));
     }
 
     @Test
     public void addPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE, "tail");
+        addressBook.addPerson(ALICE);
         assertTrue(addressBook.getPersonList().get(addressBook.getPersonList().size() - 1).isSamePerson(ALICE));
     }
 
@@ -78,13 +78,13 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE, "tail");
+        addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE, "tail");
+        addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE)//.withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(addressBook.hasPerson(editedAlice));

@@ -1,13 +1,10 @@
 package seedu.address.testutil;
 
-import java.time.LocalDateTime;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.meeting.DateTime;
-import seedu.address.model.meeting.Link;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingName;
+import seedu.address.model.meeting.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -18,21 +15,23 @@ public class MeetingBuilder {
 
     public static final String DEFAULT_NAME = "Project Meeting";
     public static final String DEFAULT_LINK = "https://zoom.sg";
-    public static final LocalDateTime DEFAULT_START_DATETIME = LocalDateTime.of(2018, 10, 10, 18, 0);
-    public static final LocalDateTime DEFAULT_END_DATETIME = LocalDateTime.of(2018, 10, 10, 20, 0);
+    public static final String DEFAULT_START_TIME = "2024-10-10 1800";
+    private static final int DEFAULT_DURATION = 60;
 
-    private MeetingName name;
+    private Title title;
     private Link link;
-    private DateTime dateTime;
+    private StartTime startTime;
+    private Duration duration;
     private Set<Tag> tags;
 
     /**
      * Creates a {@code MeetingBuilder} with the default details.
      */
     public MeetingBuilder() {
-        name = new MeetingName(DEFAULT_NAME);
+        title = new Title(DEFAULT_NAME);
         link = new Link(DEFAULT_LINK);
-        dateTime = new DateTime(DEFAULT_START_DATETIME, DEFAULT_END_DATETIME);
+        startTime = new StartTime(DEFAULT_START_TIME);
+        duration = new Duration(DEFAULT_DURATION);
         tags = new HashSet<>();
     }
 
@@ -40,17 +39,18 @@ public class MeetingBuilder {
      * Initializes the MeetingBuilder with the data of {@code meetingToCopy}.
      */
     public MeetingBuilder(Meeting meetingToCopy) {
-        name = meetingToCopy.getName();
+        title = meetingToCopy.getTitle();
         link = meetingToCopy.getLink();
-        dateTime = meetingToCopy.getDateTime();
+        startTime = meetingToCopy.getStartTime();
+        duration = meetingToCopy.getDuration();
         tags = new HashSet<>(meetingToCopy.getTags());
     }
 
     /**
      * Sets the {@code MeetingName} of the {@code Meeting} that we are building.
      */
-    public MeetingBuilder withName(String name) {
-        this.name = new MeetingName(name);
+    public MeetingBuilder withTitle(String title) {
+        this.title = new Title(title);
         return this;
     }
 
@@ -73,14 +73,19 @@ public class MeetingBuilder {
     /**
      * Sets the {@code dateTime} of the {@code Meeting} that we are building.
      */
-    public MeetingBuilder withDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        this.dateTime = new DateTime(startDateTime, endDateTime);
+    public MeetingBuilder withStartTime(String startTime) {
+        this.startTime = new StartTime(startTime);
+        return this;
+    }
+
+    public MeetingBuilder withDuration(int duration) {
+        this.duration = new Duration(duration);
         return this;
     }
 
 
     public Meeting build() {
-        return new Meeting(name, link, dateTime, tags);
+        return new Meeting(title, link, startTime, duration, tags);
     }
 
 }

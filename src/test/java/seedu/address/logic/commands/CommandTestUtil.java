@@ -2,13 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,10 +15,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.meetingcommands.*;
 import seedu.address.model.AddressBook;
-import seedu.address.model.MeetingsTab;
+import seedu.address.model.MeetingsBook;
 import seedu.address.model.Model;
+import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingContainsKeywordsPredicate;
+import seedu.address.model.meeting.StartTime;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.testutil.EditMeetingDescriptorBuilder;
@@ -71,27 +71,27 @@ public class CommandTestUtil {
     public static final String VALID_LINK_TEAMS = "https://teams.sg";
     public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     public static final LocalDateTime VALID_START_DATETIME = LocalDateTime.parse("2020-10-10 1800", dateTimeFormatter);
-    public static final LocalDateTime VALID_END_DATETIME = LocalDateTime.parse("2020-10-10 2000", dateTimeFormatter);
-    public static final String VALID_START_DATETIME_STRING = "2020-10-10 1800";
-    public static final String VALID_END_DATETIME_STRING = "2020-10-10 2000";
-    public static final String VALID_END_DATETIME_ALT_STRING = "2020-10-10 2300";
+    public static final StartTime VALID_START_TIME = new StartTime("2020-10-10 1800");
+    public static final String VALID_START_TIME_STRING = "2020-10-10 1800";
 
+    public static final Duration VALID_DURATION = new Duration(60);
+    public static final int VALID_DURATION_INT = 60;
+    public static final String VALID_DURATION_STRING = "60";
+    public static final String INVALID_DURATION_STRING = "abc";
 
     public static final String INVALID_LINK = "https://zoom.com.sg 123456";
-    public static final String INVALID_START_DATETIME = "2020-10-10 180";
-    public static final String INVALID_END_DATETIME = "202-10-10 2000";
-    public static final String INVALID_END_DATETIME_RELATIVE_TO_START = "2020-10-10 1300";
+    public static final String INVALID_START_TIME = "2020-10-10 180";
+
 
     public static final String MEETING_NAME_CS2103 = " " + PREFIX_NAME + VALID_MEETING_NAME;
     public static final String LINK_ZOOM = " " + PREFIX_LINK + VALID_LINK;
     public static final String LINK_TEAMS = " " + PREFIX_LINK + VALID_LINK_TEAMS;
-    public static final String START_DATE_TIME = " " + PREFIX_START_DATETIME + VALID_START_DATETIME_STRING;
-    public static final String END_DATE_TIME = " " + PREFIX_END_DATETIME + VALID_END_DATETIME_STRING;
-    public static final String END_DATE_TIME_ALT = " " + PREFIX_END_DATETIME + VALID_END_DATETIME_ALT_STRING;
-    public static final String INVALID_LINK_DESC = " " + PREFIX_LINK + INVALID_LINK;
-    public static final String INVALID_START_DATETIME_DESC = " " + PREFIX_START_DATETIME + INVALID_START_DATETIME;
-    public static final String INVALID_END_DATETIME_DESC = " " + PREFIX_END_DATETIME + INVALID_END_DATETIME;
+    public static final String START_TIME = " " + PREFIX_STARTTIME + VALID_START_TIME_STRING;
+    public static final String DURATION = " " + PREFIX_DURATION + VALID_DURATION_STRING;
 
+    public static final String INVALID_LINK_DESC = " " + PREFIX_LINK + INVALID_LINK;
+    public static final String INVALID_START_TIME_DESC = " " + PREFIX_STARTTIME + INVALID_START_TIME;
+    public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + INVALID_DURATION_STRING;
 
 
 
@@ -109,10 +109,10 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         DESC_CS2103 = new EditMeetingDescriptorBuilder().withName(VALID_MEETING_NAME)
-                .withLink(VALID_LINK).withDateTime(VALID_START_DATETIME, VALID_END_DATETIME)
+                .withLink(VALID_LINK).withStartTime(VALID_START_TIME)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_CS3230 = new EditMeetingDescriptorBuilder().withName(VALID_NEXT_MEETING_NAME)
-                .withLink(VALID_LINK).withDateTime(VALID_START_DATETIME, VALID_END_DATETIME)
+                .withLink(VALID_LINK).withStartTime(VALID_START_TIME)
                 .withTags(VALID_TAG_FRIEND).build();
     }
 
@@ -152,34 +152,34 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getSortedAndFilteredPersonList());
 
-        MeetingsTab expectedMeetingsTab = new MeetingsTab(actualModel.getMeetingsTab());
-        List<Meeting> expectedFilteredMeetingList = new ArrayList<>(actualModel.getFilteredMeetingList());
+        MeetingsBook expectedMeetingsTab = new MeetingsBook(actualModel.getMeetingsBook());
+        List<Meeting> expectedFilteredMeetingList = new ArrayList<>(actualModel.getSortedAndFilteredMeetingList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
 
         if (isMeetingCommand(command)) {
-            assertEquals(expectedMeetingsTab, actualModel.getMeetingsTab());
-            assertEquals(expectedFilteredMeetingList, actualModel.getFilteredMeetingList());
+            assertEquals(expectedMeetingsTab, actualModel.getMeetingsBook());
+            assertEquals(expectedFilteredMeetingList, actualModel.getSortedAndFilteredMeetingList());
             return;
         }
 
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getSortedAndFilteredPersonList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getSortedAndFilteredPersonList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Person person = model.getSortedAndFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new PersonContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getSortedAndFilteredPersonList().size());
     }
 
     /**
@@ -187,13 +187,13 @@ public class CommandTestUtil {
      * {@code model}'s meetingsTab.
      */
     public static void showMeetingAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getSortedAndFilteredPersonList().size());
 
-        Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
-        final String[] splitName = meeting.getName().name.split("\\s+");
-        model.updateFilteredMeetingList(new MeetingContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Meeting meeting = model.getSortedAndFilteredMeetingList().get(targetIndex.getZeroBased());
+        final String[] splitTitle = meeting.getTitle().title.split("\\s+");
+        model.updateFilteredMeetingList(new MeetingContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
-        assertEquals(1, model.getFilteredMeetingList().size());
+        assertEquals(1, model.getSortedAndFilteredMeetingList().size());
     }
 
     public static boolean isMeetingCommand(Command command) {

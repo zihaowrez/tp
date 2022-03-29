@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-// import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-// import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -13,13 +11,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SOCIAL_TELEGRAM
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.MeetingsTab;
+import seedu.address.model.MeetingsBook;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
@@ -28,17 +24,20 @@ import seedu.address.model.person.Person;
  */
 public class TypicalMeetings {
 
-    public static final Meeting CS2103_MEETING = new MeetingBuilder().withName("CS2103 Meeting")
+    public static final Meeting CS2103_MEETING = new MeetingBuilder().withTitle("CS2103 Meeting")
             .withLink("https://zoom.sg")
-            .withDateTime(LocalDateTime.of(2018,10,10,15,0), LocalDateTime.of(2018,10,10,18, 0))
+            .withStartTime("2018-10-10 1800")
+            .withDuration(60)
             .withTags("cs2103").build();
-    public static final Meeting CS3230_MEETING = new MeetingBuilder().withName("CS3230 Meeting")
+    public static final Meeting CS3230_MEETING = new MeetingBuilder().withTitle("CS3230 Meeting")
             .withLink("https://zoom.sg")
-            .withDateTime(LocalDateTime.of(2018,10,10,18,0), LocalDateTime.of(2018,10,10,20, 0))
+            .withStartTime("2019-10-10 1800")
+            .withDuration(60)
             .withTags("cs3230").build();
-    public static final Meeting PROJECT_MEETING = new MeetingBuilder().withName("Project Meeting")
+    public static final Meeting PROJECT_MEETING = new MeetingBuilder().withTitle("Project Meeting")
             .withLink("https://zoom.sg")
-            .withDateTime(LocalDateTime.of(2018,10,10,18,0), LocalDateTime.of(2018,10,10,20, 0))
+            .withStartTime("2020-10-10 1800")
+            .withDuration(50)
             .withTags("project").build();
 
     // Manually added
@@ -66,10 +65,10 @@ public class TypicalMeetings {
     /**
      * Returns an {@code MeetingsTab} with all the typical meetings.
      */
-    public static MeetingsTab getTypicalMeetingsTab() {
-        MeetingsTab ab = new MeetingsTab();
+    public static MeetingsBook getTypicalMeetingsBook() {
+        MeetingsBook ab = new MeetingsBook();
         for (Meeting meeting : getTypicalMeetings()) {
-            ab.addMeeting(meeting, "tail");
+            ab.addMeeting(meeting);
         }
         return ab;
     }
