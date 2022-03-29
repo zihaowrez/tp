@@ -1,22 +1,15 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,13 +22,20 @@ public class TagPanel extends UiPart<Region> {
     public final List<Tag> tagList;
 
     @FXML
-    private ListCell<Tag> tagView;
+    private HBox tagListPlaceholder;
+
+    @FXML
+    private Pane panel;
+
     /**
      * Creates a {@code TagListPanel} with the given {@code ObservableList}.
      */
     public TagPanel(ObservableList<Tag> tagList) {
+
         super(FXML);
         this.tagList = tagList;
+
+        setPanel(new TagCard(tagList).getRoot());
 
     }
 
@@ -45,17 +45,13 @@ public class TagPanel extends UiPart<Region> {
      */
 
 
-    class TagListViewCell extends ListCell<Tag> {
-        @Override
-        protected void updateItem(Tag tag, boolean empty) {
-            super.updateItem(tag, empty);
-
-            if (empty || tag == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new TagCard(tagList).getRoot());
-            }
+    public void setPanel(Node childPanel) {
+        if (childPanel != null) {
+            logger.info(String.format("Setting tag panel to %s", childPanel));
+            panel.getChildren().setAll(childPanel);
+        } else {
+            logger.info("Clearing tag panel");
+            panel.getChildren().clear();
         }
     }
 

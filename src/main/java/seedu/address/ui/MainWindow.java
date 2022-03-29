@@ -228,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            tagPanel.setPanel(new TagCard(logic.getFilteredTagList()).getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
