@@ -55,7 +55,7 @@ public class AddPersonCommand extends AddCommand {
 
         model.addPerson(toAdd);
 
-        for(Tag tag: toAdd.getTags()) {
+        for (Tag tag: toAdd.getTags()) {
             if (!model.hasTag(tag)) {
                 model.addTag(tag);
             }

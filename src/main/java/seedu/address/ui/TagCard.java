@@ -29,14 +29,6 @@ public class TagCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    /**
-     @FXML
-     private Label phone;
-     @FXML
-     private Label address;
-     @FXML
-     private Label email;
-     */
 
 
     /**

@@ -12,9 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
  * The API of the Model component.
  */

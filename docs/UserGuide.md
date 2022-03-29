@@ -78,7 +78,7 @@ Adds either:
 
 **Format:** `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
-A person can have one or more details and zero or more tags.  
+A person can have one or more details and zero or more tags.
 The newly added person will be placed at the top of the contact list.
 
 **Examples:**
@@ -123,16 +123,16 @@ Finds persons with the given keywords.
 
 If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.
 
-The keywords are compared to all fields of each person.  
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.  
-The search is case-insensitive. e.g `hans` will match `Hans`.  
-The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.  
+The keywords are compared to all fields of each person.
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
+The search is case-insensitive. e.g `hans` will match `Hans`.
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 **Examples:**
 
-> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).  
-> `a` does the same as above.  
-> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).  
+> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).
+> `a` does the same as above.
+> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
 
 ## 6. Deleting: `delete`
 
@@ -144,19 +144,19 @@ Deletes either:
 
 **Format:** `delete NAME` or `delete INDEX`
 
-Deletes the person with the specified `NAME` or `INDEX`.  
-Deletion by name is case sensitive and must match the full name.  
+Deletes the person with the specified `NAME` or `INDEX`.
+Deletion by name is case sensitive and must match the full name.
 INDEX must be a positive integer.
 
 **Examples:**
-> `delete 2` deletes the contact at index 2  
-> `delete Alex Yeoh` deletes the contact `Alex Yeoh`  
-> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`  
+> `delete 2` deletes the contact at index 2
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh`
+> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
-### 6.2 Deleting Tag from a Person 
+### 6.2 Deleting Tag from a Person
 **Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
 
-Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.  
+Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 
 **Examples:**
 > `delete kaaviya t/friend`
@@ -208,14 +208,14 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 ## Command summary
 
-| Action     | Format, Examples                                                                                                                      |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Person**    | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
-| **Add Tag**    | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG` <br> e.g., `add Betsy t/Friend`, `add 2 t/Friend` |
-| **Clear**  | `clear` 
-| **Copy Details of a Person** | `copy FULL_NAME`<br> e.g., `copy Alex Yeoh`  |
-| **Delete Person** | `delete FULL_NAME` or `delete INDEX`<br> e.g., `delete Alex Yeoh`, `delete 2`                                                         |
-| **Find**   | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
-| **List**   | `list`                                                                                                                                |
-| **Help**   | `help`                                                                                                                                |
-| **View**   | `view INDEX`<br> e.g. `view 1`                                                                                                           |
+| Action                       | Format, Examples                                                                                                                      |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Person**               | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
+| **Add Tag**                  | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG` <br> e.g., `add Betsy t/Friend`, `add 2 t/Friend`                                         |
+| **Clear**                    | `clear`                                                                                                                               |
+| **Copy Details of a Person** | `copy FULL_NAME`<br> e.g., `copy Alex Yeoh`                                                                                           |
+| **Delete Person**            | `delete FULL_NAME` or `delete INDEX`<br> e.g., `delete Alex Yeoh`, `delete 2`                                                         |
+| **Find**                     | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
+| **List**                     | `list`                                                                                                                                |
+| **Help**                     | `help`                                                                                                                                |
+| **View**                     | `view INDEX`<br> e.g. `view 1`                                                                                                        |

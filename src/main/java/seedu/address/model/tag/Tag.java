@@ -1,8 +1,5 @@
 package seedu.address.model.tag;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -54,6 +51,11 @@ public class Tag {
     public int hashCode() {
         return tagName.hashCode();
     }
+
+    /**
+     * Returns true if both tags have the same name.
+     * This defines a weaker notion of equality between two tags.
+     */
 
     public boolean isSameTag(Tag otherTag) {
         if (otherTag == this) {
