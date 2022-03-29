@@ -59,7 +59,7 @@ public class DeletePersonsTagCommand extends DeleteCommand {
         Set<Tag> updatedTags = new HashSet<>(personsTags);
 
         if (!updatedTags.remove(tagToDelete)) {
-            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete, targetPerson));
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete, targetPerson.getName()));
         }
 
         Person updatedPerson = createUpdatedPerson(targetPerson, updatedTags);

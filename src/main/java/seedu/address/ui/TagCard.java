@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.tag.Tag;
 
 /**
- * An UI component that displays simple information of a {@code Person}.
+ * An UI component that displays all {@code Tag}s.
  */
 public class TagCard extends UiPart<Region> {
 
@@ -40,7 +40,7 @@ public class TagCard extends UiPart<Region> {
 
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code TagCard} that displays all {@code Tag}s.
      */
     public TagCard(List<Tag> tagList) {
         super(FXML);

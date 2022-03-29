@@ -39,12 +39,6 @@ public class TagPanel extends UiPart<Region> {
 
     }
 
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Tag} using a {@code TagCard}.
-     */
-
-
     public void setPanel(Node childPanel) {
         if (childPanel != null) {
             logger.info(String.format("Setting tag panel to %s", childPanel));
