@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -160,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Person> getSortedAndFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,18 +171,18 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getMeetingsTabFilePath() { throw new AssertionError("This method should not be called.");}
+        public Path getMeetingsBookFilePath() { throw new AssertionError("This method should not be called.");}
 
         @Override
-        public void setMeetingsTabFilePath(Path path) { throw new AssertionError("This method should not be called.");}
+        public void setMeetingsBookFilePath(Path path) { throw new AssertionError("This method should not be called.");}
 
         @Override
-        public void setMeetingsTab(ReadOnlyMeetingsTab newData) {
+        public void setMeetingsBook(ReadOnlyMeetingsBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyMeetingsTab getMeetingsTab() {
+        public ReadOnlyMeetingsBook getMeetingsBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -212,7 +213,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Meeting> getFilteredMeetingList() {
+        public ObservableList<Meeting> getSortedAndFilteredMeetingList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -221,6 +222,30 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void sortFilteredPersonList(Comparator<Person> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredMeetingList(Comparator<Meeting> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Meeting> getUpcomingMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredUpcomingMeetingList(Predicate<Meeting> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredUpcomingMeetingList(Comparator<Meeting> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
