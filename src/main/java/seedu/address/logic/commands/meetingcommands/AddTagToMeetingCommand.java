@@ -54,7 +54,7 @@ public class AddTagToMeetingCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
-        List<Meeting> lastShownList = model.getFilteredMeetingList();
+        List<Meeting> lastShownList = model.getSortedAndFilteredMeetingList();
         target.setTargetList(lastShownList);
         Meeting targetMeeting = target.targetMeeting();
         EditMeetingDescriptor editMeetingDescriptor = new EditMeetingDescriptor();

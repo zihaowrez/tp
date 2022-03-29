@@ -9,6 +9,7 @@ import seedu.address.logic.commands.meetingcommands.FindMeetingCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.MeetingContainsKeywordsPredicate;
+import seedu.address.model.meeting.MeetingKeywordMatchnessComparator;
 
 /**
  * Parses input arguments and creates a new FindMeetingCommand object
@@ -29,7 +30,8 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
 
         String[] keywords = trimmedArgs.split("\\s+");
 
-        return new FindMeetingCommand(new MeetingContainsKeywordsPredicate(Arrays.asList(keywords)));
+        return new FindMeetingCommand(new MeetingContainsKeywordsPredicate(Arrays.asList(keywords)),
+                new MeetingKeywordMatchnessComparator(Arrays.asList(keywords)));
     }
 
 }

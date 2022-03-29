@@ -7,6 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.MeetingContainsKeywordsPredicate;
+import seedu.address.model.meeting.MeetingKeywordMatchnessComparator;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -22,17 +23,20 @@ public class FindMeetingCommand extends Command {
             + "Example: " + COMMAND_WORD + " cs2103 lecture";
 
     private final MeetingContainsKeywordsPredicate predicate;
+    private final MeetingKeywordMatchnessComparator comparator;
 
-    public FindMeetingCommand(MeetingContainsKeywordsPredicate predicate) {
+    public FindMeetingCommand(MeetingContainsKeywordsPredicate predicate, MeetingKeywordMatchnessComparator comparator) {
         this.predicate = predicate;
+        this.comparator = comparator;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredMeetingList(predicate);
+        model.sortFilteredMeetingList(comparator);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredMeetingList().size()));
+                String.format(Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW, model.getSortedAndFilteredMeetingList().size()));
     }
 
     @Override

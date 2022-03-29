@@ -34,7 +34,7 @@ public abstract class DeleteMeetingCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
-        List<Meeting> lastShownList = model.getFilteredMeetingList();
+        List<Meeting> lastShownList = model.getSortedAndFilteredMeetingList();
         target.setTargetList(lastShownList);
         Meeting meetingToDelete = target.targetMeeting();
 

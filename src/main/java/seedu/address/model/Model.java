@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -90,7 +91,7 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Person> getSortedAndFilteredPersonList();
 
     /**
      * Resets the filter of the view person list to empty.
@@ -107,6 +108,12 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Sorts the filter of the filtered person list to filter by the given {@code comparator}.
+     * @throws NullPointerException if {@code comparator} is null.
+     */
+    void sortFilteredPersonList(Comparator<Person> comparator);
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -115,13 +122,13 @@ public interface Model {
 
     //-----------------Meetings Tab ----------------------------------------------------//
 
-    Path getMeetingsTabFilePath();
+    Path getMeetingsBookFilePath();
 
-    void setMeetingsTabFilePath(Path meetingsTabFilePath);
+    void setMeetingsBookFilePath(Path meetingsBookFilePath);
 
-    void setMeetingsTab(ReadOnlyMeetingsTab meetingsTab);
+    void setMeetingsBook(ReadOnlyMeetingsBook meetingsBook);
 
-    ReadOnlyMeetingsTab getMeetingsTab();
+    ReadOnlyMeetingsBook getMeetingsBook();
 
     void deleteMeeting(Meeting meeting);
 
@@ -133,9 +140,16 @@ public interface Model {
 
     void setMeeting(Meeting target, Meeting editedMeeting);
 
-    ObservableList<Meeting> getFilteredMeetingList();
+    ObservableList<Meeting> getSortedAndFilteredMeetingList();
 
-    void updateFilteredMeetingList(Predicate<Meeting> meeting);
+    void updateFilteredMeetingList(Predicate<Meeting> predicate);
 
+    void sortFilteredMeetingList(Comparator<Meeting> comparator);
+
+    ObservableList<Meeting> getUpcomingMeetingList();
+
+    void updateFilteredUpcomingMeetingList(Predicate<Meeting> predicate);
+
+    void sortFilteredUpcomingMeetingList(Comparator<Meeting> comparator);
 
 }
