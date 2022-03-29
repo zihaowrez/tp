@@ -1,4 +1,5 @@
 package seedu.address.model.meeting;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -17,12 +18,12 @@ public class MeetingContainsKeywordsPredicate implements Predicate<Meeting> {
 
     @Override
     public boolean test(Meeting meeting) {
-        return testName(meeting) || testLink(meeting) || testStartDateTime(meeting) || testEndDateTime(meeting) || testTags(meeting);
+        return testName(meeting) || testLink(meeting) || testStartTime(meeting) || testTags(meeting);
     }
 
     private boolean testName(Meeting meeting) {
         return keywords.stream()
-                .anyMatch(keyword -> meeting.getName().name.toLowerCase().contains(keyword.toLowerCase()));
+                .anyMatch(keyword -> meeting.getTitle().title.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     private boolean testLink(Meeting meeting) {
@@ -30,14 +31,9 @@ public class MeetingContainsKeywordsPredicate implements Predicate<Meeting> {
                 .anyMatch(keyword -> meeting.getLink().link.toLowerCase().contains(keyword.toLowerCase()));
     }
 
-    private boolean testStartDateTime(Meeting meeting) {
+    private boolean testStartTime(Meeting meeting) {
         return keywords.stream()
-                .anyMatch(keyword -> meeting.getDateTime().startDateTime.toString().toLowerCase().contains(keyword.toLowerCase()));
-    }
-
-    private boolean testEndDateTime(Meeting meeting) {
-        return keywords.stream()
-                .anyMatch(keyword -> meeting.getDateTime().endDateTime.toString().toLowerCase().contains(keyword.toLowerCase()));
+                .anyMatch(keyword -> meeting.getStartTime().toString().contains(keyword.toLowerCase()));
     }
 
     private boolean testTags(Meeting meeting) {

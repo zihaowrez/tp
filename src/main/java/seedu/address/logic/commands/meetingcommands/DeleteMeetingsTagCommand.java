@@ -12,10 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.DateTime;
-import seedu.address.model.meeting.Link;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingName;
+import seedu.address.model.meeting.*;
 import seedu.address.model.tag.Tag;
 
 
@@ -30,16 +27,16 @@ public class DeleteMeetingsTagCommand extends DeleteCommand {
     private Tag tagToDelete;
 
     /**
-     * @param target the {@code Index} or {@code Name} being targetted in the MeetingsTab list
+     * @param target the {@code Index} or {@code Name} being targetted in the MeetingsBook list
      * @param tagToDelete the tag to delete
      */
     public DeleteMeetingsTagCommand(Object target, Tag tagToDelete) {
-        assert target instanceof MeetingName || target instanceof Index;
+        assert target instanceof Title || target instanceof Index;
 
         this.tagToDelete = tagToDelete;
 
-        if (target instanceof MeetingName) {
-            this.target = MeetingTarget.of((MeetingName) target, null);
+        if (target instanceof Title) {
+            this.target = MeetingTarget.of((Title) target, null);
         } else if (target instanceof Index) {
             this.target = MeetingTarget.of((Index) target, null);
         } else {
@@ -50,7 +47,7 @@ public class DeleteMeetingsTagCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
-        List<Meeting> lastShownList = model.getFilteredMeetingList();
+        List<Meeting> lastShownList = model.getSortedAndFilteredMeetingList();
         target.setTargetList(lastShownList);
         Meeting targetMeeting = target.targetMeeting();
 
@@ -79,10 +76,11 @@ public class DeleteMeetingsTagCommand extends DeleteCommand {
     private Meeting createUpdatedMeeting(Meeting meetingToEdit, Set<Tag> updatedTags) {
         assert meetingToEdit != null;
 
-        MeetingName name = meetingToEdit.getName();
+        Title name = meetingToEdit.getTitle();
         Link link = meetingToEdit.getLink();
-        DateTime dateTime = meetingToEdit.getDateTime();
+        StartTime startTime = meetingToEdit.getStartTime();
+        Duration duration = meetingToEdit.getDuration();
 
-        return new Meeting(name, link, dateTime, updatedTags);
+        return new Meeting(name, link, startTime, duration, updatedTags);
     }
 }

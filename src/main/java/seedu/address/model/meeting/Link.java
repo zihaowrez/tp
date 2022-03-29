@@ -55,8 +55,8 @@ public class Link {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && link.equals(((Name) other).fullName)); // state check
+                || (other instanceof Link // instanceof handles nulls
+                && link.equals(((Link) other).link)); // state check
     }
 
     @Override

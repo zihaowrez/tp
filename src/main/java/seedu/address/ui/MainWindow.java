@@ -4,9 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -32,16 +30,33 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+
     private PersonListPanel personListPanel;
     private ContactDetailPanel contactDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    private MeetingListPanel meetingListPanel;
+    private UpcomingMeetingListPanel upcomingMeetingListPanel;
+    private ResultDisplay meetingsResultDisplay;
+
     @FXML
-    private StackPane commandBoxPlaceholder;
+    private TabPane tabPane;
+
+    @FXML
+    private Tab contactsTab;
+
+    @FXML
+    private Tab meetingsTab;
+
+    @FXML
+    private Tab helpTab;
 
     @FXML
     private Menu helpMenu;
+
+    @FXML
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -54,6 +69,21 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane meetingsCommandBoxPlaceholder;
+
+    @FXML
+    private StackPane meetingListPanelPlaceholder;
+
+    @FXML
+    private StackPane upcomingMeetingListPanelPlaceholder;
+
+    @FXML
+    private StackPane meetingsResultDisplayPlaceholder;
+
+    @FXML
+    private StackPane meetingsStatusbarPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -147,8 +177,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+
+        personListPanel = new PersonListPanel(logic.getSortedAndFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
         contactDetailPanel = new ContactDetailPanel(logic.getContactDetails());
         contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
 
@@ -158,8 +190,23 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommandForContacts);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        meetingListPanel = new MeetingListPanel(logic.getSortedAndFilteredMeetingList());
+        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+
+        upcomingMeetingListPanel = new UpcomingMeetingListPanel(logic.getUpcomingMeetingList());
+        upcomingMeetingListPanelPlaceholder.getChildren().add(upcomingMeetingListPanel.getRoot());
+
+        meetingsResultDisplay = new ResultDisplay();
+        meetingsResultDisplayPlaceholder.getChildren().add(meetingsResultDisplay.getRoot());
+
+        StatusBarFooter meetingsStatusBarFooter = new StatusBarFooter(logic.getMeetingsBookFilePath());
+        meetingsStatusbarPlaceholder.getChildren().add(meetingsStatusBarFooter.getRoot());
+
+        CommandBox meetingCommandBox = new CommandBox(this::executeCommandForMeetings);
+        meetingsCommandBoxPlaceholder.getChildren().add(meetingCommandBox.getRoot());
     }
 
     /**
@@ -210,12 +257,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String, CommandBox)
+     * @see seedu.address.logic.Logic#executeForContacts(String, CommandBox) (String, CommandBox)
      */
-    private CommandResult executeCommand(String commandText, CommandBox commandBox)
+    private CommandResult executeCommandForContacts(String commandText, CommandBox commandBox)
             throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText, commandBox);
+            CommandResult commandResult = logic.executeForContacts(commandText, commandBox);
             if (commandBox.isDynamic()) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
@@ -237,4 +284,36 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Executes the command and returns the result.
+     *
+     * @see seedu.address.logic.Logic#executeForContacts(String, CommandBox) (String, CommandBox)
+     */
+    private CommandResult executeCommandForMeetings(String commandText, CommandBox commandBox)
+            throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.executeForMeetings(commandText, commandBox);
+            if (commandBox.isDynamic()) {
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+            }
+            meetingsResultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+
+            return commandResult;
+
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            meetingsResultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
 }

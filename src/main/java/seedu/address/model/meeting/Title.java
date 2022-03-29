@@ -3,39 +3,39 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Meeting's name in the MeetingsTab.
+ * Represents a Meeting's title in the MeetingsBook.
  * Guarantees: immutable; is valid as declared in {@link #(String)}
  */
-public class MeetingName {
+public class Title {
 
-    public final String name;
+    public final String title;
 
     /**
      * Constructs a {@code Name}.
      *
-     * @param name A valid name.
+     * @param title A valid title.
      */
-    public MeetingName(String name) {
-        requireNonNull(name);
-        this.name = name;
+    public Title(String title) {
+        requireNonNull(title);
+        this.title = title;
     }
 
 
     @Override
     public String toString() {
-        return name;
+        return title;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MeetingName // instanceof handles nulls
-                && name.equals(((MeetingName) other).name)); // state check
+                || (other instanceof Title // instanceof handles nulls
+                && title.equals(((Title) other).title)); // state check
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return title.hashCode();
     }
 
 }

@@ -16,7 +16,7 @@ import seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeeti
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingName;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 
 public class AddTagToMeetingCommand extends AddCommand {
@@ -39,11 +39,11 @@ public class AddTagToMeetingCommand extends AddCommand {
      * @param newTag the new tag to be added
      */
     public AddTagToMeetingCommand(Object target, Tag newTag) {
-        assert target instanceof MeetingName || target instanceof Index;
+        assert target instanceof Title || target instanceof Index;
 
         this.newTag = newTag;
-        if (target instanceof MeetingName) {
-            this.target = MeetingTarget.of((MeetingName) target, null);
+        if (target instanceof Title) {
+            this.target = MeetingTarget.of((Title) target, null);
         } else if (target instanceof Index) {
             this.target = MeetingTarget.of((Index) target, null);
         } else {

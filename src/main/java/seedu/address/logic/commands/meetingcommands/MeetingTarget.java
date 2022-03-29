@@ -7,7 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingName;
+import seedu.address.model.meeting.Title;
 
 /**
  * Encapsulates a targeted Meeting on a given list of meeting, identified
@@ -26,7 +26,7 @@ public abstract class MeetingTarget {
     /**
      * Factory method for Target. Returns the correct subtype of target given a {@code target}.
      */
-    public static seedu.address.logic.commands.meetingcommands.MeetingTarget of(MeetingName target, List<Meeting> meetings) {
+    public static seedu.address.logic.commands.meetingcommands.MeetingTarget of(Title target, List<Meeting> meetings) {
         return new seedu.address.logic.commands.meetingcommands.MeetingTarget.NamedTarget(target, meetings);
     }
 
@@ -54,14 +54,14 @@ public abstract class MeetingTarget {
     /*----------------------Start of private classes---------------------------------------*/
 
     private static class NamedTarget extends seedu.address.logic.commands.meetingcommands.MeetingTarget {
-        private MeetingName targetName;
+        private Title targetName;
 
-        protected NamedTarget(MeetingName targetName) {
+        protected NamedTarget(Title targetName) {
             super(null);
             this.targetName = targetName;
         }
 
-        protected NamedTarget(MeetingName targetName, List<Meeting> meetings) {
+        protected NamedTarget(Title targetName, List<Meeting> meetings) {
             super(meetings);
             this.targetName = targetName;
         }
@@ -74,7 +74,7 @@ public abstract class MeetingTarget {
 
             Optional<Meeting> targetMeetingOptional = meetings
                     .stream()
-                    .filter(meeting -> meeting.getName().equals(targetName))
+                    .filter(meeting -> meeting.getTitle().equals(targetName))
                     .findFirst();
 
             if (targetMeetingOptional.isEmpty()) {
