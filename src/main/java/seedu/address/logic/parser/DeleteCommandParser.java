@@ -1,12 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.delete.DeletePersonCommand;
+import seedu.address.logic.commands.delete.DeletePersonsSocialCommand;
 import seedu.address.logic.commands.delete.DeletePersonsTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,7 +24,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_SOCIAL_MEDIA);
         String preamble = argMultimap.getPreamble();
         if (preamble.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -29,11 +32,15 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         Object target = ParserUtil.parseTarget(preamble);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_TAG)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_TAG) && !argMultimap.arePrefixesPresent(PREFIX_SOCIAL_MEDIA)) {
             return new DeletePersonCommand(target);
-        } else {
+        } else if (argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             Tag targetTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new DeletePersonsTagCommand(target, targetTag);
+        } else {
+            SocialMedia targetSocial = ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_SOCIAL_MEDIA).get());
+            return new DeletePersonsSocialCommand(target, targetSocial);
+
         }
     }
 
