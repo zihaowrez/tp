@@ -63,7 +63,7 @@
 
 ## 1. Viewing help: `help`
 
-Displays a new window showing `UserGuide.md` as the help page.  
+Displays a new window showing `UserGuide.md` as the help page.
 
 **Format:** `help` or click "Help" on the menu bar.
 
