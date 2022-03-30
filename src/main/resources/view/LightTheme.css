@@ -144,7 +144,7 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 20px;
     -fx-text-fill: #010504;
-    -fx-line-spacing = 2;
+    -fx-line-spacing: 2;
 }
 
 .stack-pane {
