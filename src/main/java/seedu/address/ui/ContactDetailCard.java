@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -33,17 +34,17 @@ public class ContactDetailCard extends UiPart<Region> {
     @FXML
     private Label nameLabel;
     @FXML
-    private Label nameView;
+    private TextArea nameView;
 
     @FXML
     private Label phoneLabel;
     @FXML
-    private Label phoneView;
+    private TextArea phoneView;
 
     @FXML
     private Label emailLabel;
     @FXML
-    private Label emailView;
+    private TextArea emailView;
 
     @FXML
     private Label socialMediaLabel;
@@ -90,13 +91,18 @@ public class ContactDetailCard extends UiPart<Region> {
         }
 
         if (person.getSocialMedias().size() == 0) {
-            socialMedias.getChildren().add(new Label("-"));
+            socialMedias.getChildren().add(new TextArea("-"));
         } else {
             person.getSocialMedias().stream()
                     .sorted(Comparator.comparing(sm -> sm.platformName.getValue()))
                     .forEach(sm -> {
-                        socialMedias.getChildren().add(new Label(sm.getPlatformName()
-                                + ": " + sm.getPlatformDescription()));
+                        TextArea textArea = new TextArea(sm.getPlatformName()
+                                + ": " + sm.getPlatformDescription());
+                        textArea.setPrefHeight(18); //sets height of the TextArea to 400 pixels
+                        textArea.setPrefWidth(360);
+                        textArea.setEditable(false);
+
+                        socialMedias.getChildren().add(textArea);
                     });
             index.set(1);
         }
