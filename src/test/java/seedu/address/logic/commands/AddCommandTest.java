@@ -14,8 +14,11 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.add.AddPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.*;
@@ -99,20 +102,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void resetContactDetails() {
-            throw new AssertionError("This method should not be called.");
-        }
 
-        @Override
-        public ObservableList<Person> getContactDetails() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateContactDetails(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public Path getAddressBookFilePath() {
@@ -171,6 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
+<<<<<<< HEAD
         public Path getMeetingsBookFilePath() { throw new AssertionError("This method should not be called.");}
 
         @Override
@@ -194,20 +185,32 @@ public class AddCommandTest {
 
         @Override
         public void deleteMeeting(Meeting meeting) {
+=======
+        public void updateSelectedPerson(Person newPerson) {
+>>>>>>> master-0330
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+<<<<<<< HEAD
         public void copyMeeting(Meeting meeting) {
+=======
+        public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
+>>>>>>> master-0330
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+<<<<<<< HEAD
         public boolean hasMeeting(Meeting meeting) {
+=======
+        public ObservableIntegerValue getSelectedIndex() {
+>>>>>>> master-0330
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+<<<<<<< HEAD
         public void setMeeting(Meeting target, Meeting editedMeeting) {
             throw new AssertionError("This method should not be called.");
         }
@@ -223,6 +226,12 @@ public class AddCommandTest {
         }
 
         @Override
+=======
+        public void updateSelectedIndex(Index newIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+>>>>>>> master-0330
         public void sortFilteredPersonList(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
         }

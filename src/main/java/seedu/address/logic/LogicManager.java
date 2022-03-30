@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -79,9 +82,23 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
+        return model.getCurrentlySelectedPerson();
+    }
+
     @Override
-    public ObservableList<Person> getContactDetails() {
-        return model.getContactDetails();
+    public void setCurrentlySelectedPerson(Person newPerson) {
+        model.updateSelectedPerson(newPerson);
+    }
+
+    @Override
+    public ObservableIntegerValue getObservableIndex() {
+        return model.getSelectedIndex();
+    }
+
+    @Override
+    public void setObservableIndex(Index index) {
+        model.updateSelectedIndex(index);
     }
 
     @Override
