@@ -79,7 +79,7 @@ public class MeetingsBookParser {
                     return new ListMeetingCommand();
 
                 default:
-                    return new FindCommandParser().parse(commandWord);
+                    return new FindMeetingCommandParser().parse(commandWord);
             }
         }
     }
@@ -95,7 +95,6 @@ public class MeetingsBookParser {
         return (command.equals("") || command.equals("add")
                 || splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
                 || command.equals("edit") || splitCommand[0].equals("edit")) || command.equals("delete")
-                || splitCommand[0].equals("delete") || command.equals("view") || splitCommand[0].equals("view")
-                || command.equals("copy") || splitCommand[0].equals("copy");
+                || splitCommand[0].equals("delete") || command.equals("copy") || splitCommand[0].equals("copy");
     }
 }

@@ -25,7 +25,7 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMeetingCommand.MESSAGE_USAGE));
         }
 
         String[] keywords = trimmedArgs.split("\\s+");
