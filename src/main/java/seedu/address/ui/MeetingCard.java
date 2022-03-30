@@ -1,12 +1,17 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.meeting.Meeting;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -41,6 +46,9 @@ public class MeetingCard extends UiPart<Region> {
     private Label time;
 
     @FXML
+    private Hyperlink link;
+
+    @FXML
     private FlowPane tags;
 
     /**
@@ -52,6 +60,18 @@ public class MeetingCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         time.setText(meeting.getTimeString());
         title.setText(meeting.getTitle().title);
+        link.setText(meeting.getLink().link);
+        link.setOnAction(event -> {
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    Desktop.getDesktop().browse(new URI(meeting.getLink().link));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         meeting.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

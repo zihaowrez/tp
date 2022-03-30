@@ -45,7 +45,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
 
     private MeetingListPanel meetingListPanel;
-    private UpcomingMeetingListPanel upcomingMeetingListPanel;
     private ResultDisplay meetingsResultDisplay;
 
     @FXML
@@ -159,9 +158,6 @@ public class MainWindow extends UiPart<Stage> {
 
         meetingListPanel = new MeetingListPanel(logic.getSortedAndFilteredMeetingList());
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
-
-        upcomingMeetingListPanel = new UpcomingMeetingListPanel(logic.getUpcomingMeetingList());
-        upcomingMeetingListPanelPlaceholder.getChildren().add(upcomingMeetingListPanel.getRoot());
 
         meetingsResultDisplay = new ResultDisplay();
         meetingsResultDisplayPlaceholder.getChildren().add(meetingsResultDisplay.getRoot());

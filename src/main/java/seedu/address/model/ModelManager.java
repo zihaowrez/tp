@@ -19,7 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingIn24HoursPredicate;
-import seedu.address.model.meeting.MeetingTimeComparator;
+import seedu.address.model.meeting.MeetingTimeSorter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 
@@ -270,8 +270,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Meeting> getUpcomingMeetingList() {
-        updateFilteredUpcomingMeetingList(new MeetingIn24HoursPredicate());
-        sortFilteredUpcomingMeetingList(new MeetingTimeComparator());
+        sortFilteredUpcomingMeetingList(new MeetingTimeSorter());
         return sortedAndFilteredUpcomingMeetings;
     }
 
