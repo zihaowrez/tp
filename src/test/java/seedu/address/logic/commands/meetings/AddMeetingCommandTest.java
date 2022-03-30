@@ -12,10 +12,13 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableObjectValue;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
@@ -100,21 +103,6 @@ public class AddMeetingCommandTest {
         }
 
         @Override
-        public void resetContactDetails() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getContactDetails() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateContactDetails(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Path getAddressBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -172,6 +160,26 @@ public class AddMeetingCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSelectedPerson(Person newPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableIntegerValue getSelectedIndex() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSelectedIndex(Index index) {
             throw new AssertionError("This method should not be called.");
         }
 
