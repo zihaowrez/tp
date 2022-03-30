@@ -32,9 +32,7 @@ public class ContactDetailCard extends UiPart<Region> {
     private HBox cardPane;
 
     @FXML
-    private Label nameLabel;
-    @FXML
-    private TextArea nameView;
+    private Label nameView;
 
     @FXML
     private Label phoneLabel;
@@ -67,9 +65,11 @@ public class ContactDetailCard extends UiPart<Region> {
         nameView.setText(person.getName().fullName);
         phoneView.setText(person.getPhone().value);
         emailView.setText(person.getEmail().value);
+        phoneView.setWrapText(true);
+        emailView.setWrapText(true);
 
         phoneLabel.setText("Phone: ");
-        emailLabel.setText("Email:");
+        emailLabel.setText("Email: ");
         tagsLabel.setText("Tags");
         socialMediaLabel.setText("Social Media");
 
