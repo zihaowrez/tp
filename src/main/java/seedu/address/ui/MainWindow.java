@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        tagPanel = new TagPanel(logic.getFilteredTagList());
+        tagPanel = new TagPanel(logic.getFilteredTagList(), logic);
         tagPanelPlaceholder.getChildren().add(tagPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -228,7 +228,7 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            tagPanel.setPanel(new TagCard(logic.getFilteredTagList()).getRoot());
+            tagPanel.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

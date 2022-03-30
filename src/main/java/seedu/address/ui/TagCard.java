@@ -2,11 +2,14 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.logic.Logic;
+import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +28,7 @@ public class TagCard extends UiPart<Region> {
      */
 
     public final List<Tag> tagList;
+    private final Logic logic;
 
     @FXML
     private FlowPane tags;
@@ -34,15 +38,23 @@ public class TagCard extends UiPart<Region> {
     /**
      * Creates a {@code TagCard} that displays all {@code Tag}s.
      */
-    public TagCard(List<Tag> tagList) {
+    public TagCard(List<Tag> tagList, Logic logic) {
         super(FXML);
         this.tagList = tagList;
+        this.logic = logic;
 
         if (tagList.size() != 0) {
             tagList.stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
-                        tags.getChildren().add(new Label(tag.tagName));
+                        Label tagLabel = new Label(tag.tagName);
+                        tagLabel.setOnMouseClicked(event -> 
+                                logic.updateFilteredPersonList(person -> {
+                                    Set<Tag> tagSet = person.getTags();
+                                    return tagSet.contains(tag);
+                                })
+                        );
+                        tags.getChildren().add(tagLabel);
                     });
         }
     }

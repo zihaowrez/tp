@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.function.Predicate;
 
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableObjectValue;
@@ -37,6 +38,8 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the sorted and filtered list of persons */
     ObservableList<Person> getSortedAndFilteredPersonList();
+
+    void updateFilteredPersonList(Predicate<Person> predicate);
 
     /** Returns a view of the currently selected person */
     ObservableObjectValue<Person> getCurrentlySelectedPerson();
