@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.socialmedia.SocialMedia;
 
 /**
  * An UI component that displays {@code ContactDetail} of a {@code Person}.
@@ -90,19 +92,22 @@ public class ContactDetailCard extends UiPart<Region> {
             index.set(1);
         }
 
+        List<SocialMedia> socialMediasXS = person.getSocialMedias();
+
         if (person.getSocialMedias().size() == 0) {
             socialMedias.getChildren().add(new TextArea("-"));
         } else {
             person.getSocialMedias().stream()
-                    .sorted(Comparator.comparing(sm -> sm.platformName.getValue()))
                     .forEach(sm -> {
-                        TextArea textArea = new TextArea(sm.getPlatformName()
+                        TextArea textArea = new TextArea(index + ". " + sm.getPlatformName()
                                 + ": " + sm.getPlatformDescription());
                         textArea.setPrefHeight(18); //sets height of the TextArea to 400 pixels
                         textArea.setPrefWidth(360);
                         textArea.setEditable(false);
+                        textArea.setStyle("-fx-background-color: transparent");
 
                         socialMedias.getChildren().add(textArea);
+                        index.addAndGet(1);
                     });
             index.set(1);
         }
