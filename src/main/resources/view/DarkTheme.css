@@ -128,7 +128,11 @@
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
+<<<<<<< HEAD:src/main/resources/view/DarkTheme.css
     -fx-font-size: 13px;
+=======
+    -fx-font-size: 14px;
+>>>>>>> 6b49fccf2978637bac5c332233656431ca089654:src/main/resources/view/LightTheme.css
     -fx-text-fill: #010504;
 }
 
@@ -190,21 +194,6 @@
 
 .context-menu .label {
     -fx-text-fill: white;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
 }
 
 /*

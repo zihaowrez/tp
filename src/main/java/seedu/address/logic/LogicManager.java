@@ -82,13 +82,6 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    /*
-    @Override
-    public ObservableList<Person> getContactDetails() {
-        return model.getContactDetails();
-    }
-     */
-
     public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
         return model.getCurrentlySelectedPerson();
     }

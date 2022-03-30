@@ -121,7 +121,8 @@ public interface Model {
 
     ObservableIntegerValue getSelectedIndex();
 
-    //-----------------Meetings Tab ----------------------------------------------------//
+
+    //-----------------Meetings Book ----------------------------------------------------//
 
     Path getMeetingsBookFilePath();
 

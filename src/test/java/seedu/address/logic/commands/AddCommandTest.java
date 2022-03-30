@@ -191,11 +191,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void copyMeeting(Meeting meeting) {
+        public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
-        public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
+        @Override
+        public void copyMeeting(Meeting meeting) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -204,6 +205,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public ObservableIntegerValue getSelectedIndex() {
             throw new AssertionError("This method should not be called.");
         }
@@ -228,6 +230,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void sortFilteredPersonList(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
         }

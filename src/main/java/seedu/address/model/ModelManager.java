@@ -18,8 +18,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingIn24HoursPredicate;
-import seedu.address.model.meeting.MeetingTimeComparator;
+import seedu.address.model.meeting.MeetingTimeSorter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 
@@ -33,6 +32,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
 
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> contactDetails;
     private final SimpleObjectProperty<Person> currentlySelectedPersonProperty;
     private final SimpleIntegerProperty selectionIndex;
     private final SortedList<Person> sortedAndFilteredPersons;
@@ -57,10 +57,10 @@ public class ModelManager implements Model {
         this.currentlySelectedPersonProperty = new SimpleObjectProperty<Person>();
         selectionIndex = new SimpleIntegerProperty();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        // contactDetails = new FilteredList<>(this.addressBook.getPersonList());
+        contactDetails = new FilteredList<>(this.addressBook.getPersonList());
         filteredMeetings = new FilteredList<>(this.meetingsBook.getMeetingList());
         filteredUpcomingMeetings = new FilteredList<>(this.meetingsBook.getMeetingList());
-        //resetContactDetails();
+        resetContactDetails();
 
         sortedAndFilteredPersons = filteredPersons.sorted();
         sortedAndFilteredMeetings = filteredMeetings.sorted();
@@ -233,12 +233,9 @@ public class ModelManager implements Model {
         return currentlySelectedPersonProperty;
     }
 
-    /*
-    @Override
-    public void resetContactDetails() {
+    private void resetContactDetails() {
         contactDetails.setPredicate(p -> false);
     }
-     */
 
     public ObservableIntegerValue getSelectedIndex() {
         return selectionIndex;
@@ -272,8 +269,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Meeting> getUpcomingMeetingList() {
-        updateFilteredUpcomingMeetingList(new MeetingIn24HoursPredicate());
-        sortFilteredUpcomingMeetingList(new MeetingTimeComparator());
+        sortFilteredUpcomingMeetingList(new MeetingTimeSorter());
         return sortedAndFilteredUpcomingMeetings;
     }
 
