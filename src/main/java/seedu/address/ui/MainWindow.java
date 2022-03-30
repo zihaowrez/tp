@@ -1,14 +1,20 @@
 package seedu.address.ui;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
+import com.sandec.mdfx.MarkdownView;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
+import javafx.geometry.Insets;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.apache.commons.io.IOUtils;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -24,6 +30,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
+    private String mdfxTxt;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
@@ -34,10 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ContactDetailPanel rightHandSidePanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
-
     private MeetingListPanel meetingListPanel;
-    private UpcomingMeetingListPanel upcomingMeetingListPanel;
     private ResultDisplay meetingsResultDisplay;
 
     @FXML
@@ -51,9 +56,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab helpTab;
-
-    @FXML
-    private Menu helpMenu;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -85,6 +87,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane meetingsStatusbarPlaceholder;
 
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private MarkdownView helpView;
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -98,79 +106,32 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
+        try {
+            String userGuidePath = Paths.get("docs", "HelpGuide.md").toString();
+            mdfxTxt = IOUtils.toString(new FileInputStream(userGuidePath), StandardCharsets.UTF_8);
+        } catch (IOException | NullPointerException e) { // could not find path
+            logger.info("Invalid path! ");
+            mdfxTxt = "This page is empty!";
+        }
 
-        helpWindow = new HelpWindow();
+        // Set Markdown in Help tab
+        helpView = new MarkdownView(mdfxTxt);
+        helpView.setPadding(new Insets(40));
+
+        scrollPane.setContent(helpView);
+        scrollPane.setFitToWidth(true);
+        helpView.setOnScroll(event -> {
+            double deltaY = event.getDeltaY() * 3; // * 3 to make the scrolling a bit faster
+            double height = helpView.getBoundsInLocal().getHeight();
+            double vvalue = scrollPane.getVvalue();
+            scrollPane.setVvalue(vvalue - deltaY / height);
+            // deltaY / height to make the scrolling equally fast regardless of the total height
+        });
+
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    private void setAccelerators() {
-        setAccelerator(helpMenu, KeyCombination.valueOf("F1"));
-    }
-
-    /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
-     */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
-
-    }
-
-    /**
-     * Sets the accelerator of a Menu.
-     * @param keyCombination the KeyCombination value of the accelerator
-     */
-    private void setAccelerator(Menu menu, KeyCombination keyCombination) {
-        menu.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menu.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
-
     }
 
     /**
@@ -195,9 +156,6 @@ public class MainWindow extends UiPart<Stage> {
 
         meetingListPanel = new MeetingListPanel(logic.getSortedAndFilteredMeetingList());
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
-
-        upcomingMeetingListPanel = new UpcomingMeetingListPanel(logic.getUpcomingMeetingList());
-        upcomingMeetingListPanelPlaceholder.getChildren().add(upcomingMeetingListPanel.getRoot());
 
         meetingsResultDisplay = new ResultDisplay();
         meetingsResultDisplayPlaceholder.getChildren().add(meetingsResultDisplay.getRoot());
@@ -226,12 +184,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-            helpWindow.focus();
-        } else {
-            helpWindow.focus();
-        }
+        tabPane.getSelectionModel().select(helpTab);
     }
 
     void show() {
@@ -246,7 +199,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
