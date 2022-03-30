@@ -59,7 +59,7 @@ public class EditCommandParserTest {
         // no index specified
         // assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
-        //TODO: 
+        //TODO:
         // no field specified
         //assertParseFailure(parser, "1", EditPersonCommand.MESSAGE_NOT_EDITED);
 

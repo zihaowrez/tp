@@ -23,11 +23,13 @@ public class EditSocialMediaCommandParser implements Parser<EditSocialMediaComma
         try {
             target = ParserUtil.parseTarget(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSocialMediaCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSocialMediaCommand.MESSAGE_USAGE), pe);
         }
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INDEX, PREFIX_SOCIAL_MEDIA)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSocialMediaCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSocialMediaCommand.MESSAGE_USAGE));
         }
 
         String newSocialMedia = argMultimap.getValue(PREFIX_SOCIAL_MEDIA).get();
@@ -35,11 +37,10 @@ public class EditSocialMediaCommandParser implements Parser<EditSocialMediaComma
 
         if (argMultimap.doesPrefixesExist(PREFIX_PLATFORM_NAME_FLAG)) {
             return new EditSocialMediaCommand(target, oneBasedIndex, newSocialMedia, true);
-        } else { 
+        } else {
             return new EditSocialMediaCommand(target, oneBasedIndex, newSocialMedia, false);
         }
-        
 
     }
-    
+
 }

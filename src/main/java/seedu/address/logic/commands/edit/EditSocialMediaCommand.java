@@ -21,7 +21,7 @@ import seedu.address.model.socialmedia.PlatformName;
 import seedu.address.model.socialmedia.SocialMedia;
 
 public class EditSocialMediaCommand extends EditCommand {
-    
+
     public static final String MESSAGE_EDIT_SOCIALS_SUCCESS = "Edited social media of %s: From %s to %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the targeted social media of a given person. "
             + "The social media is specified by the index of list of socials of the given person.\n"
@@ -35,10 +35,16 @@ public class EditSocialMediaCommand extends EditCommand {
     private Index index;
     private String newDetails;
     private boolean editPlatformNameflag;
-    
+
+    /**
+     * @param target The target person to edit
+     * @param index The index number of the socialMedia to edit
+     * @param newDetails The new details of the socialMedia
+     * @param editPlatformNameflag decides whether to edit the platform name or description
+     */
     public EditSocialMediaCommand(Object target, Index index, String newDetails, boolean editPlatformNameflag) {
         assert target instanceof Name || target instanceof Index;
-        
+
         if (target instanceof Name) {
             this.target = Target.of((Name) target, null);
         } else if (target instanceof Index) {
@@ -62,12 +68,14 @@ public class EditSocialMediaCommand extends EditCommand {
         Person targetPersonToEdit = target.targetPerson();
         List<SocialMedia> socialsToEdit = new ArrayList<>(targetPersonToEdit.getSocialMedias());
         SocialMedia socialMediaToEdit = socialsToEdit.get(index.getZeroBased());
-        SocialMedia updatedSocialMedia; 
+        SocialMedia updatedSocialMedia;
 
         if (editPlatformNameflag) {
-            updatedSocialMedia = new SocialMedia(new PlatformName(newDetails), socialMediaToEdit.getPlatformDescription());
+            updatedSocialMedia =
+                    new SocialMedia(new PlatformName(newDetails), socialMediaToEdit.getPlatformDescription());
         } else {
-            updatedSocialMedia = new SocialMedia(socialMediaToEdit.getPlatformName(), new PlatformDescription(newDetails));
+            updatedSocialMedia =
+                    new SocialMedia(socialMediaToEdit.getPlatformName(), new PlatformDescription(newDetails));
         }
 
         socialsToEdit.set(index.getZeroBased(), updatedSocialMedia);
@@ -77,9 +85,8 @@ public class EditSocialMediaCommand extends EditCommand {
         Person updatedPerson = EditPersonDescriptor.createEditedPerson(targetPersonToEdit, editPersonDescriptor);
         model.setPerson(targetPersonToEdit, updatedPerson);
         model.updateSelectedPerson(updatedPerson);
-        return new CommandResult(String.format(MESSAGE_EDIT_SOCIALS_SUCCESS, 
+        return new CommandResult(String.format(MESSAGE_EDIT_SOCIALS_SUCCESS,
                 updatedPerson.getName(), socialMediaToEdit, updatedSocialMedia));
     }
 
-    
 }

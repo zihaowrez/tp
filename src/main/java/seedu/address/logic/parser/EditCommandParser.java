@@ -48,11 +48,11 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        if (argMultimap.arePrefixesPresent(PREFIX_INDEX) 
+        if (argMultimap.arePrefixesPresent(PREFIX_INDEX)
                 && argMultimap.noOtherPrefixes(PREFIX_INDEX, PREFIX_PLATFORM_NAME_FLAG, PREFIX_SOCIAL_MEDIA)) {
             return new EditSocialMediaCommandParser().parse(args);
         }
-        
+
         if (!argMultimap.atLeastOnePrefix(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SOCIAL_MEDIA, PREFIX_TAG)
                 || argMultimap.doesPrefixesExist(PREFIX_PLATFORM_NAME_FLAG, PREFIX_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE));
