@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -27,6 +28,9 @@ import seedu.address.model.tag.Tag;
 public class DeletePersonsSocialCommand extends DeleteCommand {
     private static final String MESSAGE_SOCIALS_NOT_FOUND = "Social %s not found in %s!";
     private static final String MESSAGE_DELETE_SOCIAL_SUCCESS = "Deleted Social Media Handle: %1$s";
+    private static final String MESSAGE_CANNOT_DELETE_SOCIALS_OF_EMERGENCY =
+            "Socials of Emergency Contacts cannot be deleted";
+
     private Target target;
     private SocialMedia socialsToDelete;
 
@@ -54,6 +58,10 @@ public class DeletePersonsSocialCommand extends DeleteCommand {
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
+
+        if (targetPerson instanceof EmergencyContact) {
+            throw new CommandException(MESSAGE_CANNOT_DELETE_SOCIALS_OF_EMERGENCY);
+        }
 
         Set<SocialMedia> personsSocials = targetPerson.getSocialMedias();
         Set<SocialMedia> updatedSocials = new HashSet<>(personsSocials);

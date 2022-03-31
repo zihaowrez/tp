@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -27,6 +28,7 @@ import seedu.address.model.tag.Tag;
 public class DeletePersonsTagCommand extends DeleteCommand {
     private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
     private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
+    private static final String MESSAGE_CANNOT_DELETE_EMERGENCY_TAG = "Tags of emergency contacts cannot be deleted!";
     private Target target;
     private Tag tagToDelete;
 
@@ -54,6 +56,10 @@ public class DeletePersonsTagCommand extends DeleteCommand {
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
+
+        if (targetPerson instanceof EmergencyContact) {
+            throw new CommandException(MESSAGE_CANNOT_DELETE_EMERGENCY_TAG);
+        }
 
         Set<Tag> personsTags = targetPerson.getTags();
         Set<Tag> updatedTags = new HashSet<>(personsTags);
