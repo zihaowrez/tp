@@ -4,6 +4,8 @@
 
 ![Ui2](docs/images/Ui2.png)
 
+![Ui3](docs/images/Ui3.png)
+
 * This is **an app that helps university students manage their contacts and meetings.**. It is optimized for keyboard users.<br>
   Example usages:
   * as a consolidated place to store information

@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -175,30 +175,30 @@ To instantiate these concrete classes, `Target` provides an overloaded factory m
 
 ```java
 public static Target of(Name target, List<Person> persons) {
-    return new NamedTarget(target, persons);
-}
+        return new NamedTarget(target, persons);
+        }
 
 public static Target of(Index target, List<Person> persons) {
-    return new IndexedTarget(target, persons);
-}
+        return new IndexedTarget(target, persons);
+        }
 ```
 
 The developer will need to invoke the correct factory method by passing in the correct type (either `Name` or `Index`) at compile time. To do so, the command using the Target class will need to perform `instanceof` checks in the constructor. The following is an example from `DeletePersonsTagCommand`
 
 ```java
 public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
-    assert target instanceof Name || target instanceof Index;
+        assert target instanceof Name || target instanceof Index;
 
-    this.tagToDelete = tagToDelete;
+        this.tagToDelete = tagToDelete;
 
-    if (target instanceof Name) {
+        if (target instanceof Name) {
         this.target = Target.of((Name) target, null);
-    } else if (target instanceof Index) {
+        } else if (target instanceof Index) {
         this.target = Target.of((Index) target, null);
-    } else {
+        } else {
         this.target = null;
-    }
-}
+        }
+        }
 ```
 
 
@@ -210,6 +210,8 @@ public abstract Person targetPerson() throws CommandException;
 ```
 
 ### Selecting Users via UI
+
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -233,7 +235,7 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the add
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -268,7 +270,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -281,20 +283,74 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
+
+### [Implemented] Dynamic Command Text Field
+
+#### Implementation
+
+Implementation
+This implementation involves enabling the CommandText Field to read input as it is typed in
+the Command Line Interface (CLI). In the CommandBox.java, a listener function named
+handleDynamicInput(), reads the user input at each deletion or addition of the command in the
+CLI and calls MainWindow#executeCommand. It passes the command inputted by the user with the
+string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
+
+The user input and instance of commandBox object is then passed to LogicManager#execute and
+subsequently AddressBookParser#parseCommand and FindCommandParser#parse(arguments).
+
+The above is assuming that the user inputs a string not included in the
+list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy".
+
+![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
+
+#### Alternatives considered
+* **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
+    * Pros: No changes needed.
+    * Cons: May have performance issues in terms of responsiveness.
+
 
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Copy feature
+
+#### Implementation
+The copy mechanism is facilitated by `ClipboardManager`. It implements the following operation of copying the `Person` to the clipboard.
+
+These operations are exposed in the `Model` interface as `Model#copyPerson()`.
+
+Given below is an example usage scenario and how the copy mechanism behaves.
+
+Step 1. The user launches the application.
+
+Step 2. The user call the inputs copy [PERSON]
+
+Step 3. The `CopyCommandParser` implements `Parser<CopyCommand>` parses the command and initalizes the CopyCommand with the name of the [PERSON]
+
+Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is called from the model.
+
+#### Design Considerations:
+**Aspect: Ease of copying data from uMessage:**
+
+* **Alternative 1 (current choice):** Saves the entire contact book.
+    * Pros: Easy to implement.
+    * Cons: User may have to manually delete unwanted information from the contact.
+
+* **Alternative 2:** Individual copy command to copy individual information stored in the contact
+    * Pros: Will be easier for the user to copy information needed.
+    * Cons: There must be an additional input from the user after the `copy` command with the field name.
+
+_{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -328,7 +384,7 @@ A university student who:
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                                                 | I want to …​                                                  | So that I can…​                                                   |
+| Priority | As a …                                                                 | I want to …                                                  | So that I can…                                                   |
 |----------|-------------------------------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------------|
 | `* * *`  | student with many contacts                                              | manage my contacts easily                                     |                                                                   |
 | `* * *`  | new user                                                                | find help on how to use the app                               | be more proficient in using the app                               |
@@ -386,53 +442,68 @@ Use case ends
 **Extensions**
 * 1a. Incorrect syntax is used
     * 1a1. uMessage displays an error message
+    * 1a2. Use case resumes at step 1
 
-Use case resumes at step 1
-
-### Use case 2: Deletes a contact
+### Use case 2: Delete a contact
 
 **MSS**
 1. User types in the command to delete a contact from the list
+2. uMessage removes the specified contact in the list and displays the updated list to the user
 
-2. If there are multiple users with the same name in the list, uMessage will display a list of relevant contacts and prompt the user to select by entering a valid index
-
-3. uMessage removes the specified contact in the list and displays the updated version to the user
+Use case ends
 
 **Extensions**
-* 1a. User enters an invalid syntax
+* 1a. User enters an invalid syntax / a target index greater than the size of the list / a non-existing target name
     * 1a1. uMessage shows an error
-
-Use case resumes at step 1
-
-* 1b. User enters an invalid index (if there are multiple occurrences)
-    * 1b1. uMessage shows an error
-
-Use case resumes at step 2
+    * 1a2. Use case resumes at step 1
 
 ### Use case 3: Find Contact
 
 **MSS**
-1. User types in the command to find a contact
-2. If the person specified has multiple occurrences, uMessage will show a list of contacts and prompt the user to choose based on the index
-3. uMessage will display the details of that contact
+1. User types keyword(s) in the searchbar
+2. uMessage updates the contact list to display matching contacts
+
+Use case ends
 
 **Extensions**
-* 1a. If the user enters a wrong syntax
-    * 1a1. uMessage will display an error
-    
+* 1a. The first word the user types is a command word
+    * 1a1. uMessage displays the full list
+
+* 1b. User deletes all keywords
+    * 1b1. uMessage displays the full list
+    * 1b2. Use case resumes at step 1
+
+### Use case 4: Copies a contact
+
+**MSS**
+1. User types in the command to copy a contact from the list
+
+2. uMessage copies the specified contact to the clipboard in the list and displays the same in the `resultDisplay`.
+
+**Extensions**
+* 1a. User does not enter a case-sensitive contact within the contact list.
+    * 1a1. uMessage shows an error
+
+Use case resumes at step 1
+
 * 1b. User enters an index
     * 1b1. uMessage shows an error
-Use case resumes at step 1
-
-* 1b. If the user enters a person not present inside the contact list
-    * 1b1. uMessage will display “no such person exists”
 
 Use case resumes at step 1
 
-* 1c. User enters a person with multiple occurrences and proceeds to enter an invalid index or a non-integer input
-    * 1c1. uMessage will display an error
+### Use case 5: View Contact
 
-Use case resumes at step 2
+**MSS**
+1. User types command to view a specific contact from the contact list
+2. uMessage displays the specific contact and all of its details in the RHS Window.
+
+Use case ends
+
+**Extensions**
+* 1a. Incorrect syntax is used
+    * 1a1. uMessage displays an error message
+    * 1a2. Use case resumes at step 1
+
 
 ### Non-Functional Requirements
 
@@ -471,40 +542,40 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+1. _{ more test cases … }_
 
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+1. _{ more test cases … }_
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+1. _{ more test cases … }_
