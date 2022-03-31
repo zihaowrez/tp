@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,60 +20,58 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Deletes a Tag from a person.
- * The person in the list is identified using it's displayed index or name in the address book.
+ * Deletes (@code Tag} and removes {@code Tag} from every {@code Person} that has that particular {@code Tag}.
  */
-public class DeletePersonsTagCommand extends DeleteCommand {
-    private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
+public class DeleteTagOnlyCommand extends DeleteCommand {
+    private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in tag list!";
     private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
-    private Target target;
     private Tag tagToDelete;
 
     /**
-     * @param target the {@code Index} or {@code Name} being targetted in the addressbook list
      * @param tagToDelete the tag to delete
      */
-    public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
-        assert target instanceof Name || target instanceof Index;
+    public DeleteTagOnlyCommand(Tag tagToDelete) {
 
         this.tagToDelete = tagToDelete;
 
-        if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);
-        } else if (target instanceof Index) {
-            this.target = Target.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
+
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
-        target.setTargetList(lastShownList);
-        Person targetPerson = target.targetPerson();
+        List<Tag> tagList = model.getFilteredTagList();
 
-        Set<Tag> personsTags = targetPerson.getTags();
-        Set<Tag> updatedTags = new HashSet<>(personsTags);
-
-        if (!updatedTags.remove(tagToDelete)) {
-            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete, targetPerson.getName()));
+        if (!tagList.contains(tagToDelete)) {
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete));
         }
 
-        Person updatedPerson = createUpdatedPerson(targetPerson, updatedTags);
+        model.deleteTag(tagToDelete);
 
-        model.setPerson(targetPerson, updatedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        for (Person targetPerson: lastShownList) {
+            if (targetPerson.getTags().contains(tagToDelete)) {
+                Set<Tag> personsTags = targetPerson.getTags();
+                Set<Tag> updatedTags = new HashSet<>(personsTags);
+                updatedTags.remove(tagToDelete);
+
+                Person updatedPerson = createUpdatedPerson(targetPerson, updatedTags);
+
+                model.setPerson(targetPerson, updatedPerson);
+                model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+            }
+        }
+
+
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeletePersonsTagCommand // instanceof handles nulls
-                && target.equals(((DeletePersonsTagCommand) other).target) // state check
-                && tagToDelete.equals(((DeletePersonsTagCommand) other).tagToDelete));
+                || (other instanceof DeleteTagOnlyCommand // instanceof handles nulls
+                && tagToDelete.equals(((DeleteTagOnlyCommand) other).tagToDelete));
     }
 
     private Person createUpdatedPerson(Person personToEdit, Set<Tag> updatedTags) {
@@ -88,3 +85,4 @@ public class DeletePersonsTagCommand extends DeleteCommand {
         return new Person(name, phone, email, socialMedias, updatedTags);
     }
 }
+

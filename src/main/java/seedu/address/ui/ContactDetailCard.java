@@ -1,15 +1,20 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.ClipboardManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.socialmedia.SocialMedia;
 
@@ -36,17 +41,17 @@ public class ContactDetailCard extends UiPart<Region> {
     @FXML
     private Label nameLabel;
     @FXML
-    private TextArea nameView;
+    private Label nameView;
 
     @FXML
     private Label phoneLabel;
     @FXML
-    private TextArea phoneView;
+    private Label phoneView;
 
     @FXML
     private Label emailLabel;
     @FXML
-    private TextArea emailView;
+    private Label emailView;
 
     @FXML
     private Label socialMediaLabel;
@@ -65,17 +70,46 @@ public class ContactDetailCard extends UiPart<Region> {
     public ContactDetailCard(Person person) {
         super(FXML);
         this.person = person;
+        ClipboardManager clipboard = new ClipboardManager();
 
         nameView.setText(person.getName().fullName);
+        nameView.setOnMouseClicked(event ->
+                clipboard.copy(person.getName().fullName)
+        );
         phoneView.setText(person.getPhone().value);
+        phoneView.setOnMouseClicked(event ->
+                clipboard.copy(person.getPhone().value)
+        );
         emailView.setText(person.getEmail().value);
+        emailView.setOnMouseClicked(event -> {
+            clipboard.copy(person.getEmail().value);
+            try {
+                Desktop.getDesktop().mail(new URI("mailto:" + person.getEmail().value + "?subject=Hello"));
+            } catch (URISyntaxException | IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        );
 
-        phoneLabel.setText("Phone: ");
+        phoneLabel.setText("Phone:");
+        phoneLabel.setOnMouseClicked(event ->
+                clipboard.copy("Phone")
+        );
+
         emailLabel.setText("Email:");
+        emailLabel.setOnMouseClicked(event ->
+                clipboard.copy("Email")
+        );
+
         tagsLabel.setText("Tags");
+        tagsLabel.setOnMouseClicked(event ->
+                clipboard.copy("Tags")
+        );
+
         socialMediaLabel.setText("Social Media");
-
-
+        socialMediaLabel.setOnMouseClicked(event ->
+                clipboard.copy("Social Media")
+        );
 
         AtomicInteger index = new AtomicInteger(1);
 
@@ -86,7 +120,11 @@ public class ContactDetailCard extends UiPart<Region> {
             person.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
-                        tags.getChildren().add(new Label(index + ". " + tag.tagName));
+                        Label taglabel = new Label(index + ". " + tag.tagName);
+                        taglabel.setOnMouseClicked(event ->
+                                clipboard.copy(tag.tagName)
+                        );
+                        tags.getChildren().add(taglabel);
                         index.addAndGet(1);
                     });
             index.set(1);
@@ -95,20 +133,30 @@ public class ContactDetailCard extends UiPart<Region> {
         List<SocialMedia> socialMediasXS = person.getSocialMedias();
 
         if (person.getSocialMedias().size() == 0) {
-            socialMedias.getChildren().add(new TextArea("-"));
+            socialMedias.getChildren().add(new Label("-"));
         } else {
-            person.getSocialMedias().stream()
-                    .forEach(sm -> {
-                        TextArea textArea = new TextArea(index + ". " + sm.getPlatformName()
-                                + ": " + sm.getPlatformDescription());
-                        textArea.setPrefHeight(18); //sets height of the TextArea to 400 pixels
-                        textArea.setPrefWidth(360);
-                        textArea.setEditable(false);
-                        textArea.setStyle("-fx-background-color: transparent");
+            int count = 0;
+            for (SocialMedia sm : socialMediasXS) {
+                count += 1;
+                Label label = new Label(count + ". " + sm.getPlatformName() + ": " + sm.getPlatformDescription());
+                label.setOnMouseClicked(event -> clipboard.copy(sm.getPlatformDescription().getValue()));
 
-                        socialMedias.getChildren().add(textArea);
-                        index.addAndGet(1);
-                    });
+                if (sm.isTelegram()) {
+                    label.setOnMouseClicked(event -> {
+                            try {
+                                String teleHandle = sm.getPlatformDescription().getValue();
+                                teleHandle = teleHandle.replace("@", "");
+                                Desktop.getDesktop().browse(new URL(SocialMedia.TELEGRAM_URL + teleHandle).toURI());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                }
+                
+                socialMedias.getChildren().add(label);
+            }
+
             index.set(1);
         }
 
