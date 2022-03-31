@@ -1,10 +1,12 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyContacts;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    //private final List<EmergencyContact> emergencyContacts;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -27,7 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    /**
+     * Creates an AddressBook with the default emergency contacts
+     */
+    public AddressBook() {
+        this.persons.setEmergencyContacts(List.of(getEmergencyContacts()));
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -79,8 +87,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
+    public void setPerson(Person target, Person editedPerson) throws CommandException {
         requireNonNull(editedPerson);
+
+        if (target instanceof EmergencyContact) {
+            throw new CommandException("Emergency Contacts cannot be edited");
+        }
 
         persons.setPerson(target, editedPerson);
     }
@@ -89,7 +101,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Person key) throws CommandException {
+        if (key instanceof EmergencyContact) {
+            throw new CommandException("Emergency Contacts cannot be removed");
+        }
+
         persons.remove(key);
     }
 
