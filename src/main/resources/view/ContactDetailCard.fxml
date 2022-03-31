@@ -32,7 +32,7 @@
 
             <HBox spacing="10">
 
-                <Label fx:id="phoneLabel" prefHeight="26.0" prefWidth="71.0" style="-fx-text-fill: black; -fx-font-size: 20;" styleClass="cell_small_label" text="\$phone">
+                <Label fx:id="phoneLabel" prefHeight="26.0" minWidth="71.0" style="-fx-text-fill: black; -fx-font-size: 20;" styleClass="cell_small_label" text="\$phone">
                <font>
                   <Font size="25.0" />
                </font></Label>
@@ -40,7 +40,7 @@
             </HBox>
 
             <HBox spacing="10">
-                <Label fx:id="emailLabel" styleClass="cell_small_label" text="\$email">
+                <Label fx:id="emailLabel" styleClass="cell_small_label" prefHeight="26.0" minWidth="71.0" text="\$email">
                <font>
                   <Font size="20.0" />
                </font></Label>
