@@ -226,6 +226,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.executeForContacts(commandText, commandBox);
             if (commandBox.isDynamic()) {
+                assert !commandText.split(" ")[0].equals("dynamic") : "Input is not dynamic yet isDynamic returns true";
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
