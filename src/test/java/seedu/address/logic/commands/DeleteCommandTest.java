@@ -17,6 +17,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.delete.DeletePersonCommand;
 import seedu.address.logic.commands.delete.Target;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -32,7 +33,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalMeetingsBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_success() throws CommandException {
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeletePersonCommand(INDEX_FIRST_PERSON);
 
@@ -45,7 +46,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validNameUnfilteredList_success() {
+    public void execute_validNameUnfilteredList_success() throws CommandException {
         Person personToDelete = ALICE;
         DeleteCommand deleteCommand = new DeletePersonCommand(personToDelete.getName());
 
@@ -58,7 +59,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_incompleteNameUnfilteredList_throwsCommandException() {
+    public void execute_incompleteNameUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Alice");
         DeleteCommand deleteCommand = new DeletePersonCommand(targetName);
@@ -72,7 +73,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_nameNotExistUnfilteredList_throwsCommandException() {
+    public void execute_nameNotExistUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Bob Pauline");
         DeleteCommand deleteCommand = new DeletePersonCommand(targetName);
@@ -94,7 +95,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIndexFilteredList_success() throws CommandException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());

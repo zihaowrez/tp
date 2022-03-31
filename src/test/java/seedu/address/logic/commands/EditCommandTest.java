@@ -21,7 +21,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.edit.EditPersonCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -37,7 +39,7 @@ public class EditCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalMeetingsBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditPersonCommand(INDEX_FIRST_PERSON, descriptor);
@@ -53,7 +55,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredList_success() throws CommandException {
         Index indexLastPerson = Index.fromOneBased(model.getSortedAndFilteredPersonList().size());
         Person lastPerson = model.getSortedAndFilteredPersonList().get(indexLastPerson.getZeroBased());
 
@@ -65,13 +67,19 @@ public class EditCommandTest {
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditPersonCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedPassMessage = String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedFailMessage =
+                String.format(EditPersonCommand.MESSAGE_CANNOT_EDIT_EMERGENCY_CONTACTS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 model.getMeetingsBook(), new UserPrefs());
-        expectedModel.setPerson(lastPerson, editedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        if (lastPerson instanceof EmergencyContact) {
+            assertCommandFailure(editCommand, model, expectedFailMessage);
+        } else {
+            expectedModel.setPerson(lastPerson, editedPerson);
+            assertCommandSuccess(editCommand, model, expectedPassMessage, expectedModel);
+        }
     }
 
     @Test
@@ -88,7 +96,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_success() throws CommandException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());

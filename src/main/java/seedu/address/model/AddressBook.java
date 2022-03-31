@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyContactTag;
+import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyContacts;
 
 import java.util.List;
 
@@ -31,7 +33,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    /**
+     * Creates an AddressBook with the default emergency contacts
+     */
+    public AddressBook() {
+        this.persons.setEmergencyContacts(List.of(getEmergencyContacts()));
+        this.tags.setEmergencyContactTag(getEmergencyContactTag());
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}

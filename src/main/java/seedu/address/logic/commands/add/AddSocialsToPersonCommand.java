@@ -14,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.delete.Target;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -21,6 +22,9 @@ import seedu.address.model.socialmedia.SocialMedia;
 
 public class AddSocialsToPersonCommand extends AddCommand {
     public static final String MESSAGE_ADD_NEW_SOCIALS_SUCCESS = "Added new social media handle %s to %s";
+    public static final String MESSAGE_CANNOT_ADD_SOCIALS_EMERGENCY =
+            "Social medias cannot be added to emergency contacts";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds new social media handles to a person in address book. "
             + "Parameters: "
@@ -56,6 +60,11 @@ public class AddSocialsToPersonCommand extends AddCommand {
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
+
+        if (targetPerson instanceof EmergencyContact) {
+            throw new CommandException(MESSAGE_CANNOT_ADD_SOCIALS_EMERGENCY);
+        }
+
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         List<SocialMedia> personsSocials = targetPerson.getSocialMedias();

@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ClipboardManager;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -115,6 +116,13 @@ public class UniquePersonList implements Iterable<Person> {
 
         internalList.setAll(persons);
     }
+
+
+    public void setEmergencyContacts(List<EmergencyContact> emergencyContacts) {
+        requireAllNonNull(emergencyContacts);
+        emergencyContacts.forEach(emergencyContact -> this.add(emergencyContact));
+    }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

@@ -2,6 +2,7 @@ package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyContactTag;
 
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +49,7 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public void add(Tag toAdd, String positionInList) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+        if (contains(toAdd) && !toAdd.isSameTag(getEmergencyContactTag())) {
             throw new DuplicateTagException();
         }
         if (positionInList.equals("head")) {
@@ -118,6 +119,10 @@ public class UniqueTagList implements Iterable<Tag> {
         }
 
         internalList.setAll(tags);
+    }
+
+    public void setEmergencyContactTag(Tag tag) {
+        requireAllNonNull(tag);
     }
 
     /**

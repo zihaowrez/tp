@@ -15,6 +15,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.delete.Target;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -22,7 +23,9 @@ import seedu.address.model.tag.Tag;
 
 public class AddTagToPersonCommand extends AddCommand {
     public static final String MESSAGE_ADD_NEW_TAG_SUCCESS = "Added new tag %s to %s";
+    public static final String MESSAGE_TAGS_CANNOT_ADD_EMERGENCY = "Tags cannot be added to emergency contacts!";
     public static final String MESSAGE_TAG_ALREADY_EXISTS = "Tag %s already exists in %s!";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds new tags to a person in address book. "
             + "Parameters: "
@@ -59,6 +62,11 @@ public class AddTagToPersonCommand extends AddCommand {
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
+
+        if (targetPerson instanceof EmergencyContact) {
+            throw new CommandException(MESSAGE_TAGS_CANNOT_ADD_EMERGENCY);
+        }
+
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         Set<Tag> personsTags = targetPerson.getTags();

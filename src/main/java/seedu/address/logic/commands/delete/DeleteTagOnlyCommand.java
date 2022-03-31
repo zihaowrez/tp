@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.delete;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyContactTag;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,12 +40,16 @@ public class DeleteTagOnlyCommand extends DeleteCommand {
 
         this.tagToDelete = tagToDelete;
 
-
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
+
+        if (tagToDelete.equals(getEmergencyContactTag())) {
+            throw new CommandException("Emergency Contact tag cannot be deleted");
+        }
+
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
         List<Tag> tagList = model.getFilteredTagList();
         List<Meeting> meetingList = model.getSortedAndFilteredMeetingList();
@@ -116,4 +121,3 @@ public class DeleteTagOnlyCommand extends DeleteCommand {
         return new Meeting(title, link, startTime, duration, updatedTags);
     }
 }
-

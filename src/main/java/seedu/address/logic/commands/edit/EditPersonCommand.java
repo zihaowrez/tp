@@ -15,6 +15,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.delete.Target;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -36,6 +37,7 @@ public class EditPersonCommand extends EditCommand {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_CANNOT_EDIT_EMERGENCY_CONTACTS = "Emergency Contacts cannot be edited";
 
     private final Target target;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -67,6 +69,10 @@ public class EditPersonCommand extends EditCommand {
         target.setTargetList(lastShownList);
 
         Person personToEdit = target.targetPerson();
+
+        if (personToEdit instanceof EmergencyContact) {
+            throw new CommandException(MESSAGE_CANNOT_EDIT_EMERGENCY_CONTACTS);
+        }
         Person editedPerson = EditPersonDescriptor.createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
