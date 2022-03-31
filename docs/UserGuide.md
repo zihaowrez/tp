@@ -19,9 +19,11 @@
 
    * Type any keywords, and uMessage will live search the list.
 
-   * **`add`**`n/Betsy Crowe` to the Address Book.
+   * **`add`**`n/Aaron` to the Address Book.
+   
+   * **`edit`**`1 e/aaron@example.com`: Adds an email to Aaron.
 
-   * **`delete`**`alex` : Deletes Alex if the person exists.
+   * **`delete`**`alex`: Deletes Alex if the person exists.
 
    * **`clear`** : Deletes all contacts.
 
@@ -81,7 +83,7 @@ The contacts list is navigable using the arrow keys.
 
 **Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
-NAME is case sensitive and must match the full name.
+NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer.
 
 **Examples:**
@@ -93,7 +95,8 @@ INDEX must be a positive integer.
 
 **Format:** `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
-_Tip: Specify the person that you want to add the social media to by using their full name or their index in the contact list_
+NAME is case sensitive and must match the full name.</br>
+INDEX must be a positive integer.
 
 **Examples:**
 
@@ -162,7 +165,7 @@ NAME is case sensitive and must match the full name.
 
 **Format:**
 
-Click on the relevant label values to copy the value to the system clipboard.
+Click on the relevant label values to copy the value to the system clipboard.</br>
 Note that clicking the email and telegram fields will trigger a unique response.
 
 **Examples:**
@@ -204,7 +207,7 @@ INDEX must be a positive integer.
 
 **Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
-NAME is case sensitive and must match the full name.
+NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer.
 
 **Examples:**
@@ -225,8 +228,8 @@ The header displays the size of the current meeting list in the brackets.
 
 **Format:** `add n/TITLE l/LINK s/START_TIME d/DURATION [t/TAG]…`
 
-START_TIME must follow the format `yyyy-M-d HHmm` (e.g. `2022-3-20 0900`) and must not be in the past</br>
-DURATION is in minutes and must be an integer between 1 and 10000
+START_TIME must follow the format `yyyy-M-d HHmm` (e.g. `2022-3-20 0900`) and must not be in the past.</br>
+DURATION is in minutes and must be an integer between 1 and 10000.
 
 **Examples:**
 
@@ -270,6 +273,9 @@ The order of the keywords does not matter. e.g. `2040 CS` will match `CS 2040`.
 ## 3. Editing details of a meeting: `edit`
 
 **Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+
+START_TIME must follow the format `yyyy-M-d HHmm` (e.g. `2022-3-20 0900`) and must not be in the past.</br>
+DURATION is in minutes and must be an integer between 1 and 10000.
 
 **Examples:**
 
