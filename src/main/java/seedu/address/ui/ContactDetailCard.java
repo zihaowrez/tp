@@ -143,17 +143,17 @@ public class ContactDetailCard extends UiPart<Region> {
 
                 if (sm.isTelegram()) {
                     label.setOnMouseClicked(event -> {
-                            try {
-                                String teleHandle = sm.getPlatformDescription().getValue();
-                                teleHandle = teleHandle.replace("@", "");
-                                Desktop.getDesktop().browse(new URL(SocialMedia.TELEGRAM_URL + teleHandle).toURI());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        });
+                        try {
+                            String teleHandle = sm.getPlatformDescription().getValue();
+                            teleHandle = teleHandle.replace("@", "");
+                            Desktop.getDesktop().browse(new URL(SocialMedia.TELEGRAM_URL + teleHandle).toURI());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                 }
-                
+
                 socialMedias.getChildren().add(label);
             }
 
