@@ -163,7 +163,7 @@ uMessage allows users to perform certain indexed-based operations by specifying 
 - Adding/removing new social media information from a person in the list.
 
 The syntax of these commands are typically:
-`command_word INDEX relevant_options` or `command_word NAME_OF_PERSON relevant_options`. 
+`command_word INDEX relevant_options` or `command_word NAME_OF_PERSON relevant_options`.
 
 Thus for each operation, there is usually a index-based version and a name-based version. However, this will become unwieldy overtime as we would have to make two versions of the same command. In both cases, we *target* a `Person` in the `filteredList` exposed by `ModelManager` by specifying their `name` or `index`.
 
@@ -171,7 +171,7 @@ This idea of a targeting some Person in the addressbook list is thus encapsulate
 
 ![Target Class Diagram](images/TargetClass.png)
 
-To instantiate these concrete classes, `Target` provides an overloaded factory method `Target::of`, that will return one of the two subtypes of `Target` casted as `Target` at compile time. 
+To instantiate these concrete classes, `Target` provides an overloaded factory method `Target::of`, that will return one of the two subtypes of `Target` casted as `Target` at compile time.
 
 ```java
 public static Target of(Name target, List<Person> persons) {
@@ -488,7 +488,7 @@ Use case resumes at step 1
 
 * 1b. User enters an index
     * 1b1. uMessage shows an error
-   
+
 Use case resumes at step 1
 
 ### Use case 5: View Contact

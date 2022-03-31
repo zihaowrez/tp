@@ -8,6 +8,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.delete.DeletePersonCommand;
 import seedu.address.logic.commands.delete.DeletePersonsSocialCommand;
 import seedu.address.logic.commands.delete.DeletePersonsTagCommand;
+import seedu.address.logic.commands.delete.DeleteTagOnlyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
@@ -26,8 +27,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_SOCIAL_MEDIA);
         String preamble = argMultimap.getPreamble();
-        if (preamble.isEmpty()) {
+        if (preamble.isEmpty() && !argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        if (preamble.isEmpty() && argMultimap.arePrefixesPresent(PREFIX_TAG)) {
+            Tag targetTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+            return new DeleteTagOnlyCommand(targetTag);
         }
 
         Object target = ParserUtil.parseTarget(preamble);
