@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -118,8 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         try {
-            String userGuidePath = Paths.get("docs", "HelpGuide.md").toString();
-            mdfxTxt = IOUtils.toString(new FileInputStream(userGuidePath), StandardCharsets.UTF_8);
+            mdfxTxt = IOUtils.toString(MainWindow.class.getResourceAsStream("/assets/HelpGuide.md"), StandardCharsets.UTF_8);
         } catch (IOException | NullPointerException e) { // could not find path
             logger.info("Invalid path! ");
             mdfxTxt = "This page is empty!";
