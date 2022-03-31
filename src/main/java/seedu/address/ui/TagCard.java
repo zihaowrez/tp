@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
-import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,7 +47,7 @@ public class TagCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
                         Label tagLabel = new Label(tag.tagName);
-                        tagLabel.setOnMouseClicked(event -> 
+                        tagLabel.setOnMouseClicked(event ->
                                 logic.updateFilteredPersonList(person -> {
                                     Set<Tag> tagSet = person.getTags();
                                     return tagSet.contains(tag);
