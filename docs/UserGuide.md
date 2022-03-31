@@ -72,7 +72,8 @@ Displays a new window showing `UserGuide.md` as the help page.
 
 Adds either:
   1. a person, or
-  2. a new tag to an existing person.
+  2. a new tag to an existing person, or
+  3. a new social media to an existing person.
 
 ### 2.1 Adding a person
 
@@ -100,7 +101,7 @@ _Tip: Specify the person that you want to add the tag to by using their full nam
 ### 2.3 Adding new details to a person
 **Format:** `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
-_Tip: Specify the person that you want to add the detail to by using their full name or their index in the contact list_
+_Tip: Specify the person that you want to add the social media to by using their full name or their index in the contact list_
 
 **Examples:**
 
@@ -108,6 +109,13 @@ _Tip: Specify the person that you want to add the detail to by using their full 
 > `add 2 d/telegram,@johndoe23`
 
 ## 3. Copying the details of a person: `copy`
+
+Copies either:
+1. a person, or
+2. an individual value under the Contact
+to the system clipboard.
+
+### 3.1 Copying the details of a person: `copy`
 
 **Format:** `copy NAME`
 
@@ -118,6 +126,18 @@ Copy by name is case sensitive and must match the full name.
 
 > `copy David Li`
 > `copy Bernice Yu`
+
+### 3.2 an individual value under the Contacts
+
+Click on the relevant label values to copy the value to the system clipboard.
+Note that clicking the email and telegram fields will trigger a unique response.
+
+##### Email 
+Clicking the email will trigger the local Mail application to create a new email to the aforementioned address.
+
+##### Telegram
+Clicking the telegram handle will open the Telegram link to contact the person at the aforementioned handle name.
+
 
 ## 4. Listing all persons: `list`
 
@@ -148,7 +168,8 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 Deletes either:
   1. a person, or
-  2. a tag from an existing person.
+  2. a tag from an existing person, or
+  3. a social media
 
 ### 6.1 Deleting Person
 
@@ -172,19 +193,30 @@ Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 > `delete kaaviya t/friend`
 > `delete 1 t/colleague`
 
+
+### 6.3 Deleting Social Media from a Person
+**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+
+Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `INDEX`.
+
+**Examples:**
+> `delete kaaviya d/Telegram,@uNivUS`
+> `delete 1 d/Telegram,@uNivUS`
+
 ## 7. Viewing a person: `view`
 
-**Format:** `view INDEX`
+**Format:** `view INDEX` or click the Contact under the contacts list.
 
 Views the contact details of the person with the selected index in the RHS window.
 
 **Examples:**
 
 > `view 2`
+> clicking on the second contact does the same as above.
 
 ## 8. Clearing all entries: `clear`
 
-Clears all entries from the address book.
+Clears all non-Emergency Contacts entries from the address book.
 
 ## 9. Exiting the program: `exit`
 
