@@ -1,4 +1,4 @@
-# uMessage (v1.2) User Guide
+# uMessage (v1.3) User Guide
 
 ***uMessage*** is a desktop app that helps university students manage contacts, academics and CCAs that communicate and hold meetings on various platforms. It is optimized for keyboard users.
 
@@ -17,11 +17,9 @@
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * Type any keywords, and uMessage will live search the list.
 
-   * **`add`**`n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com`: Adds a contact named `Betsy Crowe` to the Address Book.
-
-   * `alex` or **`find`**`alex` : Finds the name "Alex" in the list
+   * **`add`**`n/Betsy Crowe` to the Address Book.
 
    * **`delete`**`alex` : Deletes Alex if the person exists.
 
@@ -59,301 +57,296 @@
 
 </div>
 
---------------------------------------------------------------------------------------------------------------------
-# Universal Features
 
-## 1. Viewing help: `help`
-
-Displays a new window showing `UserGuide.md` as the help page.
-
-**Format:** `help` or click "Help" on the menu bar.
-
-## 2. Listing all persons: `list`
-
-Shows a list of all persons/meetings in the book.
-
-**Format:** `list`
-
-## 3. Viewing a person/meeting: `view`
-
-**Format:** `view INDEX` or click the Contact/Meeting under the list.
-
-Views the contact/meeting details of the selected index in the RHS window.
-
-**Examples:**
-
-> `view 2`
-> clicking on the second contact does the same as above.
-
-## 4. Clearing all entries: `clear`
-
-Clears all non-Emergency Contacts entries from the address book.
-
-## 5. Exiting the program: `exit`
-
-Exits the program.
-
-## 6. Saving the data
-
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-## 7. Editing the data file
-
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
-</div>
 
 --------------------------------------------------------------------------------------------------------------------
-# Manage Contacts
+# Managing Contacts
+
+The contacts are listed alphabetically. The header displays the size of the current contact list in the brackets.</br>
+The contacts list is navigable using the arrow keys.
 
 ## 1. Adding: `add`
 
-Adds either:
-  1. a person, or
-  2. a new tag to an existing person, or
-  3. a new social media to an existing person.
-
 ### 1.1 Adding a person
 
-**Format:** `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
-
-A person can have one or more details and zero or more tags.
-The newly added person will be placed at the top of the contact list.
+**Format:** `add n/NAME [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 **Examples:**
 
-> `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`
-> `add n/Betsy Crowe p/99900099 e/e0123456@gmail.com`
-> `add n/Potter p/49502583 e/harrypotter@hogwarts.edu t/cs2030`
+> `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`</br>
+> `add n/Betsy Crowe e/e0123456@gmail.com`</br>
+> `add n/Potter`
 
 ### 1.2 Adding new tag to a person
+
 **Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
-_Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
+NAME is case sensitive and must match the full name.
+INDEX must be a positive integer.
 
 **Examples:**
 
-> `add John Doe t/friend`
+> `add John Doe t/friend`</br>
 > `add 2 t/friend`
 
-### 1.3 Adding new details to a person
+### 1.3 Adding new social media to a person
+
 **Format:** `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
 _Tip: Specify the person that you want to add the social media to by using their full name or their index in the contact list_
 
 **Examples:**
 
-> `add John Doe d/telegram,@johndoe23`
-> `add 2 d/telegram,@johndoe23`
+> `add John Doe d/telegram, @johndoe23`</br>
+> `add 2 d/telegram, @johndoe23`
 
-## 2. Copying the details of a person: `copy`
 
-Copies either:
-1. a person, or
-2. an individual value under the Contact
-to the system clipboard.
 
-### 2.1 Copying the details of a person: `copy`
-
-**Format:** `copy NAME`
-
-Copies the details of the person with the specified NAME.
-Copy by name is case sensitive and must match the full name.
-
-**Examples:**
-
-> `copy David Li`
-> `copy Bernice Yu`
-
-### 2.2 an individual value under the Contacts
-
-Click on the relevant label values to copy the value to the system clipboard.
-Note that clicking the email and telegram fields will trigger a unique response.
-
-##### Email 
-Clicking the email will trigger the local Mail application to create a new email to the aforementioned address.
-
-##### Telegram
-Clicking the telegram handle will open the Telegram link to contact the person at the aforementioned handle name.
-
-## 3. Find by keyword: `[find]`
-
-Finds persons with the given keywords.
+## 2. Searching persons by keywords: `[find]`
 
 **Format:** `[find] KEYWORD [MORE_KEYWORDS]`
 
+Results are listed according to how much they match the keywords. Names are matched first, then tags, then other fields.
+
 If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.
 
-The keywords are compared to all fields of each person.
-Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
-The search is case-insensitive. e.g `hans` will match `Hans`.
+The keywords are compared to all fields of each person.</br>
+Persons matching at least one keyword will be returned (i.e. OR search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.</br>
+The search is case-insensitive. e.g `hans` will match `Hans`.</br>
 The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 **Examples:**
 
-> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).
-> `a` does the same as above.
-> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
-
-## 4. Deleting: `delete`
-
-Deletes either:
-  1. a person, or
-  2. a tag from an existing person, or
-  3. a social media
-
-### 4.1 Deleting Person
-
-**Format:** `delete NAME` or `delete INDEX`
-
-Deletes the person with the specified `NAME` or `INDEX`.
-Deletion by name is case sensitive and must match the full name.
-INDEX must be a positive integer.
-
-**Examples:**
-> `delete 2` deletes the contact at index 2
-> `delete Alex Yeoh` deletes the contact `Alex Yeoh`
-> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
-
-### 4.2 Deleting Tag from a Person
-**Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
-
-Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
-
-**Examples:**
-> `delete kaaviya t/friend`
-> `delete 1 t/colleague`
+> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).</br>
+> `a` does the same as above.</br>
+> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist), with `Alex Yeoh` displayed at the top.
 
 
-### 4.3 Deleting Social Media from a Person
-**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
-Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `INDEX`.
+## 3. Viewing details of a person
 
-**Examples:**
-> `delete kaaviya d/Telegram,@uNivUS`
-> `delete 1 d/Telegram,@uNivUS`
-
-
-# Manage Meetings
-
-## 1. Adding: `add`
-
-Adds either:
-1. meeting, or
-2. a new tag to an existing meeting
-
-### 1.1 Adding a meeting
-
-**Format:** `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
-
-Details
+**Format:** `view INDEX` or click the Contact/Meeting under the list.
 
 **Examples:**
 
-> `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`
+> `view 2`
+> clicking on the second contact does the same as above.
 
-### 1.2 Adding new tag to a meeting
-**Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
-_Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
+
+## 4. Editing details of a person: `edit`
+
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 **Examples:**
 
-> `add John Doe t/friend`
+> `edit 1 n/Aaron d/Telegram, @aaron`</br>
+> `edit Alex n/Aaron p/52873618`
 
-## 2. Copying the details of a meeting: `copy`
 
-Copies either:
-1. a meeting, or
-2. an individual value under the Meeting to the system clipboard.
 
-### 2.1 Copying the details of a person: `copy`
+## 5. Copying: `copy`
+
+### 5.1 Copying all details of a person
 
 **Format:** `copy NAME`
 
-Copies the details of the meeting with the specified NAME.
-Copy by name is case sensitive and must match the full meeting name.
+NAME is case sensitive and must match the full name.
 
 **Examples:**
 
-> `copy CS2102 Lecture`
+> `copy David Li`</br>
+> `copy Bernice Yu`
 
-### 2.2 an individual value under the Contacts
+### 5.2 Copying one detail under the Contacts
+
+**Format:**
 
 Click on the relevant label values to copy the value to the system clipboard.
-Note that clicking the hyperlink will trigger a unique response.
+Note that clicking the email and telegram fields will trigger a unique response.
 
-##### Link
-Clicking the link will trigger the system to open the link in the user's browser.
-
-
-## 3. Find by keyword: `[find]`
-
-Finds persons with the given keywords.
-
-**Format:** `[find] KEYWORD [MORE_KEYWORDS]`
-
-If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.
-
-Details
 **Examples:**
 
-> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).
-> `a` does the same as above.
-> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
+**Copying email:** Clicking the email will trigger the local Mail application to create a new email to the aforementioned address.
 
-## 4. Deleting: `delete`
+**Copying a telegram handle:** Clicking the telegram handle will open the Telegram link to contact the person at the aforementioned handle name.
 
-Deletes either:
-1. a person, or
-2. a tag from an existing meeting.
 
-### 4.1 Deleting Meeting
+
+## 6. Deleting: `delete`
+
+### 6.1 Deleting a person
 
 **Format:** `delete NAME` or `delete INDEX`
 
-Deletes the person with the specified `NAME` or `INDEX`.
-Deletion by name is case sensitive and must match the full name.
+NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer.
 
 **Examples:**
-> `delete 2` deletes the contact at index 2
-> `delete Alex Yeoh` deletes the contact `Alex Yeoh`
+
+> `delete 2` deletes the contact at index 2</br>
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh`</br>
 > `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
-### 4.2 Deleting Meeting from a Person
+### 6.2 Deleting tag from a Person
+
 **Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
+
+NAME is case sensitive and must match the full name.
+INDEX must be a positive integer.
+
+**Examples:**
+
+> `delete kaaviya t/friend`</br>
+> `delete 1 t/colleague`
+
+### 6.3 Deleting social media from a Person
+
+**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+
+NAME is case sensitive and must match the full name.
+INDEX must be a positive integer.
+
+**Examples:**
+> `delete kaaviya d/Telegram, @uNivUS`</br>
+> `delete 1 d/Telegram, @uNivUS`
+
+
+--------------------------------------------------------------------------------------------------------------------
+# Manage Meetings
+
+The meetings in the future are listed first with ascending starting time, followed by past meetings with descending starting time.</br>
+
+The header displays the size of the current meeting list in the brackets.
+
+## 1. Adding: `add`
+
+### 1.1 Adding a meeting
+
+**Format:** `add n/TITLE l/LINK s/START_TIME d/DURATION [t/TAG]…`
+
+START_TIME must follow the format `yyyy-M-d HHmm` (e.g. `2022-3-20 0900`) and must not be in the past</br>
+DURATION is in minutes and must be an integer between 1 and 10000
+
+**Examples:**
+
+> `add n/CS2040 PE l/www.google.com s/2022-3-20 0900 d/120 t/Alex`</br>
+> `add n/CS2103 Tutorial l/www.google.com s/2022-3-20 1200 d/60`
+
+### 1.2 Adding new tag to a meeting
+
+**Format:** `add INDEX t/NEWTAG`
+
+INDEX must be a positive integer.
+
+**Examples:**
+
+> `add 1 t/urgent`
+
+
+
+## 3. Searching meetings by keyword: `[find]`
+
+Finds meetings with the given keywords.
+
+**Format:** `[find] KEYWORD [MORE_KEYWORDS]`
+
+Results are listed according to how much they match the keywords. Titles are matched first, then tags, then other fields.</br>
+
+If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.</br>
+
+The keywords are compared to all fields of each meeting.</br>
+Meetings matching at least one keyword will be returned (i.e. OR search). e.g. `CS` will return `CS2040 PE`, `CS2103 Tutorial`.</br>
+The search is case-insensitive. e.g `cs` will match `CS2030`.</br>
+The order of the keywords does not matter. e.g. `2040 CS` will match `CS 2040`.
+
+**Examples:**
+
+> `cs` will return `CS2040 PE`, `CS2103 Tutorial`, `Group meeting` with the tag `cs2103` (if these meetings exist).</br>
+> `find cs` does the same as above.
+
+
+
+## 3. Editing details of a meeting: `edit`
+
+**Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+
+**Examples:**
+
+> `edit 1 n/CS2030 PE`</br>
+> `edit 2 s/2022-4-1 1600`
+
+
+
+## 4. Deleting: `delete`
+
+### 4.1 Deleting a meeting
+
+**Format:** `delete INDEX`
+INDEX must be a positive integer.
+
+**Example:**
+> `delete 2` deletes the meeting at index 2
+
+### 4.2 Deleting tag from a meeting
+
+**Format:** `delete INDEX t/TAG`
 
 Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 
-**Examples:**
-> `delete kaaviya t/friend`
-> `delete 1 t/colleague`
+**Example:**
+> `delete 1 t/urgent`
 
 --------------------------------------------------------------------------------------------------------------------
 
 # Manage Global Tags
 
-## 1. Adding a global tag: `add?`
-**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+## 1. Adding a global tag
 
-Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `INDEX`.
+**Format:** `add t/TAG`
 
-**Examples:**
-> `delete kaaviya d/Telegram,@uNivUS`
-> `delete 1 d/Telegram,@uNivUS`
+**Example:**
+> `add t/CS2100`
 
-## 2. Deleting a global tag: `add?`
-**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+## 2. Deleting a global tag
 
-Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `INDEX`.
+**Format:** `delete t/TAG`
 
-**Examples:**
-> `delete kaaviya d/Telegram,@uNivUS`
-> `delete 1 d/Telegram,@uNivUS`
+**Example:**
+> `delete t/CS2100`
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+# Universal Features
+
+## 1. Viewing help: `help`
+
+Displays the `Help` tab.
+
+## 2. Listing all persons/meetings: `list`
+
+Shows a list of all persons/meetings in the book.
+
+## 3. Clearing all entries: `clear`
+
+Clears all non-Emergency Contacts entries from the address book.
+
+## 4. Exiting the program: `exit`
+
+Exits the program.
+
+## 5. Saving the data
+
+uMessage's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+## 6. Editing the data file
+
+uMessage's data are saved as two JSON files: `[JAR file location]/data/addressbook.json` and `[JAR file location]/data/meetingsbook.json`. Advanced users are welcome to update data directly by editing those data files.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, the data will be discarded and uMessage start with an empty data file at the next run.
+</div>
 
 
 
@@ -362,20 +355,5 @@ Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `IND
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous uMessage home folder.
 
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-| Action                       | Format, Examples                                                                                                                      |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Person**               | `add n/NAME [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…​`<br> e.g., `add n/Betsy Crowe d/Phone, 99900099 d/Email, e0123456@gmail.com` |
-| **Add Tag**                  | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG` <br> e.g., `add Betsy t/Friend`, `add 2 t/Friend`                                         |
-| **Clear**                    | `clear`                                                                                                                               |
-| **Copy Details of a Person** | `copy FULL_NAME`<br> e.g., `copy Alex Yeoh`                                                                                           |
-| **Delete Person**            | `delete FULL_NAME` or `delete INDEX`<br> e.g., `delete Alex Yeoh`, `delete 2`                                                         |
-| **Find**                     | `[find] KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`, `James Jake`                                                            |
-| **List**                     | `list`                                                                                                                                |
-| **Help**                     | `help`                                                                                                                                |
-| **View**                     | `view INDEX`<br> e.g. `view 1`                                                                                                        |
