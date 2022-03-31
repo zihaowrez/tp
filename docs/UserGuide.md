@@ -59,7 +59,8 @@
 
 </div>
 
-# Manage Contacts
+--------------------------------------------------------------------------------------------------------------------
+# Universal Features
 
 ## 1. Viewing help: `help`
 
@@ -67,6 +68,45 @@ Displays a new window showing `UserGuide.md` as the help page.
 
 **Format:** `help` or click "Help" on the menu bar.
 
+## 4. Listing all persons: `list`
+
+Shows a list of all persons/meetings in the book.
+
+**Format:** `list`
+
+## 7. Viewing a person/meeting: `view`
+
+**Format:** `view INDEX` or click the Contact/Meeting under the list.
+
+Views the contact/meeting details of the selected index in the RHS window.
+
+**Examples:**
+
+> `view 2`
+> clicking on the second contact does the same as above.
+
+## 8. Clearing all entries: `clear`
+
+Clears all non-Emergency Contacts entries from the address book.
+
+## 9. Exiting the program: `exit`
+
+Exits the program.
+
+## 10. Saving the data
+
+AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+## 11. Editing the data file
+
+AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+</div>
+
+--------------------------------------------------------------------------------------------------------------------
+# Manage Contacts
 
 ## 2. Adding: `add`
 
@@ -138,13 +178,6 @@ Clicking the email will trigger the local Mail application to create a new email
 ##### Telegram
 Clicking the telegram handle will open the Telegram link to contact the person at the aforementioned handle name.
 
-
-## 4. Listing all persons: `list`
-
-Shows a list of all persons in the address book.
-
-**Format:** `list`
-
 ## 5. Find by keyword: `[find]`
 
 Finds persons with the given keywords.
@@ -203,40 +236,118 @@ Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `IND
 > `delete kaaviya d/Telegram,@uNivUS`
 > `delete 1 d/Telegram,@uNivUS`
 
-## 7. Viewing a person: `view`
-
-**Format:** `view INDEX` or click the Contact under the contacts list.
-
-Views the contact details of the person with the selected index in the RHS window.
-
-**Examples:**
-
-> `view 2`
-> clicking on the second contact does the same as above.
-
-## 8. Clearing all entries: `clear`
-
-Clears all non-Emergency Contacts entries from the address book.
-
-## 9. Exiting the program: `exit`
-
-Exits the program.
-
-## 10. Saving the data
-
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-## 11. Editing the data file
-
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
-</div>
 
 # Manage Meetings
 
-*Coming soon*
+## 2. Adding: `add`
+
+Adds either:
+1. meeting, or
+2. a new tag to an existing meeting
+
+### 2.1 Adding a meeting
+
+**Format:** `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+
+Details
+
+**Examples:**
+
+> `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`
+
+### 2.2 Adding new tag to a meeting
+**Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
+
+_Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
+
+**Examples:**
+
+> `add John Doe t/friend`
+
+## 3. Copying the details of a meeting: `copy`
+
+Copies either:
+1. a meeting, or
+2. an individual value under the Meeting to the system clipboard.
+
+### 3.1 Copying the details of a person: `copy`
+
+**Format:** `copy NAME`
+
+Copies the details of the meeting with the specified NAME.
+Copy by name is case sensitive and must match the full meeting name.
+
+**Examples:**
+
+> `copy CS2102 Lecture`
+
+### 3.2 an individual value under the Contacts
+
+Click on the relevant label values to copy the value to the system clipboard.
+Note that clicking the hyperlink will trigger a unique response.
+
+##### Link
+
+
+## 5. Find by keyword: `[find]`
+
+Finds persons with the given keywords.
+
+**Format:** `[find] KEYWORD [MORE_KEYWORDS]`
+
+If the first keyword is a command word, it will still be recognised as a command and will not be treated as keywords. The whole list will be displayed when a command word is entered.
+
+Details
+**Examples:**
+
+> `find a` will return `Alex Yeoh`, `Bernice` with the tag `colleagues`, `Lin` with the email `lin@example.com` (if these contacts exist).
+> `a` does the same as above.
+> `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
+
+## 6. Deleting: `delete`
+
+Deletes either:
+1. a person, or
+2. a tag from an existing meeting.
+
+### 6.1 Deleting Person
+
+**Format:** `delete NAME` or `delete INDEX`
+
+Deletes the person with the specified `NAME` or `INDEX`.
+Deletion by name is case sensitive and must match the full name.
+INDEX must be a positive integer.
+
+**Examples:**
+> `delete 2` deletes the contact at index 2
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh`
+> `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
+
+### 6.2 Deleting Tag from a Person
+**Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
+
+Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
+
+**Examples:**
+> `delete kaaviya t/friend`
+> `delete 1 t/colleague`
+
+--------------------------------------------------------------------------------------------------------------------
+
+# Manage Global Tags
+
+## 1. Adding a global tag: `add?`
+**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+
+Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `INDEX`.
+
+**Examples:**
+> `delete kaaviya d/Telegram,@uNivUS`
+> `delete 1 d/Telegram,@uNivUS`
+
+## 2. Deleting a global tag: `add?`
+
+
 
 
 --------------------------------------------------------------------------------------------------------------------
