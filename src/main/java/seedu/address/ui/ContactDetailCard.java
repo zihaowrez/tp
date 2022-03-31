@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -8,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.ClipboardManager;
 import seedu.address.model.person.Person;
 
 /**
@@ -63,19 +69,47 @@ public class ContactDetailCard extends UiPart<Region> {
     public ContactDetailCard(Person person) {
         super(FXML);
         this.person = person;
+        ClipboardManager clipboard = new ClipboardManager();
 
         nameView.setText(person.getName().fullName);
+        nameView.setOnMouseClicked(event ->
+                clipboard.copy(person.getName().fullName)
+        );
         phoneView.setText(person.getPhone().value);
+        phoneView.setOnMouseClicked(event ->
+                clipboard.copy(person.getPhone().value)
+        );
         emailView.setText(person.getEmail().value);
-        phoneView.setWrapText(true);
-        emailView.setWrapText(true);
 
-        phoneLabel.setText("Phone: ");
-        emailLabel.setText("Email: ");
+        emailView.setOnMouseClicked(event -> {
+            clipboard.copy(person.getEmail().value);
+            try {
+                Desktop.getDesktop().mail(new URI("mailto:" + person.getEmail().value + "?subject=Hello"));
+            } catch (URISyntaxException | IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        );
+
+        phoneLabel.setText("Phone:");
+        phoneLabel.setOnMouseClicked(event ->
+                clipboard.copy("Phone")
+        );
+
+        emailLabel.setText("Email:");
+        emailLabel.setOnMouseClicked(event ->
+                clipboard.copy("Email")
+        );
+
         tagsLabel.setText("Tags");
+        tagsLabel.setOnMouseClicked(event ->
+                clipboard.copy("Tags")
+        );
+
         socialMediaLabel.setText("Social Media");
-
-
+        socialMediaLabel.setOnMouseClicked(event ->
+                clipboard.copy("Social Media")
+        );
 
         AtomicInteger index = new AtomicInteger(1);
 
@@ -86,7 +120,11 @@ public class ContactDetailCard extends UiPart<Region> {
             person.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
-                        tags.getChildren().add(new Label(index + ". " + tag.tagName));
+                        Label taglabel = new Label(index + ". " + tag.tagName);
+                        taglabel.setOnMouseClicked(event ->
+                                clipboard.copy(tag.tagName)
+                        );
+                        tags.getChildren().add(taglabel);
                         index.addAndGet(1);
                     });
             index.set(1);
@@ -98,9 +136,29 @@ public class ContactDetailCard extends UiPart<Region> {
             person.getSocialMedias().stream()
                     .sorted(Comparator.comparing(sm -> sm.platformName.getValue()))
                     .forEach(sm -> {
-                        socialMedias.getChildren().add(new Label(sm.getPlatformName()
-                                + ": " + sm.getPlatformDescription()));
+                        Label label = new Label(sm.getPlatformName()
+                                + ": " + sm.getPlatformDescription());
+                        label.setOnMouseClicked(event ->
+                                clipboard.copy(sm.getPlatformDescription().getValue())
+                        );
+
+                        if (sm.isTelegram()) {
+                            label.setOnMouseClicked(event -> {
+                                try {
+                                    String teleHandle = sm.getPlatformDescription().getValue();
+                                    teleHandle = teleHandle.replace("@", "");
+                                    Desktop.getDesktop().browse(new URL(sm.TELEGRAM_URL
+                                            + teleHandle).toURI());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            );
+
+                        }
+                        socialMedias.getChildren().add(label);
                     });
+
             index.set(1);
         }
 
