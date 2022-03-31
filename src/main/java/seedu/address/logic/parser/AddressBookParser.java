@@ -43,7 +43,7 @@ public class AddressBookParser {
         final Matcher dynamicMatcher = DYNAMIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (dynamicMatcher.matches() && dynamicMatcher.group("inputType").equals("dynamic")) {
-            assert !userInput.split(" ")[0].equals("dynamic") : "incorrect Regex";
+            // assert !userInput.split(" ")[0].equals("dynamic") : "incorrect Regex";
             final String arguments = dynamicMatcher.group("arguments").trim();
             String[] splitArgs = arguments.split(" ");
 
@@ -51,7 +51,7 @@ public class AddressBookParser {
                 commandBox.setDynamicAsFalse();
                 return new ListCommand();
             } else {
-                assert splitArgs[0].equals("add") : "Incorrect checking of command";
+                // assert splitArgs[0].equals("add") : "Incorrect checking of command";
                 commandBox.setDynamicAsTrue();
                 return new FindCommandParser().parse(arguments);
             }

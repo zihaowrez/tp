@@ -46,7 +46,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private MeetingListPanel meetingListPanel;
     private ResultDisplay meetingsResultDisplay;
-    private TagPanel tagPanel;
+    private TagPanel tagPanelForContacts;
+    private TagPanel tagPanelForMeetings;
 
 
     @FXML
@@ -74,7 +75,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane tagPanelPlaceholder;
+    private StackPane tagPanelInContactsPlaceholder;
+
+    @FXML
+    private StackPane tagPanelInMeetingsPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -152,8 +156,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        tagPanel = new TagPanel(logic.getFilteredTagList(), logic);
-        tagPanelPlaceholder.getChildren().add(tagPanel.getRoot());
+        tagPanelForContacts = new TagPanel(logic.getFilteredTagList(), logic);
+        tagPanelInContactsPlaceholder.getChildren().add(tagPanelForContacts.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -172,6 +176,9 @@ public class MainWindow extends UiPart<Stage> {
 
         StatusBarFooter meetingsStatusBarFooter = new StatusBarFooter(logic.getMeetingsBookFilePath());
         meetingsStatusbarPlaceholder.getChildren().add(meetingsStatusBarFooter.getRoot());
+
+        tagPanelForMeetings = new TagPanel(logic.getFilteredTagList(), logic);
+        tagPanelInMeetingsPlaceholder.getChildren().add(tagPanelForMeetings.getRoot());
 
         CommandBox meetingCommandBox = new CommandBox(this::executeCommandForMeetings);
         meetingsCommandBoxPlaceholder.getChildren().add(meetingCommandBox.getRoot());
@@ -226,11 +233,12 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.executeForContacts(commandText, commandBox);
             if (commandBox.isDynamic()) {
-                assert !commandText.split(" ")[0].equals("dynamic") : "Input is not dynamic yet isDynamic returns true";
+                // assert !commandText.split(" ")[0].equals("dynamic") : "Input is not dynamic yet isDynamic returns true";
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            tagPanel.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
+            tagPanelForContacts.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
+            tagPanelForMeetings.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -262,6 +270,8 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
             meetingsResultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            tagPanelForContacts.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
+            tagPanelForMeetings.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
