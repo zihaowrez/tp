@@ -68,13 +68,13 @@ Displays a new window showing `UserGuide.md` as the help page.
 
 **Format:** `help` or click "Help" on the menu bar.
 
-## 4. Listing all persons: `list`
+## 2. Listing all persons: `list`
 
 Shows a list of all persons/meetings in the book.
 
 **Format:** `list`
 
-## 7. Viewing a person/meeting: `view`
+## 3. Viewing a person/meeting: `view`
 
 **Format:** `view INDEX` or click the Contact/Meeting under the list.
 
@@ -85,19 +85,19 @@ Views the contact/meeting details of the selected index in the RHS window.
 > `view 2`
 > clicking on the second contact does the same as above.
 
-## 8. Clearing all entries: `clear`
+## 4. Clearing all entries: `clear`
 
 Clears all non-Emergency Contacts entries from the address book.
 
-## 9. Exiting the program: `exit`
+## 5. Exiting the program: `exit`
 
 Exits the program.
 
-## 10. Saving the data
+## 6. Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-## 11. Editing the data file
+## 7. Editing the data file
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -108,14 +108,14 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 --------------------------------------------------------------------------------------------------------------------
 # Manage Contacts
 
-## 2. Adding: `add`
+## 1. Adding: `add`
 
 Adds either:
   1. a person, or
   2. a new tag to an existing person, or
   3. a new social media to an existing person.
 
-### 2.1 Adding a person
+### 1.1 Adding a person
 
 **Format:** `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
@@ -128,7 +128,7 @@ The newly added person will be placed at the top of the contact list.
 > `add n/Betsy Crowe p/99900099 e/e0123456@gmail.com`
 > `add n/Potter p/49502583 e/harrypotter@hogwarts.edu t/cs2030`
 
-### 2.2 Adding new tag to a person
+### 1.2 Adding new tag to a person
 **Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
 _Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
@@ -138,7 +138,7 @@ _Tip: Specify the person that you want to add the tag to by using their full nam
 > `add John Doe t/friend`
 > `add 2 t/friend`
 
-### 2.3 Adding new details to a person
+### 1.3 Adding new details to a person
 **Format:** `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
 _Tip: Specify the person that you want to add the social media to by using their full name or their index in the contact list_
@@ -148,14 +148,14 @@ _Tip: Specify the person that you want to add the social media to by using their
 > `add John Doe d/telegram,@johndoe23`
 > `add 2 d/telegram,@johndoe23`
 
-## 3. Copying the details of a person: `copy`
+## 2. Copying the details of a person: `copy`
 
 Copies either:
 1. a person, or
 2. an individual value under the Contact
 to the system clipboard.
 
-### 3.1 Copying the details of a person: `copy`
+### 2.1 Copying the details of a person: `copy`
 
 **Format:** `copy NAME`
 
@@ -167,7 +167,7 @@ Copy by name is case sensitive and must match the full name.
 > `copy David Li`
 > `copy Bernice Yu`
 
-### 3.2 an individual value under the Contacts
+### 2.2 an individual value under the Contacts
 
 Click on the relevant label values to copy the value to the system clipboard.
 Note that clicking the email and telegram fields will trigger a unique response.
@@ -178,7 +178,7 @@ Clicking the email will trigger the local Mail application to create a new email
 ##### Telegram
 Clicking the telegram handle will open the Telegram link to contact the person at the aforementioned handle name.
 
-## 5. Find by keyword: `[find]`
+## 3. Find by keyword: `[find]`
 
 Finds persons with the given keywords.
 
@@ -197,14 +197,14 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 > `a` does the same as above.
 > `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
 
-## 6. Deleting: `delete`
+## 4. Deleting: `delete`
 
 Deletes either:
   1. a person, or
   2. a tag from an existing person, or
   3. a social media
 
-### 6.1 Deleting Person
+### 4.1 Deleting Person
 
 **Format:** `delete NAME` or `delete INDEX`
 
@@ -217,7 +217,7 @@ INDEX must be a positive integer.
 > `delete Alex Yeoh` deletes the contact `Alex Yeoh`
 > `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
-### 6.2 Deleting Tag from a Person
+### 4.2 Deleting Tag from a Person
 **Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
 
 Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
@@ -227,7 +227,7 @@ Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 > `delete 1 t/colleague`
 
 
-### 6.3 Deleting Social Media from a Person
+### 4.3 Deleting Social Media from a Person
 **Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
 Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `INDEX`.
@@ -239,13 +239,13 @@ Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `IND
 
 # Manage Meetings
 
-## 2. Adding: `add`
+## 1. Adding: `add`
 
 Adds either:
 1. meeting, or
 2. a new tag to an existing meeting
 
-### 2.1 Adding a meeting
+### 1.1 Adding a meeting
 
 **Format:** `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
@@ -255,7 +255,7 @@ Details
 
 > `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`
 
-### 2.2 Adding new tag to a meeting
+### 1.2 Adding new tag to a meeting
 **Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
 _Tip: Specify the person that you want to add the tag to by using their full name or their index in the contact list_
@@ -264,13 +264,13 @@ _Tip: Specify the person that you want to add the tag to by using their full nam
 
 > `add John Doe t/friend`
 
-## 3. Copying the details of a meeting: `copy`
+## 2. Copying the details of a meeting: `copy`
 
 Copies either:
 1. a meeting, or
 2. an individual value under the Meeting to the system clipboard.
 
-### 3.1 Copying the details of a person: `copy`
+### 2.1 Copying the details of a person: `copy`
 
 **Format:** `copy NAME`
 
@@ -281,15 +281,16 @@ Copy by name is case sensitive and must match the full meeting name.
 
 > `copy CS2102 Lecture`
 
-### 3.2 an individual value under the Contacts
+### 2.2 an individual value under the Contacts
 
 Click on the relevant label values to copy the value to the system clipboard.
 Note that clicking the hyperlink will trigger a unique response.
 
 ##### Link
+Clicking the link will trigger the system to open the link in the user's browser.
 
 
-## 5. Find by keyword: `[find]`
+## 3. Find by keyword: `[find]`
 
 Finds persons with the given keywords.
 
@@ -304,13 +305,13 @@ Details
 > `a` does the same as above.
 > `find alex yeoh` will return both `Alex` and `Alex Yeoh` (if both contacts exist).
 
-## 6. Deleting: `delete`
+## 4. Deleting: `delete`
 
 Deletes either:
 1. a person, or
 2. a tag from an existing meeting.
 
-### 6.1 Deleting Person
+### 4.1 Deleting Meeting
 
 **Format:** `delete NAME` or `delete INDEX`
 
@@ -323,7 +324,7 @@ INDEX must be a positive integer.
 > `delete Alex Yeoh` deletes the contact `Alex Yeoh`
 > `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
-### 6.2 Deleting Tag from a Person
+### 4.2 Deleting Meeting from a Person
 **Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
 
 Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
@@ -346,7 +347,13 @@ Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `IND
 > `delete 1 d/Telegram,@uNivUS`
 
 ## 2. Deleting a global tag: `add?`
+**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
 
+Deletes tag `SOCIAL MEDIA PLATFORM` from a person specified using `NAME` or `INDEX`.
+
+**Examples:**
+> `delete kaaviya d/Telegram,@uNivUS`
+> `delete 1 d/Telegram,@uNivUS`
 
 
 
