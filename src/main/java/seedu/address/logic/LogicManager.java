@@ -141,6 +141,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+        model.updateFilteredMeetingList(predicate);
+    }
+
+    @Override
     public ObservableList<Meeting> getUpcomingMeetingList() {
         return model.getUpcomingMeetingList();
     }
