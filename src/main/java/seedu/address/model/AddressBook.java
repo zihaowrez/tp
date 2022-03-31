@@ -6,6 +6,8 @@ import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyCon
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.delete.DeletePersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -91,7 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         if (target instanceof EmergencyContact) {
-            throw new CommandException("Emergency Contacts cannot be edited");
+            throw new CommandException(EditCommand.MESSAGE_CANNOT_EDIT_EMERGENCY_CONTACTS);
         }
 
         persons.setPerson(target, editedPerson);
@@ -103,7 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) throws CommandException {
         if (key instanceof EmergencyContact) {
-            throw new CommandException("Emergency Contacts cannot be removed");
+            throw new CommandException(DeletePersonCommand.MESSAGE_CANNOT_DELETE_EMERGENCY_CONTACT);
         }
 
         persons.remove(key);

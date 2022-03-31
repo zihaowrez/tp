@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
  */
 public class DeletePersonCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_CANNOT_DELETE_EMERGENCY_CONTACT = "Emergency Contacts cannot be deleted";
 
     private Target target;
 
