@@ -9,7 +9,6 @@ import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 
 /**
@@ -66,7 +65,7 @@ public interface Model {
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void deletePerson(Person target) throws CommandException;
+    void deletePerson(Person target);
 
     /**
      * Copies the given person.
@@ -86,7 +85,7 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Person target, Person editedPerson) throws CommandException;
+    void setPerson(Person target, Person editedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getSortedAndFilteredPersonList();

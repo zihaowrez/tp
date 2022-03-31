@@ -6,9 +6,6 @@ import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyCon
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.delete.DeletePersonCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -19,7 +16,6 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    //private final List<EmergencyContact> emergencyContacts;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -89,12 +85,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) throws CommandException {
+    public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
-        if (target instanceof EmergencyContact) {
-            throw new CommandException(EditCommand.MESSAGE_CANNOT_EDIT_EMERGENCY_CONTACTS);
-        }
 
         persons.setPerson(target, editedPerson);
     }
@@ -103,11 +95,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) throws CommandException {
-        if (key instanceof EmergencyContact) {
-            throw new CommandException(DeletePersonCommand.MESSAGE_CANNOT_DELETE_EMERGENCY_CONTACT);
-        }
-
+    public void removePerson(Person key) {
         persons.remove(key);
     }
 
