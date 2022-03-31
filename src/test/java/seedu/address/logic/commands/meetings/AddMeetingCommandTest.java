@@ -103,23 +103,6 @@ public class AddMeetingCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-<<<<<<< HEAD
-=======
-        private void resetContactDetails() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getContactDetails() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateContactDetails(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
->>>>>>> 6b49fccf2978637bac5c332233656431ca089654
         @Override
         public Path getAddressBookFilePath() {
             throw new AssertionError("This method should not be called.");
