@@ -175,30 +175,30 @@ To instantiate these concrete classes, `Target` provides an overloaded factory m
 
 ```java
 public static Target of(Name target, List<Person> persons) {
-        return new NamedTarget(target, persons);
-        }
+    return new NamedTarget(target, persons);
+}
 
 public static Target of(Index target, List<Person> persons) {
-        return new IndexedTarget(target, persons);
-        }
+    return new IndexedTarget(target, persons);
+}
 ```
 
 The developer will need to invoke the correct factory method by passing in the correct type (either `Name` or `Index`) at compile time. To do so, the command using the Target class will need to perform `instanceof` checks in the constructor. The following is an example from `DeletePersonsTagCommand`
 
 ```java
 public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
-        assert target instanceof Name || target instanceof Index;
+    assert target instanceof Name || target instanceof Index;
 
-        this.tagToDelete = tagToDelete;
+    this.tagToDelete = tagToDelete;
 
-        if (target instanceof Name) {
+    if (target instanceof Name) {
         this.target = Target.of((Name) target, null);
-        } else if (target instanceof Index) {
+    } else if (target instanceof Index) {
         this.target = Target.of((Index) target, null);
-        } else {
+    } else {
         this.target = null;
-        }
-        }
+    }
+}
 ```
 
 
@@ -235,7 +235,7 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the add
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -270,7 +270,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -384,7 +384,7 @@ A university student who:
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …                                                                 | I want to …                                                  | So that I can…                                                   |
+| Priority | As a …​                                                                 | I want to …​                                                  | So that I can…​                                                   |
 |----------|-------------------------------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------------|
 | `* * *`  | student with many contacts                                              | manage my contacts easily                                     |                                                                   |
 | `* * *`  | new user                                                                | find help on how to use the app                               | be more proficient in using the app                               |
@@ -553,7 +553,7 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases … }_
+1. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -570,7 +570,7 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases … }_
+1. _{ more test cases …​ }_
 
 ### Saving data
 
@@ -578,4 +578,4 @@ testers are expected to do more *exploratory* testing.
 
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases … }_
+1. _{ more test cases …​ }_
