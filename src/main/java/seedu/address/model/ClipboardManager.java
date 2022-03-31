@@ -32,10 +32,24 @@ public class ClipboardManager {
     }
 
     /**
+     * Copies the string value to the system clipboard.
+     * @param toCopy
+     */
+    public void copy(String toCopy) {
+
+        String str = toCopy.toString();
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = toolkit.getSystemClipboard();
+        StringSelection strSel = new StringSelection(str);
+        clipboard.setContents(strSel, null);
+
+    }
+
+    /**
      * Copies the tag to the system clipboard.
      * @param toCopy
      */
-
     public void copy(Tag toCopy) {
 
         String str = toCopy.toString();
