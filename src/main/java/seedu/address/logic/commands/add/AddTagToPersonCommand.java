@@ -24,6 +24,7 @@ import seedu.address.model.tag.Tag;
 public class AddTagToPersonCommand extends AddCommand {
     public static final String MESSAGE_ADD_NEW_TAG_SUCCESS = "Added new tag %s to %s";
     public static final String MESSAGE_TAGS_CANNOT_ADD_EMERGENCY = "Tags cannot be added to emergency contacts!";
+    public static final String MESSAGE_TAG_ALREADY_EXISTS = "Tag %s already exists in %s!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds new tags to a person in address book. "
@@ -69,6 +70,11 @@ public class AddTagToPersonCommand extends AddCommand {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         Set<Tag> personsTags = targetPerson.getTags();
+
+        if (personsTags.contains(newTag)) {
+            throw new CommandException(String.format(MESSAGE_TAG_ALREADY_EXISTS, newTag, targetPerson.getName()));
+        }
+
         Set<Tag> updatedTags = new HashSet<>(personsTags);
         updatedTags.add(newTag);
         editPersonDescriptor.setTags(updatedTags);
@@ -77,6 +83,13 @@ public class AddTagToPersonCommand extends AddCommand {
 
         model.setPerson(targetPerson, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (!model.hasTag(newTag)) {
+            model.addTag(newTag);
+        }
+
+
+
         return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, updatedPerson));
     }
 

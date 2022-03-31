@@ -62,8 +62,16 @@
           </padding>
         </StackPane>
 
+        <StackPane VBox.vgrow="NEVER" fx:id="tagPanelPlaceholder" styleClass="pane-with-border" style="-fx-background-color: #ededed#ededed;"
+                   minHeight="100" prefHeight="100" maxHeight="100">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
+
         <SplitPane dividerPositions="0.5" style="-fx-background-color: #ededed;" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" style="-fx-background-color: #ededed#ededed;" styleClass="stack-pane" VBox.vgrow="ALWAYS">
+        <VBox fx:id="personList" minWidth="340" prefWidth="340" style="-fx-background-color: #ededed#ededed;" styleClass="stack-pane" VBox.vgrow="ALWAYS">
+
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
