@@ -5,8 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAY
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-// import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -25,9 +23,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonMeetingsBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -47,7 +47,9 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonMeetingsBookStorage meetingsBookStorage =
+                new JsonMeetingsBookStorage(temporaryFolder.resolve("meetingsTab.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, meetingsBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -73,7 +75,9 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonMeetingsBookStorage meetingsBookStorage =
+                new JsonMeetingsBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMeetingsTab.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, meetingsBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -100,7 +104,7 @@ public class LogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, CommandBox commandBox, String expectedMessage,
             Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = logic.execute(inputCommand, commandBox);
+        CommandResult result = logic.executeForContacts(inputCommand, commandBox);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
@@ -127,7 +131,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, CommandBox commandBox,
                                        Class<? extends Throwable> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getMeetingsBook(), new UserPrefs());
         assertCommandFailure(inputCommand, commandBox, expectedException, expectedMessage, expectedModel);
     }
 
@@ -141,7 +145,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, CommandBox commandBox,
                                       Class<? extends Throwable> expectedException, String expectedMessage,
                                       Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand, commandBox));
+        assertThrows(expectedException, expectedMessage, () -> logic.executeForContacts(inputCommand, commandBox));
         assertEquals(expectedModel, model);
     }
 
@@ -155,6 +159,17 @@ public class LogicManagerTest {
 
         @Override
         public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    private static class JsonMeetingsBookIoExceptionThrowingStub extends JsonMeetingsBookStorage {
+        private JsonMeetingsBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveMeetingsBook(ReadOnlyMeetingsBook meetingsTab, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

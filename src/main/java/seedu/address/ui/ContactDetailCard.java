@@ -38,6 +38,7 @@ public class ContactDetailCard extends UiPart<Region> {
 
     @FXML
     private Label nameLabel;
+
     @FXML
     private Label nameView;
 
@@ -79,6 +80,7 @@ public class ContactDetailCard extends UiPart<Region> {
                 clipboard.copy(person.getPhone().value)
         );
         emailView.setText(person.getEmail().value);
+
         emailView.setOnMouseClicked(event -> {
             clipboard.copy(person.getEmail().value);
             try {

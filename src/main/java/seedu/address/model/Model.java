@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -19,6 +20,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
+
+    Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -39,6 +43,8 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    //-----------------Address Book ----------------------------------------------------//
 
     /**
      * Returns the user prefs' address book file path.
@@ -155,6 +161,39 @@ public interface Model {
     ObservableObjectValue<Person> getCurrentlySelectedPerson();
 
     ObservableIntegerValue getSelectedIndex();
+
+
+    //-----------------Meetings Book ----------------------------------------------------//
+
+    Path getMeetingsBookFilePath();
+
+    void setMeetingsBookFilePath(Path meetingsBookFilePath);
+
+    void setMeetingsBook(ReadOnlyMeetingsBook meetingsBook);
+
+    ReadOnlyMeetingsBook getMeetingsBook();
+
+    void deleteMeeting(Meeting meeting);
+
+    void copyMeeting(Meeting meeting);
+
+    boolean hasMeeting(Meeting meeting);
+
+    void addMeeting(Meeting meeting);
+
+    void setMeeting(Meeting target, Meeting editedMeeting);
+
+    ObservableList<Meeting> getSortedAndFilteredMeetingList();
+
+    void updateFilteredMeetingList(Predicate<Meeting> predicate);
+
+    void sortFilteredMeetingList(Comparator<Meeting> comparator);
+
+    ObservableList<Meeting> getUpcomingMeetingList();
+
+    void updateFilteredUpcomingMeetingList(Predicate<Meeting> predicate);
+
+    void sortFilteredUpcomingMeetingList(Comparator<Meeting> comparator);
 
     /**
      * Updates the selected index to with a new {@code Index}.

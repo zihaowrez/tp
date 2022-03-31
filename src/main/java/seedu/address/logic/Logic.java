@@ -12,6 +12,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingsBook;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.CommandBox;
@@ -21,13 +23,22 @@ import seedu.address.ui.CommandBox;
  */
 public interface Logic {
     /**
-     * Executes the command and returns the result.
+     * Executes the command under the Contacts tab and returns the result.
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText, CommandBox commandBox) throws CommandException, ParseException;
+    CommandResult executeForContacts(String commandText, CommandBox commandBox) throws CommandException, ParseException;
+
+    /**
+     * Executes the command under the Meetings tab and returns the result.
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    CommandResult executeForMeetings(String commandText, CommandBox commandBox) throws CommandException, ParseException;
 
     /**
      * Returns the AddressBook.
@@ -58,6 +69,22 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the MeetingsBook.
+     *
+     * @see seedu.address.model.Model#getMeetingsBook()
+     */
+    ReadOnlyMeetingsBook getMeetingsBook();
+
+    /** Returns an unmodifiable view of the sorted and filtered list of meetings */
+    ObservableList<Meeting> getSortedAndFilteredMeetingList();
+
+    /** Returns an unmodifiable view of the sorted and filtered list of meetings */
+    ObservableList<Meeting> getUpcomingMeetingList();
+
+    Path getMeetingsBookFilePath();
+
 
     /**
      * Returns the user prefs' GUI settings.

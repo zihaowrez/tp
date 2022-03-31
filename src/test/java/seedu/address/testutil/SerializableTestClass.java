@@ -1,9 +1,11 @@
 package seedu.address.testutil;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import seedu.address.model.meeting.StartTime;
+
 
 /**
  * A class used to test serialization and deserialization
@@ -11,7 +13,7 @@ import java.util.List;
 public class SerializableTestClass {
     public static final String JSON_STRING_REPRESENTATION = String.format("{%n"
             + "  \"name\" : \"This is a test class\",%n"
-            + "  \"listOfLocalDateTimes\" : "
+            + "  \"listOfStartTimes\" : "
             + "[ \"-999999999-01-01T00:00:00\", \"+999999999-12-31T23:59:59.999999999\", "
             + "\"0001-01-01T01:01:00\" ],%n"
             + "  \"mapOfIntegerToString\" : {%n"
@@ -25,21 +27,17 @@ public class SerializableTestClass {
 
     private String name;
 
-    private List<LocalDateTime> listOfLocalDateTimes;
+    private List<StartTime> listOfStartTimes;
     private HashMap<Integer, String> mapOfIntegerToString;
 
     public static String getNameTestValue() {
         return NAME_TEST_VALUE;
     }
 
-    public static List<LocalDateTime> getListTestValues() {
-        List<LocalDateTime> listOfLocalDateTimes = new ArrayList<>();
+    public static List<StartTime> getListTestValues() {
+        List<StartTime> listOfStartTimes = new ArrayList<>();
 
-        listOfLocalDateTimes.add(LocalDateTime.MIN);
-        listOfLocalDateTimes.add(LocalDateTime.MAX);
-        listOfLocalDateTimes.add(LocalDateTime.of(1, 1, 1, 1, 1));
-
-        return listOfLocalDateTimes;
+        return listOfStartTimes;
     }
 
     public static HashMap<Integer, String> getHashMapTestValues() {
@@ -54,7 +52,7 @@ public class SerializableTestClass {
 
     public void setTestValues() {
         name = getNameTestValue();
-        listOfLocalDateTimes = getListTestValues();
+        listOfStartTimes = getListTestValues();
         mapOfIntegerToString = getHashMapTestValues();
     }
 
@@ -62,8 +60,8 @@ public class SerializableTestClass {
         return name;
     }
 
-    public List<LocalDateTime> getListOfLocalDateTimes() {
-        return listOfLocalDateTimes;
+    public List<StartTime> getListOfStartTimes() {
+        return listOfStartTimes;
     }
 
     public HashMap<Integer, String> getMapOfIntegerToString() {
