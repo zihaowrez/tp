@@ -5,6 +5,7 @@ import java.util.Objects;
 public class SocialMedia {
     public static final String MESSAGE_CONSTRAINTS = "Provide the name of the platform, "
             + "followed by the description associated with this platform, separated by a comma.";
+    public static final String TELEGRAM_URL = "https://t.me/";
     public final PlatformName platformName;
     public final PlatformDescription platformDescription;
 
@@ -19,6 +20,10 @@ public class SocialMedia {
 
     public PlatformName getPlatformName() {
         return platformName;
+    }
+
+    public Boolean isTelegram() {
+        return (platformName.getValue().toLowerCase().equals("telegram"));
     }
 
     public PlatformDescription getPlatformDescription() {
