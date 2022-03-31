@@ -112,17 +112,8 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        // if (address == null) {
-        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT
-        //              , Address.class.getSimpleName()));
-        // }
-        // if (!Address.isValidAddress(address)) {
-        //     throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        // }
-        // final Address modelAddress = new Address(address);
-
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        final Set<SocialMedia> modelSocials = new HashSet<>(personSocials);
+        final List<SocialMedia> modelSocials = new ArrayList<>(personSocials);
         return new Person(modelName, modelPhone, modelEmail, modelSocials, modelTags);
     }
 

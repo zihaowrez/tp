@@ -2,7 +2,7 @@ package seedu.address.logic.commands.delete;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -55,8 +55,8 @@ public class DeletePersonsSocialCommand extends DeleteCommand {
         target.setTargetList(lastShownList);
         Person targetPerson = target.targetPerson();
 
-        Set<SocialMedia> personsSocials = targetPerson.getSocialMedias();
-        Set<SocialMedia> updatedSocials = new HashSet<>(personsSocials);
+        List<SocialMedia> personsSocials = targetPerson.getSocialMedias();
+        List<SocialMedia> updatedSocials = new ArrayList<>(personsSocials);
 
         if (!updatedSocials.remove(socialsToDelete)) {
             throw new CommandException(String.format(MESSAGE_SOCIALS_NOT_FOUND, socialsToDelete, targetPerson));
@@ -78,7 +78,7 @@ public class DeletePersonsSocialCommand extends DeleteCommand {
     }
 
 
-    private Person createUpdatedPerson(Person personToEdit, Set<SocialMedia> updatedSocials) {
+    private Person createUpdatedPerson(Person personToEdit, List<SocialMedia> updatedSocials) {
         assert personToEdit != null;
 
         Name name = personToEdit.getName();

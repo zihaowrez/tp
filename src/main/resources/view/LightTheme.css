@@ -97,7 +97,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #dfdfdf;
 }
 
 .list-cell {
@@ -107,11 +107,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #ededed;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #ededed;
 }
 
 .list-cell:filled:selected {
@@ -121,7 +121,7 @@
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #003882;
     -fx-border-width: 4;
-    -fx-background-color: #003882
+    -fx-background-color: #ededed
 }
 
 .list-cell .label {

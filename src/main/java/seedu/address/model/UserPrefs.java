@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path meetingsBookFilePath = Paths.get("data", "meetingsBook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -54,6 +55,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getMeetingsBookFilePath() {
+        return meetingsBookFilePath;
+    }
+
+    public void setMeetingsBookFilePath(Path meetingsBookFilePath) {
+        requireNonNull(meetingsBookFilePath);
+        this.meetingsBookFilePath = meetingsBookFilePath;
     }
 
     @Override

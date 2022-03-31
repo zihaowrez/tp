@@ -24,7 +24,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
@@ -199,6 +201,36 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getMeetingsBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMeetingsBookFilePath(Path path) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMeetingsBook(ReadOnlyMeetingsBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyMeetingsBook getMeetingsBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateSelectedPerson(Person newPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -209,7 +241,32 @@ public class AddCommandTest {
         }
 
         @Override
+        public void copyMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableIntegerValue getSelectedIndex() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMeeting(Meeting target, Meeting editedMeeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Meeting> getSortedAndFilteredMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -218,10 +275,32 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void sortFilteredPersonList(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void sortFilteredMeetingList(Comparator<Meeting> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Meeting> getUpcomingMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredUpcomingMeetingList(Predicate<Meeting> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredUpcomingMeetingList(Comparator<Meeting> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
+
 
     /**
      * A Model stub that contains a single person.
@@ -264,5 +343,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }
