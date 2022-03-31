@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.meetingcommands.AddMeetingCommandParser;
+import seedu.address.logic.parser.meetingcommands.DeleteMeetingCommandParser;
+import seedu.address.logic.parser.meetingcommands.EditMeetingCommandParser;
+import seedu.address.logic.parser.meetingcommands.FindMeetingCommandParser;
 
 /**
  * Contains helper methods for testing command parsers.
@@ -34,5 +38,15 @@ public class CommandParserTestUtil {
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());
         }
+    }
+
+    /**
+     * Checks if the parser is an instance of MeetingBookParser
+     * @param parser
+     * @return
+     */
+    public boolean checkMeetingParser(Parser parser) {
+        return parser instanceof AddMeetingCommandParser || parser instanceof DeleteMeetingCommandParser
+                || parser instanceof EditMeetingCommandParser || parser instanceof FindMeetingCommandParser;
     }
 }

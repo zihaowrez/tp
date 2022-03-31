@@ -13,5 +13,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_PLATFORM_NAME_FLAG = new Prefix("f/");
+    public static final Prefix PREFIX_LINK = new Prefix("l/");
+    public static final Prefix PREFIX_STARTTIME = new Prefix("s/");
+    public static final Prefix PREFIX_DURATION = new Prefix("d/");
+
 
 }
