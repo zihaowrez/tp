@@ -97,6 +97,16 @@ _Tip: Specify the person that you want to add the tag to by using their full nam
 > `add John Doe t/friend`
 > `add 2 t/friend`
 
+### 2.3 Adding new details to a person
+**Format:** `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+
+_Tip: Specify the person that you want to add the detail to by using their full name or their index in the contact list_
+
+**Examples:**
+
+> `add John Doe d/telegram,@johndoe23`
+> `add 2 d/telegram,@johndoe23`
+
 ## 3. Copying the details of a person: `copy`
 
 **Format:** `copy NAME`
