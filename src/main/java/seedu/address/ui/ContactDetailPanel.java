@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
+import javafx.beans.value.ObservableObjectValue;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
@@ -15,36 +17,40 @@ import seedu.address.model.person.Person;
  */
 public class ContactDetailPanel extends UiPart<Region> {
     private static final String FXML = "ContactDetailPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ContactDetailPanel.class);
+    private final ObservableObjectValue<Person> observableSelectedPerson;
 
     @FXML
-    private ListView<Person> contactDetailView;
+    private Pane panel;
+
+    @FXML
+    private VBox emptyRhsPanelPlaceHolder;
 
     /**
-     * Creates a {@code ContactDetailPanel} with the given {@code ObservableList}.
+     * Creates a {@code RightHandSidePanel} with the given {@code ObservableList}.
      */
-    public ContactDetailPanel(ObservableList<Person> contactDetailList) {
+    public ContactDetailPanel(ObservableObjectValue<Person> observableObjectValue) {
         super(FXML);
-        contactDetailView.setItems(contactDetailList);
-        contactDetailView.setCellFactory(listView -> new ContactDetailListViewCell());
-
+        observableSelectedPerson = observableObjectValue;
+        observableSelectedPerson.addListener(this::handleSelectionChange);
     }
 
-    /**
-     * Custom {@code ListCell} that displays the {@code ContactDetailCard} of a {@code Person} .
-     */
-    class ContactDetailListViewCell extends ListCell<Person> { // update Object to relevant class
-        @Override
-        protected void updateItem(Person person, boolean empty) { // change class of parameters
-            super.updateItem(person, empty);
-
-            if (empty || person == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new ContactDetailCard(person).getRoot()); // create new class for ContactCard
-            }
+    private void handleSelectionChange(ObservableValue<? extends Person> ov, Person oldPerson, Person newPerson) {
+        if (newPerson != null) {
+            ContactDetailCard contactDetailCard = new ContactDetailCard(newPerson);
+            setPanel(contactDetailCard.getRoot());
+        } else {
+            setPanel(null);
         }
     }
 
+    public void setPanel(Node childPanel) {
+        if (childPanel != null) {
+            logger.info(String.format("Setting RHS panel to: %s", childPanel));
+            panel.getChildren().setAll(childPanel);
+        } else {
+            logger.info("Clearing RHS panel");
+            panel.getChildren().clear();
+        }
+    }
 }
