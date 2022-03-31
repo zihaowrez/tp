@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.ClipboardManager;
 import seedu.address.model.person.Person;
+import seedu.address.model.socialmedia.SocialMedia;
 
 /**
  * An UI component that displays {@code ContactDetail} of a {@code Person}.
@@ -130,34 +132,32 @@ public class ContactDetailCard extends UiPart<Region> {
             index.set(1);
         }
 
+        List<SocialMedia> socialMediasXS = person.getSocialMedias();
+
         if (person.getSocialMedias().size() == 0) {
             socialMedias.getChildren().add(new Label("-"));
         } else {
-            person.getSocialMedias().stream()
-                    .sorted(Comparator.comparing(sm -> sm.platformName.getValue()))
-                    .forEach(sm -> {
-                        Label label = new Label(sm.getPlatformName()
-                                + ": " + sm.getPlatformDescription());
-                        label.setOnMouseClicked(event ->
-                                clipboard.copy(sm.getPlatformDescription().getValue())
-                        );
+            int count = 0;
+            for (SocialMedia sm : socialMediasXS) {
+                count += 1;
+                Label label = new Label(count + ". " + sm.getPlatformName() + ": " + sm.getPlatformDescription());
+                label.setOnMouseClicked(event -> clipboard.copy(sm.getPlatformDescription().getValue()));
 
-                        if (sm.isTelegram()) {
-                            label.setOnMouseClicked(event -> {
-                                try {
-                                    String teleHandle = sm.getPlatformDescription().getValue();
-                                    teleHandle = teleHandle.replace("@", "");
-                                    Desktop.getDesktop().browse(new URL(sm.TELEGRAM_URL
-                                            + teleHandle).toURI());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            );
-
+                if (sm.isTelegram()) {
+                    label.setOnMouseClicked(event -> {
+                        try {
+                            String teleHandle = sm.getPlatformDescription().getValue();
+                            teleHandle = teleHandle.replace("@", "");
+                            Desktop.getDesktop().browse(new URL(SocialMedia.TELEGRAM_URL + teleHandle).toURI());
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        socialMedias.getChildren().add(label);
                     });
+
+                }
+
+                socialMedias.getChildren().add(label);
+            }
 
             index.set(1);
         }

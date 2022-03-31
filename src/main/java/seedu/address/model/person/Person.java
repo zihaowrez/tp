@@ -2,8 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,19 +24,17 @@ public class Person {
     private final Email email;
 
     // Data fields
-    // private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<SocialMedia> socialMedias = new HashSet<>();
+    private final List<SocialMedia> socialMedias = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Set<SocialMedia> socialMedias, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, List<SocialMedia> socialMedias, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, socialMedias, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        // this.address = address;
         this.tags.addAll(tags);
         this.socialMedias.addAll(socialMedias);
     }
@@ -51,16 +51,13 @@ public class Person {
         return email;
     }
 
-    // public Address getAddress() {
-    //     return address;
-    // }
 
     /**
-     * Returns an immutable set of social medias, which throws {@code UnsupportedOperationException}
+     * Returns an immutable list of social medias, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<SocialMedia> getSocialMedias() {
-        return Collections.unmodifiableSet(socialMedias);
+    public List<SocialMedia> getSocialMedias() {
+        return Collections.unmodifiableList(socialMedias);
     }
 
     /**
@@ -122,7 +119,7 @@ public class Person {
                 .append("; Email: ")
                 .append(getEmail());
 
-        Set<SocialMedia> socialMedias = getSocialMedias();
+        List<SocialMedia> socialMedias = getSocialMedias();
         if (!socialMedias.isEmpty()) {
             builder.append("; SocialMedias: ");
             socialMedias.forEach(builder::append);

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -166,9 +167,9 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> socialMedias} into a {@code Set<SocialMedia>}.
      */
-    public static Set<SocialMedia> parseSocialMedias(Collection<String> socialMedias) throws ParseException {
+    public static List<SocialMedia> parseSocialMedias(Collection<String> socialMedias) throws ParseException {
         requireNonNull(socialMedias);
-        final Set<SocialMedia> socialMediaSet = new HashSet<>();
+        final List<SocialMedia> socialMediaSet = new ArrayList<>();
         for (String socialMedia : socialMedias) {
             socialMediaSet.add(parseSocialMedia(socialMedia));
         }
