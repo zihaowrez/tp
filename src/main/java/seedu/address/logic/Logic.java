@@ -52,6 +52,8 @@ public interface Logic {
 
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    void updateFilteredMeetingList(Predicate<Meeting> predicate);
+
     /** Returns a view of the currently selected person */
     ObservableObjectValue<Person> getCurrentlySelectedPerson();
 

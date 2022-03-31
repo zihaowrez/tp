@@ -27,7 +27,6 @@ public class TagCard extends UiPart<Region> {
      */
 
     public final List<Tag> tagList;
-    private final Logic logic;
 
     @FXML
     private FlowPane tags;
@@ -40,19 +39,23 @@ public class TagCard extends UiPart<Region> {
     public TagCard(List<Tag> tagList, Logic logic) {
         super(FXML);
         this.tagList = tagList;
-        this.logic = logic;
 
         if (tagList.size() != 0) {
             tagList.stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
                         Label tagLabel = new Label(tag.tagName);
-                        tagLabel.setOnMouseClicked(event ->
-                                logic.updateFilteredPersonList(person -> {
-                                    Set<Tag> tagSet = person.getTags();
-                                    return tagSet.contains(tag);
-                                })
-                        );
+                        tagLabel.setOnMouseClicked(event -> {
+                            logic.updateFilteredPersonList(person -> {
+                                Set<Tag> tagSet = person.getTags();
+                                return tagSet.contains(tag);
+                            });
+
+                            logic.updateFilteredMeetingList(meeting -> {
+                                Set<Tag> meetingTagSet = meeting.getTags();
+                                return meetingTagSet.contains(tag);
+                            });
+                        });
                         tags.getChildren().add(tagLabel);
                     });
         }
