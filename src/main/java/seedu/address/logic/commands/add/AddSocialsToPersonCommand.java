@@ -4,10 +4,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
@@ -68,8 +67,8 @@ public class AddSocialsToPersonCommand extends AddCommand {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        Set<SocialMedia> personsSocials = targetPerson.getSocialMedias();
-        Set<SocialMedia> updatedSocials = new HashSet<>(personsSocials);
+        List<SocialMedia> personsSocials = targetPerson.getSocialMedias();
+        List<SocialMedia> updatedSocials = new ArrayList<>(personsSocials);
         updatedSocials.add(newSocials);
         editPersonDescriptor.setSocials(updatedSocials);
 

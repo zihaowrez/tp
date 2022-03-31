@@ -16,15 +16,19 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.MeetingsBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonMeetingsBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.MeetingsBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -57,7 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        MeetingsBookStorage meetingsBookStorage = new JsonMeetingsBookStorage(userPrefs.getMeetingsBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, meetingsBookStorage);
 
         initLogging(config);
 
@@ -76,6 +81,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
+        ReadOnlyMeetingsBook initialMeetingData = this.loadMeetingData();
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -90,7 +96,30 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, initialMeetingData, userPrefs);
+    }
+
+    /**
+     * Returns a {@code ReadOnlyMeetingsBook} with the data from {@code storage}'s MeetingBook data.
+     */
+    public ReadOnlyMeetingsBook loadMeetingData() {
+        Optional<ReadOnlyMeetingsBook> meetingsBookOptional;
+        ReadOnlyMeetingsBook meetingsBook;
+        try {
+            meetingsBookOptional = storage.readMeetingsBook();
+            if (!meetingsBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample MeetingsBook");
+            }
+            meetingsBook = meetingsBookOptional.orElseGet(SampleDataUtil::getSampleMeetingsBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty MeetingTab");
+            meetingsBook = new MeetingsBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty MeetingTab");
+            meetingsBook = new MeetingsBook();
+        }
+
+        return meetingsBook;
     }
 
     private void initLogging(Config config) {

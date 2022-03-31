@@ -18,6 +18,8 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.MeetingTimeSorter;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -29,6 +31,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tag> filteredTags;
     private FilteredList<Person> contactDetails;
@@ -36,25 +39,41 @@ public class ModelManager implements Model {
     private final SimpleIntegerProperty selectionIndex;
     private final SortedList<Person> sortedAndFilteredPersons;
 
+    private final MeetingsBook meetingsBook;
+    private final FilteredList<Meeting> filteredMeetings;
+    private final SortedList<Meeting> sortedAndFilteredMeetings;
+    private final FilteredList<Meeting> filteredUpcomingMeetings;
+    private final SortedList<Meeting> sortedAndFilteredUpcomingMeetings;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyMeetingsBook meetingsBook,
+                        ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.meetingsBook = new MeetingsBook(meetingsBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.currentlySelectedPersonProperty = new SimpleObjectProperty<Person>();
         selectionIndex = new SimpleIntegerProperty();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        contactDetails = new FilteredList<>(this.addressBook.getPersonList());
+        filteredMeetings = new FilteredList<>(this.meetingsBook.getMeetingList());
+        filteredUpcomingMeetings = new FilteredList<>(this.meetingsBook.getMeetingList());
+        resetContactDetails();
+
         filteredTags = new FilteredList<>(this.addressBook.getTagList());
         sortedAndFilteredPersons = filteredPersons.sorted();
+        sortedAndFilteredMeetings = filteredMeetings.sorted();
+        sortedAndFilteredUpcomingMeetings = filteredUpcomingMeetings.sorted();
+
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new MeetingsBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -130,6 +149,58 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         addressBook.setPerson(target, editedPerson);
+    }
+
+    //=========== Meetings tab =================================================================================
+    @Override
+    public Path getMeetingsBookFilePath() {
+        return this.userPrefs.getMeetingsBookFilePath();
+    }
+
+    @Override
+    public void setMeetingsBookFilePath(Path meetingsBookFilePath) {
+        requireNonNull(meetingsBookFilePath);
+        userPrefs.setMeetingsBookFilePath(meetingsBookFilePath);
+    }
+
+
+    @Override
+    public void setMeetingsBook(ReadOnlyMeetingsBook meetingsBook) {
+        this.meetingsBook.resetData(meetingsBook);
+    }
+
+    @Override
+    public ReadOnlyMeetingsBook getMeetingsBook() {
+        return meetingsBook;
+    }
+
+    @Override
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return meetingsBook.hasMeeting(meeting);
+    }
+
+    @Override
+    public void deleteMeeting(Meeting target) {
+        meetingsBook.removeMeeting(target);
+    }
+
+    @Override
+    public void copyMeeting(Meeting target) {
+        meetingsBook.copyMeeting(target);
+    }
+
+    @Override
+    public void addMeeting(Meeting meeting) {
+        meetingsBook.addMeeting(meeting);
+        updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+    }
+
+    @Override
+    public void setMeeting(Meeting target, Meeting editedMeeting) {
+        requireAllNonNull(target, editedMeeting);
+
+        meetingsBook.setMeeting(target, editedMeeting);
     }
 
 
@@ -216,7 +287,10 @@ public class ModelManager implements Model {
         return currentlySelectedPersonProperty;
     }
 
-    @Override
+    private void resetContactDetails() {
+        contactDetails.setPredicate(p -> false);
+    }
+
     public ObservableIntegerValue getSelectedIndex() {
         return selectionIndex;
     }
@@ -228,6 +302,41 @@ public class ModelManager implements Model {
         } else {
             selectionIndex.setValue(newIndex.getZeroBased());
         }
+    }
+
+    @Override
+    public ObservableList<Meeting> getSortedAndFilteredMeetingList() {
+        return sortedAndFilteredMeetings;
+    }
+
+    @Override
+    public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+        requireNonNull(predicate);
+        filteredMeetings.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredMeetingList(Comparator<Meeting> comparator) {
+        requireNonNull(comparator);
+        sortedAndFilteredMeetings.setComparator(comparator);
+    }
+
+    @Override
+    public ObservableList<Meeting> getUpcomingMeetingList() {
+        sortFilteredUpcomingMeetingList(new MeetingTimeSorter());
+        return sortedAndFilteredUpcomingMeetings;
+    }
+
+    @Override
+    public void updateFilteredUpcomingMeetingList(Predicate<Meeting> predicate) {
+        requireNonNull(predicate);
+        filteredUpcomingMeetings.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredUpcomingMeetingList(Comparator<Meeting> comparator) {
+        requireNonNull(comparator);
+        sortedAndFilteredUpcomingMeetings.setComparator(comparator);
     }
 
     @Override
@@ -248,5 +357,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
 }

@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane minWidth="500.0" HBox.hgrow="ALWAYS">
+    <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" minWidth="300.0" prefHeight="619.0" prefWidth="400.0" spacing="10" style="-fx-background-color: #ededed;" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" minHeight="105" spacing="10" GridPane.columnIndex="0">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
@@ -31,6 +31,7 @@
             </HBox>
 
             <HBox spacing="10">
+
                 <Label fx:id="phoneLabel" prefHeight="26.0" prefWidth="71.0" style="-fx-text-fill: black; -fx-font-size: 20;" styleClass="cell_small_label" text="\$phone">
                <font>
                   <Font size="25.0" />
@@ -39,10 +40,11 @@
             </HBox>
 
             <HBox spacing="10">
-                <Label fx:id="emailLabel" prefHeight="26.0" prefWidth="72.0" style="-fx-text-fill: black; -fx-font-size: 20;" styleClass="cell_small_label" text="\$email">
+                <Label fx:id="emailLabel" styleClass="cell_small_label" text="\$email">
                <font>
-                  <Font size="22.0" />
+                  <Font size="20.0" />
                </font></Label>
+
                 <Label fx:id="emailView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="259.0" style="-fx-text-fill: black; -fx-font-size: 16; -fx-background-color: transparent;" styleClass="cell_small_label" stylesheets="@LightTheme.css" text="\$email">
                <font>
                   <Font size="25.0" />
@@ -50,9 +52,9 @@
             </HBox>
 
             <VBox spacing="5">
-                <Label fx:id="tagsLabel" prefHeight="30.0" prefWidth="132.0" styleClass="cell_small_label">
+                <Label fx:id="tagsLabel" styleClass="cell_small_label">
                <font>
-                  <Font size="25.0" />
+                  <Font size="20.0" />
                </font></Label>
                 <FlowPane fx:id="tags" />
             </VBox>
@@ -60,9 +62,9 @@
             <VBox spacing="5">
                 <Label fx:id="socialMediaLabel" styleClass="cell_small_label">
                <font>
-                  <Font size="25.0" />
+                  <Font size="20.0" />
                </font></Label>
-                <FlowPane fx:id="socialMedias" orientation="VERTICAL" />
+                <FlowPane fx:id="socialMedias" orientation="VERTICAL"/>
             </VBox>
 
 
