@@ -12,8 +12,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Title;
@@ -74,7 +74,7 @@ public class AddTagToMeetingCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand // instanceof handles nulls
+                || (other instanceof seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand
                 && target.equals(((seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand) other).target)
                 && newTag.equals(((seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand) other).newTag));
     }

@@ -8,8 +8,8 @@ import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.meeting.Meeting;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**

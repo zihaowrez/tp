@@ -26,7 +26,13 @@ public class FindMeetingCommand extends Command {
     private final MeetingContainsKeywordsPredicate predicate;
     private final MeetingKeywordMatchnessComparator comparator;
 
-    public FindMeetingCommand(MeetingContainsKeywordsPredicate predicate, MeetingKeywordMatchnessComparator comparator) {
+    /**
+     * Constructor for the FindMeetingCommand
+     * @param predicate
+     * @param comparator
+     */
+    public FindMeetingCommand(MeetingContainsKeywordsPredicate predicate,
+                              MeetingKeywordMatchnessComparator comparator) {
         this.predicate = predicate;
         this.comparator = comparator;
     }
@@ -38,13 +44,14 @@ public class FindMeetingCommand extends Command {
         model.sortFilteredMeetingList(comparator);
         model.sortFilteredMeetingList(new MeetingTimeSorter());
         return new CommandResult(
-                String.format(Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW, model.getSortedAndFilteredMeetingList().size()));
+                String.format(Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW,
+                        model.getSortedAndFilteredMeetingList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.meetingcommands.FindMeetingCommand // instanceof handles nulls
-                && predicate.equals(((seedu.address.logic.commands.meetingcommands.FindMeetingCommand) other).predicate)); // state check
+                || (other instanceof FindMeetingCommand // instanceof handles nulls
+                && predicate.equals(((FindMeetingCommand) other).predicate)); // state check
     }
 }

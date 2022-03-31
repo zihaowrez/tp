@@ -89,7 +89,7 @@ public abstract class MeetingTarget {
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof seedu.address.logic.commands.meetingcommands.MeetingTarget.NamedTarget) {
-                seedu.address.logic.commands.meetingcommands.MeetingTarget.NamedTarget other = (seedu.address.logic.commands.meetingcommands.MeetingTarget.NamedTarget) obj;
+                MeetingTarget.NamedTarget other = (MeetingTarget.NamedTarget) obj;
                 Optional<List<Meeting>> personsOptional = Optional.ofNullable(meetings);
                 return this.targetName.equals(other.targetName)
                         && personsOptional.equals(Optional.ofNullable(other.meetings));
@@ -128,8 +128,8 @@ public abstract class MeetingTarget {
 
         @Override
         public boolean equals(Object obj) {
-            if (obj instanceof seedu.address.logic.commands.meetingcommands.MeetingTarget.IndexedTarget) {
-                seedu.address.logic.commands.meetingcommands.MeetingTarget.IndexedTarget other = (seedu.address.logic.commands.meetingcommands.MeetingTarget.IndexedTarget) obj;
+            if (obj instanceof MeetingTarget.IndexedTarget) {
+                MeetingTarget.IndexedTarget other = (MeetingTarget.IndexedTarget) obj;
                 Optional<List<Meeting>> meetingsOptional = Optional.ofNullable(meetings);
                 return this.targetIndex.equals(other.targetIndex)
                         && meetingsOptional.equals(Optional.ofNullable(other.meetings));

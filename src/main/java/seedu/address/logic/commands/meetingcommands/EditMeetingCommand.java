@@ -1,10 +1,11 @@
 package seedu.address.logic.commands.meetingcommands;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
 import java.util.Collections;
@@ -16,9 +17,15 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.*;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,21 +49,21 @@ public class EditMeetingCommand extends Command {
 
     public static final String MESSAGE_EDIT_MEETING_SUCCESS = "Edited Meeting: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MEETING= "This meeting already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book.";
 
     private final Index index;
-    private final seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor;
+    private final EditMeetingDescriptor editMeetingDescriptor;
 
     /**
      * @param index of the person in the filtered meeting list to edit
      * @param editMeetingDescriptor details to edit the meeting with
      */
-    public EditMeetingCommand(Index index, seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor) {
+    public EditMeetingCommand(Index index, EditMeetingDescriptor editMeetingDescriptor) {
         requireNonNull(index);
         requireNonNull(editMeetingDescriptor);
 
         this.index = index;
-        this.editMeetingDescriptor = new seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor(editMeetingDescriptor);
+        this.editMeetingDescriptor = new EditMeetingDescriptor(editMeetingDescriptor);
     }
 
     @Override
@@ -69,7 +76,7 @@ public class EditMeetingCommand extends Command {
         }
 
         Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
-        Meeting editedMeeting = seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor.createEditedMeeting(meetingToEdit, editMeetingDescriptor);
+        Meeting editedMeeting = EditMeetingDescriptor.createEditedMeeting(meetingToEdit, editMeetingDescriptor);
 
         if (!meetingToEdit.isSameMeeting(editedMeeting) && model.hasMeeting(editedMeeting)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
@@ -88,12 +95,12 @@ public class EditMeetingCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.logic.commands.meetingcommands.EditMeetingCommand)) {
+        if (!(other instanceof EditMeetingCommand)) {
             return false;
         }
 
         // state check
-        seedu.address.logic.commands.meetingcommands.EditMeetingCommand e = (seedu.address.logic.commands.meetingcommands.EditMeetingCommand) other;
+        EditMeetingCommand e = (EditMeetingCommand) other;
         return index.equals(e.index)
                 && editMeetingDescriptor.equals(e.editMeetingDescriptor);
     }
@@ -115,8 +122,7 @@ public class EditMeetingCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditMeetingDescriptor(
-                seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor toCopy) {
+        public EditMeetingDescriptor(EditMeetingDescriptor toCopy) {
             setTitle(toCopy.title);
             setLink(toCopy.link);
             setStartTime(toCopy.startTime);
@@ -147,14 +153,21 @@ public class EditMeetingCommand extends Command {
             return Optional.ofNullable(link);
         }
 
-        public void setStartTime(StartTime startTime) { this.startTime = startTime; }
+        public void setStartTime(StartTime startTime) {
+            this.startTime = startTime;
+        }
 
         public void setDuration(Duration duration) {
             this.duration = duration;
         }
-        public Optional<StartTime> getStartTime() { return Optional.ofNullable(this.startTime); }
 
-        public Optional<Duration> getDuration() { return Optional.ofNullable(this.duration); }
+        public Optional<StartTime> getStartTime() {
+            return Optional.ofNullable(this.startTime);
+        }
+
+        public Optional<Duration> getDuration() {
+            return Optional.ofNullable(this.duration);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -177,7 +190,7 @@ public class EditMeetingCommand extends Command {
          * Creates and returns a {@code Person} with the details of {@code personToEdit}
          * edited with {@code editPersonDescriptor}.
          */
-        public static Meeting createEditedMeeting(Meeting meetingToEdit, seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor) {
+        public static Meeting createEditedMeeting(Meeting meetingToEdit, EditMeetingDescriptor editMeetingDescriptor) {
             assert meetingToEdit != null;
 
             Title updatedTitle = editMeetingDescriptor.getTitle().orElse(meetingToEdit.getTitle());
@@ -198,13 +211,12 @@ public class EditMeetingCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor)) {
+            if (!(other instanceof EditMeetingDescriptor)) {
                 return false;
             }
 
             // state check
-            seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor e =
-                    (seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor) other;
+            EditMeetingDescriptor e = (EditMeetingDescriptor) other;
 
             return getTitle().equals(e.getTitle())
                     && getStartTime().equals(e.getStartTime())

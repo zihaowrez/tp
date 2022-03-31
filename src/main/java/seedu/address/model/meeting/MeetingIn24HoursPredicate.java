@@ -10,8 +10,8 @@ public class MeetingIn24HoursPredicate implements Predicate<Meeting> {
 
     @Override
     public boolean test(Meeting meeting) {
-        return meeting.getStartTime().startTime.isAfter(LocalDateTime.now()) &&
-                meeting.getStartTime().startTime.isBefore(LocalDateTime.now().plusHours(24));
+        return meeting.getStartTime().startTime.isAfter(LocalDateTime.now())
+                && meeting.getStartTime().startTime.isBefore(LocalDateTime.now().plusHours(24));
     }
 
 }

@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.meetingcommands;
 
+import java.util.List;
+import java.util.Objects;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
@@ -7,9 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Title;
-
-import java.util.List;
-import java.util.Objects;
 
 public class DeleteMeetingCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_MEETING_SUCCESS = "Deleted Meeting: %1$s";

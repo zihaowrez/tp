@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Meeting's mins in the MeetingsBook.
- * Guarantees: immutable; is valid as declared in {@link #(String)}
+ * Guarantees: immutable; is valid as declared in {@Duration #(String)}
  */
 public class Duration {
 

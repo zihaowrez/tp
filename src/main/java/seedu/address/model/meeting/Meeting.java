@@ -1,12 +1,11 @@
 package seedu.address.model.meeting;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 public class Meeting {
 
@@ -16,6 +15,14 @@ public class Meeting {
     private final Duration duration;
     private final Set<Tag> tags;
 
+    /**
+     * Constructor for the Meeting class
+     * @param title Name of the meeting
+     * @param link Link of the meeting
+     * @param startTime starting time of the meeting
+     * @param duration duration of the meeting
+     * @param tags
+     */
     public Meeting(Title title, Link link, StartTime startTime, Duration duration, Set<Tag> tags) {
         this.title = title;
         this.link = link;
@@ -24,13 +31,21 @@ public class Meeting {
         this.tags = tags;
     }
 
-    public Title getTitle() { return this.title; }
+    public Title getTitle() {
+        return this.title;
+    }
 
-    public Link getLink() { return this.link; }
+    public Link getLink() {
+        return this.link;
+    }
 
-    public StartTime getStartTime() { return this.startTime; }
+    public StartTime getStartTime() {
+        return this.startTime;
+    }
 
-    public Duration getDuration() { return this.duration; }
+    public Duration getDuration() {
+        return this.duration;
+    }
 
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);

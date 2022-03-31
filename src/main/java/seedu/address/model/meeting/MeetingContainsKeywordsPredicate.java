@@ -1,5 +1,5 @@
 package seedu.address.model.meeting;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -49,7 +49,7 @@ public class MeetingContainsKeywordsPredicate implements Predicate<Meeting> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.meeting.MeetingContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((seedu.address.model.meeting.MeetingContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof MeetingContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((MeetingContainsKeywordsPredicate) other).keywords)); // state check
     }
 }

@@ -7,11 +7,11 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.meetingcommands.FindMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
-import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
-import seedu.address.logic.commands.meetingcommands.ListMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.FindMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.ListMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.meetingcommands.AddMeetingCommandParser;
 import seedu.address.logic.parser.meetingcommands.DeleteMeetingCommandParser;
@@ -63,23 +63,23 @@ public class MeetingsBookParser {
 
             switch (commandWord) {
 
-                case AddMeetingCommand.COMMAND_WORD:
-                    return new AddMeetingCommandParser().parse(arguments);
+            case AddMeetingCommand.COMMAND_WORD:
+                return new AddMeetingCommandParser().parse(arguments);
 
-                case EditMeetingCommand.COMMAND_WORD:
-                    return new EditMeetingCommandParser().parse(arguments);
+            case EditMeetingCommand.COMMAND_WORD:
+                return new EditMeetingCommandParser().parse(arguments);
 
-                case FindMeetingCommand.COMMAND_WORD:
-                    return new FindMeetingCommandParser().parse(arguments);
+            case FindMeetingCommand.COMMAND_WORD:
+                return new FindMeetingCommandParser().parse(arguments);
 
-                case DeleteMeetingCommand.COMMAND_WORD:
-                    return new DeleteMeetingCommandParser().parse(arguments);
+            case DeleteMeetingCommand.COMMAND_WORD:
+                return new DeleteMeetingCommandParser().parse(arguments);
 
-                case ListMeetingCommand.COMMAND_WORD:
-                    return new ListMeetingCommand();
+            case ListMeetingCommand.COMMAND_WORD:
+                return new ListMeetingCommand();
 
-                default:
-                    return new FindMeetingCommandParser().parse(commandWord);
+            default:
+                return new FindMeetingCommandParser().parse(commandWord);
             }
         }
     }

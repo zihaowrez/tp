@@ -9,9 +9,12 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.MeetingsBook;
 import seedu.address.model.ReadOnlyAddressBook;
-// import seedu.address.model.person.Address;
 import seedu.address.model.ReadOnlyMeetingsBook;
-import seedu.address.model.meeting.*;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -63,15 +66,15 @@ public class SampleDataUtil {
 
     public static Meeting[] getSampleMeetings() {
         return new Meeting[] {
-                new Meeting(new Title("CS2103 Meeting"), new Link("https://www.zoom.sg"),
-                        new StartTime("2022-3-14 1700"),
-                        new Duration(120), getTagSet("friends")),
-                new Meeting(new Title("CS2106 Project Presentation"), new Link("https://www.zoom.sg"),
-                        new StartTime("2022-4-10 1700"),
-                        new Duration(120), getTagSet("friends")),
-                new Meeting(new Title("CS2102 Demonstration"), new Link("https://www.google.com"),
-                        new StartTime("2022-3-29 0900"),
-                        new Duration(60), getTagSet("friends")),
+            new Meeting(new Title("CS2103 Meeting"), new Link("https://www.zoom.sg"),
+                    new StartTime("2022-3-14 1700"),
+                    new Duration(120), getTagSet("friends")),
+            new Meeting(new Title("CS2106 Project Presentation"), new Link("https://www.zoom.sg"),
+                    new StartTime("2022-4-10 1700"),
+                    new Duration(120), getTagSet("friends")),
+            new Meeting(new Title("CS2102 Demonstration"), new Link("https://www.google.com"),
+                    new StartTime("2022-3-29 0900"),
+                    new Duration(60), getTagSet("friends")),
         };
     }
     public static ReadOnlyMeetingsBook getSampleMeetingsBook() {

@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -60,6 +59,12 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    /**
+     * Parses a {@code String Title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
     public static Title parseTitle(String name) {
         requireNonNull(name);
         String trimmedName = name.trim();
@@ -211,6 +216,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a {@code String Link} into a {@code Link}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code link} is invalid.
+     */
     public static Link parseLink(String link) throws ParseException {
         requireNonNull(link);
         String trimmedLink = link.trim();
@@ -220,6 +231,13 @@ public class ParserUtil {
         return new Link(trimmedLink);
     }
 
+
+    /**
+     * Parses a {@code String startTime} into a {@code StartTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startTime} is invalid.
+     */
     public static StartTime parseStartTime(String startTime) throws ParseException {
         requireNonNull(startTime);
         String trimmedStartTime = startTime.trim();
@@ -229,6 +247,12 @@ public class ParserUtil {
         return new StartTime(trimmedStartTime);
     }
 
+    /**
+     * Parses a {@code String duration} into a {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code duration} is invalid.
+     */
     public static Duration parseDuration(String duration) throws ParseException {
         requireNonNull(duration);
         int mins;

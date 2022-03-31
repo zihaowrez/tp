@@ -31,6 +31,10 @@ public class ClipboardManager {
 
     }
 
+    /**
+     * Copies the meeting to the system clipboard.
+     * @param toCopy
+     */
     public void copy(Meeting toCopy) {
         String str = toCopy.toString();
 

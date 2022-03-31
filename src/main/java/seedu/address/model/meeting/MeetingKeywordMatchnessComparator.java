@@ -1,12 +1,10 @@
 package seedu.address.model.meeting;
 
-import seedu.address.model.meeting.Title;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.tag.Tag;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Compares two {@code Meeting}s according to how much their information

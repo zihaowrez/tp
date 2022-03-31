@@ -47,7 +47,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult executeForContacts(String commandText, CommandBox commandBox) throws CommandException, ParseException {
+    public CommandResult executeForContacts(String commandText, CommandBox commandBox)
+            throws CommandException, ParseException {
         if (commandBox != null && commandBox.isDynamic()) {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
         }
@@ -65,7 +66,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult executeForMeetings(String commandText, CommandBox commandBox) throws CommandException, ParseException {
+    public CommandResult executeForMeetings(String commandText, CommandBox commandBox)
+            throws CommandException, ParseException {
         if (commandBox != null && commandBox.isDynamic()) {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
         }
@@ -117,7 +119,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyMeetingsBook getMeetingsBook() { return model.getMeetingsBook(); }
+    public ReadOnlyMeetingsBook getMeetingsBook() {
+        return model.getMeetingsBook();
+    }
 
     @Override
     public ObservableList<Meeting> getSortedAndFilteredMeetingList() {
@@ -130,7 +134,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getMeetingsBookFilePath() { return model.getMeetingsBookFilePath(); }
+    public Path getMeetingsBookFilePath() {
+        return model.getMeetingsBookFilePath();
+    }
 
     @Override
     public GuiSettings getGuiSettings() {

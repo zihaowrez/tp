@@ -57,7 +57,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public Path getMeetingsBookFilePath() { return meetingsBookFilePath; }
+    public Path getMeetingsBookFilePath() {
+        return meetingsBookFilePath;
+    }
 
     public void setMeetingsBookFilePath(Path meetingsBookFilePath) {
         requireNonNull(meetingsBookFilePath);

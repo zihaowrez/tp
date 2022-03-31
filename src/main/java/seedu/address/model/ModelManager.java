@@ -17,9 +17,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingTimeSorter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 
 /**
@@ -46,7 +46,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyMeetingsBook meetingsBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyMeetingsBook meetingsBook,
+                        ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -149,7 +150,9 @@ public class ModelManager implements Model {
 
     //=========== Meetings tab =================================================================================
     @Override
-    public Path getMeetingsBookFilePath() { return this.userPrefs.getMeetingsBookFilePath();}
+    public Path getMeetingsBookFilePath() {
+        return this.userPrefs.getMeetingsBookFilePath();
+    }
 
     @Override
     public void setMeetingsBookFilePath(Path meetingsBookFilePath) {

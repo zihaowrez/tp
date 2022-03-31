@@ -19,8 +19,8 @@ public class MeetingTimeSorter implements Comparator<Meeting> {
             }
             return 1;
         }
-        if (m2.getStartTime().startTime.isBefore(LocalDateTime.now()) ||
-                m2.getStartTime().startTime.isAfter(m1.getStartTime().startTime)) {
+        if (m2.getStartTime().startTime.isBefore(LocalDateTime.now())
+                || m2.getStartTime().startTime.isAfter(m1.getStartTime().startTime)) {
             return -1;
         }
         return 1;

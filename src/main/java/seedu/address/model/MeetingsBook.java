@@ -43,7 +43,9 @@ public class MeetingsBook implements ReadOnlyMeetingsBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setMeetings(List<Meeting> meetings) { this.meetings.setMeetings(meetings); }
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings.setMeetings(meetings);
+    }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.

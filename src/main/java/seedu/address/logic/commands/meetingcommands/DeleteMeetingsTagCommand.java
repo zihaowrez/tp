@@ -12,7 +12,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.*;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 
 
@@ -68,9 +72,9 @@ public class DeleteMeetingsTagCommand extends DeleteCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.meetingcommands.DeleteMeetingsTagCommand // instanceof handles nulls
-                && target.equals(((seedu.address.logic.commands.meetingcommands.DeleteMeetingsTagCommand) other).target) // state check
-                && tagToDelete.equals(((seedu.address.logic.commands.meetingcommands.DeleteMeetingsTagCommand) other).tagToDelete));
+                || (other instanceof DeleteMeetingsTagCommand // instanceof handles nulls
+                && target.equals(((DeleteMeetingsTagCommand) other).target) // state check
+                && tagToDelete.equals(((DeleteMeetingsTagCommand) other).tagToDelete));
     }
 
     private Meeting createUpdatedMeeting(Meeting meetingToEdit, Set<Tag> updatedTags) {

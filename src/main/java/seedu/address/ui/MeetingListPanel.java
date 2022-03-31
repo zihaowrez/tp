@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -7,8 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of meetings.
@@ -26,13 +26,13 @@ public class MeetingListPanel extends UiPart<Region> {
     public MeetingListPanel(ObservableList<Meeting> meetingList) {
         super(FXML);
         meetingListView.setItems(meetingList);
-        meetingListView.setCellFactory(listView -> new meetingListViewCell());
+        meetingListView.setCellFactory(listView -> new MeetingListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Meeting} using a {@code MeetingCard}.
      */
-    class meetingListViewCell extends ListCell<Meeting> {
+    class MeetingListViewCell extends ListCell<Meeting> {
         @Override
         protected void updateItem(Meeting meeting, boolean empty) {
             super.updateItem(meeting, empty);

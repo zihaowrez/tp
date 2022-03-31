@@ -1,20 +1,30 @@
 package seedu.address.logic.parser.meetingcommands;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
-import seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand;
-import seedu.address.logic.parser.*;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.meeting.*;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
+import seedu.address.model.tag.Tag;
 
 public class AddMeetingCommandParser implements Parser<AddCommand> {
 

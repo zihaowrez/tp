@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Meeting's title in the MeetingsBook.
- * Guarantees: immutable; is valid as declared in {@link #(String)}
+ * Guarantees: immutable; is valid as declared in {@Title #(String)}
  */
 public class Title {
 
