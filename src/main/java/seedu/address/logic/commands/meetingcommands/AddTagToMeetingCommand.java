@@ -21,6 +21,7 @@ import seedu.address.model.tag.Tag;
 
 public class AddTagToMeetingCommand extends AddCommand {
     public static final String MESSAGE_ADD_NEW_TAG_SUCCESS = "Added new tag %s to %s";
+    public static final String MESSAGE_TAG_ALREADY_EXISTS = "Tag %s already exists in %s!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds new tags to a meetings in the meetings tab. "
             + "Parameters: "
@@ -60,12 +61,20 @@ public class AddTagToMeetingCommand extends AddCommand {
         EditMeetingDescriptor editMeetingDescriptor = new EditMeetingDescriptor();
 
         Set<Tag> meetingTags = targetMeeting.getTags();
+
+        if (meetingTags.contains(newTag)) {
+            throw new CommandException(String.format(MESSAGE_TAG_ALREADY_EXISTS, newTag, targetMeeting.getTitle()));
+        }
+
         Set<Tag> updatedTags = new HashSet<>(meetingTags);
         updatedTags.add(newTag);
         editMeetingDescriptor.setTags(updatedTags);
 
         Meeting updatedMeeting = EditMeetingDescriptor.createEditedMeeting(targetMeeting, editMeetingDescriptor);
 
+        if (!model.hasTag(newTag)) {
+            model.addTag(newTag);
+        }
         model.setMeeting(targetMeeting, updatedMeeting);
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, updatedMeeting));

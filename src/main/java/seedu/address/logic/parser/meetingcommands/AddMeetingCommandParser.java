@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.add.AddTagOnlyCommand;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -36,6 +37,13 @@ public class AddMeetingCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LINK,
                 PREFIX_STARTTIME, PREFIX_DURATION, PREFIX_TAG);
+
+        if (argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
+                && argMultimap.noOtherPrefixes(PREFIX_TAG)) {
+
+            Tag newTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+            return new AddTagOnlyCommand(newTag);
+        }
 
         if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
                 && argMultimap.noOtherPrefixes(PREFIX_TAG)) {

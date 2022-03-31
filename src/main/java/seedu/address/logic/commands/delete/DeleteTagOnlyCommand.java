@@ -11,6 +11,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -42,6 +47,7 @@ public class DeleteTagOnlyCommand extends DeleteCommand {
         Objects.requireNonNull(model);
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
         List<Tag> tagList = model.getFilteredTagList();
+        List<Meeting> meetingList = model.getSortedAndFilteredMeetingList();
 
         if (!tagList.contains(tagToDelete)) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete));
@@ -58,6 +64,20 @@ public class DeleteTagOnlyCommand extends DeleteCommand {
                 Person updatedPerson = createUpdatedPerson(targetPerson, updatedTags);
 
                 model.setPerson(targetPerson, updatedPerson);
+                model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+            }
+        }
+
+        for (Meeting targetMeeting: meetingList) {
+            if (targetMeeting.getTags().contains(tagToDelete)) {
+                Set<Tag> meetingTags = targetMeeting.getTags();
+                Set<Tag> updatedTags = new HashSet<>(meetingTags);
+                updatedTags.remove(tagToDelete);
+
+                Meeting updatedMeeting = createUpdatedMeeting(targetMeeting, updatedTags);
+
+                model.setMeeting(targetMeeting, updatedMeeting);
                 model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
             }
@@ -83,6 +103,17 @@ public class DeleteTagOnlyCommand extends DeleteCommand {
         List<SocialMedia> socialMedias = personToEdit.getSocialMedias();
 
         return new Person(name, phone, email, socialMedias, updatedTags);
+    }
+
+    private Meeting createUpdatedMeeting(Meeting meetingToEdit, Set<Tag> updatedTags) {
+        assert meetingToEdit != null;
+
+        Title title = meetingToEdit.getTitle();
+        Duration duration = meetingToEdit.getDuration();
+        Link link = meetingToEdit.getLink();
+        StartTime startTime = meetingToEdit.getStartTime();
+
+        return new Meeting(title, link, startTime, duration, updatedTags);
     }
 }
 

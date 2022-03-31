@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.delete.DeleteTagOnlyCommand;
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingsTagCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -27,8 +28,13 @@ public class DeleteMeetingCommandParser implements Parser<DeleteCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         String preamble = argMultimap.getPreamble();
-        if (preamble.isEmpty()) {
+        if (preamble.isEmpty() && !argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        if (preamble.isEmpty() && argMultimap.arePrefixesPresent(PREFIX_TAG)) {
+            Tag targetTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+            return new DeleteTagOnlyCommand(targetTag);
         }
 
         Object target = ParserUtil.parseTarget(preamble);
