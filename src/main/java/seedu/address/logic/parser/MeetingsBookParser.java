@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CopyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingCommand;
@@ -92,9 +93,15 @@ public class MeetingsBookParser {
      * @return true if command is a valid command and false otherwise
      */
     public boolean isCommand(String command, String[] splitCommand) {
-        return (command.equals("") || command.equals("add")
-                || splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
-                || command.equals("edit") || splitCommand[0].equals("edit")) || command.equals("delete")
-                || splitCommand[0].equals("delete") || command.equals("copy") || splitCommand[0].equals("copy");
+        return (command.equals("") || command.equals(AddMeetingCommand.COMMAND_WORD)
+                || splitCommand[0].equals(AddMeetingCommand.COMMAND_WORD)
+                || command.equals(FindMeetingCommand.COMMAND_WORD)
+                || splitCommand[0].equals(FindMeetingCommand.COMMAND_WORD)
+                || command.equals(EditMeetingCommand.COMMAND_WORD)
+                || splitCommand[0].equals(EditMeetingCommand.COMMAND_WORD))
+                || command.equals(DeleteMeetingCommand.COMMAND_WORD)
+                || splitCommand[0].equals(DeleteMeetingCommand.COMMAND_WORD)
+                || command.equals(CopyCommand.COMMAND_WORD)
+                || splitCommand[0].equals(CopyCommand.COMMAND_WORD);
     }
 }
