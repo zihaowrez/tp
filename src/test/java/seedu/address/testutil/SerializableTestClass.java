@@ -1,10 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.meeting.StartTime;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import seedu.address.model.meeting.StartTime;
+
 
 /**
  * A class used to test serialization and deserialization

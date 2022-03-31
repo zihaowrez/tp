@@ -12,20 +12,25 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableObjectValue;
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
-import seedu.address.model.*;
+import seedu.address.model.MeetingsBook;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingsBook;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.MeetingBuilder;
+
 
 public class AddMeetingCommandTest {
 
@@ -185,10 +190,14 @@ public class AddMeetingCommandTest {
         }
 
         @Override
-        public Path getMeetingsBookFilePath() { throw new AssertionError("This method should not be called.");}
+        public Path getMeetingsBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
-        public void setMeetingsBookFilePath(Path path) { throw new AssertionError("This method should not be called.");}
+        public void setMeetingsBookFilePath(Path path) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void setMeetingsBook(ReadOnlyMeetingsBook newData) {

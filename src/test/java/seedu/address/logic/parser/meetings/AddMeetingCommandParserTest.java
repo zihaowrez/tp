@@ -1,9 +1,25 @@
 package seedu.address.logic.parser.meetings;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.DURATION;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DURATION_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LINK_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_START_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.LINK_ZOOM;
+import static seedu.address.logic.commands.CommandTestUtil.MEETING_NAME_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.START_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_INT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_STRING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_STRING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalMeetings.CS2103_MEETING;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +30,6 @@ import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Link;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.StartTime;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.MeetingBuilder;
 
 public class AddMeetingCommandParserTest {
@@ -22,11 +37,12 @@ public class AddMeetingCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() throws ParseException {
-        Meeting expectedMeeting = new MeetingBuilder().withTitle(VALID_MEETING_NAME).withLink(VALID_LINK).withStartTime(VALID_START_TIME_STRING)
+        Meeting expectedMeeting = new MeetingBuilder().withTitle(VALID_MEETING_NAME)
+                .withLink(VALID_LINK).withStartTime(VALID_START_TIME_STRING)
                 .withDuration(VALID_DURATION_INT).withTags(VALID_TAG_FRIEND).build();
 
         // multiple links - last link accepted
-        assertParseSuccess(parser,MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME + DURATION
+        assertParseSuccess(parser, MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME + DURATION
                 + TAG_DESC_FRIEND, new AddMeetingCommand(expectedMeeting));
 
 
@@ -35,7 +51,8 @@ public class AddMeetingCommandParserTest {
                 + TAG_DESC_FRIEND + TAG_DESC_FRIEND, new AddMeetingCommand(expectedMeeting));
 
         // multiple tags - all accepted
-        Meeting expectedMeetingMultipleTags = new MeetingBuilder().withTitle(VALID_MEETING_NAME).withLink(VALID_LINK).withStartTime(VALID_START_TIME_STRING)
+        Meeting expectedMeetingMultipleTags = new MeetingBuilder()
+                .withTitle(VALID_MEETING_NAME).withLink(VALID_LINK).withStartTime(VALID_START_TIME_STRING)
                 .withDuration(VALID_DURATION_INT).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME + DURATION
@@ -67,11 +84,11 @@ public class AddMeetingCommandParserTest {
                 expectedMessage);
 
         // missing start dateTime prefix
-        assertParseFailure(parser,  MEETING_NAME_CS2103 + LINK_ZOOM + VALID_START_TIME_STRING + DURATION,
+        assertParseFailure(parser, MEETING_NAME_CS2103 + LINK_ZOOM + VALID_START_TIME_STRING + DURATION,
                 expectedMessage);
 
         // missing duration prefix
-        assertParseFailure(parser,  VALID_MEETING_NAME + LINK_ZOOM + START_TIME + VALID_DURATION_STRING,
+        assertParseFailure(parser, VALID_MEETING_NAME + LINK_ZOOM + START_TIME + VALID_DURATION_STRING,
                 expectedMessage);
 
         // all prefixes missing
@@ -94,7 +111,8 @@ public class AddMeetingCommandParserTest {
                 + VALID_TAG_FRIEND, Duration.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, MEETING_NAME_CS2103 + INVALID_LINK_DESC + INVALID_START_TIME_DESC// + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser, MEETING_NAME_CS2103
+                        + INVALID_LINK_DESC + INVALID_START_TIME_DESC// + INVALID_ADDRESS_DESC,
                         + DURATION + VALID_TAG_FRIEND,
                 Link.MESSAGE_CONSTRAINTS);
 

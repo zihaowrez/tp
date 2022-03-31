@@ -2,7 +2,14 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
@@ -13,7 +20,13 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.meetingcommands.*;
+import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.DeleteMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.DeleteMeetingsTagCommand;
+import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.FindMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.ListMeetingCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.MeetingsBook;
 import seedu.address.model.Model;
@@ -69,8 +82,9 @@ public class CommandTestUtil {
     public static final String VALID_NEXT_MEETING_NAME = "CS3230 Meeting";
     public static final String VALID_LINK = "https://zoom.sg";
     public static final String VALID_LINK_TEAMS = "https://teams.sg";
-    public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    public static final LocalDateTime VALID_START_DATETIME = LocalDateTime.parse("2020-10-10 1800", dateTimeFormatter);
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final LocalDateTime VALID_START_DATETIME =
+            LocalDateTime.parse("2020-10-10 1800", DATE_TIME_FORMATTER);
     public static final StartTime VALID_START_TIME = new StartTime("2020-10-10 1800");
     public static final String VALID_START_TIME_STRING = "2020-10-10 1800";
 
@@ -196,11 +210,14 @@ public class CommandTestUtil {
         assertEquals(1, model.getSortedAndFilteredMeetingList().size());
     }
 
+    /**
+     * Checks if the command is a Meeting Command
+     */
     public static boolean isMeetingCommand(Command command) {
-        return (command instanceof FindMeetingCommand || command instanceof AddMeetingCommand ||
-                command instanceof AddTagToMeetingCommand || command instanceof DeleteMeetingCommand ||
-                command instanceof DeleteMeetingCommand || command instanceof DeleteMeetingsTagCommand ||
-                command instanceof ListMeetingCommand || command instanceof EditMeetingCommand);
+        return (command instanceof FindMeetingCommand || command instanceof AddMeetingCommand
+                || command instanceof AddTagToMeetingCommand || command instanceof DeleteMeetingCommand
+                || command instanceof DeleteMeetingCommand || command instanceof DeleteMeetingsTagCommand
+                || command instanceof ListMeetingCommand || command instanceof EditMeetingCommand);
     }
 
 }

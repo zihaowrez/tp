@@ -2,7 +2,15 @@ package seedu.address.logic.commands.meetings;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_CS3230;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
@@ -15,7 +23,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.MeetingsBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.EditMeetingDescriptorBuilder;
 import seedu.address.testutil.MeetingBuilder;
@@ -35,7 +47,8 @@ public class EditMeetingCommandTest {
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new MeetingsBook(model.getMeetingsBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new MeetingsBook(model.getMeetingsBook()), new UserPrefs());
         expectedModel.setMeeting(model.getSortedAndFilteredMeetingList().get(0), editedMeeting);
 
         assertCommandSuccess(editMeetingCommand, model, expectedMessage, expectedModel);
@@ -56,7 +69,8 @@ public class EditMeetingCommandTest {
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getMeetingsBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getMeetingsBook(), new UserPrefs());
         expectedModel.setMeeting(lastMeeting, editedMeeting);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -69,7 +83,8 @@ public class EditMeetingCommandTest {
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getMeetingsBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getMeetingsBook(), new UserPrefs());
 
         assertCommandSuccess(editMeetingCommand, model, expectedMessage, expectedModel);
     }
@@ -85,7 +100,8 @@ public class EditMeetingCommandTest {
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new MeetingsBook(model.getMeetingsBook()),  new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new MeetingsBook(model.getMeetingsBook()), new UserPrefs());
         expectedModel.setMeeting(model.getSortedAndFilteredMeetingList().get(0), editedMeeting);
 
         assertCommandSuccess(editMeetingCommand, model, expectedMessage, expectedModel);

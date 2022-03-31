@@ -40,6 +40,11 @@ public class CommandParserTestUtil {
         }
     }
 
+    /**
+     * Checks if the parser is an instance of MeetingBookParser
+     * @param parser
+     * @return
+     */
     public boolean checkMeetingParser(Parser parser) {
         return parser instanceof AddMeetingCommandParser || parser instanceof DeleteMeetingCommandParser
                 || parser instanceof EditMeetingCommandParser || parser instanceof FindMeetingCommandParser;

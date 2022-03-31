@@ -1,12 +1,8 @@
 package seedu.address.logic.commands.meetings;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-
-import static seedu.address.testutil.TypicalMeetings.*;
+import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;

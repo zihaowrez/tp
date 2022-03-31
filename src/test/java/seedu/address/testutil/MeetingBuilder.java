@@ -4,7 +4,11 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.meeting.*;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Link;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.StartTime;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -78,6 +82,9 @@ public class MeetingBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code duration} of the {@code Meeting} that we are building.
+     */
     public MeetingBuilder withDuration(int duration) {
         this.duration = new Duration(duration);
         return this;

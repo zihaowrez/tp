@@ -34,7 +34,8 @@ public class AddMeetingCommandIntegrationTest {
     public void execute_newMeeting_success() {
         Meeting validMeeting = new MeetingBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new MeetingsBook(model.getMeetingsBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(),
+                new MeetingsBook(model.getMeetingsBook()), new UserPrefs());
         expectedModel.addMeeting(validMeeting);
 
         assertCommandSuccess(new AddMeetingCommand(validMeeting), model,
