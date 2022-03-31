@@ -139,6 +139,8 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 ## 4. Editing details of a person: `edit`
 
+### 4.1 Editing a person
+
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 **Examples:**
@@ -146,6 +148,21 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 > `edit 1 n/Aaron d/Telegram, @aaron`</br>
 > `edit Alex n/Aaron p/52873618`
 
+### 4.2 Editing a person's social media
+
+Edits a social media found in a person's list of social media.
+
+**Format:**  `edit NAME i/SOCIAL_MEDIA_INDEX [f/] d/NEW_DETAILS` or `edit INDEX i/SOCIAL_MEDIA_INDEX [f/] d/NEW_DETAILS`
+
+NAME is case sensitive and must match the full name.
+INDEX refers to the index of the person you want to edit, and must be a positive integer.
+SOCIAL_MEDIA_INDEX refers to the index of the social media in the person's list of social media, and must be a positive integer.
+`f/` is an optional parameter, include it to edit the name of the social media instead of the social media description.
+
+**Examples:**
+
+> `edit 1 i/2 -f d/Telegram`
+> `edit Alex Yeoh i/1 d/@alexxy`
 
 
 ## 5. Copying: `copy`
