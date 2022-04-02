@@ -430,11 +430,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 Precondition - User has started up the uMessage application
 
+//@@author zihaowrez
 ### Use case 1: Add a contact
 
 **MSS**
 1. User types in the command to add a person into the address book
-
 2. uMessage adds the person into the list of contacts and updates it to the user
 
 Use case ends
@@ -472,6 +472,8 @@ Use case ends
 * 1b. User deletes all keywords
     * 1b1. uMessage displays the full list
     * 1b2. Use case resumes at step 1
+
+//@@author zihaowrez
 
 ### Use case 4: Copies a contact
 
