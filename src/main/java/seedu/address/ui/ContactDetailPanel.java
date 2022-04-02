@@ -6,7 +6,7 @@ import javafx.beans.value.ObservableObjectValue;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
@@ -21,10 +21,10 @@ public class ContactDetailPanel extends UiPart<Region> {
     private final ObservableObjectValue<Person> observableSelectedPerson;
 
     @FXML
-    private VBox contactDetailPanel;
+    private ScrollPane panel;
 
     @FXML
-    private ListView emptyRhsPanelPlaceHolder;
+    private VBox emptyRhsPanelPlaceHolder;
 
     /**
      * Creates a {@code RightHandSidePanel} with the given {@code ObservableList}.
@@ -47,10 +47,10 @@ public class ContactDetailPanel extends UiPart<Region> {
     public void setPanel(Node childPanel) {
         if (childPanel != null) {
             logger.info(String.format("Setting RHS panel to: %s", childPanel));
-            contactDetailPanel.getChildren().setAll(childPanel);
+            panel.setContent(childPanel);
         } else {
             logger.info("Clearing RHS panel");
-            contactDetailPanel.getChildren().clear();
+            panel.setContent(null);
         }
     }
 }

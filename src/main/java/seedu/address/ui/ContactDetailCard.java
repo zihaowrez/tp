@@ -123,6 +123,7 @@ public class ContactDetailCard extends UiPart<Region> {
                         taglabel.setOnMouseClicked(event ->
                                 clipboard.copy(tag.tagName)
                         );
+                        taglabel.setWrapText(true);
                         tags.getChildren().add(taglabel);
                         index.addAndGet(1);
                     });
@@ -139,6 +140,7 @@ public class ContactDetailCard extends UiPart<Region> {
                 count += 1;
                 Label label = new Label(count + ". " + sm.getPlatformName() + ": " + sm.getPlatformDescription());
                 label.setOnMouseClicked(event -> clipboard.copy(sm.getPlatformDescription().getValue()));
+                label.setWrapText(true);
 
                 if (sm.isTelegram()) {
                     label.setOnMouseClicked(event -> {
