@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 
-
-<Pane fx:id="panel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <Label prefHeight="20.0" prefWidth="0.0">
-      <opaqueInsets>
-         <Insets />
-      </opaqueInsets>
-   </Label>
+<?import javafx.scene.control.ListView?>
+<VBox fx:id="contactDetailPanel" style="-fx-background-color: #ededed;" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="emptyRHSPanelPlaceHolder" style="-fx-background-color: #ededed#ededed #ededed#ededed;"
-      prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+      <ListView fx:id="emptyRhsPanelPlaceHolder" VBox.vgrow="ALWAYS" maxWidth="300"/>
    </children>
-</Pane>
+</VBox>
