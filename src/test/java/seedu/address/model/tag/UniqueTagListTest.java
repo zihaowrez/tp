@@ -114,5 +114,4 @@ class UniqueTagListTest {
         assertThrows(UnsupportedOperationException.class, ()
                 -> uniqueTagList.asUnmodifiableObservableList().remove(0));
     }
-
 }
