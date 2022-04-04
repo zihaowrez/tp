@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.ClearMeetingsCommand;
@@ -84,6 +85,9 @@ public class MeetingsBookParser {
 
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
+
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
             default:
                 return new FindMeetingCommandParser().parse(commandWord);
