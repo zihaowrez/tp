@@ -1,18 +1,23 @@
 package seedu.address.model.tag;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalTags.ENEMIES;
+import static seedu.address.testutil.TypicalTags.FRIENDS;
+
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 
-import java.util.Collections;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTags.FRIENDS;
-import static seedu.address.testutil.TypicalTags.ENEMIES;
+
 
 class UniqueTagListTest {
     private final seedu.address.model.tag.UniqueTagList uniqueTagList = new seedu.address.model.tag.UniqueTagList();
@@ -112,6 +117,6 @@ class UniqueTagListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueTagList.asUnmodifiableObservableList().remove(0));
+            -> uniqueTagList.asUnmodifiableObservableList().remove(0));
     }
 }
