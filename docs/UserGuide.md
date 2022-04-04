@@ -160,7 +160,7 @@ Note that emergency contacts cannot be edited.
 
 **Format:** `copy NAME`
 
-NAME is case sensitive and must match the full name.
+NAME is case sensitive and must match the full name. 
 
 **Examples:**
 
@@ -350,7 +350,7 @@ Shows a list of all persons/meetings in the book.
 
 ## 3. Clearing all entries: `clear`
 
-Clears all non-Emergency Contacts entries from the address book.
+Clears all non-Emergency Contacts entries and meetings from the address book.
 
 ## 4. Exiting the program: `exit`
 
@@ -372,38 +372,33 @@ If your changes to the data file makes its format invalid, the data will be disc
 
 --------------------------------------------------------------------------------------------------------------------
 #Summary of Commands
+
 ##Contacts Tab
 
-| Command | Intention                           | Format                                                                                         |
-|---------|-------------------------------------|------------------------------------------------------------------------------------------------|
-| add     | add a new person                    | `add n/NAME [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]... [t/TAG]`                  |
-| add     | add a tag to an existing person     | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`                                                    |
-| add     | add a new social media to a person  | `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`      |
-| find    | search for a person                 | `[find] KEYWORD [MORE_KEYWORDS]`                                                               |
-| view    | view the details of a person        | `view INDEX` or click the Contact/Meeting under the list.                                      |
-| edit    | edit details of a person            | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`          |
-| copy    | copy all details of a person        | `copy NAME`                                                                                    |
-| copy    | copy one detail of a person         | perform the `view` command and click on the relevant label values to copy                      |
-| delete  | delete a person                     | `delete NAME` or `delete INDEX`                                                                |
-| delete  | delete a tag from a person          | `delete NAME t/TAG` `delete INDEX t/TAG`                                                       |
-| delete  | delete a social media from a person | `dlete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}` |
+| Command | Intention                           | Format                                                                                          |
+|---------|-------------------------------------|-------------------------------------------------------------------------------------------------|
+| add     | add a new person                    | `add n/NAME [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]... [t/TAG]`                   |
+| add     | add a tag to an existing person     | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`                                                     |
+| add     | add a new social media to a person  | `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`       |
+| find    | search for a person                 | `[find] KEYWORD [MORE_KEYWORDS]`                                                                |
+| view    | view the details of a person        | `view INDEX` or click the Contact/Meeting under the list.                                       |
+| edit    | edit details of a person            | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`           |
+| copy    | copy all details of a person        | `copy NAME`                                                                                     |
+| copy    | copy one detail of a person         | perform the `view` command and click on the relevant label values to copy                       |
+| delete  | delete a person                     | `delete NAME` or `delete INDEX`                                                                 |
+| delete  | delete a tag from a person          | `delete NAME t/TAG` `delete INDEX t/TAG`                                                        |
+| delete  | delete a social media from a person | `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}` |
 
 ##Meetings Tab
 
 | Command | Intention                                  | Format                                                                                         |
 |---------|--------------------------------------------|------------------------------------------------------------------------------------------------|
-| add     | add a new person                           | `add n/NAME [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]... [t/TAG]`                  |
-| add     | add a tag to an existing person            | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`                                                    |
-| add     | add a new social media to a person         | `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`      |
-| find    | search for a person                        | `[find] KEYWORD [MORE_KEYWORDS]`                                                               |
-| view    | view the details of a person               | `view INDEX` or click the Contact/Meeting under the list.                                      |
-| edit    | edit details of a person                   | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`          |
-| copy    | copy all details of a person               | `copy NAME`                                                                                    |
-| copy    | copy one detail of a person                | perform the `view` command and click on the relevant label values to copy                      |
-| delete  | delete a person                            | `delete NAME` or `delete INDEX`                                                                |
-| delete  | delete a tag from a person                 | `delete NAME t/TAG` `delete INDEX t/TAG`                                                       |
-| delete  | delete a social media from a person        | `dlete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}` |
-| clear   | deletes all contacts from the address book | `clear`                                                                                        |
+| add     | add a new meeting                          | `add n/MEETING NAME l/LINK s/START TIME d/DURATION`                                            |
+| add     | add a tag to an existing meeting           | `add MEETING NAME t/NEWTAG` or `add INDEX t/NEWTAG`                                            |
+| find    | search for a meeting                       | `[find] KEYWORD [MORE_KEYWORDS]`                                                               |
+| edit    | edit details of a meeting                  | `edit INDEX [n/MEETING NAME] [l/LINK] [s/START TIME] [d/DURATION] [t/TAG]…`                    |
+| delete  | delete a meeting                           | `delete MEETING NAME` or `delete INDEX`                                                        |
+| delete  | delete a tag from a meeting                | `delete MEETING NAME t/TAG` `delete INDEX t/TAG`                                               |
 
 ##Universal
 
@@ -413,9 +408,6 @@ If your changes to the data file makes its format invalid, the data will be disc
 | list    | displays all persons/meetings                   | `list`   |
 | clear   | deletes all non-emergency contacts and meetings | `clear`  | 
 | exit    | exits the program                               | `exit`   |
-
-
-
 
 ---------------------------------------------------------------------------------------------------------------------
 ## FAQ
