@@ -64,7 +64,7 @@
 --------------------------------------------------------------------------------------------------------------------
 # Managing Contacts
 
-The contacts are listed alphabetically. The header displays the size of the current contact list in the brackets.</br>
+The contacts are listed alphabetically. The header displays the size of the current contact list in the brackets. </br>
 The contacts list is navigable using the arrow keys.
 
 ## 1. Adding: `add`
@@ -136,8 +136,8 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 **Examples:**
 
-> `view 2`
-> clicking on the second contact does the same as above.
+> `view 2` </br>
+>  clicking on the second contact does the same as above.
 
 
 
@@ -188,7 +188,7 @@ Note that clicking the email and telegram fields will trigger a unique response.
 
 **Format:** `delete NAME` or `delete INDEX`
 
-NAME is case sensitive and must match the full name.</br>
+NAME is case sensitive and must match the full name. </br>
 INDEX must be a positive integer. </br>
 
 Note that emergency contacts cannot be deleted.
@@ -196,8 +196,8 @@ Note that emergency contacts cannot be deleted.
 
 **Examples:**
 
-> `delete 2` deletes the contact at index 2</br>
-> `delete Alex Yeoh` deletes the contact `Alex Yeoh`</br>
+> `delete 2` deletes the contact at index 2 </br>
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh` </br>
 > `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
 ### 6.2 Deleting tag from a Person
@@ -212,7 +212,7 @@ Note that tags of emergency contacts cannot be deleted.
 
 **Examples:**
 
-> `delete kaaviya t/friend`</br>
+> `delete kaaviya t/friend` </br>
 > `delete 1 t/colleague`
 
 ### 6.3 Deleting social media from a Person
@@ -230,7 +230,7 @@ Note that social medias of emergency contacts cannot be deleted.
 
 
 --------------------------------------------------------------------------------------------------------------------
-# Manage Meetings
+# Managing Meetings
 
 The meetings in the future are listed first with ascending starting time, followed by past meetings with descending starting time.</br>
 
@@ -262,7 +262,7 @@ INDEX must be a positive integer.
 
 
 
-## 3. Searching meetings by keyword: `[find]`
+## 2. Searching meetings by keyword: `[find]`
 
 Finds meetings with the given keywords.
 
@@ -286,14 +286,14 @@ The order of the keywords does not matter. e.g. `2040 CS` will match `CS 2040`.
 
 ## 3. Editing details of a meeting: `edit`
 
-**Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+**Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/{DURATION}] [t/TAG]…`
 
 START_TIME must follow the format `yyyy-M-d HHmm` (e.g. `2022-3-20 0900`) and must not be in the past.</br>
 DURATION is in minutes and must be an integer between 1 and 10000.
 
 **Examples:**
 
-> `edit 1 n/CS2030 PE`</br>
+> `edit 1 n/CS2030 PE` </br>
 > `edit 2 s/2022-4-1 1600`
 
 
