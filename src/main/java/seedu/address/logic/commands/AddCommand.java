@@ -11,7 +11,7 @@ public abstract class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Here are the possible uses for add \n \n"
-            + "Adding a New Person: `add n/NAME p/PHONE e/EMAIL [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…` \n"
+            + "Adding a New Person: `add n/NAME [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…` \n"
             + "   Example: " + COMMAND_WORD + " n/Amy p/948999384 e/amy@u.nus.edu t/2103 \n \n"
             + "Adding a New Tag to a Person: `add NAME [t/TAG]…` \n"
             + "   Example: " + COMMAND_WORD + " Amy t/nus \n \n"
