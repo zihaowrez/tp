@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,7 +112,14 @@ public class MeetingsBookParser {
                 || splitCommand[0].equals(EditMeetingCommand.COMMAND_WORD))
                 || command.equals(DeleteMeetingCommand.COMMAND_WORD)
                 || splitCommand[0].equals(DeleteMeetingCommand.COMMAND_WORD)
+                || command.equals(ListMeetingCommand.COMMAND_WORD)
+                || splitCommand[0].equals(ListMeetingCommand.COMMAND_WORD)
                 || command.equals(ClearMeetingsCommand.COMMAND_WORD)
-                || splitCommand[0].equals(ClearMeetingsCommand.COMMAND_WORD);
+                || splitCommand[0].equals(ClearMeetingsCommand.COMMAND_WORD)
+                || command.equals(HelpCommand.COMMAND_WORD)
+                || splitCommand[0].equals(HelpCommand.COMMAND_WORD)
+                || command.equals(ExitCommand.COMMAND_WORD)
+                || splitCommand[0].equals(ExitCommand.COMMAND_WORD);
+
     }
 }
