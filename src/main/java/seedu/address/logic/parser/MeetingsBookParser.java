@@ -82,6 +82,9 @@ public class MeetingsBookParser {
             case ListMeetingCommand.COMMAND_WORD:
                 return new ListMeetingCommand();
 
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+
             default:
                 return new FindMeetingCommandParser().parse(commandWord);
             }
