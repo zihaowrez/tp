@@ -23,6 +23,7 @@ import seedu.address.model.socialmedia.SocialMedia;
 public class EditSocialMediaCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_SOCIALS_SUCCESS = "Edited social media of %s: From %s to %s";
+    public static final String MESSAGE_SOCIALS_ALREADY_EXISTS = "Socials %s already exists in %s!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the targeted social media of a given person. "
             + "The social media is specified by the index of list of socials of the given person.\n"
             + "Parameters:"

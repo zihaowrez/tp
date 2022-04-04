@@ -26,7 +26,7 @@ public class PlatformName {
         }
 
         PlatformName other = (PlatformName) obj;
-        return other.platformName.equals(platformName);
+        return other.platformName.equalsIgnoreCase(platformName);
     }
 
     @Override
