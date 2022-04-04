@@ -143,12 +143,14 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        sortFilteredPersonList(COMPARATOR_ALPHABETICAL_ORDER);
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         addressBook.setPerson(target, editedPerson);
+        sortFilteredPersonList(COMPARATOR_ALPHABETICAL_ORDER);
     }
 
     //=========== Meetings tab =================================================================================

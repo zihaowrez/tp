@@ -19,6 +19,9 @@ import seedu.address.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Comparator<Person> COMPARATOR_ALPHABETICAL_ORDER = (p1, p2) ->
+            p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName);
+
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
