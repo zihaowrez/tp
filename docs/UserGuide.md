@@ -286,7 +286,7 @@ The order of the keywords does not matter. e.g. `2040 CS` will match `CS 2040`.
 
 ## 3. Editing details of a meeting: `edit`
 
-**Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/{DURATION}] [t/TAG]…`
+**Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/DURATION] [t/TAG]…`
 
 START_TIME must follow the format `yyyy-M-d HHmm` (e.g. `2022-3-20 0900`) and must not be in the past.</br>
 DURATION is in minutes and must be an integer between 1 and 10000.
@@ -371,9 +371,9 @@ If your changes to the data file makes its format invalid, the data will be disc
 
 
 --------------------------------------------------------------------------------------------------------------------
-#Summary of Commands
+# Summary of Commands
 
-##Contacts Tab
+## Contacts Tab
 
 | Command | Intention                           | Format                                                                                          |
 |---------|-------------------------------------|-------------------------------------------------------------------------------------------------|
@@ -389,7 +389,7 @@ If your changes to the data file makes its format invalid, the data will be disc
 | delete  | delete a tag from a person          | `delete NAME t/TAG` `delete INDEX t/TAG`                                                        |
 | delete  | delete a social media from a person | `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}` |
 
-##Meetings Tab
+## Meetings Tab
 
 | Command | Intention                                  | Format                                                                                         |
 |---------|--------------------------------------------|------------------------------------------------------------------------------------------------|
@@ -400,7 +400,7 @@ If your changes to the data file makes its format invalid, the data will be disc
 | delete  | delete a meeting                           | `delete MEETING NAME` or `delete INDEX`                                                        |
 | delete  | delete a tag from a meeting                | `delete MEETING NAME t/TAG` `delete INDEX t/TAG`                                               |
 
-##Universal
+## Universal
 
 | Command | Intention                                       | Format   |
 |---------|-------------------------------------------------|----------|
