@@ -6,9 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CopyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.ClearMeetingsCommand;
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.FindMeetingCommand;
@@ -67,6 +67,9 @@ public class MeetingsBookParser {
             case AddMeetingCommand.COMMAND_WORD:
                 return new AddMeetingCommandParser().parse(arguments);
 
+            case ClearMeetingsCommand.COMMAND_WORD:
+                return new ClearMeetingsCommand();
+
             case EditMeetingCommand.COMMAND_WORD:
                 return new EditMeetingCommandParser().parse(arguments);
 
@@ -101,7 +104,7 @@ public class MeetingsBookParser {
                 || splitCommand[0].equals(EditMeetingCommand.COMMAND_WORD))
                 || command.equals(DeleteMeetingCommand.COMMAND_WORD)
                 || splitCommand[0].equals(DeleteMeetingCommand.COMMAND_WORD)
-                || command.equals(CopyCommand.COMMAND_WORD)
-                || splitCommand[0].equals(CopyCommand.COMMAND_WORD);
+                || command.equals(ClearMeetingsCommand.COMMAND_WORD)
+                || splitCommand[0].equals(ClearMeetingsCommand.COMMAND_WORD);
     }
 }
