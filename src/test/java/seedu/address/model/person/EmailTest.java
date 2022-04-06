@@ -22,6 +22,14 @@ public class EmailTest {
     @Test
     public void isValidEmail() {
 
+        String validEmail_localPart64 = "a".repeat(64) + "@gmail.com";
+        String validEmail_length_254 = "a@" + "a".repeat(248) + ".com";
+        String invalidEmail_localPart65 = "a".repeat(65) + "@gmail.com";
+        String invalidEmail_length_255 = "aa@" + "a".repeat(248) + ".com";
+        
+        assert validEmail_length_254.length() == 254;
+        assert invalidEmail_length_255.length() == 255;
+
         // null email
         assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
 
@@ -51,6 +59,8 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peterjack@-example.com")); // domain name starts with a hyphen
         assertFalse(Email.isValidEmail("peterjack@example.com-")); // domain name ends with a hyphen
         assertFalse(Email.isValidEmail("peterjack@example.c")); // top level domain has less than two chars
+        assertFalse(Email.isValidEmail(invalidEmail_length_255)); //invalid email length
+        assertFalse(Email.isValidEmail(invalidEmail_localPart65)); //invalid local part length
 
         // valid email
         assertTrue(Email.isValidEmail("PeterJack_1190@example.com")); // underscore in local part
@@ -71,5 +81,7 @@ public class EmailTest {
         assertTrue(Email.isValidEmail("e1234567@u.nus.edu")); // more than one period in domain
         assertTrue(Email.isValidEmail("e1234567@u.n.u.s.edu")); // more than one 1-char domain-part
         assertTrue(Email.isValidEmail("e1234567@u.n.u.s.ed")); // more than one 1-char domain- and 2 letter TLD
+        assertTrue(Email.isValidEmail(validEmail_length_254));
+        assertTrue(Email.isValidEmail(validEmail_localPart64));
     }
 }
