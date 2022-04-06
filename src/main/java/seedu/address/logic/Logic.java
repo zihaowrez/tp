@@ -17,6 +17,7 @@ import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.TagCard;
 
 /**
  * API of the Logic component
@@ -39,6 +40,13 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult executeForMeetings(String commandText, CommandBox commandBox) throws CommandException, ParseException;
+
+    /**
+     * Returns the result of clicking the tag.
+     * @param tag The tag clicked.
+     * @return the result of clicking the tag.
+     */
+    CommandResult[] clickTag(Tag tag);
 
     /**
      * Returns the AddressBook.

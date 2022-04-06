@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import seedu.address.Main;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.tag.Tag;
@@ -32,12 +33,12 @@ public class TagPanel extends UiPart<Region> {
     /**
      * Creates a {@code TagListPanel} with the given {@code ObservableList}.
      */
-    public TagPanel(ObservableList<Tag> tagList, Logic logic) {
+    public TagPanel(ObservableList<Tag> tagList, Logic logic, MainWindow mainWindow) {
 
         super(FXML);
         this.tagList = tagList;
 
-        setPanel(new TagCard(tagList, logic).getRoot());
+        setPanel(new TagCard(tagList, logic, mainWindow).getRoot());
 
     }
 
