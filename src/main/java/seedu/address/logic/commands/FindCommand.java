@@ -43,10 +43,8 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         model.sortFilteredPersonList(comparator);
-        String searchAction = String.format("Searched for %s, ", predicate.toString());
-        String searchResult = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
-                model.getSortedAndFilteredPersonList().size());
-        return new CommandResult(searchAction + searchResult);
+        return new CommandResult(String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, predicate.toString(),
+                model.getSortedAndFilteredPersonList().size()));
     }
 
     /**
