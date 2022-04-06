@@ -17,7 +17,6 @@ import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.CommandBox;
-import seedu.address.ui.TagCard;
 
 /**
  * API of the Logic component

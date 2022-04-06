@@ -97,10 +97,11 @@ public class LogicManager implements Logic {
             Set<Tag> meetingTagSet = meeting.getTags();
             return meetingTagSet.contains(tag);
         });
-        return new CommandResult[] {new CommandResult(getSortedAndFilteredPersonList().size() +
-                " persons with tag " + tag + " listed!"),
-                new CommandResult(getSortedAndFilteredMeetingList().size() +
-                        " meetings with tag " + tag + " listed!")};
+        return new CommandResult[] {
+                new CommandResult(getSortedAndFilteredPersonList().size()
+                        + " persons with tag " + tag + " listed!"),
+                new CommandResult(getSortedAndFilteredMeetingList().size()
+                        + " meetings with tag " + tag + " listed!")};
     }
 
     public ObservableObjectValue<Person> getCurrentlySelectedPerson() {
