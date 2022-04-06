@@ -26,7 +26,7 @@ public class EmailTest {
         String validEmail_length_254 = "a@" + "a".repeat(248) + ".com";
         String invalidEmail_localPart65 = "a".repeat(65) + "@gmail.com";
         String invalidEmail_length_255 = "aa@" + "a".repeat(248) + ".com";
-        
+
         assert validEmail_length_254.length() == 254;
         assert invalidEmail_length_255.length() == 255;
 
