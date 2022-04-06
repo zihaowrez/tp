@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Represents a Meeting's date and time in the meeting tab.
@@ -12,9 +14,11 @@ import java.time.format.DateTimeFormatter;
 public class StartTime {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Time must be in the format \"yyyy-M-d HHmm\"";
+            "Date and time must be valid and in the format \"yyyy-M-d HHmm\"";
 
     public final LocalDateTime startTime;
+    public static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("uuuu-M-d HHmm").withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Constructs a {@code DateTime}.
@@ -24,7 +28,7 @@ public class StartTime {
      */
     public StartTime(String startTime) {
         requireNonNull(startTime);
-        this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-M-d HHmm"));
+        this.startTime = LocalDateTime.parse(startTime, formatter);
     }
 
     /**
@@ -32,9 +36,9 @@ public class StartTime {
      */
     public static boolean isValidStartTime(String test) {
         try {
-            LocalDateTime.parse(test, DateTimeFormatter.ofPattern("yyyy-M-d HHmm"));
+            LocalDateTime.parse(test, formatter);
             return true;
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
