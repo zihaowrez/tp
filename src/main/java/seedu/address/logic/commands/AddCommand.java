@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 public abstract class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Here are the possible uses for add \n \n"
         + AddPersonCommand.MESSAGE_USAGE + "\n \n"
         + AddTagToPersonCommand.MESSAGE_USAGE + "\n \n"
