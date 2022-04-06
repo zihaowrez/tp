@@ -78,28 +78,27 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
-    public static final String VALID_MEETING_NAME = "CS2103 Meeting";
-    public static final String VALID_NEXT_MEETING_NAME = "CS3230 Meeting";
+    public static final String VALID_MEETING_TITLE = "CS2103 Meeting";
+    public static final String VALID_NEXT_MEETING_TITLE = "CS3230 PE";
     public static final String VALID_LINK = "https://zoom.sg";
     public static final String VALID_LINK_TEAMS = "https://teams.sg";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     public static final LocalDateTime VALID_START_DATETIME =
-            LocalDateTime.parse("2020-10-10 1800", DATE_TIME_FORMATTER);
-    public static final StartTime VALID_START_TIME = new StartTime("2020-10-10 1800");
-    public static final String VALID_START_TIME_STRING = "2020-10-10 1800";
+            LocalDateTime.parse("2024-10-10 1800", DATE_TIME_FORMATTER);
+    public static final StartTime VALID_START_TIME = new StartTime("2024-10-10 1800");
+    public static final String VALID_START_TIME_STRING = "2024-10-10 1800";
 
     public static final Duration VALID_DURATION = new Duration(60);
     public static final int VALID_DURATION_INT = 60;
     public static final String VALID_DURATION_STRING = "60";
     public static final String INVALID_DURATION_STRING = "abc";
 
-    public static final String INVALID_LINK = "https://zoom.com.sg 123456";
+    public static final String INVALID_LINK = "https://zoom.sg 123456";
     public static final String INVALID_START_TIME = "2020-10-10 180";
 
 
-    public static final String MEETING_NAME_CS2103 = " " + PREFIX_NAME + VALID_MEETING_NAME;
+    public static final String MEETING_TITLE_CS2103 = " " + PREFIX_NAME + VALID_MEETING_TITLE;
     public static final String LINK_ZOOM = " " + PREFIX_LINK + VALID_LINK;
-    public static final String LINK_TEAMS = " " + PREFIX_LINK + VALID_LINK_TEAMS;
     public static final String START_TIME = " " + PREFIX_STARTTIME + VALID_START_TIME_STRING;
     public static final String DURATION = " " + PREFIX_DURATION + VALID_DURATION_STRING;
 
@@ -122,10 +121,10 @@ public class CommandTestUtil {
                 //TODO Handle descriptor with socials and no phones/emails/addresses
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        DESC_CS2103 = new EditMeetingDescriptorBuilder().withName(VALID_MEETING_NAME)
+        DESC_CS2103 = new EditMeetingDescriptorBuilder().withTitle(VALID_MEETING_TITLE)
                 .withLink(VALID_LINK).withStartTime(VALID_START_TIME)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_CS3230 = new EditMeetingDescriptorBuilder().withName(VALID_NEXT_MEETING_NAME)
+        DESC_CS3230 = new EditMeetingDescriptorBuilder().withTitle(VALID_NEXT_MEETING_TITLE)
                 .withLink(VALID_LINK).withStartTime(VALID_START_TIME)
                 .withTags(VALID_TAG_FRIEND).build();
     }

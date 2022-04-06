@@ -42,7 +42,7 @@ public class EditMeetingDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditMeetingDescriptorBuilder withName(String title) {
+    public EditMeetingDescriptorBuilder withTitle(String title) {
         descriptor.setTitle(new Title(title));
         return this;
     }

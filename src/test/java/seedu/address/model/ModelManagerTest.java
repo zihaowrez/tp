@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMeetings.CS2103_MEETING;
-import static seedu.address.testutil.TypicalMeetings.CS3230_MEETING;
+import static seedu.address.testutil.TypicalMeetings.CS3230_PE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.MeetingsTabBuilder;
+import seedu.address.testutil.MeetingsBookBuilder;
 
 public class ModelManagerTest {
 
@@ -102,8 +102,8 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
-        MeetingsBook meetingsTab = new MeetingsTabBuilder().withMeeting(CS2103_MEETING)
-                .withMeeting(CS3230_MEETING).build();
+        MeetingsBook meetingsTab = new MeetingsBookBuilder().withMeeting(CS2103_MEETING)
+                .withMeeting(CS3230_PE).build();
         MeetingsBook differentMeetingsTab = new MeetingsBook();
 
         // same values -> returns true
