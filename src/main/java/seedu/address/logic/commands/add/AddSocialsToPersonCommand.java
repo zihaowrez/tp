@@ -23,7 +23,7 @@ import seedu.address.model.socialmedia.SocialMedia;
 public class AddSocialsToPersonCommand extends AddCommand {
     public static final String MESSAGE_ADD_NEW_SOCIALS_SUCCESS = "Added new social media handle %s to %s";
     public static final String MESSAGE_CANNOT_ADD_SOCIALS_EMERGENCY =
-            "Social medias cannot be added to emergency contacts";
+            "Social media cannot be added to emergency contacts";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds new social media handles to a person in address book. "

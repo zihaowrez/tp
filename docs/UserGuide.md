@@ -100,7 +100,7 @@ Note that tags cannot be added to emergency contacts.
 NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer. </br>
 
-Note that social medias cannot be added to emergency contacts.
+Note that social media cannot be added to emergency contacts.
 
 **Examples:**
 
@@ -222,7 +222,7 @@ Note that tags of emergency contacts cannot be deleted.
 NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer. </br>
 
-Note that social medias of emergency contacts cannot be deleted.
+Note that social media of emergency contacts cannot be deleted.
 
 **Examples:**
 > `delete kaaviya d/Telegram, @uNivUS`</br>
