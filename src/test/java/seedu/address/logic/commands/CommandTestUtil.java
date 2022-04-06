@@ -96,7 +96,6 @@ public class CommandTestUtil {
     public static final String INVALID_LINK = "https://zoom.com.sg 123456";
     public static final String INVALID_START_TIME = "2020-10-10 180";
 
-
     public static final String MEETING_NAME_CS2103 = " " + PREFIX_NAME + VALID_MEETING_NAME;
     public static final String LINK_ZOOM = " " + PREFIX_LINK + VALID_LINK;
     public static final String LINK_TEAMS = " " + PREFIX_LINK + VALID_LINK_TEAMS;

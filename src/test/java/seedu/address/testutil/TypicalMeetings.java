@@ -26,27 +26,19 @@ public class TypicalMeetings {
 
     public static final Meeting CS2103_MEETING = new MeetingBuilder().withTitle("CS2103 Meeting")
             .withLink("https://zoom.sg")
-            .withStartTime("2018-10-10 1800")
+            .withStartTime("2022-10-10 1800")
             .withDuration(60)
             .withTags("cs2103").build();
     public static final Meeting CS3230_MEETING = new MeetingBuilder().withTitle("CS3230 Meeting")
             .withLink("https://zoom.sg")
-            .withStartTime("2019-10-10 1800")
+            .withStartTime("2023-10-10 1800")
             .withDuration(60)
             .withTags("cs3230").build();
     public static final Meeting PROJECT_MEETING = new MeetingBuilder().withTitle("Project Meeting")
             .withLink("https://zoom.sg")
-            .withStartTime("2020-10-10 1800")
+            .withStartTime("2024-10-10 1800")
             .withDuration(50)
             .withTags("project").build();
-
-    // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com")
-            .build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com")
-            .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
