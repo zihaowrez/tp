@@ -26,39 +26,21 @@ public class TypicalMeetings {
 
     public static final Meeting CS2103_MEETING = new MeetingBuilder().withTitle("CS2103 Meeting")
             .withLink("https://zoom.sg")
-            .withStartTime("2018-10-10 1800")
-            .withDuration(60)
+            .withStartTime("2022-3-7 1800")
+            .withDuration(120)
             .withTags("cs2103").build();
-    public static final Meeting CS3230_MEETING = new MeetingBuilder().withTitle("CS3230 Meeting")
+    public static final Meeting CS3230_PE = new MeetingBuilder().withTitle("CS3230 PE")
             .withLink("https://zoom.sg")
-            .withStartTime("2019-10-10 1800")
+            .withStartTime("2022-4-14 0900")
             .withDuration(60)
             .withTags("cs3230").build();
-    public static final Meeting PROJECT_MEETING = new MeetingBuilder().withTitle("Project Meeting")
+    public static final Meeting CS2103_FINAL = new MeetingBuilder().withTitle("CS2103 Final")
             .withLink("https://zoom.sg")
-            .withStartTime("2020-10-10 1800")
-            .withDuration(50)
-            .withTags("project").build();
+            .withStartTime("2022-5-5 1700")
+            .withDuration(150)
+            .withTags("final", "cs2103").build();
 
-    // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com")
-            .build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com")
-            .build();
-
-    // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY)
-            .withSocials(VALID_SOCIAL_GMAIL)
-            .withTags(VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB)//.withAddress(VALID_ADDRESS_BOB)
-            .withSocials(VALID_SOCIAL_TELEGRAM, VALID_SOCIAL_GMAIL)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "cs2103"; // A keyword that matches cs2103
 
     private TypicalMeetings() {} // prevents instantiation
 
@@ -66,14 +48,14 @@ public class TypicalMeetings {
      * Returns an {@code MeetingsTab} with all the typical meetings.
      */
     public static MeetingsBook getTypicalMeetingsBook() {
-        MeetingsBook ab = new MeetingsBook();
+        MeetingsBook mb = new MeetingsBook();
         for (Meeting meeting : getTypicalMeetings()) {
-            ab.addMeeting(meeting);
+            mb.addMeeting(meeting);
         }
-        return ab;
+        return mb;
     }
 
     public static List<Meeting> getTypicalMeetings() {
-        return new ArrayList<>(Arrays.asList(CS2103_MEETING, CS3230_MEETING, PROJECT_MEETING));
+        return new ArrayList<>(Arrays.asList(CS2103_MEETING, CS3230_PE, CS2103_FINAL));
     }
 }
