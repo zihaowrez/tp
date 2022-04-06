@@ -15,10 +15,10 @@ public class StartTime {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Date and time must be valid and in the format \"yyyy-M-d HHmm\"";
-
-    public final LocalDateTime startTime;
     public static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("uuuu-M-d HHmm").withResolverStyle(ResolverStyle.STRICT);
+
+    public final LocalDateTime startTime;
 
     /**
      * Constructs a {@code DateTime}.
