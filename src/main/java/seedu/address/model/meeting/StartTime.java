@@ -42,6 +42,10 @@ public class StartTime {
         }
     }
 
+    public static boolean isInThePast(StartTime startTime) {
+        return startTime.startTime.isBefore(LocalDateTime.now());
+    }
+
     /**
      * Returns a startTime string for Storage purposes.
      */

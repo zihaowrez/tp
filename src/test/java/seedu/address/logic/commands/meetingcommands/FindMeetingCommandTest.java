@@ -78,7 +78,7 @@ public class FindMeetingCommandTest {
         expectedModel.updateFilteredMeetingList(predicate);
         expectedModel.sortFilteredMeetingList(comparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103_MEETING, CS3230_MEETING), model.getSortedAndFilteredMeetingList());
+        assertEquals(Arrays.asList(CS2103_MEETING, CS3230_PE), model.getSortedAndFilteredMeetingList());
     }
      */
 

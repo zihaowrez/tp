@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.MeetingsTabBuilder;
+import seedu.address.testutil.MeetingsBookBuilder;
 
 public class ModelManagerTest {
 
@@ -102,7 +102,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
-        MeetingsBook meetingsTab = new MeetingsTabBuilder().withMeeting(CS2103_MEETING)
+        MeetingsBook meetingsTab = new MeetingsBookBuilder().withMeeting(CS2103_MEETING)
                 .withMeeting(CS3230_MEETING).build();
         MeetingsBook differentMeetingsTab = new MeetingsBook();
 

@@ -21,6 +21,7 @@ public class AddMeetingCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() throws ParseException {
+
         Meeting expectedMeeting = new MeetingBuilder().withTitle(VALID_TITLE_CS2103)
                 .withLink(VALID_LINK_ZOOM).withStartTime(VALID_STARTTIME_CS2103)
                 .withDuration(VALID_DURATION_INT_60).withTags(VALID_TAG_FRIEND).build();
@@ -55,6 +56,7 @@ public class AddMeetingCommandParserTest {
                 + PREFIX_TAG + VALID_TAG_FRIEND + " "
                 + PREFIX_TAG + VALID_TAG_PROJECT,
                 new AddMeetingCommand(expectedMeeting));
+
     }
 
     @Test
