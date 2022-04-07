@@ -62,6 +62,10 @@ public class SampleDataUtil {
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
+
+        for (Tag tag : getSampleTags()) {
+            sampleAb.addTag(tag, "tail");
+        }
         return sampleAb;
     }
 
@@ -84,6 +88,13 @@ public class SampleDataUtil {
             sampleMt.addMeeting(sampleMeeting);
         }
         return sampleMt;
+    }
+
+    public static Tag[] getSampleTags() {
+        return new Tag[] {
+            new Tag("neighbours"), new Tag("colleagues"), new Tag("friends"),
+            new Tag("EmergencyContacts"), new Tag("family")
+        };
     }
 
     /**
