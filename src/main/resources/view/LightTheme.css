@@ -40,6 +40,22 @@
     -fx-opacity: 1;
 }
 
+.panel-label-header:hover {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #003882;
+    -fx-opacity: 1;
+    -fx-underline: false;
+}
+
+.panel-label-header:pressed {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #003882;
+    -fx-opacity: 1;
+}
+
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
