@@ -61,15 +61,24 @@ public class AddressBookTest {
     }
 
     @Test
-    public void addPersonToTop_personAtTopOfList_returnsTrue() {
+    public void addPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        assertTrue(addressBook.getPersonList().get(0).isSamePerson(ALICE));
+        assertTrue(addressBook.getPersonList().contains(ALICE));
     }
 
     @Test
-    public void addPerson_personInAddressBook_returnsTrue() {
+    public void addPerson_addressBookMaintainsAlphabeticalOrder() {
         addressBook.addPerson(ALICE);
-        assertTrue(addressBook.getPersonList().get(addressBook.getPersonList().size() - 4).isSamePerson(ALICE));
+        boolean reachedAlice = false;
+        for (Person p : addressBook.getPersonList()) {
+            if (p.equals(ALICE)) {
+                reachedAlice = true;
+            } else if (!reachedAlice) {
+                assertTrue(p.getName().fullName.compareToIgnoreCase(ALICE.getName().fullName) > 0);
+            } else {
+                assertTrue(p.getName().fullName.compareToIgnoreCase(ALICE.getName().fullName) < 0);
+            }
+        }
     }
 
     @Test

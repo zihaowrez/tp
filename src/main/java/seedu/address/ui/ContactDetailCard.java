@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.ClipboardManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.socialmedia.SocialMedia;
@@ -36,9 +37,6 @@ public class ContactDetailCard extends UiPart<Region> {
     public final Person person;
 
     @FXML
-    private HBox cardPane;
-
-    @FXML
     private Label nameLabel;
 
     @FXML
@@ -57,7 +55,7 @@ public class ContactDetailCard extends UiPart<Region> {
     @FXML
     private Label socialMediaLabel;
     @FXML
-    private FlowPane socialMedias;
+    private VBox socialMedias;
 
     @FXML
     private Label tagsLabel;
@@ -81,8 +79,8 @@ public class ContactDetailCard extends UiPart<Region> {
         phoneView.setOnMouseClicked(event ->
                 clipboard.copy(person.getPhone().value)
         );
-        emailView.setText(person.getEmail().value);
 
+        emailView.setText(person.getEmail().value);
         emailView.setOnMouseClicked(event -> {
             clipboard.copy(person.getEmail().value);
             try {
@@ -90,8 +88,7 @@ public class ContactDetailCard extends UiPart<Region> {
             } catch (URISyntaxException | IOException ex) {
                 ex.printStackTrace();
             }
-        }
-        );
+        });
 
         phoneLabel.setText("Phone:");
 
@@ -114,6 +111,7 @@ public class ContactDetailCard extends UiPart<Region> {
                         taglabel.setOnMouseClicked(event ->
                                 clipboard.copy(tag.tagName)
                         );
+                        taglabel.setWrapText(true);
                         tags.getChildren().add(taglabel);
                         index.addAndGet(1);
                     });
@@ -123,13 +121,14 @@ public class ContactDetailCard extends UiPart<Region> {
         List<SocialMedia> socialMediasXS = person.getSocialMedias();
 
         if (person.getSocialMedias().size() == 0) {
-            socialMedias.getChildren().add(new Label("-"));
+            socialMedias.getChildren().add(new HBox(new Label("-")));
         } else {
             int count = 0;
             for (SocialMedia sm : socialMediasXS) {
                 count += 1;
                 Label label = new Label(count + ". " + sm.getPlatformName() + ": " + sm.getPlatformDescription());
                 label.setOnMouseClicked(event -> clipboard.copy(sm.getPlatformDescription().getValue()));
+                label.setWrapText(true);
 
                 if (sm.isTelegram()) {
                     label.setOnMouseClicked(event -> {
@@ -144,7 +143,7 @@ public class ContactDetailCard extends UiPart<Region> {
 
                 }
 
-                socialMedias.getChildren().add(label);
+                socialMedias.getChildren().add(new HBox(label));
             }
 
             index.set(1);
