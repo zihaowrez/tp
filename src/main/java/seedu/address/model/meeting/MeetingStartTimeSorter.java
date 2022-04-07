@@ -6,7 +6,7 @@ import java.util.Comparator;
 /**
  * Compares the start times of two {@code Meeting}s.
  */
-public class MeetingTimeSorter implements Comparator<Meeting> {
+public class MeetingStartTimeSorter implements Comparator<Meeting> {
 
     /**
      * Compares the start times of two {@code Meeting}s.

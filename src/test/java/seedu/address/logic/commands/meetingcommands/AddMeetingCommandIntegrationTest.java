@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.meetings;
+package seedu.address.logic.commands.meetingcommands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.add.AddPersonCommand;
-import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.model.MeetingsBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

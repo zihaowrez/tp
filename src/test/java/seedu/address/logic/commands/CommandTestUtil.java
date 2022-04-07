@@ -2,14 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
@@ -78,38 +71,27 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
-    public static final String VALID_MEETING_NAME = "CS2103 Meeting";
-    public static final String VALID_NEXT_MEETING_NAME = "CS3230 Meeting";
-    public static final String VALID_LINK = "https://zoom.sg";
+    public static final String VALID_TITLE_CS2103 = "CS2103 Meeting";
+    public static final String VALID_LINK_ZOOM = "https://zoom.sg";
+    public static final String VALID_STARTTIME_CS2103 = "2022-10-10 1800";
+    public static final int VALID_DURATION_INT_60 = 60;
+    public static final String VALID_DURATION_STRING_60 = "60";
+    public static final String VALID_TITLE_CS3230 = "CS3230 Meeting";
+    public static final String VALID_STARTTIME_CS3230 = "2022-1-10 1800";
+    public static final String VALID_TITLE_PROJECT = "Project Meeting";
     public static final String VALID_LINK_TEAMS = "https://teams.sg";
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    public static final LocalDateTime VALID_START_DATETIME =
-            LocalDateTime.parse("2020-10-10 1800", DATE_TIME_FORMATTER);
-    public static final StartTime VALID_START_TIME = new StartTime("2020-10-10 1800");
-    public static final String VALID_START_TIME_STRING = "2020-10-10 1800";
+    public static final String VALID_STARTTIME_PROJECT = "2024-10-10 1800";
+    public static final int VALID_DURATION_INT_50 = 50;
+    public static final String VALID_DURATION_STRING_50 = "50";
+    public static final String VALID_TAG_PROJECT = "project";
 
-    public static final Duration VALID_DURATION = new Duration(60);
-    public static final int VALID_DURATION_INT = 60;
-    public static final String VALID_DURATION_STRING = "60";
+    public static final String INVALID_LINK = "https://zoom.sg 123456";
+    public static final String INVALID_STARTTIME = "2020-10-10 180";
     public static final String INVALID_DURATION_STRING = "abc";
-
-    public static final String INVALID_LINK = "https://zoom.com.sg 123456";
-    public static final String INVALID_START_TIME = "2020-10-10 180";
-
-    public static final String MEETING_NAME_CS2103 = " " + PREFIX_NAME + VALID_MEETING_NAME;
-    public static final String LINK_ZOOM = " " + PREFIX_LINK + VALID_LINK;
-    public static final String LINK_TEAMS = " " + PREFIX_LINK + VALID_LINK_TEAMS;
-    public static final String START_TIME = " " + PREFIX_STARTTIME + VALID_START_TIME_STRING;
-    public static final String DURATION = " " + PREFIX_DURATION + VALID_DURATION_STRING;
-
-    public static final String INVALID_LINK_DESC = " " + PREFIX_LINK + INVALID_LINK;
-    public static final String INVALID_START_TIME_DESC = " " + PREFIX_STARTTIME + INVALID_START_TIME;
-    public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + INVALID_DURATION_STRING;
-
-
 
     public static final EditMeetingCommand.EditMeetingDescriptor DESC_CS2103;
     public static final EditMeetingCommand.EditMeetingDescriptor DESC_CS3230;
+    public static final EditMeetingCommand.EditMeetingDescriptor DESC_PROJECT;
 
 
     static {
@@ -121,12 +103,15 @@ public class CommandTestUtil {
                 //TODO Handle descriptor with socials and no phones/emails/addresses
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        DESC_CS2103 = new EditMeetingDescriptorBuilder().withName(VALID_MEETING_NAME)
-                .withLink(VALID_LINK).withStartTime(VALID_START_TIME)
+        DESC_CS2103 = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_CS2103)
+                .withLink(VALID_LINK_ZOOM).withStartTime(VALID_STARTTIME_CS2103)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_CS3230 = new EditMeetingDescriptorBuilder().withName(VALID_NEXT_MEETING_NAME)
-                .withLink(VALID_LINK).withStartTime(VALID_START_TIME)
+        DESC_CS3230 = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_CS3230)
+                .withLink(VALID_LINK_ZOOM).withStartTime(VALID_STARTTIME_CS3230)
                 .withTags(VALID_TAG_FRIEND).build();
+        DESC_PROJECT = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_PROJECT)
+                .withLink(VALID_LINK_TEAMS).withStartTime(VALID_STARTTIME_PROJECT)
+                .withTags(VALID_TAG_PROJECT).build();
     }
 
     /**

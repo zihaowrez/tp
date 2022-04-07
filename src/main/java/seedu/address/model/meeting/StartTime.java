@@ -1,6 +1,7 @@
 package seedu.address.model.meeting;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +25,7 @@ public class StartTime {
      */
     public StartTime(String startTime) {
         requireNonNull(startTime);
+        checkArgument(isValidStartTime(startTime), MESSAGE_CONSTRAINTS);
         this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-M-d HHmm"));
     }
 
@@ -31,6 +33,7 @@ public class StartTime {
      * Returns true if a given string is a valid dateTime.
      */
     public static boolean isValidStartTime(String test) {
+        requireNonNull(test);
         try {
             LocalDateTime.parse(test, DateTimeFormatter.ofPattern("yyyy-M-d HHmm"));
             return true;

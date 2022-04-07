@@ -31,7 +31,7 @@ public class TypicalMeetings {
             .withTags("cs2103").build();
     public static final Meeting CS3230_MEETING = new MeetingBuilder().withTitle("CS3230 Meeting")
             .withLink("https://zoom.sg")
-            .withStartTime("2023-10-10 1800")
+            .withStartTime("2022-1-10 0900")
             .withDuration(60)
             .withTags("cs3230").build();
     public static final Meeting PROJECT_MEETING = new MeetingBuilder().withTitle("Project Meeting")
