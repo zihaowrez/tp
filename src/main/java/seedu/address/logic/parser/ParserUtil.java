@@ -157,7 +157,8 @@ public class ParserUtil {
         int lastIndexOfQuotedToken = trimmedString.lastIndexOf("\"");
         SocialMedia sm;
 
-        if (firstIndexOfQuotedToken != -1 && firstIndexOfQuotedToken != lastIndexOfQuotedToken) {
+        if (firstIndexOfQuotedToken != -1 && firstIndexOfQuotedToken != lastIndexOfQuotedToken
+                && firstIndexOfQuotedToken == 0) {
             sm = parseQuotedSocialMedia(trimmedString, firstIndexOfQuotedToken, lastIndexOfQuotedToken);
         } else {
             sm = parseUnquotedSocialMedia(trimmedString);
@@ -188,9 +189,15 @@ public class ParserUtil {
         String platformNameStr = quotedSocialMedia.substring(firstIndexOfQuote + 1, lastIndexOfQuote);
         String remainder = quotedSocialMedia.substring(lastIndexOfQuote + 1).trim();
         List<String> socialMediaDetails = Arrays.asList(remainder.split("," , 2));
+
         if (socialMediaDetails.size() != 2) {
             throw new ParseException(SocialMedia.MESSAGE_CONSTRAINTS);
         }
+
+        if (socialMediaDetails.get(0).trim().length() != 0) {
+            throw new ParseException(SocialMedia.MESSAGE_CONSTRAINTS);
+        }
+
         PlatformName platformName = parsePlatformName(platformNameStr);
         PlatformDescription platformDescription = parsePlatformDescription(socialMediaDetails.get(1).trim());
         return new SocialMedia(platformName, platformDescription);
