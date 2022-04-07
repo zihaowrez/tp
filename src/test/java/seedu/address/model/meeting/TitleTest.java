@@ -25,7 +25,6 @@ public class TitleTest {
         assertThrows(NullPointerException.class, () -> Title.isValidTitle(null));
 
         // invalid titles
-        assertFalse(Title.isValidTitle(null));
         assertFalse(Title.isValidTitle(""));
         assertFalse(Title.isValidTitle(" "));
         assertFalse(Title.isValidTitle(" cs2103")); // leading space

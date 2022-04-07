@@ -30,6 +30,7 @@ public class Title {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidTitle(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

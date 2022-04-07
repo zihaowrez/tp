@@ -41,6 +41,7 @@ public class Link {
      * Returns true if a given string is a valid link.
      */
     public static boolean isValidLink(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

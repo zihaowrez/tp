@@ -25,7 +25,6 @@ public class LinkTest {
         assertThrows(NullPointerException.class, () -> Link.isValidLink(null));
 
         // blank
-        assertFalse(Link.isValidLink(null));
         assertFalse(Link.isValidLink(""));
         assertFalse(Link.isValidLink(" "));
 

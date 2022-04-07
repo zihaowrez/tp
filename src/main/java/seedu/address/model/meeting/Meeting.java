@@ -51,8 +51,13 @@ public class Meeting {
         return Collections.unmodifiableSet(tags);
     }
 
-    public boolean isSameMeeting(Meeting meeting) {
-        return meeting.getTitle().equals(this.title) && meeting.getStartTime().equals(this.startTime);
+    public boolean isSameMeeting(Meeting otherMeeting) {
+        if (otherMeeting == this) {
+            return true;
+        }
+
+        return otherMeeting != null &&
+                otherMeeting.getTitle().equals(this.title) && otherMeeting.getStartTime().equals(this.startTime);
     }
 
     public String getTimeString() {

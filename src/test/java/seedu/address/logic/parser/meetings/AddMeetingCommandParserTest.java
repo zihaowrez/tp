@@ -27,7 +27,7 @@ public class AddMeetingCommandParserTest {
                 .withDuration(VALID_DURATION_INT_60).withTags(VALID_TAG_FRIEND).build();
 
         // multiple links - last link accepted
-        assertParseSuccess(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseSuccess(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_TEAMS + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
@@ -35,9 +35,8 @@ public class AddMeetingCommandParserTest {
                 + PREFIX_TAG + VALID_TAG_FRIEND,
                 new AddMeetingCommand(expectedMeeting));
 
-
         // multiple startTime - last startTime accepted
-        assertParseSuccess(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseSuccess(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_PROJECT + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
@@ -49,7 +48,7 @@ public class AddMeetingCommandParserTest {
         expectedMeeting = new MeetingBuilder().withTitle(VALID_TITLE_CS2103)
                 .withLink(VALID_LINK_ZOOM).withStartTime(VALID_STARTTIME_CS2103)
                 .withDuration(VALID_DURATION_INT_60).withTags(VALID_TAG_FRIEND, VALID_TAG_PROJECT).build();
-        assertParseSuccess(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseSuccess(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
                 + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
@@ -64,10 +63,10 @@ public class AddMeetingCommandParserTest {
         // zero tags
         Meeting expectedMeeting = new MeetingBuilder().withTitle(VALID_TITLE_CS2103)
                 .withLink(VALID_LINK_ZOOM).withStartTime(VALID_STARTTIME_CS2103).withTags().build();
-        assertParseSuccess(parser, VALID_TITLE_CS2103 + " "
+        assertParseSuccess(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
-                + PREFIX_DURATION + VALID_DURATION_STRING_60 + " ",
+                + PREFIX_DURATION + VALID_DURATION_STRING_60,
                 new AddMeetingCommand(expectedMeeting));
     }
 
@@ -76,7 +75,7 @@ public class AddMeetingCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE);
 
         // missing title prefix
-        assertParseFailure(parser, VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
                 + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
@@ -84,7 +83,7 @@ public class AddMeetingCommandParserTest {
                 expectedMessage);
 
         // missing link prefix
-        assertParseFailure(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
                 + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
@@ -92,7 +91,7 @@ public class AddMeetingCommandParserTest {
                 expectedMessage);
 
         // missing startTime prefix
-        assertParseFailure(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + VALID_STARTTIME_CS2103 + " "
                 + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
@@ -100,7 +99,7 @@ public class AddMeetingCommandParserTest {
                 expectedMessage);
 
         // missing duration prefix
-        assertParseFailure(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
                 + VALID_DURATION_STRING_60 + " "
@@ -108,7 +107,7 @@ public class AddMeetingCommandParserTest {
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + VALID_TITLE_CS2103 + " "
                 + VALID_LINK_ZOOM + " "
                 + VALID_STARTTIME_CS2103 + " "
                 + VALID_DURATION_STRING_60 + " "
@@ -119,7 +118,7 @@ public class AddMeetingCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid link
-        assertParseFailure(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + INVALID_LINK + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
                 + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
@@ -127,7 +126,7 @@ public class AddMeetingCommandParserTest {
                 Link.MESSAGE_CONSTRAINTS);
 
         // invalid start time
-        assertParseFailure(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + INVALID_STARTTIME + " "
                 + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
@@ -135,7 +134,7 @@ public class AddMeetingCommandParserTest {
                 StartTime.MESSAGE_CONSTRAINTS);
 
         // invalid duration
-        assertParseFailure(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + VALID_LINK_ZOOM + " "
                 + PREFIX_STARTTIME + VALID_STARTTIME_CS2103 + " "
                 + PREFIX_DURATION + INVALID_DURATION_STRING + " "
@@ -143,7 +142,7 @@ public class AddMeetingCommandParserTest {
                 Duration.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, PREFIX_TITLE + VALID_TITLE_CS2103 + " "
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + INVALID_LINK + " "
                 + PREFIX_STARTTIME + INVALID_STARTTIME + " "
                 + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
@@ -151,7 +150,7 @@ public class AddMeetingCommandParserTest {
                 Link.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + " "
+        assertParseFailure(parser, " " + PREAMBLE_NON_EMPTY + " "
                 + PREFIX_TITLE + VALID_TITLE_CS2103 + " "
                 + PREFIX_LINK + INVALID_LINK + " "
                 + PREFIX_STARTTIME + INVALID_STARTTIME + " "
