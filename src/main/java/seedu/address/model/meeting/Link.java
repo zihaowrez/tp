@@ -29,7 +29,6 @@ public class Link {
     public static final String VALIDATION_REGEX = PROTOCOL_CHECK + SUBDOMAIN_CHECK + START_DOMAIN_CHECK
             + MIDDLE_DOMAIN_CHECK + END_DOMAIN_CHECK + TOPLEVEL_DOMAIN_AND_PATH_CHECK;
 
-
     public final String link;
 
     /**
@@ -50,6 +49,7 @@ public class Link {
      * Returns true if a given string is a valid link.
      */
     public static boolean isValidLink(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -18,10 +18,11 @@ public class MeetingContainsKeywordsPredicate implements Predicate<Meeting> {
 
     @Override
     public boolean test(Meeting meeting) {
-        return testName(meeting) || testLink(meeting) || testStartTime(meeting) || testTags(meeting);
+        return testTitle(meeting) || testLink(meeting) || testStartTime(meeting)
+                || testDuration(meeting) || testTags(meeting);
     }
 
-    private boolean testName(Meeting meeting) {
+    private boolean testTitle(Meeting meeting) {
         return keywords.stream()
                 .anyMatch(keyword -> meeting.getTitle().title.toLowerCase().contains(keyword.toLowerCase()));
     }
@@ -34,6 +35,11 @@ public class MeetingContainsKeywordsPredicate implements Predicate<Meeting> {
     private boolean testStartTime(Meeting meeting) {
         return keywords.stream()
                 .anyMatch(keyword -> meeting.getStartTime().toString().contains(keyword.toLowerCase()));
+    }
+
+    private boolean testDuration(Meeting meeting) {
+        return keywords.stream()
+                .anyMatch(keyword -> meeting.getDuration().toString().contains(keyword.toLowerCase()));
     }
 
     private boolean testTags(Meeting meeting) {
