@@ -114,7 +114,7 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public void setTags(List<Tag> tags) {
         requireAllNonNull(tags);
-        if (!personsAreUnique(tags)) {
+        if (!tagsAreUnique(tags)) {
             throw new DuplicateTagException();
         }
 
@@ -152,10 +152,10 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Returns true if {@code tags} contains only unique tags.
      */
-    private boolean personsAreUnique(List<Tag> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSameTag(persons.get(j))) {
+    private boolean tagsAreUnique(List<Tag> tags) {
+        for (int i = 0; i < tags.size() - 1; i++) {
+            for (int j = i + 1; j < tags.size(); j++) {
+                if (tags.get(i).isSameTag(tags.get(j))) {
                     return false;
                 }
             }

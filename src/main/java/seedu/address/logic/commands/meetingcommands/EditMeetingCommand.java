@@ -82,6 +82,12 @@ public class EditMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
+        for (Tag tag: editedMeeting.getTags()) {
+            if (!model.hasTag(tag)) {
+                model.addTag(tag);
+            }
+        }
+
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting));
