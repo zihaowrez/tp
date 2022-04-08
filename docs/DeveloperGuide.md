@@ -445,7 +445,7 @@ Use case ends
 * 1a. Incorrect syntax is used
     * 1a1. uMessage displays an error message
     * 1a2. Use case resumes at step 1
-      
+
 //@@author zihaowrez
 
 ### Use case 2: Delete a contact

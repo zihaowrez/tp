@@ -26,9 +26,9 @@ import seedu.address.model.tag.Tag;
  * The person in the list is identified using it's displayed index or name in the address book.
  */
 public class DeletePersonsSocialCommand extends DeleteCommand {
-    private static final String MESSAGE_SOCIALS_NOT_FOUND = "Social %s not found in %s!";
-    private static final String MESSAGE_DELETE_SOCIAL_SUCCESS = "Deleted Social Media Handle: %1$s";
-    private static final String MESSAGE_CANNOT_DELETE_SOCIALS_OF_EMERGENCY =
+    public static final String MESSAGE_SOCIALS_NOT_FOUND = "Social %s not found in %s!";
+    public static final String MESSAGE_DELETE_SOCIAL_SUCCESS = "Deleted Social Media Handle: %1$s";
+    public static final String MESSAGE_CANNOT_DELETE_SOCIALS_OF_EMERGENCY =
             "Socials of Emergency Contacts cannot be deleted";
 
     private Target target;
