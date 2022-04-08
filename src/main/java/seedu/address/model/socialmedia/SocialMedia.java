@@ -4,7 +4,8 @@ import java.util.Objects;
 
 public class SocialMedia {
     public static final String MESSAGE_CONSTRAINTS = "Provide the name of the platform, "
-            + "followed by the description associated with this platform, separated by a comma.";
+            + "followed by the description associated with this platform, separated by a comma.\n"
+            + "If there are commas or double quotes in the platform name, surround the name with double quotes.";
     public static final String TELEGRAM_URL = "https://t.me/";
     public final PlatformName platformName;
     public final PlatformDescription platformDescription;

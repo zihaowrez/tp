@@ -22,6 +22,7 @@ public class AddSocialsToPersonCommand extends AddCommand {
     public static final String MESSAGE_ADD_NEW_SOCIALS_SUCCESS = "Added new social media handle %s to %s";
     public static final String MESSAGE_CANNOT_ADD_SOCIALS_EMERGENCY =
             "Social medias cannot be added to emergency contacts";
+    public static final String MESSAGE_SOCIALS_ALREADY_EXISTS = "Socials %s already exists in %s!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds new social media handles to a person in address book. "
@@ -59,6 +60,12 @@ public class AddSocialsToPersonCommand extends AddCommand {
 
         List<SocialMedia> personsSocials = targetPerson.getSocialMedias();
         List<SocialMedia> updatedSocials = new ArrayList<>(personsSocials);
+
+        if (updatedSocials.contains(newSocials)) {
+            throw new CommandException(String.format(MESSAGE_SOCIALS_ALREADY_EXISTS,
+                    newSocials, targetPerson.getName()));
+        }
+
         updatedSocials.add(newSocials);
         editPersonDescriptor.setSocials(updatedSocials);
 

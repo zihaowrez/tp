@@ -1,6 +1,6 @@
 package seedu.address.model.meeting;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Meeting's mins in the MeetingsBook.
@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 public class Duration {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Duration (in mins) should be a positive integer smaller than 10,000";
+            "Duration (in minutes) should be a positive integer in between 1 and 10,000 (Inclusive)";
 
     public final int mins;
 
@@ -19,7 +19,7 @@ public class Duration {
      * @param mins Length of the meeting in minutes.
      */
     public Duration(int mins) {
-        requireNonNull(mins);
+        checkArgument(isValidDuration(mins), MESSAGE_CONSTRAINTS);
         this.mins = mins;
     }
 

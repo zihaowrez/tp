@@ -41,6 +41,13 @@ public interface Logic {
     CommandResult executeForMeetings(String commandText, CommandBox commandBox) throws CommandException, ParseException;
 
     /**
+     * Returns the result of clicking the tag.
+     * @param tag The tag clicked.
+     * @return the result of clicking the tag.
+     */
+    CommandResult[] clickTag(Tag tag);
+
+    /**
      * Returns the AddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
