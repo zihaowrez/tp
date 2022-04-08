@@ -26,26 +26,26 @@ public abstract class MeetingTarget {
     /**
      * Factory method for Target. Returns the correct subtype of target given a {@code target}.
      */
-    public static seedu.address.logic.commands.meetingcommands.MeetingTarget of(Title target, List<Meeting> meetings) {
-        return new seedu.address.logic.commands.meetingcommands.MeetingTarget.NamedTarget(target, meetings);
+    public static MeetingTarget of(Title target, List<Meeting> meetings) {
+        return new MeetingTarget.NamedTarget(target, meetings);
     }
 
     /**
      * Factory method for Target. Returns the correct subtype of target given a {@code target}.
      */
-    public static seedu.address.logic.commands.meetingcommands.MeetingTarget of(Index target, List<Meeting> meetings) {
-        return new seedu.address.logic.commands.meetingcommands.MeetingTarget.IndexedTarget(target, meetings);
+    public static MeetingTarget of(Index target, List<Meeting> meetings) {
+        return new MeetingTarget.IndexedTarget(target, meetings);
     }
 
     /**
-     * Sets the list of persons that this target points to.
+     * Sets the list of meetings that this target points to.
      * @param meetings The list of meetings this target points to.
      */
     public void setTargetList(List<Meeting> meetings) {
         this.meetings = meetings;
     }
 
-    /** Returns the {@code Person} that is target */
+    /** Returns the {@code Meeting} that is target */
     public abstract Meeting targetMeeting() throws CommandException;
 
     @Override
@@ -100,7 +100,7 @@ public abstract class MeetingTarget {
         }
     }
 
-    private static class IndexedTarget extends seedu.address.logic.commands.meetingcommands.MeetingTarget {
+    private static class IndexedTarget extends MeetingTarget {
         private Index targetIndex;
 
         protected IndexedTarget(Index targetIndex) {

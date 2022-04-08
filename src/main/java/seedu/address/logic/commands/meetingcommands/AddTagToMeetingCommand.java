@@ -83,9 +83,9 @@ public class AddTagToMeetingCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand
-                && target.equals(((seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand) other).target)
-                && newTag.equals(((seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand) other).newTag));
+                || (other instanceof AddTagToMeetingCommand
+                && target.equals(((AddTagToMeetingCommand) other).target)
+                && newTag.equals(((AddTagToMeetingCommand) other).newTag));
     }
 
 

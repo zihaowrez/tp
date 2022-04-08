@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.meeting.MeetingTimeSorter;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all meetings in the meetings book to the user.
  */
 public class ListMeetingCommand extends Command {
 
