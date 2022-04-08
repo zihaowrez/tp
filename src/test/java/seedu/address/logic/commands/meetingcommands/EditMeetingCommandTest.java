@@ -103,6 +103,17 @@ public class EditMeetingCommandTest {
     }
 
     @Test
+    public void execute_startTimeInThePast_failure() {
+        Meeting firstMeeting = model.getSortedAndFilteredMeetingList().get(INDEX_FIRST_MEETING.getZeroBased());
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder(firstMeeting)
+                .withStartTime("2022-4-5 1200").build();
+        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(INDEX_FIRST_MEETING, descriptor);
+
+        CommandTestUtil.assertCommandFailure(editMeetingCommand, model,
+                EditMeetingCommand.MESSAGE_PAST_MEETING);
+    }
+
+    @Test
     public void equals() {
         final EditMeetingCommand standardCommand =
                 new EditMeetingCommand(INDEX_FIRST_MEETING, CommandTestUtil.DESC_CS2103);
