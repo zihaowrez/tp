@@ -21,6 +21,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -154,7 +155,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        tagPanelForContacts = new TagPanel(logic.getFilteredTagList(), logic);
+        tagPanelForContacts = new TagPanel(logic.getFilteredTagList(), logic, this);
         tagPanelInContactsPlaceholder.getChildren().add(tagPanelForContacts.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -175,7 +176,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter meetingsStatusBarFooter = new StatusBarFooter(logic.getMeetingsBookFilePath());
         meetingsStatusbarPlaceholder.getChildren().add(meetingsStatusBarFooter.getRoot());
 
-        tagPanelForMeetings = new TagPanel(logic.getFilteredTagList(), logic);
+        tagPanelForMeetings = new TagPanel(logic.getFilteredTagList(), logic, this);
         tagPanelInMeetingsPlaceholder.getChildren().add(tagPanelForMeetings.getRoot());
 
         CommandBox meetingCommandBox = new CommandBox(this::executeCommandForMeetings);
@@ -234,8 +235,8 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            tagPanelForContacts.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
-            tagPanelForMeetings.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
+            tagPanelForContacts.setPanel(new TagCard(logic.getFilteredTagList(), logic, this).getRoot());
+            tagPanelForMeetings.setPanel(new TagCard(logic.getFilteredTagList(), logic, this).getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -267,8 +268,8 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
             }
             meetingsResultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            tagPanelForContacts.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
-            tagPanelForMeetings.setPanel(new TagCard(logic.getFilteredTagList(), logic).getRoot());
+            tagPanelForContacts.setPanel(new TagCard(logic.getFilteredTagList(), logic, this).getRoot());
+            tagPanelForMeetings.setPanel(new TagCard(logic.getFilteredTagList(), logic, this).getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -285,6 +286,19 @@ public class MainWindow extends UiPart<Stage> {
             meetingsResultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Executes the command and returns the result.
+     *
+     * @see seedu.address.logic.Logic#executeForContacts(String, CommandBox) (String, CommandBox)
+     */
+    protected CommandResult[] clickTag(Tag tag) {
+        CommandResult[] commandResults = logic.clickTag(tag);
+        logger.info("Tag " + tag + " clicked");
+        resultDisplay.setFeedbackToUser(commandResults[0].getFeedbackToUser());
+        meetingsResultDisplay.setFeedbackToUser(commandResults[1].getFeedbackToUser());
+        return commandResults;
     }
 
 }

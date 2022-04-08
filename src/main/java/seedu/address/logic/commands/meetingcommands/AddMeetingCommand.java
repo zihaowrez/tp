@@ -6,13 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
-import java.time.LocalDateTime;
-
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.StartTime;
 
 public class AddMeetingCommand extends AddCommand {
 
@@ -46,7 +45,7 @@ public class AddMeetingCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
-        if (toAdd.getStartTime().startTime.isBefore(LocalDateTime.now())) {
+        if (StartTime.isInThePast(toAdd.getStartTime())) {
             throw new CommandException(MESSAGE_PAST_MEETING);
         }
 

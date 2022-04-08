@@ -20,7 +20,7 @@
    * Type any keywords, and uMessage will live search the list.
 
    * **`add`**`n/Aaron` to the Address Book.
-   
+
    * **`edit`**`1 e/aaron@example.com`: Adds an email to Aaron.
 
    * **`delete`**`alex`: Deletes Alex if the person exists.
@@ -160,7 +160,7 @@ Note that emergency contacts cannot be edited.
 
 **Format:** `copy NAME`
 
-NAME is case sensitive and must match the full name. 
+NAME is case sensitive and must match the full name.
 
 **Examples:**
 
@@ -406,7 +406,7 @@ If your changes to the data file makes its format invalid, the data will be disc
 |---------|-------------------------------------------------|----------|
 | help    | display the `Help` tab                          | `help`   |
 | list    | displays all persons/meetings                   | `list`   |
-| clear   | deletes all non-emergency contacts and meetings | `clear`  | 
+| clear   | deletes all non-emergency contacts and meetings | `clear`  |
 | exit    | exits the program                               | `exit`   |
 
 ---------------------------------------------------------------------------------------------------------------------
