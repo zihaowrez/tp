@@ -16,7 +16,7 @@ public class StartTime {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Date and time must be valid and in the format \"yyyy-M-d HHmm\"";
-    public static final DateTimeFormatter formatter =
+    public static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("uuuu-M-d HHmm").withResolverStyle(ResolverStyle.STRICT);
 
     public final LocalDateTime startTime;
@@ -30,7 +30,7 @@ public class StartTime {
     public StartTime(String startTime) {
         requireNonNull(startTime);
         checkArgument(isValidStartTime(startTime), MESSAGE_CONSTRAINTS);
-        this.startTime = LocalDateTime.parse(startTime, formatter);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
     }
 
     /**
@@ -39,7 +39,7 @@ public class StartTime {
     public static boolean isValidStartTime(String test) {
         requireNonNull(test);
         try {
-            LocalDateTime.parse(test, formatter);
+            LocalDateTime.parse(test, FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
             return false;

@@ -14,7 +14,7 @@ public class MeetingStartTimeSorterTest {
     @Test
     public void test_intendedSequence() {
 
-        DateTimeFormatter formatter = StartTime.formatter;
+        DateTimeFormatter formatter = StartTime.FORMATTER;
 
         // Intended sequence: future meetings ascending, followed by past meetings descending
         Meeting m1 = new MeetingBuilder().withTitle("Meeting 1")

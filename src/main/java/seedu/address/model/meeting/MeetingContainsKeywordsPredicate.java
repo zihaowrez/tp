@@ -18,8 +18,8 @@ public class MeetingContainsKeywordsPredicate implements Predicate<Meeting> {
 
     @Override
     public boolean test(Meeting meeting) {
-        return testTitle(meeting) || testLink(meeting) || testStartTime(meeting) ||
-                testDuration(meeting) || testTags(meeting);
+        return testTitle(meeting) || testLink(meeting) || testStartTime(meeting)
+                || testDuration(meeting) || testTags(meeting);
     }
 
     private boolean testTitle(Meeting meeting) {

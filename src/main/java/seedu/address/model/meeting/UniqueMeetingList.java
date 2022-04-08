@@ -11,8 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.ClipboardManager;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
-import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
-import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
 /**
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.

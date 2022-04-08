@@ -47,19 +47,30 @@ public class Meeting {
         return this.duration;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Returns true if both meetings have the same title and the same start time.
+     * This defines a weaker notion of equality between two persons.
+     */
     public boolean isSameMeeting(Meeting otherMeeting) {
         if (otherMeeting == this) {
             return true;
         }
 
-        return otherMeeting != null &&
-                otherMeeting.getTitle().equals(this.title) && otherMeeting.getStartTime().equals(this.startTime);
+        return otherMeeting != null
+                && otherMeeting.getTitle().equals(this.title) && otherMeeting.getStartTime().equals(this.startTime);
     }
 
+    /**
+     * Returns the string representation of the meeting slot for display.
+     */
     public String getTimeString() {
         String endTime;
         LocalDateTime endDateTime = startTime.startTime.plusMinutes(duration.mins);
@@ -68,7 +79,7 @@ public class Meeting {
         } else {
             endTime = "-" + endDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
         }
-        return startTime.toString() + endTime;
+        return startTime + endTime;
     }
 
     @Override
