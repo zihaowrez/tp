@@ -25,6 +25,16 @@ public class Target {
     /**
      * @param target the string to be treated as a target.
      * @throws ParseException if the string provided is not a valid index or name.
+     *
+     * <p>
+     * Note that some non-negative integers (0, MAX_INT to INFINITY) are invalid indices, but are
+     * valid names.
+     * Thus, they will not be caught as invalid index during the instantiation of the Target class,
+     * since they could very well represent a valid name at runtime when the target list is created.
+     *
+     * Thus, there is no choice but to defer the validation to runtime. If these values do not
+     * represent a name in the list at runtime, then they need to be caught and treated as
+     * invalid indices at runtime. </p>
      */
     public Target(String target) throws ParseException {
 
@@ -72,7 +82,16 @@ public class Target {
             return targetByIndexOptional.orElse(targetByNameOptional.get());
 
         } else if (StringUtil.isInt(target)) { //failed to target by name
-            Index targetIndex = parseIndex(target);
+            Index targetIndex;
+
+            // catch invalid one-based indices caused by integer overflow or index 0,
+            // both of which are valid names and will not be caught in the constructor of Target
+            try {
+                targetIndex = ParserUtil.parseIndex(target);
+            } catch (ParseException p) {
+                throw new CommandException(p.getMessage());
+            }
+
             if (targetIndex.getZeroBased() >= targetList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
@@ -105,11 +124,6 @@ public class Target {
         requireNonNull(name);
         String trimmedName = name.trim();
         return new Name(trimmedName);
-    }
-
-    private Index parseIndex(String oneBasedIndex) {
-        String trimmedIndex = oneBasedIndex.trim();
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
     private Optional<ParseException> tryParseIndex(String target) {
