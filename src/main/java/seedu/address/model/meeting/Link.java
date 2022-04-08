@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+
 /**
  * Represents a Meeting's link in the meeting tab.
  * Guarantees: immutable; is valid as declared in {@link #isValidLink(String)}
@@ -17,7 +18,8 @@ public class Link {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX =
-            "^(https?|ftp|file)?(://)?[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+            "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)";
+
 
     public final String link;
 
@@ -30,9 +32,6 @@ public class Link {
         requireNonNull(link);
         checkArgument(isValidLink(link.trim()), MESSAGE_CONSTRAINTS);
         StringBuilder updatedLink = new StringBuilder();
-        if (!link.contains("https://")) {
-            updatedLink.append("https://");
-        }
         updatedLink.append(link);
 
         this.link = updatedLink.toString();
@@ -42,6 +41,7 @@ public class Link {
      * Returns true if a given string is a valid link.
      */
     public static boolean isValidLink(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

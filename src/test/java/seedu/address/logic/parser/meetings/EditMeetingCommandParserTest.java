@@ -2,26 +2,27 @@ package seedu.address.logic.parser.meetings;
 
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DURATION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_LINK_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_START_TIME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.LINK_TEAMS;
-import static seedu.address.logic.commands.CommandTestUtil.LINK_ZOOM;
-import static seedu.address.logic.commands.CommandTestUtil.MEETING_NAME_CS2103;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.START_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_NAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_STRING;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DURATION_STRING;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LINK;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STARTTIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_INT_50;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_INT_60;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_STRING_50;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_STRING_60;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK_TEAMS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK_ZOOM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_CS3230;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_PROJECT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PROJECT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS3230;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_PROJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEETING;
@@ -42,8 +43,6 @@ import seedu.address.testutil.EditMeetingDescriptorBuilder;
 
 public class EditMeetingCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
-
     private static final String MESSAGE_INVALID_EDIT_COMMAND_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMeetingCommand.MESSAGE_USAGE);
     private static final String MESSAGE_INVALID_FORMAT =
@@ -59,7 +58,7 @@ public class EditMeetingCommandParserTest {
 
         //TODO:
         // no field specified
-        //assertParseFailure(parser, "1", EditPersonCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditMeetingCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
@@ -68,57 +67,71 @@ public class EditMeetingCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
+        assertParseFailure(parser, "-5 " + PREFIX_TITLE + VALID_TITLE_CS2103,
+                MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
+        assertParseFailure(parser, "0 " + PREFIX_TITLE + VALID_TITLE_CS2103,
+                MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string ", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 g/ string", MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
+        assertParseFailure(parser, "1 g/string ", MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + MEETING_NAME_CS2103
-                + START_TIME + DURATION + INVALID_LINK_DESC, Link.MESSAGE_CONSTRAINTS); // invalid link
-        assertParseFailure(parser, "1" + MEETING_NAME_CS2103
-                + LINK_ZOOM + DURATION + INVALID_START_TIME_DESC, StartTime.MESSAGE_CONSTRAINTS); // invalid start time
-        assertParseFailure(parser, "1" + MEETING_NAME_CS2103
-                + LINK_ZOOM + START_TIME + INVALID_DURATION_DESC, Duration.MESSAGE_CONSTRAINTS); // invalid duration
-
+        assertParseFailure(parser, " " + INDEX_FIRST_MEETING.getOneBased() + " "
+                + PREFIX_LINK + INVALID_LINK,
+                Link.MESSAGE_CONSTRAINTS); // invalid link
+        assertParseFailure(parser, " " + INDEX_FIRST_MEETING.getOneBased() + " "
+                + PREFIX_STARTTIME + INVALID_STARTTIME,
+                StartTime.MESSAGE_CONSTRAINTS); // invalid start time
+        assertParseFailure(parser, " " + INDEX_FIRST_MEETING.getOneBased() + " "
+                + PREFIX_DURATION + INVALID_DURATION_STRING,
+                Duration.MESSAGE_CONSTRAINTS); // invalid duration
 
         // invalid link followed by valid start time
-        assertParseFailure(parser, "1" + INVALID_LINK_DESC
-                + VALID_START_TIME_STRING, Link.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + INDEX_FIRST_MEETING.getOneBased() + " "
+                + PREFIX_LINK + INVALID_LINK + " "
+                + PREFIX_STARTTIME + VALID_STARTTIME_PROJECT,
+                Link.MESSAGE_CONSTRAINTS);
 
         // valid link followed by invalid link. The test case for invalid link followed by valid link
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + LINK_ZOOM + INVALID_LINK_DESC, Link.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + INDEX_FIRST_MEETING.getOneBased() + " "
+                + PREFIX_LINK + VALID_LINK_TEAMS + " "
+                + PREFIX_LINK + INVALID_LINK,
+                Link.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Meeting} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND
-                + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY
-                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + INDEX_FIRST_MEETING.getOneBased() + " "
+                + PREFIX_TAG + " "
+                + PREFIX_TAG + VALID_TAG_PROJECT,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + INDEX_FIRST_MEETING.getOneBased() + " "
+                + PREFIX_TAG + VALID_TAG_PROJECT + " "
+                + PREFIX_TAG,
+                Tag.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_MEETING;
-        String userInput = targetIndex.getOneBased() + LINK_ZOOM + TAG_DESC_HUSBAND
-                + START_TIME
-                + DURATION + MEETING_NAME_CS2103 + TAG_DESC_FRIEND;
+        Index targetIndex = INDEX_FIRST_MEETING;
+        String userInput = targetIndex.getOneBased() + " "
+                + PREFIX_TITLE + VALID_TITLE_CS3230 + " "
+                + PREFIX_LINK + VALID_LINK_TEAMS + " "
+                + PREFIX_TAG + VALID_TAG_PROJECT + " "
+                + PREFIX_STARTTIME + VALID_STARTTIME_CS3230 + " "
+                + PREFIX_DURATION + VALID_DURATION_STRING_50;
 
-        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withName(VALID_MEETING_NAME)
-                .withLink(VALID_LINK).withStartTime(VALID_START_TIME)
-                .withDuration(VALID_DURATION)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_CS3230)
+                .withLink(VALID_LINK_TEAMS).withStartTime(VALID_STARTTIME_CS3230)
+                .withDuration(VALID_DURATION_INT_50)
+                .withTags(VALID_TAG_PROJECT)
                 .build();
         EditMeetingCommand expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
 
@@ -127,11 +140,13 @@ public class EditMeetingCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_MEETING;
-        String userInput = targetIndex.getOneBased() + LINK_ZOOM + START_TIME;
+        Index targetIndex = INDEX_SECOND_MEETING;
+        String userInput = targetIndex.getOneBased() + " "
+                + PREFIX_LINK + VALID_LINK_TEAMS + " "
+                + PREFIX_STARTTIME + VALID_STARTTIME_PROJECT;
 
-        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withLink(VALID_LINK)
-                .withStartTime(VALID_START_TIME).build();
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withLink(VALID_LINK_TEAMS)
+                .withStartTime(VALID_STARTTIME_PROJECT).build();
         EditMeetingCommand expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -139,45 +154,49 @@ public class EditMeetingCommandParserTest {
 
     @Test
     public void parse_oneFieldSpecified_success() {
-        // name
+        // title
         Index targetIndex = INDEX_THIRD_MEETING;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_TITLE + VALID_TITLE_CS3230;
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_CS3230).build();
         EditMeetingCommand expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // link
-        userInput = targetIndex.getOneBased() + LINK_ZOOM;
-        descriptor = new EditMeetingDescriptorBuilder().withLink(VALID_LINK).build();
+        userInput = targetIndex.getOneBased() + " " + PREFIX_LINK + VALID_LINK_ZOOM;
+        descriptor = new EditMeetingDescriptorBuilder().withLink(VALID_LINK_ZOOM).build();
         expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // start time
-        userInput = targetIndex.getOneBased() + START_TIME;
-        descriptor = new EditMeetingDescriptorBuilder().withStartTime(VALID_START_TIME).build();
+        userInput = targetIndex.getOneBased() + " " + PREFIX_STARTTIME + VALID_STARTTIME_CS3230;
+        descriptor = new EditMeetingDescriptorBuilder().withStartTime(VALID_STARTTIME_CS3230).build();
         expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
+        userInput = targetIndex.getOneBased() + " " + PREFIX_TAG + VALID_TAG_FRIEND;
         descriptor = new EditMeetingDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        //TODO // socials
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_MEETING;
-        String userInput = targetIndex.getOneBased() + LINK_TEAMS + LINK_ZOOM + START_TIME
-                + DURATION + MEETING_NAME_CS2103 + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + " "
+                + PREFIX_TITLE + VALID_TITLE_PROJECT + " "
+                + PREFIX_LINK + VALID_LINK_TEAMS + " "
+                + PREFIX_LINK + VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + VALID_STARTTIME_PROJECT + " "
+                + PREFIX_DURATION + VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + VALID_TAG_FRIEND;
 
         EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder()
-                .withName(VALID_MEETING_NAME)
-                .withLink(VALID_LINK)
-                .withStartTime(VALID_START_TIME)
-                .withDuration(VALID_DURATION)
+                .withTitle(VALID_TITLE_PROJECT)
+                .withLink(VALID_LINK_ZOOM)
+                .withStartTime(VALID_STARTTIME_PROJECT)
+                .withDuration(VALID_DURATION_INT_60)
                 .withTags(VALID_TAG_FRIEND)
                 .build();
         EditMeetingCommand expectedCommand = new EditMeetingCommand(targetIndex, descriptor);

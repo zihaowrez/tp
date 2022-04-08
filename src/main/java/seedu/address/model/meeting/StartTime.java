@@ -1,9 +1,12 @@
 package seedu.address.model.meeting;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Represents a Meeting's date and time in the meeting tab.
@@ -12,7 +15,9 @@ import java.time.format.DateTimeFormatter;
 public class StartTime {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Time must be in the format \"yyyy-M-d HHmm\"";
+            "Date and time must be valid and in the format \"yyyy-M-d HHmm\"";
+    public static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("uuuu-M-d HHmm").withResolverStyle(ResolverStyle.STRICT);
 
     public final LocalDateTime startTime;
 
@@ -24,19 +29,25 @@ public class StartTime {
      */
     public StartTime(String startTime) {
         requireNonNull(startTime);
-        this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-M-d HHmm"));
+        checkArgument(isValidStartTime(startTime), MESSAGE_CONSTRAINTS);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
     }
 
     /**
      * Returns true if a given string is a valid dateTime.
      */
     public static boolean isValidStartTime(String test) {
+        requireNonNull(test);
         try {
-            LocalDateTime.parse(test, DateTimeFormatter.ofPattern("yyyy-M-d HHmm"));
+            LocalDateTime.parse(test, FORMATTER);
             return true;
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public static boolean isInThePast(StartTime startTime) {
+        return startTime.startTime.isBefore(LocalDateTime.now());
     }
 
     /**
