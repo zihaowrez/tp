@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +84,15 @@ public class Target {
 
         } else if (StringUtil.isInt(target)) { //failed to target by name
             Index targetIndex;
+
+            //@@author zihaowrez
+            // if the target integer is too big to convert to int, it is invalid
+            BigInteger i = new BigInteger(target);
+            if (i.compareTo(new BigInteger(String.valueOf(Integer.MAX_VALUE))) > 0
+                    || i.compareTo(new BigInteger(String.valueOf(Integer.MIN_VALUE))) < 0) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            //@@author zihaowrez
 
             // catch invalid one-based indices caused by integer overflow or index 0,
             // both of which are valid names and will not be caught in the constructor of Target
