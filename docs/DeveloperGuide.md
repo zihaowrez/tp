@@ -9,7 +9,12 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* This project is based on the AddressBook-Level3 project created by the SE-EDU initiative.
+* The following libraries were also used in the project.
+    - JavaFX for the Graphical User Interface (GUI).
+    - Jackson for JSON Parsing.
+    - JUnit5 for Testing.
+    - [markdown-javafx-renderer](https://github.com/JPro-one/markdown-javafx-renderer) for rendering the markdown.
 
 --------------------------------------------------------------------------------------------------------------------
 
