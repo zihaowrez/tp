@@ -204,17 +204,15 @@ public class ParserUtil {
 
     /**
      * Parses {@code String args} into a {@code Object target}.
-     * The runtime type of {@code Object} is guaranteed to be a {@code Name} or {@code Index}
+     * A valid target is either a valid Name or valid Index
+     *
      * @param args The index or name to be parsed.
      * @throws ParseException if the given Index/Name is invalid
      */
-    public static Object parseTarget(String args) throws ParseException {
+    public static Target parseTarget(String args) throws ParseException {
 
-        if (StringUtil.isInt(args)) {
-            return ParserUtil.parseIndex(args);
-        } else {
-            return ParserUtil.parseName(args);
-        }
+        Target target = new Target(args);
+        return target;
     }
 
     /**

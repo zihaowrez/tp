@@ -36,7 +36,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteTagOnlyCommand(targetTag);
         }
 
-        Object target = ParserUtil.parseTarget(preamble);
+        Target target = ParserUtil.parseTarget(preamble);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_TAG) && !argMultimap.arePrefixesPresent(PREFIX_SOCIAL_MEDIA)) {
             return new DeletePersonCommand(target);

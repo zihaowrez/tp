@@ -8,15 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.delete.Target;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.socialmedia.SocialMedia;
 
@@ -41,25 +39,17 @@ public class AddSocialsToPersonCommand extends AddCommand {
      * @param target The target person in the list
      * @param newSocials new tag to be added
      */
-    public AddSocialsToPersonCommand(Object target, SocialMedia newSocials) {
-        assert target instanceof Name || target instanceof Index;
+    public AddSocialsToPersonCommand(Target target, SocialMedia newSocials) {
 
         this.newSocials = newSocials;
-        if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);
-        } else if (target instanceof Index) {
-            this.target = Target.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
+        this.target = target;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
-        target.setTargetList(lastShownList);
-        Person targetPerson = target.targetPerson();
+        Person targetPerson = target.targetPerson(lastShownList);
 
         if (targetPerson instanceof EmergencyContact) {
             throw new CommandException(MESSAGE_CANNOT_ADD_SOCIALS_EMERGENCY);

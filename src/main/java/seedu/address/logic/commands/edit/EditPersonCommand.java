@@ -10,14 +10,12 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.delete.Target;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 public class EditPersonCommand extends EditCommand {
@@ -46,19 +44,11 @@ public class EditPersonCommand extends EditCommand {
      * @param target The target person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditPersonCommand(Object target, EditPersonDescriptor editPersonDescriptor) {
+    public EditPersonCommand(Target target, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(target);
         requireNonNull(editPersonDescriptor);
-        assert target instanceof Name || target instanceof Index;
 
-        if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);
-        } else if (target instanceof Index) {
-            this.target = Target.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
-
+        this.target = target;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -66,9 +56,7 @@ public class EditPersonCommand extends EditCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
-        target.setTargetList(lastShownList);
-
-        Person personToEdit = target.targetPerson();
+        Person personToEdit = target.targetPerson(lastShownList);
 
         if (personToEdit instanceof EmergencyContact) {
             throw new CommandException(MESSAGE_CANNOT_EDIT_EMERGENCY_CONTACTS);
