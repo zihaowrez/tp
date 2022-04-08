@@ -89,6 +89,7 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult[] clickTag(Tag tag) {
+        assert tag != null;
         updateFilteredPersonList(person -> {
             Set<Tag> tagSet = person.getTags();
             return tagSet.contains(tag);
