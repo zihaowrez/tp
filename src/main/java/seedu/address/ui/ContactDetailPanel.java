@@ -19,6 +19,7 @@ public class ContactDetailPanel extends UiPart<Region> {
     private static final String FXML = "ContactDetailPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ContactDetailPanel.class);
     private final ObservableObjectValue<Person> observableSelectedPerson;
+    private final ResultDisplay resultDisplay;
 
     @FXML
     private ScrollPane panel;
@@ -29,8 +30,9 @@ public class ContactDetailPanel extends UiPart<Region> {
     /**
      * Creates a {@code RightHandSidePanel} with the given {@code ObservableList}.
      */
-    public ContactDetailPanel(ObservableObjectValue<Person> observableObjectValue) {
+    public ContactDetailPanel(ObservableObjectValue<Person> observableObjectValue, ResultDisplay resultDisplay) {
         super(FXML);
+        this.resultDisplay = resultDisplay;
         observableSelectedPerson = observableObjectValue;
         observableSelectedPerson.addListener(this::handleSelectionChange);
     }
@@ -38,6 +40,7 @@ public class ContactDetailPanel extends UiPart<Region> {
     private void handleSelectionChange(ObservableValue<? extends Person> ov, Person oldPerson, Person newPerson) {
         if (newPerson != null) {
             ContactDetailCard contactDetailCard = new ContactDetailCard(newPerson);
+            resultDisplay.setFeedbackToUser("Details of " + newPerson.getName().fullName + " shown!");
             setPanel(contactDetailCard.getRoot());
         } else {
             setPanel(null);
