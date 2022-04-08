@@ -18,6 +18,9 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.socialmedia.PlatformDescription;
+import seedu.address.model.socialmedia.PlatformName;
+import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -192,5 +195,104 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseSocialMedia_validValueWithoutWhitespace_returnsSocialMedia() throws Exception {
+
+        SocialMedia actualSocialMedia = ParserUtil.parseSocialMedia("Telegram,tommy");
+        SocialMedia expectedSocialMedia = new SocialMedia(
+                new PlatformName("Telegram"), new PlatformDescription("tommy"));
+
+        assertEquals(expectedSocialMedia, actualSocialMedia);
+    }
+
+    @Test
+    public void parseSocialMedia_validValueWithWhitespace_returnsSocialMedia() throws Exception {
+
+        SocialMedia actualSocialMedia1 = ParserUtil.parseSocialMedia(" Telegram,tommy");
+        SocialMedia actualSocialMedia2 = ParserUtil.parseSocialMedia(" Telegram ,tommy");
+        SocialMedia actualSocialMedia3 = ParserUtil.parseSocialMedia(" Telegram , tommy");
+        SocialMedia actualSocialMedia4 = ParserUtil.parseSocialMedia(" Telegram , tommy ");
+        SocialMedia actualSocialMedia5 = ParserUtil.parseSocialMedia("  Telegram  ,   tommy ");
+
+
+        SocialMedia expectedSocialMedia = new SocialMedia(
+                new PlatformName("Telegram"), new PlatformDescription("tommy"));
+
+        assertEquals(expectedSocialMedia, actualSocialMedia1);
+        assertEquals(expectedSocialMedia, actualSocialMedia2);
+        assertEquals(expectedSocialMedia, actualSocialMedia3);
+        assertEquals(expectedSocialMedia, actualSocialMedia4);
+        assertEquals(expectedSocialMedia, actualSocialMedia5);
+    }
+
+    @Test
+    public void parseSocialMedia_validValueWithQuotesNoCommas_returnsSocialMedia() throws Exception {
+
+        SocialMedia actualSocialMedia1 = ParserUtil.parseSocialMedia("\"Telegram\",tommy");
+        SocialMedia actualSocialMedia2 = ParserUtil.parseSocialMedia("\" Telegram\",tommy");
+        SocialMedia actualSocialMedia3 = ParserUtil.parseSocialMedia("\" Telegram\" , tommy");
+        SocialMedia actualSocialMedia4 = ParserUtil.parseSocialMedia(" \"Telegram\" , tommy ");
+        SocialMedia actualSocialMedia5 = ParserUtil.parseSocialMedia("\"  Telegram  \",   tommy ");
+
+
+        SocialMedia expectedSocialMedia = new SocialMedia(
+                new PlatformName("Telegram"), new PlatformDescription("tommy"));
+
+        assertEquals(expectedSocialMedia, actualSocialMedia1);
+        assertEquals(expectedSocialMedia, actualSocialMedia2);
+        assertEquals(expectedSocialMedia, actualSocialMedia3);
+        assertEquals(expectedSocialMedia, actualSocialMedia4);
+        assertEquals(expectedSocialMedia, actualSocialMedia5);
+    }
+
+    @Test
+    public void parseSocialMedia_validValueWithQuotesAndCommas_returnsSocialMedia() throws Exception {
+
+        SocialMedia actualSocialMedia1 = ParserUtil.parseSocialMedia("\"Tele, gram\",tommy");
+        SocialMedia actualSocialMedia2 = ParserUtil.parseSocialMedia("\"Tele, gram\",tommy");
+        SocialMedia actualSocialMedia3 = ParserUtil.parseSocialMedia("\" Tele, gram\" , tommy");
+        SocialMedia actualSocialMedia4 = ParserUtil.parseSocialMedia(" \"Tele, gram\" , tommy ");
+        SocialMedia actualSocialMedia5 = ParserUtil.parseSocialMedia("\"  Tele, gram  \",   tommy ");
+
+
+        SocialMedia expectedSocialMedia = new SocialMedia(
+                new PlatformName("Tele, gram"), new PlatformDescription("tommy"));
+
+        assertEquals(expectedSocialMedia, actualSocialMedia1);
+        assertEquals(expectedSocialMedia, actualSocialMedia2);
+        assertEquals(expectedSocialMedia, actualSocialMedia3);
+        assertEquals(expectedSocialMedia, actualSocialMedia4);
+        assertEquals(expectedSocialMedia, actualSocialMedia5);
+    }
+
+    @Test
+    public void parseSocialMedia_validValueWithQuotesElsewhere_returnsSocialMedia() throws Exception {
+
+        SocialMedia actualSocialMedia1 = ParserUtil.parseSocialMedia(" Te\"\"legram,tommy");
+        SocialMedia actualSocialMedia2 = ParserUtil.parseSocialMedia(" \"Te\"\"legram\" ,tommy");
+        SocialMedia actualSocialMedia3 = ParserUtil.parseSocialMedia(" Te\"legram , tommy");
+        SocialMedia actualSocialMedia4 = ParserUtil.parseSocialMedia("\" Te\"legram \", tommy ");
+
+
+        SocialMedia expectedSocialMedia1 = new SocialMedia(
+                new PlatformName("Te\"\"legram"), new PlatformDescription("tommy"));
+        SocialMedia expectedSocialMedia2 = new SocialMedia(
+                new PlatformName("Te\"legram"), new PlatformDescription("tommy"));
+
+        assertEquals(expectedSocialMedia1, actualSocialMedia1);
+        assertEquals(expectedSocialMedia1, actualSocialMedia2);
+        assertEquals(expectedSocialMedia2, actualSocialMedia3);
+        assertEquals(expectedSocialMedia2, actualSocialMedia4);
+    }
+
+    @Test
+    public void parseSocialMedia_invalidSocialMedia_throwsParseException() throws Exception {
+
+        assertThrows(ParseException.class, () -> ParserUtil.parseSocialMedia(" Telegramtommy"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSocialMedia(" \"Teleg\"ram ,tommy"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSocialMedia(" \"Telegram ,t\"ommy"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSocialMedia(" \"Tele, gram ,t\"ommy"));
     }
 }

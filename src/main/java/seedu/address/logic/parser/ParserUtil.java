@@ -152,7 +152,26 @@ public class ParserUtil {
      */
     public static SocialMedia parseSocialMedia(String socialMedia) throws ParseException {
         requireNonNull(socialMedia);
-        List<String> socialMediaDetails = Arrays.asList(socialMedia.split(","));
+        String trimmedString = socialMedia.trim();
+        int firstIndexOfQuotedToken = trimmedString.indexOf("\"");
+        int lastIndexOfQuotedToken = trimmedString.lastIndexOf("\"");
+        SocialMedia sm;
+
+        if (firstIndexOfQuotedToken != -1 && firstIndexOfQuotedToken != lastIndexOfQuotedToken
+                && firstIndexOfQuotedToken == 0) {
+            sm = parseQuotedSocialMedia(trimmedString, firstIndexOfQuotedToken, lastIndexOfQuotedToken);
+        } else {
+            sm = parseUnquotedSocialMedia(trimmedString);
+        }
+
+        return sm;
+    }
+
+
+    private static SocialMedia parseUnquotedSocialMedia(String unquotedSocialMedia) throws ParseException {
+
+        List<String> socialMediaDetails = Arrays.asList(unquotedSocialMedia.split(",", 2));
+
         if (socialMediaDetails.size() != 2) {
             throw new ParseException(SocialMedia.MESSAGE_CONSTRAINTS);
         }
@@ -161,6 +180,26 @@ public class ParserUtil {
         PlatformName platformName = parsePlatformName(socialMediaDetails.get(0));
         PlatformDescription platformDescription = parsePlatformDescription(socialMediaDetails.get(1));
 
+        return new SocialMedia(platformName, platformDescription);
+    }
+
+    private static SocialMedia parseQuotedSocialMedia(String quotedSocialMedia,
+            int firstIndexOfQuote, int lastIndexOfQuote) throws ParseException {
+
+        String platformNameStr = quotedSocialMedia.substring(firstIndexOfQuote + 1, lastIndexOfQuote);
+        String remainder = quotedSocialMedia.substring(lastIndexOfQuote + 1).trim();
+        List<String> socialMediaDetails = Arrays.asList(remainder.split("," , 2));
+
+        if (socialMediaDetails.size() != 2) {
+            throw new ParseException(SocialMedia.MESSAGE_CONSTRAINTS);
+        }
+
+        if (socialMediaDetails.get(0).trim().length() != 0) {
+            throw new ParseException(SocialMedia.MESSAGE_CONSTRAINTS);
+        }
+
+        PlatformName platformName = parsePlatformName(platformNameStr);
+        PlatformDescription platformDescription = parsePlatformDescription(socialMediaDetails.get(1).trim());
         return new SocialMedia(platformName, platformDescription);
     }
 
