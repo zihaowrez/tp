@@ -63,16 +63,16 @@ public class MeetingContainsKeywordsPredicateTest {
     public void test_keywordContainsLink_returnsTrue() {
         // Full
         MeetingContainsKeywordsPredicate predicate =
-                new MeetingContainsKeywordsPredicate(Collections.singletonList("www.zoom.sg"));
-        assertTrue(predicate.test(new MeetingBuilder().withTitle("Alice Bob").withLink("www.zoom.sg").build()));
+                new MeetingContainsKeywordsPredicate(Collections.singletonList("https://www.zoom.sg"));
+        assertTrue(predicate.test(new MeetingBuilder().withTitle("Alice Bob").withLink("https://www.zoom.sg").build()));
 
         // Partial
         predicate = new MeetingContainsKeywordsPredicate(Collections.singletonList("zoom"));
-        assertTrue(predicate.test(new MeetingBuilder().withTitle("Alice Bob").withLink("www.zoom.sg").build()));
+        assertTrue(predicate.test(new MeetingBuilder().withTitle("Alice Bob").withLink("https://www.zoom.sg").build()));
 
         // Only one matching keyword
         predicate = new MeetingContainsKeywordsPredicate(Arrays.asList("alex", "zoom"));
-        assertTrue(predicate.test(new MeetingBuilder().withTitle("Alice Bob").withLink("www.zoom.sg").build()));
+        assertTrue(predicate.test(new MeetingBuilder().withTitle("Alice Bob").withLink("https://www.zoom.sg").build()));
     }
 
     @Test
@@ -119,17 +119,17 @@ public class MeetingContainsKeywordsPredicateTest {
         // Zero keywords
         MeetingContainsKeywordsPredicate predicate =
                 new MeetingContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").withLink("www.zoom.sg")
+        assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").withLink("https://www.zoom.sg")
                 .withStartTime("2022-5-7 1400").withDuration(60).withTags("cs2103", "cs1231").build()));
 
         // Non-matching keyword
         predicate = new MeetingContainsKeywordsPredicate(Collections.singletonList("java"));
-        assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").withLink("www.zoom.sg")
+        assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").withLink("https://www.zoom.sg")
                 .withStartTime("2022-5-7 1400").withDuration(60).withTags("cs2103", "cs1231").build()));
 
         // Non-matching keywords
         predicate = new MeetingContainsKeywordsPredicate(Arrays.asList("Alice's", "mother", "likes", "coffee"));
-        assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").withLink("www.zoom.sg")
+        assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").withLink("https://www.zoom.sg")
                 .withStartTime("2022-5-7 1400").withDuration(60).withTags("cs2103", "cs1231").build()));
 
     }

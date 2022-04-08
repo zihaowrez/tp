@@ -51,11 +51,12 @@ public class EditMeetingCommandTest {
         Meeting lastMeeting = model.getSortedAndFilteredMeetingList().get(indexLastMeeting.getZeroBased());
 
         MeetingBuilder meetingInList = new MeetingBuilder(lastMeeting);
-        Meeting editedMeeting = meetingInList.withTitle(CommandTestUtil.VALID_TITLE_CS2103).withLink(CommandTestUtil.VALID_LINK_TEAMS)
-                .withTags(CommandTestUtil.VALID_TAG_PROJECT).build();
-
-        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withTitle(CommandTestUtil.VALID_TITLE_CS3230)
+        Meeting editedMeeting = meetingInList.withTitle(CommandTestUtil.VALID_TITLE_CS2103)
                 .withLink(CommandTestUtil.VALID_LINK_TEAMS).withTags(CommandTestUtil.VALID_TAG_PROJECT).build();
+
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder()
+                .withTitle(CommandTestUtil.VALID_TITLE_CS2103).withLink(CommandTestUtil.VALID_LINK_TEAMS)
+                .withTags(CommandTestUtil.VALID_TAG_PROJECT).build();
         EditMeetingCommand editCommand = new EditMeetingCommand(indexLastMeeting, descriptor);
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting);

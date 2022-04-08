@@ -14,7 +14,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MEETING;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor;
 import seedu.address.logic.parser.meetingcommands.EditMeetingCommandParser;
