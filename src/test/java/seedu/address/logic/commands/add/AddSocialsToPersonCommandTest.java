@@ -1,9 +1,17 @@
 package seedu.address.logic.commands.add;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SOCIAL_TELEGRAM;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -14,17 +22,13 @@ import seedu.address.model.socialmedia.PlatformName;
 import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.testutil.PersonBuilder;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SOCIAL_TELEGRAM;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
 class AddSocialsToPersonCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalMeetingsBook(), new UserPrefs());
-    PlatformName validSocialMediaPlatform = new PlatformName(VALID_SOCIAL_TELEGRAM.split(", ")[0]);
-    PlatformDescription validSocialMediaDescription = new PlatformDescription(VALID_SOCIAL_TELEGRAM.split(", ")[1]);
+    private PlatformName validSocialMediaPlatform =
+            new PlatformName(VALID_SOCIAL_TELEGRAM.split(", ")[0]);
+    private PlatformDescription validSocialMediaDescription =
+            new PlatformDescription(VALID_SOCIAL_TELEGRAM.split(", ")[1]);
     private SocialMedia validSocialMedia = new SocialMedia(validSocialMediaPlatform, validSocialMediaDescription);
 
 
@@ -36,9 +40,11 @@ class AddSocialsToPersonCommandTest {
         model.addPerson(validPerson);
 
 
-        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia).execute(model);
+        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(),
+                validSocialMedia).execute(model);
 
-        assertEquals(String.format(AddSocialsToPersonCommand.MESSAGE_ADD_NEW_SOCIALS_SUCCESS, validSocialMedia, validPerson),
+        assertEquals(String.format(AddSocialsToPersonCommand.MESSAGE_ADD_NEW_SOCIALS_SUCCESS,
+                        validSocialMedia, validPerson),
               commandResult.getFeedbackToUser());
 
     }
@@ -50,12 +56,13 @@ class AddSocialsToPersonCommandTest {
 
         AddCommand addCommand = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia);
 
-        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia).execute(model);
+        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia)
+                .execute(model);
 
 
         assertThrows(CommandException.class,
-                String.format(AddSocialsToPersonCommand.MESSAGE_SOCIALS_ALREADY_EXISTS, validSocialMedia, validPerson.getName()),
-                () -> addCommand.execute(model));
+                String.format(AddSocialsToPersonCommand.MESSAGE_SOCIALS_ALREADY_EXISTS, validSocialMedia,
+                        validPerson.getName()), () -> addCommand.execute(model));
     }
 
     @Test

@@ -1,21 +1,23 @@
 package seedu.address.logic.commands.add;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTags.FRIENDS;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTags.FRIENDS;
 
 class AddTagToPersonCommandTest {
 
@@ -45,8 +47,8 @@ class AddTagToPersonCommandTest {
 
 
         assertThrows(CommandException.class,
-                String.format(AddTagToPersonCommand.MESSAGE_TAG_ALREADY_EXISTS, FRIENDS, validPerson.getName()),
-                () -> addCommand.execute(model));
+            String.format(AddTagToPersonCommand.MESSAGE_TAG_ALREADY_EXISTS, FRIENDS,
+                validPerson.getName()), () -> addCommand.execute(model));
     }
 
     @Test

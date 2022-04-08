@@ -1,8 +1,11 @@
 package seedu.address.logic.commands.delete;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SOCIAL_TELEGRAM;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
@@ -16,8 +19,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.add.AddSocialsToPersonCommand;
-import seedu.address.logic.commands.delete.DeletePersonCommand;
-import seedu.address.logic.commands.delete.Target;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -35,8 +36,9 @@ import seedu.address.model.socialmedia.SocialMedia;
 public class DeletePersonsSocialCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalMeetingsBook(), new UserPrefs());
-    PlatformName validSocialMediaPlatform = new PlatformName(VALID_SOCIAL_TELEGRAM.split(", ")[0]);
-    PlatformDescription validSocialMediaDescription = new PlatformDescription(VALID_SOCIAL_TELEGRAM.split(", ")[1]);
+    private PlatformName validSocialMediaPlatform = new PlatformName(VALID_SOCIAL_TELEGRAM.split(", ")[0]);
+    private PlatformDescription validSocialMediaDescription =
+            new PlatformDescription(VALID_SOCIAL_TELEGRAM.split(", ")[1]);
     private SocialMedia validSocialMedia = new SocialMedia(validSocialMediaPlatform, validSocialMediaDescription);
 
     @Test
@@ -46,9 +48,11 @@ public class DeletePersonsSocialCommandTest {
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
 
-        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia).execute(model);
+        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia)
+                .execute(model);
 
-        String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS, validSocialMedia);
+        String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS,
+                validSocialMedia);
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
@@ -58,9 +62,11 @@ public class DeletePersonsSocialCommandTest {
         Person personToDelete = ALICE;
         new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
 
-        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia).execute(model);
+        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia)
+                .execute(model);
 
-        String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS, validSocialMedia);
+        String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS,
+                validSocialMedia);
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
@@ -105,9 +111,11 @@ public class DeletePersonsSocialCommandTest {
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
 
-        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia).execute(model);
+        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia)
+                .execute(model);
 
-        String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS, validSocialMedia);
+        String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS,
+                validSocialMedia);
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
