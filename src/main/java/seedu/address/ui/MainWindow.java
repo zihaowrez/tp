@@ -294,6 +294,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#executeForContacts(String, CommandBox) (String, CommandBox)
      */
     protected CommandResult[] clickTag(Tag tag) {
+        assert tag != null;
         CommandResult[] commandResults = logic.clickTag(tag);
         logger.info("Tag " + tag + " clicked");
         resultDisplay.setFeedbackToUser(commandResults[0].getFeedbackToUser());
