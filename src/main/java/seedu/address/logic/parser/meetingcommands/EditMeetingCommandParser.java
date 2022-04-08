@@ -3,6 +3,7 @@ package seedu.address.logic.parser.meetingcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
@@ -13,8 +14,8 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.MeetingTarget;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -34,25 +35,33 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LINK,
                 PREFIX_STARTTIME, PREFIX_DURATION, PREFIX_TAG);
 
-        Index index;
+        MeetingTarget meetingTarget;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            meetingTarget = ParserUtil.parseMeetingTarget(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditMeetingCommand.MESSAGE_USAGE), pe);
         }
 
         EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor = new EditMeetingCommand.EditMeetingDescriptor();
+
+        if (!argMultimap.atLeastOnePrefix(PREFIX_NAME, PREFIX_LINK, PREFIX_STARTTIME, PREFIX_DURATION, PREFIX_TAG)
+                || argMultimap.doesPrefixesExist(PREFIX_INDEX)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMeetingCommand.MESSAGE_USAGE));
+        }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editMeetingDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get()));
         }
+
         if (argMultimap.getValue(PREFIX_LINK).isPresent()) {
             editMeetingDescriptor.setLink(ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get()));
         }
+
         if (argMultimap.getValue(PREFIX_STARTTIME).isPresent()) {
             editMeetingDescriptor.setStartTime(ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get()));
         }
+
         if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
             editMeetingDescriptor.setDuration(ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get()));
         }
@@ -63,7 +72,7 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
             throw new ParseException(EditMeetingCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditMeetingCommand(index, editMeetingDescriptor);
+        return new EditMeetingCommand(meetingTarget, editMeetingDescriptor);
     }
 
     /**

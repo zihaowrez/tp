@@ -11,6 +11,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.meetingcommands.MeetingTarget;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Link;
@@ -251,6 +252,19 @@ public class ParserUtil {
     public static Target parseTarget(String args) throws ParseException {
 
         Target target = new Target(args);
+        return target;
+    }
+
+    /**
+     * Parses {@code String args} into a {@code Object target}.
+     * A valid target is either a valid Title or valid Index
+     * @param args The index or title to be parsed
+     *
+     * @throws ParseException if the given Index/Title is invalid
+     */
+    public static MeetingTarget parseMeetingTarget(String args) throws ParseException {
+
+        MeetingTarget target = new MeetingTarget(args);
         return target;
     }
 
