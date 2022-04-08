@@ -29,7 +29,7 @@
         <Label fx:id="title" style="-fx-text-fill: black;" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <Label fx:id="time" styleClass="cell_small_title" style="-fx-font-size:16px;" />
-      <Hyperlink fx:id="link" style="-fx-visited: blue" />
+      <Hyperlink fx:id="link" style="-fx-color: blue;" />
       <FlowPane fx:id="tags" />
 
     </VBox>

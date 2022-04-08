@@ -149,6 +149,12 @@
     -fx-background-color: #ededed
 }
 
+.list-cell:filled:selected #meetingCardPane {
+    -fx-border-color: #003882;
+    -fx-border-width: 4;
+    -fx-background-color: #ededed
+}
+
 .list-cell .label {
     -fx-text-fill: black;
 }
