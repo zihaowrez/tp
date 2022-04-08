@@ -55,7 +55,7 @@ public class ContactDetailCard extends UiPart<Region> {
     @FXML
     private Label socialMediaLabel;
     @FXML
-    private VBox socialMedias;
+    private FlowPane socialMedias;
 
     @FXML
     private Label tagsLabel;
