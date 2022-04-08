@@ -1,16 +1,15 @@
 package seedu.address.model.meeting;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingKeywordMatchnessComparator;
-import seedu.address.testutil.MeetingBuilder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.MeetingBuilder;
 
 public class MeetingKeywordMatchnessComparatorTest {
 
@@ -19,7 +18,8 @@ public class MeetingKeywordMatchnessComparatorTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        MeetingKeywordMatchnessComparator firstPredicate = new MeetingKeywordMatchnessComparator(firstPredicateKeywordList);
+        MeetingKeywordMatchnessComparator firstPredicate =
+                new MeetingKeywordMatchnessComparator(firstPredicateKeywordList);
         MeetingKeywordMatchnessComparator secondPredicate =
                 new MeetingKeywordMatchnessComparator(secondPredicateKeywordList);
 

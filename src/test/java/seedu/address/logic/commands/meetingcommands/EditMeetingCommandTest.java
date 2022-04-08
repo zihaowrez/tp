@@ -94,15 +94,18 @@ public class EditMeetingCommandTest {
     @Test
     public void execute_invalidMeetingIndex_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getSortedAndFilteredMeetingList().size() + 1);
-        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withTitle(CommandTestUtil.VALID_TITLE_CS3230).build();
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder()
+                .withTitle(CommandTestUtil.VALID_TITLE_CS3230).build();
         EditMeetingCommand editMeetingCommand = new EditMeetingCommand(outOfBoundIndex, descriptor);
 
-        CommandTestUtil.assertCommandFailure(editMeetingCommand, model, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+        CommandTestUtil.assertCommandFailure(editMeetingCommand, model,
+                Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditMeetingCommand standardCommand = new EditMeetingCommand(INDEX_FIRST_MEETING, CommandTestUtil.DESC_CS2103);
+        final EditMeetingCommand standardCommand =
+                new EditMeetingCommand(INDEX_FIRST_MEETING, CommandTestUtil.DESC_CS2103);
 
         // same values -> returns true
         EditMeetingDescriptor copyDescriptor = new EditMeetingDescriptorBuilder(CommandTestUtil.DESC_CS2103).build();

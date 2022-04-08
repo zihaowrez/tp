@@ -1,10 +1,10 @@
 package seedu.address.model.meeting;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class LinkTest {
 
@@ -46,8 +46,7 @@ public class LinkTest {
         // valid urls
         assertTrue(Link.isValidLink("https://www.google.com")); // real url 1
         assertTrue(Link.isValidLink(
-                "https://luminus.nus.edu.sg/modules/f04838c8-fef3-4b8e-89a2-67af01b3de83/conferencing"));
-                // real url 2
+                "https://luminus.nus.edu.sg/modules/f04838c8-fef3-4b8e-89a2-67af01b3de83/conferencing")); // real 2
         assertTrue(Link.isValidLink("https://www.google.com/")); // trailing slash
         assertTrue(Link.isValidLink("https://www.example.com:8800")); // port
         assertTrue(Link.isValidLink("https://www.example.com/a/b/c/d/e/f/g/h/i.html")); // deep path

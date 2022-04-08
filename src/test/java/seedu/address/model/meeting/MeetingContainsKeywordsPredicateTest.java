@@ -1,14 +1,15 @@
 package seedu.address.model.meeting;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.MeetingBuilder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.MeetingBuilder;
 
 public class MeetingContainsKeywordsPredicateTest {
 
@@ -17,7 +18,8 @@ public class MeetingContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        MeetingContainsKeywordsPredicate firstPredicate = new MeetingContainsKeywordsPredicate(firstPredicateKeywordList);
+        MeetingContainsKeywordsPredicate firstPredicate =
+                new MeetingContainsKeywordsPredicate(firstPredicateKeywordList);
         MeetingContainsKeywordsPredicate secondPredicate =
                 new MeetingContainsKeywordsPredicate(secondPredicateKeywordList);
 

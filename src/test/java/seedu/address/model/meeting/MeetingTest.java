@@ -1,9 +1,5 @@
 package seedu.address.model.meeting;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.MeetingBuilder;
-import seedu.address.testutil.TypicalMeetings;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_INT_50;
@@ -12,6 +8,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_CS323
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PROJECT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS3230;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.MeetingBuilder;
+import seedu.address.testutil.TypicalMeetings;
 
 public class MeetingTest {
 

@@ -1,19 +1,20 @@
 package seedu.address.model.meeting;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
-import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
-import seedu.address.testutil.MeetingBuilder;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalMeetings.CS2103_MEETING;
+import static seedu.address.testutil.TypicalMeetings.CS3230_MEETING;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalMeetings.CS2103_MEETING;
-import static seedu.address.testutil.TypicalMeetings.CS3230_MEETING;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
+import seedu.address.testutil.MeetingBuilder;
 
 public class UniqueMeetingListTest {
 
@@ -26,13 +27,13 @@ public class UniqueMeetingListTest {
 
     @Test
     public void contains_meetingNotInList_returnsFalse() {
-        assertFalse(uniqueMeetingList.contains(CS2103_MEETING));
+        Assertions.assertFalse(uniqueMeetingList.contains(CS2103_MEETING));
     }
 
     @Test
     public void contains_meetingInList_returnsTrue() {
         uniqueMeetingList.add(CS2103_MEETING);
-        assertTrue(uniqueMeetingList.contains(CS2103_MEETING));
+        Assertions.assertTrue(uniqueMeetingList.contains(CS2103_MEETING));
     }
 
     @Test
@@ -41,7 +42,7 @@ public class UniqueMeetingListTest {
         Meeting editedAlice = new MeetingBuilder(CS2103_MEETING)//.withAddress(VALID_ADDRESS_CS3230_MEETING)
                 .withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(uniqueMeetingList.contains(editedAlice));
+        Assertions.assertTrue(uniqueMeetingList.contains(editedAlice));
     }
 
     @Test
@@ -67,7 +68,8 @@ public class UniqueMeetingListTest {
 
     @Test
     public void setMeeting_targetMeetingNotInList_throwsMeetingNotFoundException() {
-        assertThrows(MeetingNotFoundException.class, () -> uniqueMeetingList.setMeeting(CS2103_MEETING, CS2103_MEETING));
+        assertThrows(MeetingNotFoundException.class, () ->
+                uniqueMeetingList.setMeeting(CS2103_MEETING, CS2103_MEETING));
     }
 
     @Test
@@ -76,7 +78,7 @@ public class UniqueMeetingListTest {
         uniqueMeetingList.setMeeting(CS2103_MEETING, CS2103_MEETING);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(CS2103_MEETING);
-        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
+        Assertions.assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
@@ -87,7 +89,7 @@ public class UniqueMeetingListTest {
         uniqueMeetingList.setMeeting(CS2103_MEETING, editedAlice);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(editedAlice);
-        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
+        Assertions.assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
@@ -96,14 +98,15 @@ public class UniqueMeetingListTest {
         uniqueMeetingList.setMeeting(CS2103_MEETING, CS3230_MEETING);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(CS3230_MEETING);
-        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
+        Assertions.assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
     public void setMeeting_editedMeetingHasNonUniqueIdentity_throwsDuplicateMeetingException() {
         uniqueMeetingList.add(CS2103_MEETING);
         uniqueMeetingList.add(CS3230_MEETING);
-        assertThrows(DuplicateMeetingException.class, () -> uniqueMeetingList.setMeeting(CS2103_MEETING, CS3230_MEETING));
+        assertThrows(DuplicateMeetingException.class, () ->
+                uniqueMeetingList.setMeeting(CS2103_MEETING, CS3230_MEETING));
     }
 
     @Test
@@ -121,7 +124,7 @@ public class UniqueMeetingListTest {
         uniqueMeetingList.add(CS2103_MEETING);
         uniqueMeetingList.remove(CS2103_MEETING);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
-        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
+        Assertions.assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
@@ -135,7 +138,7 @@ public class UniqueMeetingListTest {
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(CS3230_MEETING);
         uniqueMeetingList.setMeetings(expectedUniqueMeetingList);
-        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
+        Assertions.assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
@@ -150,7 +153,7 @@ public class UniqueMeetingListTest {
         uniqueMeetingList.setMeetings(meetingList);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(CS3230_MEETING);
-        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
+        Assertions.assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
