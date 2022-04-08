@@ -13,7 +13,7 @@ import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditMeetingDescriptor objects.
  */
 public class EditMeetingDescriptorBuilder {
 
@@ -28,7 +28,7 @@ public class EditMeetingDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditMeetingDescriptor} with fields containing {@code person}'s details
      */
     public EditMeetingDescriptorBuilder(Meeting meeting) {
         descriptor = new EditMeetingDescriptor();
@@ -40,15 +40,15 @@ public class EditMeetingDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Title} of the {@code EditMeetingDescriptor} that we are building.
      */
-    public EditMeetingDescriptorBuilder withName(String title) {
+    public EditMeetingDescriptorBuilder withTitle(String title) {
         descriptor.setTitle(new Title(title));
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Link} of the {@code EditMeetingDescriptor} that we are building.
      */
     public EditMeetingDescriptorBuilder withLink(String link) {
         descriptor.setLink(new Link(link));
@@ -56,23 +56,23 @@ public class EditMeetingDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code StartTime} of the {@code EditMeetingDescriptor} that we are building.
      */
-    public EditMeetingDescriptorBuilder withStartTime(StartTime startTime) {
-        descriptor.setStartTime(startTime);
+    public EditMeetingDescriptorBuilder withStartTime(String startTime) {
+        descriptor.setStartTime(new StartTime(startTime));
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Duration} of the {@code EditMeetingDescriptor} that we are building.
      */
-    public EditMeetingDescriptorBuilder withDuration(Duration duration) {
-        descriptor.setDuration(duration);
+    public EditMeetingDescriptorBuilder withDuration(int duration) {
+        descriptor.setDuration(new Duration(duration));
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditMeetingDescriptor}
      * that we are building.
      */
     public EditMeetingDescriptorBuilder withTags(String... tags) {

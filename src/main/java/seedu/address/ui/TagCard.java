@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -36,7 +35,7 @@ public class TagCard extends UiPart<Region> {
     /**
      * Creates a {@code TagCard} that displays all {@code Tag}s.
      */
-    public TagCard(List<Tag> tagList, Logic logic) {
+    public TagCard(List<Tag> tagList, Logic logic, MainWindow mainWindow) {
         super(FXML);
         this.tagList = tagList;
 
@@ -45,17 +44,7 @@ public class TagCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
                         Label tagLabel = new Label(tag.tagName);
-                        tagLabel.setOnMouseClicked(event -> {
-                            logic.updateFilteredPersonList(person -> {
-                                Set<Tag> tagSet = person.getTags();
-                                return tagSet.contains(tag);
-                            });
-
-                            logic.updateFilteredMeetingList(meeting -> {
-                                Set<Tag> meetingTagSet = meeting.getTags();
-                                return meetingTagSet.contains(tag);
-                            });
-                        });
+                        tagLabel.setOnMouseClicked(event -> mainWindow.clickTag(tag));
                         tags.getChildren().add(tagLabel);
                     });
         }

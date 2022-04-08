@@ -91,24 +91,12 @@ public class ContactDetailCard extends UiPart<Region> {
         });
 
         phoneLabel.setText("Phone:");
-        phoneLabel.setOnMouseClicked(event ->
-                clipboard.copy("Phone")
-        );
 
         emailLabel.setText("Email:");
-        emailLabel.setOnMouseClicked(event ->
-                clipboard.copy("Email")
-        );
 
         tagsLabel.setText("Tags");
-        tagsLabel.setOnMouseClicked(event ->
-                clipboard.copy("Tags")
-        );
 
         socialMediaLabel.setText("Social Media");
-        socialMediaLabel.setOnMouseClicked(event ->
-                clipboard.copy("Social Media")
-        );
 
         AtomicInteger index = new AtomicInteger(1);
 

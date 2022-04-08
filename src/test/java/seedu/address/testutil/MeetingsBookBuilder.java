@@ -8,22 +8,22 @@ import seedu.address.model.meeting.Meeting;
  * Example usage: <br>
  *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
-public class MeetingsTabBuilder {
+public class MeetingsBookBuilder {
 
     private MeetingsBook meetingsBook;
 
-    public MeetingsTabBuilder() {
+    public MeetingsBookBuilder() {
         meetingsBook = new MeetingsBook();
     }
 
-    public MeetingsTabBuilder(MeetingsBook meetingsBook) {
+    public MeetingsBookBuilder(MeetingsBook meetingsBook) {
         this.meetingsBook = meetingsBook;
     }
 
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public MeetingsTabBuilder withMeeting(Meeting meeting) {
+    public MeetingsBookBuilder withMeeting(Meeting meeting) {
         meetingsBook.addMeeting(meeting);
         return this;
     }
