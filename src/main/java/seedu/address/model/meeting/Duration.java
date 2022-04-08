@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Duration {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Duration (in mins) should be a positive integer smaller than 10,000";
+            "Duration (in minutes) should be a positive integer in between 1 and 10,000 (Inclusive)";
 
     public final int mins;
 

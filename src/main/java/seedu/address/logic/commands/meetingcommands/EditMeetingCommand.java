@@ -83,8 +83,15 @@ public class EditMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
+
         if (StartTime.isInThePast(editedMeeting.getStartTime())) {
             throw new CommandException(MESSAGE_PAST_MEETING);
+        }
+
+        for (Tag tag: editedMeeting.getTags()) {
+            if (!model.hasTag(tag)) {
+                model.addTag(tag);
+            }
         }
 
         model.setMeeting(meetingToEdit, editedMeeting);
