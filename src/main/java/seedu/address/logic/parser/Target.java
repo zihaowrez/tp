@@ -87,9 +87,8 @@ public class Target {
 
             //@@author zihaowrez
             // if the target integer is too big to convert to int, it is invalid
-            BigInteger i = new BigInteger(target);
-            if (i.compareTo(new BigInteger(String.valueOf(Integer.MAX_VALUE))) > 0
-                    || i.compareTo(new BigInteger(String.valueOf(Integer.MIN_VALUE))) < 0) {
+            BigInteger targetInt = new BigInteger(target);
+            if (targetInt.compareTo(new BigInteger(String.valueOf(Integer.MAX_VALUE))) > 0) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             //@@author zihaowrez
