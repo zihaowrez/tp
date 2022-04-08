@@ -1,142 +1,157 @@
 package seedu.address.logic.commands.meetingcommands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Title;
 
 /**
- * Encapsulates a targeted Meeting on a given list of meeting, identified
- * either by {@code Name} or {@code Index}.
+ * Encapsulates a indexed or named target on a given list of meetings, identified
+ * either by their {@code Title} or {@code Index}.
  */
-public abstract class MeetingTarget {
-    public static final String MESSAGE_MEETING_NOT_EXIST = "The meeting with this name %1$s does not exist!";
-    private static final String NO_TARGET_LIST = "Cannot identify target on a list when no list is specified!";
+public class MeetingTarget {
+    public static final String MESSAGE_MEETING_NOT_EXIST = "The meeting with full name %1$s does not exist!";
 
-    protected List<Meeting> meetings;
+    private String target;
 
-    private MeetingTarget(List<Meeting> meetings) {
-        this.meetings = meetings;
+    /**
+     * @param target the string to be treated as a target.
+     * @throws ParseException if the string provided is not a valid index or title.
+     *
+     * <p>
+     * Note that some non-negative integers (0, MAX_INT to INFINITY) are invalid indices, but are
+     * valid names.
+     * Thus, they will not be caught as invalid index during the instantiation of the Target class,
+     * since they could very well represent a valid name at runtime when the target list is created.
+     *
+     * Thus, there is no choice but to defer the validation to runtime. If these values do not
+     * represent a name in the list at runtime, then they need to be caught and treated as
+     * invalid indices at runtime. </p>
+     */
+    public MeetingTarget(String target) throws ParseException {
+
+        Optional<ParseException> indexParseExceptionOptional = tryParseIndex(target);
+        Optional<ParseException> nameParseExceptionOptional = tryParseTitle(target);
+
+        if (indexParseExceptionOptional.isPresent() && nameParseExceptionOptional.isPresent()
+                && StringUtil.isInt(target)) {
+            throw indexParseExceptionOptional.get();
+        } else if (indexParseExceptionOptional.isPresent() && nameParseExceptionOptional.isPresent()) {
+            throw nameParseExceptionOptional.get();
+        }
+
+        this.target = target;
     }
 
     /**
-     * Factory method for Target. Returns the correct subtype of target given a {@code target}.
+     * Overloaded constructor for Target
+     * @param target the Index to be treated as a target.
      */
-    public static seedu.address.logic.commands.meetingcommands.MeetingTarget of(Title target, List<Meeting> meetings) {
-        return new seedu.address.logic.commands.meetingcommands.MeetingTarget.NamedTarget(target, meetings);
+    public MeetingTarget(Index target) {
+        this.target = String.valueOf(target.getOneBased());
     }
 
     /**
-     * Factory method for Target. Returns the correct subtype of target given a {@code target}.
+     * Overloaded constructor for Target
+     * @param target the Name to be treated as a target.
      */
-    public static seedu.address.logic.commands.meetingcommands.MeetingTarget of(Index target, List<Meeting> meetings) {
-        return new seedu.address.logic.commands.meetingcommands.MeetingTarget.IndexedTarget(target, meetings);
+    public MeetingTarget(Title target) {
+        this.target = target.toString();
     }
 
-    /**
-     * Sets the list of persons that this target points to.
-     * @param meetings The list of meetings this target points to.
-     */
-    public void setTargetList(List<Meeting> meetings) {
-        this.meetings = meetings;
+    /** Returns the {@code Person} that is targetted */
+    public Meeting targetMeeting(List<Meeting> targetList) throws CommandException {
+        assert targetList != null;
+
+        Title targetTitle = parseTitle(target); //try name
+        Optional<Meeting> targetByTitleOptional = targetList //find target person with said name
+                .stream()
+                .filter(meeting -> meeting.getTitle().equals(targetTitle))
+                .findFirst();
+
+        if (StringUtil.isInt(target) && targetByTitleOptional.isPresent()) { //check for target type confusion
+            Optional<Meeting> targetByIndexOptional = getMeetingWithIndex(targetList, target);
+            return targetByIndexOptional.orElse(targetByTitleOptional.get());
+
+        } else if (StringUtil.isInt(target)) { //failed to target by name
+            Index targetIndex;
+
+            // catch invalid one-based indices caused by integer overflow or index 0,
+            // both of which are valid names and will not be caught in the constructor of Target
+            try {
+                targetIndex = ParserUtil.parseIndex(target);
+            } catch (ParseException p) {
+                throw new CommandException(p.getMessage());
+            }
+
+            if (targetIndex.getZeroBased() >= targetList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+            }
+            Meeting targettedMeeting = targetList.get(targetIndex.getZeroBased());
+            return targettedMeeting;
+
+        } else {
+            return targetByTitleOptional.orElseThrow(() ->
+                    new CommandException(String.format(MESSAGE_MEETING_NOT_EXIST, targetTitle)));
+        }
     }
 
-    /** Returns the {@code Person} that is target */
-    public abstract Meeting targetMeeting() throws CommandException;
+    private Optional<Meeting> getMeetingWithIndex(List<Meeting> targetList, String idxString) {
+        Index targetIndex;
+        try {
+            targetIndex = ParserUtil.parseIndex(target);
+        } catch (ParseException e) {
+            return Optional.empty();
+        }
+
+        if (targetIndex.getZeroBased() >= targetList.size()) {
+            return Optional.empty();
+        }
+
+        Meeting targettedMeeting = targetList.get(targetIndex.getZeroBased());
+        return Optional.of(targettedMeeting);
+    }
+
+    private Title parseTitle(String title) {
+        requireNonNull(title);
+        String trimmedName = title.trim();
+        return new Title(trimmedName);
+    }
+
+    private Optional<ParseException> tryParseIndex(String target) {
+        try {
+            ParserUtil.parseIndex(target);
+            return Optional.empty();
+        } catch (ParseException p) {
+            return Optional.of(p);
+        }
+    }
+
+    private Optional<ParseException> tryParseTitle(String target) {
+        try {
+            ParserUtil.parseName(target);
+            return Optional.empty();
+        } catch (ParseException p) {
+            return Optional.of(p);
+        }
+    }
 
     @Override
-    public abstract boolean equals(Object obj);
-
-    /*----------------------Start of private classes---------------------------------------*/
-
-    private static class NamedTarget extends seedu.address.logic.commands.meetingcommands.MeetingTarget {
-        private Title targetName;
-
-        protected NamedTarget(Title targetName) {
-            super(null);
-            this.targetName = targetName;
+    public boolean equals(Object obj) {
+        if (obj instanceof MeetingTarget) {
+            MeetingTarget otherTarget = (MeetingTarget) obj;
+            return this.target.equals(otherTarget.target);
         }
 
-        protected NamedTarget(Title targetName, List<Meeting> meetings) {
-            super(meetings);
-            this.targetName = targetName;
-        }
-
-        @Override
-        public Meeting targetMeeting() throws CommandException {
-            if (meetings == null) {
-                throw new CommandException(NO_TARGET_LIST);
-            }
-
-            Optional<Meeting> targetMeetingOptional = meetings
-                    .stream()
-                    .filter(meeting -> meeting.getTitle().equals(targetName))
-                    .findFirst();
-
-            if (targetMeetingOptional.isEmpty()) {
-                throw new CommandException(String.format(MESSAGE_MEETING_NOT_EXIST, targetName));
-            }
-
-            Meeting targettedMeeting = targetMeetingOptional.get();
-
-            return targettedMeeting;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof seedu.address.logic.commands.meetingcommands.MeetingTarget.NamedTarget) {
-                MeetingTarget.NamedTarget other = (MeetingTarget.NamedTarget) obj;
-                Optional<List<Meeting>> personsOptional = Optional.ofNullable(meetings);
-                return this.targetName.equals(other.targetName)
-                        && personsOptional.equals(Optional.ofNullable(other.meetings));
-            }
-
-            return false;
-
-        }
-    }
-
-    private static class IndexedTarget extends seedu.address.logic.commands.meetingcommands.MeetingTarget {
-        private Index targetIndex;
-
-        protected IndexedTarget(Index targetIndex) {
-            super(null);
-            this.targetIndex = targetIndex;
-        }
-
-        protected IndexedTarget(Index targetIndex, List<Meeting> meetings) {
-            super(meetings);
-            this.targetIndex = targetIndex;
-        }
-
-        @Override
-        public Meeting targetMeeting() throws CommandException {
-            if (meetings == null) {
-                throw new CommandException(NO_TARGET_LIST);
-            }
-
-            if (targetIndex.getZeroBased() >= meetings.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-            Meeting targettedMeeting = meetings.get(targetIndex.getZeroBased());
-            return targettedMeeting;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof MeetingTarget.IndexedTarget) {
-                MeetingTarget.IndexedTarget other = (MeetingTarget.IndexedTarget) obj;
-                Optional<List<Meeting>> meetingsOptional = Optional.ofNullable(meetings);
-                return this.targetIndex.equals(other.targetIndex)
-                        && meetingsOptional.equals(Optional.ofNullable(other.meetings));
-            }
-
-            return false;
-
-        }
+        return false;
     }
 }

@@ -14,6 +14,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddTagOnlyCommand;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.MeetingTarget;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -48,7 +49,7 @@ public class AddMeetingCommandParser implements Parser<AddCommand> {
         if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
                 && argMultimap.noOtherPrefixes(PREFIX_TAG)) {
 
-            Object target = ParserUtil.parseTarget(argMultimap.getPreamble());
+            MeetingTarget target = ParserUtil.parseMeetingTarget(argMultimap.getPreamble());
             Tag newTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new AddTagToMeetingCommand(target, newTag);
         }
