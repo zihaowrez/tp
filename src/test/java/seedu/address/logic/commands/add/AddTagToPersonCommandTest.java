@@ -9,24 +9,17 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.socialmedia.PlatformDescription;
-import seedu.address.model.socialmedia.PlatformName;
-import seedu.address.model.socialmedia.SocialMedia;
 import seedu.address.testutil.PersonBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SOCIAL_TELEGRAM;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTags.FRIENDS;
 
-class AddSocialsToPersonCommandTest {
+class AddTagToPersonCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalMeetingsBook(), new UserPrefs());
-    PlatformName validSocialMediaPlatform = new PlatformName(VALID_SOCIAL_TELEGRAM.split(", ")[0]);
-    PlatformDescription validSocialMediaDescription = new PlatformDescription(VALID_SOCIAL_TELEGRAM.split(", ")[1]);
-    private SocialMedia validSocialMedia = new SocialMedia(validSocialMediaPlatform, validSocialMediaDescription);
-
 
     @Test
     public void execute_updatedPersonAcceptedByModel_addSuccessful() throws Exception {
@@ -34,37 +27,34 @@ class AddSocialsToPersonCommandTest {
         Person validPerson = new PersonBuilder().build();
 
         model.addPerson(validPerson);
+        CommandResult commandResult = new AddTagToPersonCommand(validPerson.getName(), FRIENDS).execute(model);
 
-
-        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia).execute(model);
-
-        assertEquals(String.format(AddSocialsToPersonCommand.MESSAGE_ADD_NEW_SOCIALS_SUCCESS, validSocialMedia, validPerson),
-              commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddTagToPersonCommand.MESSAGE_ADD_NEW_TAG_SUCCESS, FRIENDS, validPerson),
+                commandResult.getFeedbackToUser());
 
     }
 
     @Test
-    public void execute_duplicateSocialMedia_throwsCommandException() throws CommandException {
+    public void execute_duplicateTag_throwsCommandException() throws CommandException {
         Person validPerson = new PersonBuilder().build();
         model.addPerson(validPerson);
 
-        AddCommand addCommand = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia);
+        AddCommand addCommand = new AddTagToPersonCommand(validPerson.getName(), FRIENDS);
 
-        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia).execute(model);
+        CommandResult commandResult = new AddTagToPersonCommand(validPerson.getName(), FRIENDS).execute(model);
 
 
         assertThrows(CommandException.class,
-                String.format(AddSocialsToPersonCommand.MESSAGE_SOCIALS_ALREADY_EXISTS, validSocialMedia, validPerson.getName()),
+                String.format(AddTagToPersonCommand.MESSAGE_TAG_ALREADY_EXISTS, FRIENDS, validPerson.getName()),
                 () -> addCommand.execute(model));
     }
 
     @Test
     void testEquals() {
         Person alice = new PersonBuilder().withName("Alice").build();
-        Person aliceCopy = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddSocialsToPersonCommand(alice.getName(), validSocialMedia);
-        AddCommand addBobCommand = new AddSocialsToPersonCommand(bob.getName(), validSocialMedia);
+        AddCommand addAliceCommand = new AddTagToPersonCommand(alice.getName(), FRIENDS);
+        AddCommand addBobCommand = new AddTagToPersonCommand(bob.getName(), FRIENDS);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));

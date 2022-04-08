@@ -90,7 +90,7 @@ public class AddTagToPersonCommand extends AddCommand {
 
 
 
-        return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, updatedPerson));
+        return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, targetPerson));
     }
 
     @Override

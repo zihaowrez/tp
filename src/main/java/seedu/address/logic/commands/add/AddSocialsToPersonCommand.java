@@ -83,7 +83,7 @@ public class AddSocialsToPersonCommand extends AddCommand {
 
         model.setPerson(targetPerson, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_NEW_SOCIALS_SUCCESS, newSocials, updatedPerson));
+        return new CommandResult(String.format(MESSAGE_ADD_NEW_SOCIALS_SUCCESS, newSocials, targetPerson));
     }
 
     @Override
