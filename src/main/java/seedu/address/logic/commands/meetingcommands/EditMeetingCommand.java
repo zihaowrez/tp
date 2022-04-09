@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -52,18 +50,18 @@ public class EditMeetingCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book.";
     public static final String MESSAGE_PAST_MEETING = "Cannot edit a meeting to start in the past";
 
-    private final Index index;
+    private final MeetingTarget meetingTarget;
     private final EditMeetingDescriptor editMeetingDescriptor;
 
     /**
-     * @param index of the meeting in the filtered meeting list to edit
+     * @param meetingTarget of the meeting in the filtered meeting list to edit
      * @param editMeetingDescriptor details to edit the meeting with
      */
-    public EditMeetingCommand(Index index, EditMeetingDescriptor editMeetingDescriptor) {
-        requireNonNull(index);
+    public EditMeetingCommand(MeetingTarget meetingTarget, EditMeetingDescriptor editMeetingDescriptor) {
+        requireNonNull(meetingTarget);
         requireNonNull(editMeetingDescriptor);
 
-        this.index = index;
+        this.meetingTarget = meetingTarget;
         this.editMeetingDescriptor = new EditMeetingDescriptor(editMeetingDescriptor);
     }
 
@@ -72,11 +70,7 @@ public class EditMeetingCommand extends Command {
         requireNonNull(model);
         List<Meeting> lastShownList = model.getSortedAndFilteredMeetingList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
-        }
-
-        Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
+        Meeting meetingToEdit = meetingTarget.targetMeeting(lastShownList);
         Meeting editedMeeting = EditMeetingDescriptor.createEditedMeeting(meetingToEdit, editMeetingDescriptor);
 
         if (!meetingToEdit.isSameMeeting(editedMeeting) && model.hasMeeting(editedMeeting)) {
@@ -113,7 +107,7 @@ public class EditMeetingCommand extends Command {
 
         // state check
         EditMeetingCommand e = (EditMeetingCommand) other;
-        return index.equals(e.index)
+        return meetingTarget.equals(e.meetingTarget)
                 && editMeetingDescriptor.equals(e.editMeetingDescriptor);
     }
 

@@ -48,7 +48,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_TAG)
                 && argMultimap.noOtherPrefixes(PREFIX_TAG)) {
 
-            Object target = ParserUtil.parseTarget(argMultimap.getPreamble());
+            Target target = ParserUtil.parseTarget(argMultimap.getPreamble());
             Tag newTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new AddTagToPersonCommand(target, newTag);
         }
@@ -56,7 +56,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!argMultimap.getPreamble().isEmpty() && arePrefixesPresent(argMultimap, PREFIX_SOCIAL_MEDIA)
                 && argMultimap.noOtherPrefixes(PREFIX_SOCIAL_MEDIA)) {
 
-            Object target = ParserUtil.parseTarget(argMultimap.getPreamble());
+            Target target = ParserUtil.parseTarget(argMultimap.getPreamble());
             SocialMedia newSocialMedia = ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_SOCIAL_MEDIA).get());
             return new AddSocialsToPersonCommand(target, newSocialMedia);
         }
