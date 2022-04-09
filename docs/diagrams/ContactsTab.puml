@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class "{abstract}\nUiPart" as UiPart
+Class MainWindow
+Class ContactsTab
+Class ResultDisplay
+Class TagPanel
+Class TagCard
+Class PersonListPanel
+Class PersonCard
+Class ContactDetailPanel
+Class ContactDetailCard
+Class StatusBarFooter
+Class CommandBox
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+MainWindow *-d-> "1" ContactsTab
+
+ContactsTab *-d-> "1" CommandBox
+ContactsTab *-d-> "1" ResultDisplay
+ContactsTab *-d-> "1" StatusBarFooter
+ContactsTab *-d-> "1" TagPanel
+ContactsTab *-d-> "1" PersonListPanel
+ContactsTab *-d-> "1" ContactDetailPanel
+
+TagPanel -d-> "0..1" TagCard
+PersonListPanel -d-> "*" PersonCard
+ContactDetailPanel -d-> "0..1" ContactDetailCard
+
+ContactDetailPanel -l-> "1" ResultDisplay
+
+ContactsTab -r-|> UiPart
+ResultDisplay -d-|> UiPart
+CommandBox -d-|> UiPart
+TagPanel -d--|> UiPart
+PersonListPanel -d-|> UiPart
+PersonCard -d-|> UiPart
+ContactDetailPanel -d-|> UiPart
+ContactDetailCard -d-|> UiPart
+StatusBarFooter -d-|> UiPart
+
+TagCard -u-> "1" MainWindow
+
+MainWindow -r-> Logic
+
+ContactDetailPanel -[hidden]l- PersonListPanel
+PersonListPanel -[hidden]l- TagPanel
+TagPanel -[hidden]l- ResultDisplay
+ResultDisplay -[hidden]l- CommandBox
+CommandBox -[hidden]l- StatusBarFooter
+
+ContactsTab -[hidden]-|> UiPart
+@enduml
