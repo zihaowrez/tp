@@ -13,6 +13,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -35,7 +36,7 @@ class EditSocialMediaCommandTest {
         Person editedPerson = model.getSortedAndFilteredPersonList().get(0);
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         SocialMedia socialMediaToEdit = editedPerson.getSocialMedias().get(0);
-        EditCommand editCommand = new EditSocialMediaCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = new EditSocialMediaCommand(new Target(INDEX_FIRST_PERSON),
                 INDEX_FIRST_PERSON, validPlatformName.getValue(), true);
 
         SocialMedia updatedSocialMedia = new SocialMedia(validPlatformName, socialMediaToEdit.getPlatformDescription());
@@ -55,7 +56,7 @@ class EditSocialMediaCommandTest {
         Person editedPerson = model.getSortedAndFilteredPersonList().get(0);
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         SocialMedia socialMediaToEdit = editedPerson.getSocialMedias().get(0);
-        EditCommand editCommand = new EditSocialMediaCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = new EditSocialMediaCommand(new Target(INDEX_FIRST_PERSON),
                 INDEX_FIRST_PERSON, validPlatformDescription.getValue(), false);
 
         SocialMedia updatedSocialMedia = new SocialMedia(socialMediaToEdit.getPlatformName(), validPlatformDescription);
@@ -75,7 +76,7 @@ class EditSocialMediaCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getSortedAndFilteredPersonList().size() + 1);
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditPersonCommand(outOfBoundIndex, descriptor);
+        EditCommand editCommand = new EditPersonCommand(new Target(outOfBoundIndex), descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }

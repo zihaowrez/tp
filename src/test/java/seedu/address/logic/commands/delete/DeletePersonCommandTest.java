@@ -17,6 +17,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,7 +35,7 @@ public class DeletePersonCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() throws CommandException {
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeletePersonCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeletePersonCommand(new Target(INDEX_FIRST_PERSON));
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
@@ -47,7 +48,7 @@ public class DeletePersonCommandTest {
     @Test
     public void execute_validNameUnfilteredList_success() throws CommandException {
         Person personToDelete = ALICE;
-        DeleteCommand deleteCommand = new DeletePersonCommand(personToDelete.getName());
+        DeleteCommand deleteCommand = new DeletePersonCommand(new Target(personToDelete.getName()));
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
@@ -61,7 +62,7 @@ public class DeletePersonCommandTest {
     public void execute_incompleteNameUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Alice");
-        DeleteCommand deleteCommand = new DeletePersonCommand(targetName);
+        DeleteCommand deleteCommand = new DeletePersonCommand(new Target(targetName));
 
         String expectedMessage = String.format(Target.MESSAGE_PERSON_NOT_EXIST, targetName);
 
@@ -75,7 +76,7 @@ public class DeletePersonCommandTest {
     public void execute_nameNotExistUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Bob Pauline");
-        DeleteCommand deleteCommand = new DeletePersonCommand(targetName);
+        DeleteCommand deleteCommand = new DeletePersonCommand(new Target(targetName));
 
         String expectedMessage = String.format(Target.MESSAGE_PERSON_NOT_EXIST, targetName);
 
@@ -88,7 +89,7 @@ public class DeletePersonCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getSortedAndFilteredPersonList().size() + 1);
-        DeleteCommand deleteCommand = new DeletePersonCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeletePersonCommand(new Target(outOfBoundIndex));
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -98,7 +99,7 @@ public class DeletePersonCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeletePersonCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeletePersonCommand(new Target(INDEX_FIRST_PERSON));
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
@@ -117,21 +118,21 @@ public class DeletePersonCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        DeleteCommand deleteCommand = new DeletePersonCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeletePersonCommand(new Target(outOfBoundIndex));
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeletePersonCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeletePersonCommand(INDEX_SECOND_PERSON);
+        DeleteCommand deleteFirstCommand = new DeletePersonCommand(new Target(INDEX_FIRST_PERSON));
+        DeleteCommand deleteSecondCommand = new DeletePersonCommand(new Target(INDEX_SECOND_PERSON));
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeletePersonCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeletePersonCommand(new Target(INDEX_FIRST_PERSON));
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

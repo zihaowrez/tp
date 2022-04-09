@@ -20,6 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.add.AddSocialsToPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -46,10 +47,10 @@ public class DeletePersonsSocialCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
+        new AddSocialsToPersonCommand(new Target(personToDelete.getName()), validSocialMedia).execute(model);
 
-        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia)
-                .execute(model);
+        CommandResult commandResult = new DeletePersonsSocialCommand(new Target(personToDelete.getName()),
+                validSocialMedia).execute(model);
 
         String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS,
                 validSocialMedia);
@@ -60,10 +61,10 @@ public class DeletePersonsSocialCommandTest {
     @Test
     public void execute_validNameUnfilteredList_success() throws CommandException {
         Person personToDelete = ALICE;
-        new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
+        new AddSocialsToPersonCommand(new Target(personToDelete.getName()), validSocialMedia).execute(model);
 
-        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia)
-                .execute(model);
+        CommandResult commandResult = new DeletePersonsSocialCommand(new Target(personToDelete.getName()),
+                validSocialMedia).execute(model);
 
         String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS,
                 validSocialMedia);
@@ -76,8 +77,8 @@ public class DeletePersonsSocialCommandTest {
     public void execute_incompleteNameUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Alice");
-        new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
-        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(targetName, validSocialMedia);
+        new AddSocialsToPersonCommand(new Target(personToDelete.getName()), validSocialMedia).execute(model);
+        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(new Target(targetName), validSocialMedia);
 
         String expectedMessage = String.format(Target.MESSAGE_PERSON_NOT_EXIST, targetName);
 
@@ -88,8 +89,8 @@ public class DeletePersonsSocialCommandTest {
     public void execute_nameNotExistUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Bob Pauline");
-        new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
-        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(targetName, validSocialMedia);
+        new AddSocialsToPersonCommand(new Target(personToDelete.getName()), validSocialMedia).execute(model);
+        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(new Target(targetName), validSocialMedia);
 
         String expectedMessage = String.format(Target.MESSAGE_PERSON_NOT_EXIST, targetName);
 
@@ -99,7 +100,7 @@ public class DeletePersonsSocialCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getSortedAndFilteredPersonList().size() + 1);
-        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(outOfBoundIndex, validSocialMedia);
+        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(new Target(outOfBoundIndex), validSocialMedia);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -109,10 +110,10 @@ public class DeletePersonsSocialCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        new AddSocialsToPersonCommand(personToDelete.getName(), validSocialMedia).execute(model);
+        new AddSocialsToPersonCommand(new Target(personToDelete.getName()), validSocialMedia).execute(model);
 
-        CommandResult commandResult = new DeletePersonsSocialCommand(personToDelete.getName(), validSocialMedia)
-                .execute(model);
+        CommandResult commandResult = new DeletePersonsSocialCommand(new Target(personToDelete.getName()),
+                validSocialMedia).execute(model);
 
         String expectedMessage = String.format(DeletePersonsSocialCommand.MESSAGE_DELETE_SOCIAL_SUCCESS,
                 validSocialMedia);
@@ -128,21 +129,24 @@ public class DeletePersonsSocialCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(outOfBoundIndex, validSocialMedia);
+        DeleteCommand deleteCommand = new DeletePersonsSocialCommand(new Target(outOfBoundIndex), validSocialMedia);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeletePersonsSocialCommand(INDEX_FIRST_PERSON, validSocialMedia);
-        DeleteCommand deleteSecondCommand = new DeletePersonsSocialCommand(INDEX_SECOND_PERSON, validSocialMedia);
+        DeleteCommand deleteFirstCommand = new DeletePersonsSocialCommand(new Target(INDEX_FIRST_PERSON),
+                validSocialMedia);
+        DeleteCommand deleteSecondCommand = new DeletePersonsSocialCommand(new Target(INDEX_SECOND_PERSON),
+                validSocialMedia);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeletePersonsSocialCommand(INDEX_FIRST_PERSON, validSocialMedia);
+        DeleteCommand deleteFirstCommandCopy = new DeletePersonsSocialCommand(new Target(INDEX_FIRST_PERSON),
+                validSocialMedia);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

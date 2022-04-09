@@ -21,6 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.add.AddTagToPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -40,9 +41,10 @@ public class DeletePersonsTagCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        new AddTagToPersonCommand(personToDelete.getName(), ENEMIES).execute(model);
+        new AddTagToPersonCommand(new Target(personToDelete.getName()), ENEMIES).execute(model);
 
-        CommandResult commandResult = new DeletePersonsTagCommand(personToDelete.getName(), FRIENDS).execute(model);
+        CommandResult commandResult = new DeletePersonsTagCommand(new Target(personToDelete.getName()), FRIENDS)
+                .execute(model);
 
         String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS, FRIENDS);
 
@@ -52,9 +54,10 @@ public class DeletePersonsTagCommandTest {
     @Test
     public void execute_validNameUnfilteredList_success() throws CommandException {
         Person personToDelete = ALICE;
-        new AddTagToPersonCommand(personToDelete.getName(), ENEMIES).execute(model);
+        new AddTagToPersonCommand(new Target(personToDelete.getName()), ENEMIES).execute(model);
 
-        CommandResult commandResult = new DeletePersonsTagCommand(personToDelete.getName(), FRIENDS).execute(model);
+        CommandResult commandResult = new DeletePersonsTagCommand(new Target(personToDelete.getName()), FRIENDS)
+                .execute(model);
 
         String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS, FRIENDS);
 
@@ -66,8 +69,8 @@ public class DeletePersonsTagCommandTest {
     public void execute_incompleteNameUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Alice");
-        new AddTagToPersonCommand(personToDelete.getName(), ENEMIES).execute(model);
-        DeleteCommand deleteCommand = new DeletePersonsTagCommand(targetName, FRIENDS);
+        new AddTagToPersonCommand(new Target(personToDelete.getName()), ENEMIES).execute(model);
+        DeleteCommand deleteCommand = new DeletePersonsTagCommand(new Target(targetName), FRIENDS);
 
         String expectedMessage = String.format(Target.MESSAGE_PERSON_NOT_EXIST, targetName);
 
@@ -78,8 +81,8 @@ public class DeletePersonsTagCommandTest {
     public void execute_nameNotExistUnfilteredList_throwsCommandException() throws CommandException {
         Person personToDelete = ALICE;
         Name targetName = new Name("Bob Pauline");
-        new AddTagToPersonCommand(personToDelete.getName(), ENEMIES).execute(model);
-        DeleteCommand deleteCommand = new DeletePersonsTagCommand(targetName, FRIENDS);
+        new AddTagToPersonCommand(new Target(personToDelete.getName()), ENEMIES).execute(model);
+        DeleteCommand deleteCommand = new DeletePersonsTagCommand(new Target(targetName), FRIENDS);
 
         String expectedMessage = String.format(Target.MESSAGE_PERSON_NOT_EXIST, targetName);
 
@@ -89,7 +92,7 @@ public class DeletePersonsTagCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getSortedAndFilteredPersonList().size() + 1);
-        DeleteCommand deleteCommand = new DeletePersonsTagCommand(outOfBoundIndex, FRIENDS);
+        DeleteCommand deleteCommand = new DeletePersonsTagCommand(new Target(outOfBoundIndex), FRIENDS);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -99,9 +102,10 @@ public class DeletePersonsTagCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getSortedAndFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        new AddTagToPersonCommand(personToDelete.getName(), ENEMIES).execute(model);
+        new AddTagToPersonCommand(new Target(personToDelete.getName()), ENEMIES).execute(model);
 
-        CommandResult commandResult = new DeletePersonsTagCommand(personToDelete.getName(), FRIENDS).execute(model);
+        CommandResult commandResult = new DeletePersonsTagCommand(new Target(personToDelete.getName()), FRIENDS)
+                .execute(model);
 
         String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS, FRIENDS);
 
@@ -116,21 +120,21 @@ public class DeletePersonsTagCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        DeleteCommand deleteCommand = new DeletePersonsTagCommand(outOfBoundIndex, FRIENDS);
+        DeleteCommand deleteCommand = new DeletePersonsTagCommand(new Target(outOfBoundIndex), FRIENDS);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeletePersonsTagCommand(INDEX_FIRST_PERSON, FRIENDS);
-        DeleteCommand deleteSecondCommand = new DeletePersonsTagCommand(INDEX_SECOND_PERSON, FRIENDS);
+        DeleteCommand deleteFirstCommand = new DeletePersonsTagCommand(new Target(INDEX_FIRST_PERSON), FRIENDS);
+        DeleteCommand deleteSecondCommand = new DeletePersonsTagCommand(new Target(INDEX_SECOND_PERSON), FRIENDS);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeletePersonsTagCommand(INDEX_FIRST_PERSON, FRIENDS);
+        DeleteCommand deleteFirstCommandCopy = new DeletePersonsTagCommand(new Target(INDEX_FIRST_PERSON), FRIENDS);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

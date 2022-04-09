@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -40,7 +41,7 @@ class AddSocialsToPersonCommandTest {
         model.addPerson(validPerson);
 
 
-        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(),
+        CommandResult commandResult = new AddSocialsToPersonCommand(new Target(validPerson.getName()),
                 validSocialMedia).execute(model);
 
         assertEquals(String.format(AddSocialsToPersonCommand.MESSAGE_ADD_NEW_SOCIALS_SUCCESS,
@@ -54,9 +55,9 @@ class AddSocialsToPersonCommandTest {
         Person validPerson = new PersonBuilder().build();
         model.addPerson(validPerson);
 
-        AddCommand addCommand = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia);
+        AddCommand addCommand = new AddSocialsToPersonCommand(new Target(validPerson.getName()), validSocialMedia);
 
-        CommandResult commandResult = new AddSocialsToPersonCommand(validPerson.getName(), validSocialMedia)
+        CommandResult commandResult = new AddSocialsToPersonCommand(new Target(validPerson.getName()), validSocialMedia)
                 .execute(model);
 
 
@@ -70,8 +71,8 @@ class AddSocialsToPersonCommandTest {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person aliceCopy = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddSocialsToPersonCommand(alice.getName(), validSocialMedia);
-        AddCommand addBobCommand = new AddSocialsToPersonCommand(bob.getName(), validSocialMedia);
+        AddCommand addAliceCommand = new AddSocialsToPersonCommand(new Target(alice.getName()), validSocialMedia);
+        AddCommand addBobCommand = new AddSocialsToPersonCommand(new Target(bob.getName()), validSocialMedia);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));

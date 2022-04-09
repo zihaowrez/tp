@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,7 +30,8 @@ class AddTagToPersonCommandTest {
         Person validPerson = new PersonBuilder().build();
 
         model.addPerson(validPerson);
-        CommandResult commandResult = new AddTagToPersonCommand(validPerson.getName(), FRIENDS).execute(model);
+        CommandResult commandResult = new AddTagToPersonCommand(new Target(validPerson.getName()), FRIENDS)
+                .execute(model);
 
         assertEquals(String.format(AddTagToPersonCommand.MESSAGE_ADD_NEW_TAG_SUCCESS, FRIENDS, validPerson),
                 commandResult.getFeedbackToUser());
@@ -41,9 +43,10 @@ class AddTagToPersonCommandTest {
         Person validPerson = new PersonBuilder().build();
         model.addPerson(validPerson);
 
-        AddCommand addCommand = new AddTagToPersonCommand(validPerson.getName(), FRIENDS);
+        AddCommand addCommand = new AddTagToPersonCommand(new Target(validPerson.getName()), FRIENDS);
 
-        CommandResult commandResult = new AddTagToPersonCommand(validPerson.getName(), FRIENDS).execute(model);
+        CommandResult commandResult = new AddTagToPersonCommand(new Target(validPerson.getName()), FRIENDS)
+                .execute(model);
 
 
         assertThrows(CommandException.class,
@@ -55,8 +58,8 @@ class AddTagToPersonCommandTest {
     void testEquals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddTagToPersonCommand(alice.getName(), FRIENDS);
-        AddCommand addBobCommand = new AddTagToPersonCommand(bob.getName(), FRIENDS);
+        AddCommand addAliceCommand = new AddTagToPersonCommand(new Target(alice.getName()), FRIENDS);
+        AddCommand addBobCommand = new AddTagToPersonCommand(new Target(bob.getName()), FRIENDS);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
