@@ -12,7 +12,7 @@ box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
 end box
 
-[-> PersonListView : selection change
+[-> PersonListView : selectItem()
 activate PersonListView
 
 PersonListView -> PersonListPanel : handleSelectionChange()
@@ -27,9 +27,11 @@ deactivate Logic
 Logic -> ContactDetailPanel : handleSelectionChange(newPerson)
 activate ContactDetailPanel
 
-ContactDetailPanel -> ContactDetailPanel : setPanel(contactDetailCard(newPerson))
+ContactDetailPanel -> ContactDetailPanel : setPanel(new contactDetailCard(newPerson))
+activate ContactDetailPanel
+deactivate ContactDetailPanel
 
-ContactDetailPanel -> ResultDisplay : setFeedbackToUser(message)
+ContactDetailPanel -> ResultDisplay : setFeedbackToUser("Details of [name] shown!")
 deactivate ContactDetailPanel
 activate ResultDisplay
 
