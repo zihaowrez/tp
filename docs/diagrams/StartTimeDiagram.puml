@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant “:AddMeetingCommandParser” as AddMeetingCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant “:AddMeetingCommand” as AddMeetingCommand LOGIC_COLOR
+participant “:StartTime” as StartTime LOGIC_COLOR
+participant “:CommandException” as CommandException LOGIC_COLOR
+end box
+
+[-> AddMeetingCommandParser : execute("... s/2020-10-10 1800 d/60", commandBox)
+activate AddMeetingCommandParser
+
+AddMeetingCommandParser -> ParserUtil : ParseStartTime("2020-10-10 1800")
+activate ParserUtil
+
+create StartTime
+ParserUtil -> StartTime : StartTime("2020-10-10 1800")
+activate StartTime
+
+StartTime --> ParserUtil
+
+ParserUtil --> AddMeetingCommandParser
+deactivate ParserUtil
+
+create AddMeetingCommand
+AddMeetingCommandParser -> AddMeetingCommand
+activate AddMeetingCommand
+
+AddMeetingCommand -> StartTime : isInThePast("2020-10-10 1800")
+StartTime --> AddMeetingCommand
+
+alt In the past
+    deactivate AddMeetingCommand
+
+else Not in the past
+    
+
+@enduml

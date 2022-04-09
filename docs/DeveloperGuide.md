@@ -350,7 +350,32 @@ Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is 
     * Pros: Will be easier for the user to copy information needed.
     * Cons: There must be an additional input from the user after the `copy` command with the field name.
 
-_{more aspects and alternatives to be added}_
+### [Implemented] Adding Meetings 
+
+In our meetings tab, users can store information about meetings. Meetings consist of the following
+information: 
+1. Meeting Title
+2. Meeting Link 
+3. Start Time
+4. Duration 
+
+#### Implementation
+The `Meeting.java` class contains a reference to five separate classes, each of which encapsulate the information 
+about Meetings mentioned above. The `Title.java` class and `Duration.java` class stores the title and 
+duration of a meeting respectively. The `Title.java` class simply stores the title as a String while the 
+`Duration` class stores the duration as an int. The remaining two classes will be explained in more detail. 
+
+Firstly, the `Link` class. In `Link.java`, a link/url for the meeting is stored as a String.
+Following the convention by 
+
+Secondly, the `StartTime.java` class. `StartTime` represents the starting date and time of a meeting. 
+The time and date is contained within the Java Class `LocalDateTime`. When a meeting is created with the relevant start
+time, a `StartTime` object will be created inside the `AddMeetingCommandParser#parse` regardless of whether the start 
+time given is in the past, present or future.
+Only when the `AddMeetingCommand#execute` method is executed, then the method `StartTime#isInThePast` will be invoked 
+to check if the start/time given by the user is in the past or not by comparing it with `LocalDateTime#now`. 
+If the start/time is in the past, a `CommandException` error will be thrown. 
+
 
 --------------------------------------------------------------------------------------------------------------------
 
