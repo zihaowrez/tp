@@ -177,7 +177,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### [Implemented] Selecting targets by name or index
+### Selecting targets by name or index
 
 uMessage allows users to perform certain indexed-based operations by specifying the index of the contact/meeting in the application. However, it is noted that users may find referring to the contact/meeting **by name** to be more natural, and hence uMessage also exposes certain indexed based operations to work with names as well. Some examples of indexed-based operations include:
 
@@ -200,8 +200,60 @@ To prevent prematurely rejecting these strings as invalid indices, the validatio
 
 ### Selecting Users via UI
 
+{add more details here}
+
+-----------------
+
+### Dynamic Command Text Field
+
+#### Implementation
+
+This implementation involves enabling the CommandText Field to read input as it is typed in the Command Line Interface (CLI). In the CommandBox.java, a listener function named handleDynamicInput(), reads the user input at each deletion or addition of the command in theCLI and calls MainWindow#executeCommand. It passes the command inputted by the user with the string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
+
+The user input and instance of commandBox object is then passed to LogicManager#execute and subsequently AddressBookParser#parseCommand and FindCommandParser#parse(arguments).
+
+The above is assuming that the user inputs a string not included in the list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy".
+
+![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
+
+#### Alternatives considered
+* **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
+    * Pros: No changes needed.
+    * Cons: May have performance issues in terms of responsiveness.
 
 
+### Copy feature
+
+#### Implementation
+The copy mechanism is facilitated by `ClipboardManager`. It implements the following operation of copying the `Person` to the clipboard.
+
+These operations are exposed in the `Model` interface as `Model#copyPerson()`.
+
+Given below is an example usage scenario and how the copy mechanism behaves.
+
+Step 1. The user launches the application.
+
+Step 2. The user call the inputs copy [PERSON]
+
+Step 3. The `CopyCommandParser` implements `Parser<CopyCommand>` parses the command and initalizes the CopyCommand with the name of the [PERSON]
+
+Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is called from the model.
+
+#### Design Considerations:
+**Aspect: Ease of copying data from uMessage:**
+
+* **Alternative 1 (current choice):** Saves the entire contact book.
+    * Pros: Easy to implement.
+    * Cons: User may have to manually delete unwanted information from the contact.
+
+* **Alternative 2:** Individual copy command to copy individual information stored in the contact
+    * Pros: Will be easier for the user to copy information needed.
+    * Cons: There must be an additional input from the user after the `copy` command with the field name.
+
+_{more aspects and alternatives to be added}_
+
+
+-------------------------------------------
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -279,61 +331,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### [Implemented] Dynamic Command Text Field
-
-#### Implementation
-
-Implementation
-This implementation involves enabling the CommandText Field to read input as it is typed in
-the Command Line Interface (CLI). In the CommandBox.java, a listener function named
-handleDynamicInput(), reads the user input at each deletion or addition of the command in the
-CLI and calls MainWindow#executeCommand. It passes the command inputted by the user with the
-string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
-
-The user input and instance of commandBox object is then passed to LogicManager#execute and
-subsequently AddressBookParser#parseCommand and FindCommandParser#parse(arguments).
-
-The above is assuming that the user inputs a string not included in the
-list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy".
-
-![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
-
-#### Alternatives considered
-* **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
-    * Pros: No changes needed.
-    * Cons: May have performance issues in terms of responsiveness.
-
-
-### Copy feature
-
-#### Implementation
-The copy mechanism is facilitated by `ClipboardManager`. It implements the following operation of copying the `Person` to the clipboard.
-
-These operations are exposed in the `Model` interface as `Model#copyPerson()`.
-
-Given below is an example usage scenario and how the copy mechanism behaves.
-
-Step 1. The user launches the application.
-
-Step 2. The user call the inputs copy [PERSON]
-
-Step 3. The `CopyCommandParser` implements `Parser<CopyCommand>` parses the command and initalizes the CopyCommand with the name of the [PERSON]
-
-Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is called from the model.
-
-#### Design Considerations:
-**Aspect: Ease of copying data from uMessage:**
-
-* **Alternative 1 (current choice):** Saves the entire contact book.
-    * Pros: Easy to implement.
-    * Cons: User may have to manually delete unwanted information from the contact.
-
-* **Alternative 2:** Individual copy command to copy individual information stored in the contact
-    * Pros: Will be easier for the user to copy information needed.
-    * Cons: There must be an additional input from the user after the `copy` command with the field name.
 
 _{more aspects and alternatives to be added}_
 
