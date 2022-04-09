@@ -12,6 +12,10 @@ box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
 end box
 
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
 [-> PersonListView : selectItem()
 activate PersonListView
 
@@ -21,8 +25,10 @@ activate PersonListPanel
 PersonListPanel -> Logic : setCurrentlySelectedPerson()
 activate Logic
 
-Logic -> ContactDetailPanel : handleSelectionChange(newPerson)
-deactivate Logic
+Logic -> Model : setCurrentlySelectedPerson(person)
+activate Model
+
+Model -> ContactDetailPanel : handleSelectionChange(newPerson)
 activate ContactDetailPanel
 
 ContactDetailPanel -> ContactDetailPanel : setPanel(new contactDetailCard(newPerson))
@@ -35,8 +41,14 @@ activate ResultDisplay
 ResultDisplay --> ContactDetailPanel
 deactivate ResultDisplay
 
-ContactDetailPanel --> PersonListPanel
+ContactDetailPanel --> Model
 deactivate ContactDetailPanel
+
+Model --> Logic
+deactivate Model
+
+Logic --> PersonListPanel
+deactivate Logic
 
 PersonListPanel --> PersonListView
 deactivate PersonListPanel
