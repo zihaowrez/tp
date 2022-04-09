@@ -33,6 +33,7 @@ ContactDetailPanel -> ResultDisplay : setFeedbackToUser(message)
 deactivate ContactDetailPanel
 activate ResultDisplay
 
+ResultDisplay --> ContactDetailPanel
 deactivate ResultDisplay
 
 
