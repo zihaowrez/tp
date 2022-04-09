@@ -156,7 +156,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Selecting targets by name or index
 
-uMessage allows users to perform certain indexed-based operations by specifying the index of the contact in the addressbook. However, it is noted that users may find referring to the contact **by name** to be more natural, and hence uMessage also exposes certain indexed based operations to work with names as well. Some examples of indexed-based operations include:
+uMessage allows users to perform certain indexed-based operations by specifying the index of the l in the addressbook. However, it is noted that users may find referring to the contact **by name** to be more natural, and hence uMessage also exposes certain indexed based operations to work with names as well. Some examples of indexed-based operations include:
 
 - Adding/removing new tags from a particular person in the list.
 - Deleting a person from the list.
@@ -364,7 +364,7 @@ When the user clicks a tag in the `TagPanel`, both the contact list and the meet
 
 When the user clicks a contact in the list, the detailed information will be displayed in the `ContactDetailPanel`, and the message in the `ResultDisplay` will be updated.
 
-![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChange.png);
+![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChangeDiagram.png);
 
 --------------------------------------------------------------------------------------------------------------------
 
