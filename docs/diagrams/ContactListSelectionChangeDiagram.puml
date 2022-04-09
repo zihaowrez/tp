@@ -17,19 +17,16 @@ activate PersonListView
 
 PersonListView -> PersonListPanel : handleSelectionChange()
 activate PersonListPanel
-deactivate PersonListView
 
 PersonListPanel -> Logic : setCurrentlySelectedPerson()
 activate Logic
-deactivate PersonListPanel
-deactivate Logic
 
 Logic -> ContactDetailPanel : handleSelectionChange(newPerson)
+deactivate Logic
 activate ContactDetailPanel
 
 ContactDetailPanel -> ContactDetailPanel : setPanel(new contactDetailCard(newPerson))
 activate ContactDetailPanel
-deactivate ContactDetailPanel
 
 ContactDetailPanel -> ResultDisplay : setFeedbackToUser("Details of [name] shown!")
 deactivate ContactDetailPanel
@@ -37,6 +34,17 @@ activate ResultDisplay
 
 ResultDisplay --> ContactDetailPanel
 deactivate ResultDisplay
+
+ContactDetailPanel --> PersonListPanel
+deactivate ContactDetailPanel
+
+PersonListPanel --> PersonListView
+deactivate PersonListPanel
+
+[<-- PersonListView
+deactivate PersonListView
+
+
 
 
 

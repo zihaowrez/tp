@@ -33,13 +33,13 @@ deactivate Logic
 
 MainWindow -> contactsResultDisplay : setFeedbackToUser("x persons listed!")
 activate contactsResultDisplay
-deactivate contactsResultDisplay
 contactsResultDisplay --> MainWindow
+deactivate contactsResultDisplay
 
 MainWindow -> meetingsResultDisplay : setFeedbackToUser("x meetings listed!")
 activate meetingsResultDisplay
-deactivate meetingsResultDisplay
 meetingsResultDisplay --> MainWindow
+deactivate meetingsResultDisplay
 
 MainWindow --> tag
 deactivate MainWindow
