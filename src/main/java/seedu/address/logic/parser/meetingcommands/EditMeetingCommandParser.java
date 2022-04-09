@@ -17,11 +17,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
-public class EditMeetingCommandParser {
+public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditMeetingCommand

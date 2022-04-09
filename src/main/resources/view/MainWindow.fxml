@@ -15,7 +15,7 @@
 <?import javafx.scene.control.ScrollPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="uMessage" minWidth="600" minHeight="600" onCloseRequest="#handleExit">
+         title="uMessage" minWidth="700" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -51,7 +51,7 @@
               </padding>
             </StackPane>
 
-            <StackPane VBox.vgrow="NEVER" fx:id="tagPanelInContactsPlaceholder" styleClass="pane-with-border" style="-fx-background-color: #ededed#ededed;"
+            <StackPane VBox.vgrow="NEVER" fx:id="tagPanelInContactsPlaceholder" styleClass="pane-without-border" style="-fx-background-color: #ededed#ededed;"
                        minHeight="100" prefHeight="100" maxHeight="100">
                 <padding>
                     <Insets top="5" right="10" bottom="5" left="10" />
@@ -81,23 +81,24 @@
 
         <Tab fx:id="meetingsTab" text="Meetings">
 
-          <VBox>
+          <VBox style="-fx-background-color: #ededed;">
 
-            <StackPane VBox.vgrow="NEVER" fx:id="meetingsCommandBoxPlaceholder" styleClass="pane-with-border">
+            <StackPane VBox.vgrow="NEVER" fx:id="meetingsCommandBoxPlaceholder" styleClass="pane-with-border" style="-fx-background-color: #ededed; -fx-border-color: #ededed;" >
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
 
             <StackPane VBox.vgrow="NEVER" fx:id="meetingsResultDisplayPlaceholder" styleClass="pane-with-border"
+                       style="-fx-background-color: #ededed; -fx-border-color: #ededed;"
                        minHeight="100" prefHeight="100" maxHeight="100">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
 
-              <StackPane VBox.vgrow="NEVER" fx:id="tagPanelInMeetingsPlaceholder" styleClass="pane-with-border" style="-fx-background-color: #ededed#ededed;"
-                         minHeight="100" prefHeight="100" maxHeight="100">
+              <StackPane VBox.vgrow="NEVER" fx:id="tagPanelInMeetingsPlaceholder" styleClass="pane-with-border"
+                         minHeight="100" prefHeight="100" maxHeight="100" style="-fx-background-color: #ededed; -fx-border-color: #ededed;">
                   <padding>
                       <Insets top="5" right="10" bottom="5" left="10" />
                   </padding>
@@ -105,11 +106,11 @@
 
             <SplitPane VBox.vgrow="ALWAYS">
 
-              <VBox fx:id="meetingList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <VBox fx:id="meetingList" styleClass="pane-with-border" VBox.vgrow="ALWAYS" style="-fx-background-color: #ededed; -fx-border-color: #ededed;">
                 <padding>
                   <Insets top="10" right="10" bottom="10" left="10" />
                 </padding>
-                <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS" style="-fx-background-color: #ededed; -fx-border-color: #ededed;"/>
               </VBox>
 
             </SplitPane>

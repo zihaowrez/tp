@@ -32,12 +32,12 @@ public class TagPanel extends UiPart<Region> {
     /**
      * Creates a {@code TagListPanel} with the given {@code ObservableList}.
      */
-    public TagPanel(ObservableList<Tag> tagList, Logic logic) {
+    public TagPanel(ObservableList<Tag> tagList, Logic logic, MainWindow mainWindow) {
 
         super(FXML);
         this.tagList = tagList;
 
-        setPanel(new TagCard(tagList, logic).getRoot());
+        setPanel(new TagCard(tagList, logic, mainWindow).getRoot());
 
     }
 

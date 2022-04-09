@@ -17,7 +17,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class MeetingBuilder {
 
-    public static final String DEFAULT_NAME = "Project Meeting";
+    public static final String DEFAULT_TITLE = "RVRC Project Meeting";
     public static final String DEFAULT_LINK = "https://zoom.sg";
     public static final String DEFAULT_START_TIME = "2024-10-10 1800";
     private static final int DEFAULT_DURATION = 60;
@@ -32,7 +32,7 @@ public class MeetingBuilder {
      * Creates a {@code MeetingBuilder} with the default details.
      */
     public MeetingBuilder() {
-        title = new Title(DEFAULT_NAME);
+        title = new Title(DEFAULT_TITLE);
         link = new Link(DEFAULT_LINK);
         startTime = new StartTime(DEFAULT_START_TIME);
         duration = new Duration(DEFAULT_DURATION);

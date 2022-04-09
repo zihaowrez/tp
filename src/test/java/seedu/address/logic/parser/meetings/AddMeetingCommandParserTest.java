@@ -1,28 +1,17 @@
 package seedu.address.logic.parser.meetings;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DURATION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_LINK_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_START_TIME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.LINK_ZOOM;
-import static seedu.address.logic.commands.CommandTestUtil.MEETING_NAME_CS2103;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.START_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_INT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_STRING;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_NAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_STRING;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.meetingcommands.AddMeetingCommandParser;
@@ -37,88 +26,143 @@ public class AddMeetingCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() throws ParseException {
-        Meeting expectedMeeting = new MeetingBuilder().withTitle(VALID_MEETING_NAME)
-                .withLink(VALID_LINK).withStartTime(VALID_START_TIME_STRING)
-                .withDuration(VALID_DURATION_INT).withTags(VALID_TAG_FRIEND).build();
+
+        Meeting expectedMeeting = new MeetingBuilder().withTitle(CommandTestUtil.VALID_TITLE_CS2103)
+                .withLink(CommandTestUtil.VALID_LINK_ZOOM).withStartTime(CommandTestUtil.VALID_STARTTIME_CS2103)
+                .withDuration(CommandTestUtil.VALID_DURATION_INT_60).withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
 
         // multiple links - last link accepted
-        assertParseSuccess(parser, MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME + DURATION
-                + TAG_DESC_FRIEND, new AddMeetingCommand(expectedMeeting));
+        assertParseSuccess(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_TEAMS + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
+                new AddMeetingCommand(expectedMeeting));
 
-
-        // multiple end dateTime - last end dateTime accepted
-        assertParseSuccess(parser, MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME + DURATION
-                + TAG_DESC_FRIEND + TAG_DESC_FRIEND, new AddMeetingCommand(expectedMeeting));
+        // multiple startTime - last startTime accepted
+        assertParseSuccess(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_PROJECT + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
+                new AddMeetingCommand(expectedMeeting));
 
         // multiple tags - all accepted
-        Meeting expectedMeetingMultipleTags = new MeetingBuilder()
-                .withTitle(VALID_MEETING_NAME).withLink(VALID_LINK).withStartTime(VALID_START_TIME_STRING)
-                .withDuration(VALID_DURATION_INT).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        assertParseSuccess(parser, MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME + DURATION
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddMeetingCommand(expectedMeetingMultipleTags));
+        expectedMeeting = new MeetingBuilder().withTitle(CommandTestUtil.VALID_TITLE_CS2103)
+                .withLink(CommandTestUtil.VALID_LINK_ZOOM).withStartTime(CommandTestUtil.VALID_STARTTIME_CS2103)
+                .withDuration(CommandTestUtil.VALID_DURATION_INT_60)
+                .withTags(CommandTestUtil.VALID_TAG_FRIEND, CommandTestUtil.VALID_TAG_PROJECT).build();
+        assertParseSuccess(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_PROJECT,
+                new AddMeetingCommand(expectedMeeting));
 
     }
 
-    /*
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Meeting expectedMeeting = new MeetingBuilder(CS2103_MEETING).withLink(VALID_LINK)
-                .withDateTime(VALID_START_DATETIME, VALID_END_DATETIME).withTags().build();
-        assertParseSuccess(parser, MEETING_NAME_CS2103 + LINK_ZOOM + START_DATE_TIME + END_DATE_TIME,
+        Meeting expectedMeeting = new MeetingBuilder().withTitle(CommandTestUtil.VALID_TITLE_CS2103)
+                .withLink(CommandTestUtil.VALID_LINK_ZOOM).withStartTime(CommandTestUtil.VALID_STARTTIME_CS2103)
+                .withTags().build();
+        assertParseSuccess(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60,
                 new AddMeetingCommand(expectedMeeting));
     }
-     */
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE);
 
-        // missing name prefix
-        assertParseFailure(parser, VALID_MEETING_NAME + LINK_ZOOM + START_TIME + DURATION,
+        // missing title prefix
+        assertParseFailure(parser, " " + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
                 expectedMessage);
 
         // missing link prefix
-        assertParseFailure(parser, MEETING_NAME_CS2103 + VALID_LINK + START_TIME + DURATION,
+        assertParseFailure(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
                 expectedMessage);
 
-        // missing start dateTime prefix
-        assertParseFailure(parser, MEETING_NAME_CS2103 + LINK_ZOOM + VALID_START_TIME_STRING + DURATION,
+        // missing startTime prefix
+        assertParseFailure(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
                 expectedMessage);
 
         // missing duration prefix
-        assertParseFailure(parser, VALID_MEETING_NAME + LINK_ZOOM + START_TIME + VALID_DURATION_STRING,
+        assertParseFailure(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_MEETING_NAME + VALID_LINK + VALID_START_DATETIME + VALID_DURATION_STRING,
+        assertParseFailure(parser, " " + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + CommandTestUtil.VALID_TAG_FRIEND,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid link
-        assertParseFailure(parser, MEETING_NAME_CS2103 + INVALID_LINK_DESC + START_TIME + DURATION
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Link.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.INVALID_LINK + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
+                Link.MESSAGE_CONSTRAINTS);
 
         // invalid start time
-        assertParseFailure(parser, MEETING_NAME_CS2103 + LINK_ZOOM + INVALID_START_TIME_DESC + DURATION
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, StartTime.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.INVALID_STARTTIME + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
+                StartTime.MESSAGE_CONSTRAINTS);
 
         // invalid duration
-        assertParseFailure(parser, MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME + INVALID_DURATION_DESC
-                + VALID_TAG_FRIEND, Duration.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.VALID_LINK_ZOOM + " "
+                + PREFIX_STARTTIME + CommandTestUtil.VALID_STARTTIME_CS2103 + " "
+                + PREFIX_DURATION + CommandTestUtil.INVALID_DURATION_STRING + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
+                Duration.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, MEETING_NAME_CS2103
-                        + INVALID_LINK_DESC + INVALID_START_TIME_DESC// + INVALID_ADDRESS_DESC,
-                        + DURATION + VALID_TAG_FRIEND,
+        assertParseFailure(parser, " " + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.INVALID_LINK + " "
+                + PREFIX_STARTTIME + CommandTestUtil.INVALID_STARTTIME + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
                 Link.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + MEETING_NAME_CS2103 + LINK_ZOOM + START_TIME
-                        + DURATION + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, " " + CommandTestUtil.PREAMBLE_NON_EMPTY + " "
+                + PREFIX_TITLE + CommandTestUtil.VALID_TITLE_CS2103 + " "
+                + PREFIX_LINK + CommandTestUtil.INVALID_LINK + " "
+                + PREFIX_STARTTIME + CommandTestUtil.INVALID_STARTTIME + " "
+                + PREFIX_DURATION + CommandTestUtil.VALID_DURATION_STRING_60 + " "
+                + PREFIX_TAG + CommandTestUtil.VALID_TAG_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
     }
 }

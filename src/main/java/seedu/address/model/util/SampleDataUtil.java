@@ -107,7 +107,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a set of social medias containing the list of strings given.
+     * Returns a set of social media containing the list of strings given.
      */
     public static List<SocialMedia> getSocialMediaSet(String... strings) {
         return Arrays.stream(strings)

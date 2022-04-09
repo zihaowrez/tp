@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.meetings;
+package seedu.address.logic.commands.meetingcommands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,7 +10,6 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.meetingcommands.FindMeetingCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -79,7 +78,7 @@ public class FindMeetingCommandTest {
         expectedModel.updateFilteredMeetingList(predicate);
         expectedModel.sortFilteredMeetingList(comparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103_MEETING, CS3230_MEETING), model.getSortedAndFilteredMeetingList());
+        assertEquals(Arrays.asList(CS2103_MEETING, CS3230_PE), model.getSortedAndFilteredMeetingList());
     }
      */
 
