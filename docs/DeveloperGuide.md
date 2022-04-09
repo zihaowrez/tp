@@ -352,6 +352,20 @@ Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is 
 
 _{more aspects and alternatives to be added}_
 
+### [Implemented] Clickable tags and contacts
+
+This implementation makes the tags and contacts in the GUI clickable.
+
+#### Clickable tags
+
+When the user clicks a tag in the `TagPanel`, both the contact list and the meeting list will be filtered: only items that has the tag will be displayed, and the message in the `ResultDisplay` will be updated.
+
+#### Clickable contacts
+
+When the user clicks a contact in the list, the detailed information will be displayed in the `ContactDetailPanel`, and the message in the `ResultDisplay` will be updated.
+
+![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChange.png);
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
