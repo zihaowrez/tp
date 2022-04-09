@@ -1,0 +1,14 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> "*" SocialMedia
+Person *--> "*" Tag
+
+@enduml
