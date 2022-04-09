@@ -159,60 +159,26 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Selecting targets by name or index
+### [Implemented] Selecting targets by name or index
 
-uMessage allows users to perform certain indexed-based operations by specifying the index of the contact in the addressbook. However, it is noted that users may find referring to the contact **by name** to be more natural, and hence uMessage also exposes certain indexed based operations to work with names as well. Some examples of indexed-based operations include:
+uMessage allows users to perform certain indexed-based operations by specifying the index of the contact/meeting in the application. However, it is noted that users may find referring to the contact/meeting **by name** to be more natural, and hence uMessage also exposes certain indexed based operations to work with names as well. Some examples of indexed-based operations include:
 
 - Adding/removing new tags from a particular person in the list.
-- Deleting a person from the list.
+- Deleting a person/meeting from the list.
 - Adding/removing new social media information from a person in the list.
 
 The syntax of these commands are typically:
-`command_word INDEX relevant_options` or `command_word NAME_OF_PERSON relevant_options`.
+`<command_word> <INDEX or NAME> <relevant_options>`
 
-Thus for each operation, there is usually a index-based version and a name-based version. However, this will become unwieldy overtime as we would have to make two versions of the same command. In both cases, we *target* a `Person` in the `filteredList` exposed by `ModelManager` by specifying their `name` or `index`.
+To reduce code duplication and to differentiate between `INDEX` and `NAME`, a `Target` class is created to handle the parsing of the `INDEX/NAME` string, and commands that take in a `Index`/`Name` instance will now take in a `Target` instance instead.
 
-This idea of a targeting some Person in the addressbook list is thus encapsulated in an abstract `Target` class. Within the `Target` class, we have nested, private subclasses that implement the abstract methods declared in the `Target` class:
+At parsing time, before the command instances are instantiated, a `Target` instance is instantianted with the user input. Internally, the class checks first if the input is a valid `Index`, failing which, it checks if it is a valid `Name`. If it fails both checks, then the Target class will throw a `ParseException`, to be caught by `execute`.
 
-![Target Class Diagram](images/TargetClass.png)
+At this point, note that certain invalid indices are still considered valid names since names are allowed to be alphanumeric. These are the string representations of `0` and any integer greater than `MAX_INT`. 
 
-To instantiate these concrete classes, `Target` provides an overloaded factory method `Target::of`, that will return one of the two subtypes of `Target` casted as `Target` at compile time.
-
-```java
-public static Target of(Name target, List<Person> persons) {
-    return new NamedTarget(target, persons);
-}
-
-public static Target of(Index target, List<Person> persons) {
-    return new IndexedTarget(target, persons);
-}
-```
-
-The developer will need to invoke the correct factory method by passing in the correct type (either `Name` or `Index`) at compile time. To do so, the command using the Target class will need to perform `instanceof` checks in the constructor. The following is an example from `DeletePersonsTagCommand`
-
-```java
-public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
-    assert target instanceof Name || target instanceof Index;
-
-    this.tagToDelete = tagToDelete;
-
-    if (target instanceof Name) {
-        this.target = Target.of((Name) target, null);
-    } else if (target instanceof Index) {
-        this.target = Target.of((Index) target, null);
-    } else {
-        this.target = null;
-    }
-}
-```
+To prevent prematurely rejecting these strings as invalid indices, the validation for these input class will be deferred to command execution time, where the string is checked against the existing list of persons/meetings. If no person/meeting exists with the same name, then these set of inputs are treated as an invalid index and a `CommandException` is thrown accordingly.
 
 
-The abstract method declarations in `Target` dictates the API of the `Target` class, which currently only includes:
-
-```java
-/** Returns the {@code Person} that is targetted */
-public abstract Person targetPerson() throws CommandException;
-```
 
 ### Selecting Users via UI
 
@@ -322,10 +288,6 @@ list of commands: “add”, “delete”, “list”, “find”, “view”, �
     * Pros: No changes needed.
     * Cons: May have performance issues in terms of responsiveness.
 
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 ### Copy feature
 
