@@ -14,29 +14,22 @@ Class MeetingsTab
 Class HelpTab
 }
 
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
-}
-
 package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Ui
+HiddenOutside .d.> Ui
 
-UiManager .left.|> Ui
-UiManager -down-> "1" MainWindow
-MainWindow *-down-> "1" ContactsTab
-MainWindow *-down-> "1" MeetingsTab
-MainWindow *-down-> "1" HelpTab
+UiManager .l...|> Ui
+UiManager -d-> "1" MainWindow
+MainWindow *-d--> "1" ContactsTab
+MainWindow *-d--> "1" MeetingsTab
+MainWindow *-d--> "1" HelpTab
 
-PersonListPanel -down-> "*" PersonCard
-
-MainWindow -left-|> UiPart
+MainWindow -l-|> UiPart
 
 UiManager -right-> Logic
-MainWindow -left-> Logic
+MainWindow -right-> Logic
 
-MainWindow -[hidden]-|> UiPart
 @enduml
