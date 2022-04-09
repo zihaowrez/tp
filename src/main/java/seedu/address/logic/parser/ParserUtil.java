@@ -31,7 +31,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index should be a positive integer.";
+    public static final String MESSAGE_INVALID_INDEX =
+        "Index provided is invalid. It has a valid range of 1 to 2147483647 inclusive.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
