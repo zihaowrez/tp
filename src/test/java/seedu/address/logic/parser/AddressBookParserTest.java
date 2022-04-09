@@ -58,14 +58,14 @@ public class AddressBookParserTest {
     public void parseCommand_deleteIndex() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(), commandBox);
-        assertEquals(new DeletePersonCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new DeletePersonCommand(new Target(INDEX_FIRST_PERSON)), command);
     }
 
     @Test
     public void parseCommand_deleteName() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + ALICE.getName(), commandBox);
-        assertEquals(new DeletePersonCommand(ALICE.getName()), command);
+        assertEquals(new DeletePersonCommand(new Target(ALICE.getName())), command);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class AddressBookParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " "
                 + PersonUtil.getEditPersonDescriptorDetails(descriptor), commandBox);
-        assertEquals(new EditPersonCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditPersonCommand(new Target(INDEX_FIRST_PERSON), descriptor), command);
     }
 
     @Test

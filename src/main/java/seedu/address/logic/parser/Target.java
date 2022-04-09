@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.meetingcommands;
+package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
@@ -9,23 +9,22 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.Title;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 
 /**
- * Encapsulates a indexed or named target on a given list of meetings, identified
- * either by their {@code Title} or {@code Index}.
+ * Encapsulates a indexed or named target on a given list of persons, identified
+ * either by their {@code Name} or {@code Index}.
  */
-public class MeetingTarget {
-    public static final String MESSAGE_MEETING_NOT_EXIST = "The meeting with full name %1$s does not exist!";
+public class Target {
+    public static final String MESSAGE_PERSON_NOT_EXIST = "The person with full name %1$s does not exist!";
 
     private String target;
 
     /**
      * @param target the string to be treated as a target.
-     * @throws ParseException if the string provided is not a valid index or title.
+     * @throws ParseException if the string provided is not a valid index or name.
      *
      * <p>
      * Note that some non-negative integers (0, MAX_INT to INFINITY) are invalid indices, but are
@@ -37,13 +36,13 @@ public class MeetingTarget {
      * represent a name in the list at runtime, then they need to be caught and treated as
      * invalid indices at runtime. </p>
      */
-    public MeetingTarget(String target) throws ParseException {
+    public Target(String target) throws ParseException {
 
         Optional<ParseException> indexParseExceptionOptional = tryParseIndex(target);
-        Optional<ParseException> nameParseExceptionOptional = tryParseTitle(target);
+        Optional<ParseException> nameParseExceptionOptional = tryParseName(target);
 
         if (indexParseExceptionOptional.isPresent() && nameParseExceptionOptional.isPresent()
-                && StringUtil.isInt(target)) {
+            && StringUtil.isInt(target)) {
             throw indexParseExceptionOptional.get();
         } else if (indexParseExceptionOptional.isPresent() && nameParseExceptionOptional.isPresent()) {
             throw nameParseExceptionOptional.get();
@@ -56,7 +55,7 @@ public class MeetingTarget {
      * Overloaded constructor for Target
      * @param target the Index to be treated as a target.
      */
-    public MeetingTarget(Index target) {
+    public Target(Index target) {
         this.target = String.valueOf(target.getOneBased());
     }
 
@@ -64,23 +63,23 @@ public class MeetingTarget {
      * Overloaded constructor for Target
      * @param target the Name to be treated as a target.
      */
-    public MeetingTarget(Title target) {
+    public Target(Name target) {
         this.target = target.toString();
     }
 
     /** Returns the {@code Person} that is targetted */
-    public Meeting targetMeeting(List<Meeting> targetList) throws CommandException {
+    public Person targetPerson(List<Person> targetList) throws CommandException {
         assert targetList != null;
 
-        Title targetTitle = parseTitle(target); //try name
-        Optional<Meeting> targetByTitleOptional = targetList //find target person with said name
-                .stream()
-                .filter(meeting -> meeting.getTitle().equals(targetTitle))
-                .findFirst();
+        Name targetName = parseName(target); //try name
+        Optional<Person> targetByNameOptional = targetList //find target person with said name
+            .stream()
+            .filter(person -> person.getName().equals(targetName))
+            .findFirst();
 
-        if (StringUtil.isInt(target) && targetByTitleOptional.isPresent()) { //check for target type confusion
-            Optional<Meeting> targetByIndexOptional = getMeetingWithIndex(targetList, target);
-            return targetByIndexOptional.orElse(targetByTitleOptional.get());
+        if (StringUtil.isInt(target) && targetByNameOptional.isPresent()) { //check for target type confusion
+            Optional<Person> targetByIndexOptional = getPersonWithIndex(targetList, target);
+            return targetByIndexOptional.orElse(targetByNameOptional.get());
 
         } else if (StringUtil.isInt(target)) { //failed to target by name
             Index targetIndex;
@@ -94,18 +93,18 @@ public class MeetingTarget {
             }
 
             if (targetIndex.getZeroBased() >= targetList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
-            Meeting targettedMeeting = targetList.get(targetIndex.getZeroBased());
-            return targettedMeeting;
+            Person targettedPerson = targetList.get(targetIndex.getZeroBased());
+            return targettedPerson;
 
         } else {
-            return targetByTitleOptional.orElseThrow(() ->
-                    new CommandException(String.format(MESSAGE_MEETING_NOT_EXIST, targetTitle)));
+            return targetByNameOptional.orElseThrow(() ->
+                    new CommandException(String.format(MESSAGE_PERSON_NOT_EXIST, targetName)));
         }
     }
 
-    private Optional<Meeting> getMeetingWithIndex(List<Meeting> targetList, String idxString) {
+    private Optional<Person> getPersonWithIndex(List<Person> targetList, String idxString) {
         Index targetIndex;
         try {
             targetIndex = ParserUtil.parseIndex(target);
@@ -117,14 +116,14 @@ public class MeetingTarget {
             return Optional.empty();
         }
 
-        Meeting targettedMeeting = targetList.get(targetIndex.getZeroBased());
-        return Optional.of(targettedMeeting);
+        Person targettedPerson = targetList.get(targetIndex.getZeroBased());
+        return Optional.of(targettedPerson);
     }
 
-    private Title parseTitle(String title) {
-        requireNonNull(title);
-        String trimmedName = title.trim();
-        return new Title(trimmedName);
+    private Name parseName(String name) {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        return new Name(trimmedName);
     }
 
     private Optional<ParseException> tryParseIndex(String target) {
@@ -136,7 +135,7 @@ public class MeetingTarget {
         }
     }
 
-    private Optional<ParseException> tryParseTitle(String target) {
+    private Optional<ParseException> tryParseName(String target) {
         try {
             ParserUtil.parseName(target);
             return Optional.empty();
@@ -147,8 +146,8 @@ public class MeetingTarget {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof MeetingTarget) {
-            MeetingTarget otherTarget = (MeetingTarget) obj;
+        if (obj instanceof Target) {
+            Target otherTarget = (Target) obj;
             return this.target.equals(otherTarget.target);
         }
 
