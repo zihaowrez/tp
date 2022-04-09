@@ -196,7 +196,24 @@ At this point, note that certain invalid indices are still considered valid name
 
 To prevent prematurely rejecting these strings as invalid indices, the validation for these input class will be deferred to command execution time, where the string is checked against the existing list of persons/meetings. If no person/meeting exists with the same name, then these set of inputs are treated as an invalid index and a `CommandException` is thrown accordingly.
 
+----------------------
 
+### Split panel display
+<img src="images/Ui.png" width=450 />
+
+uMessage has a split view design for the contacts tab, as seen in the diagram above. On the left, there is a UI component `PersonListPanel` where users can choose and select from the list of contacts available. On the right, users can see expanded, detailed information about the currently selected user, in a UI component called `ContactListPanel` and this panel changes based on who is currently selected on the left.
+
+Internally, `ContactListPanel` observes a `SimpleObjectProperty<Person> currentlySelectedPerson` observable in the `ModelManager` object, and will update to display the information of the new `Person` whenever the value in the observable changes. 
+
+There are only a few situations that can update the observable:
+1. The user changes what they select on the `PersonListPanel` on the left
+2. The user enters a `view INDEX` command through the command box.
+
+In the first case, the `ListView` within `PersonListPanel` has an inbuilt Selection API provided by the javafx library itself. This exposes an observable which contains the currently selected item of the `ListView`. `PersonListPanel` listens for changes to this value, and updates the `SimpleObjectProperty<Person>` in `ModelManager` whenever the selector on the `ListView` changes.
+
+In the second case, the `view` command will retrieve the `Person` at the specified `INDEX` of the `ListView`, and then set this `Person` object as the new value for `SimpleObjectProperty<Person>`.
+
+---------------------
 
 ### Selecting Users via UI
 
