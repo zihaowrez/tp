@@ -364,7 +364,7 @@ When the user clicks a tag in the `TagPanel`, both the contact list and the meet
 
 When the user clicks a contact in the list, the detailed information will be displayed in the `ContactDetailPanel`, and the message in the `ResultDisplay` will be updated.
 
-![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChangeDiagram.png);
+![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChangeDiagram.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
