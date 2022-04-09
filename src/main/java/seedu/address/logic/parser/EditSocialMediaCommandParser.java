@@ -18,7 +18,7 @@ public class EditSocialMediaCommandParser implements Parser<EditSocialMediaComma
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(userInput,
                 PREFIX_SOCIAL_MEDIA, PREFIX_PLATFORM_NAME_FLAG, PREFIX_INDEX);
 
-        Object target;
+        Target target;
 
         try {
             target = ParserUtil.parseTarget(argMultimap.getPreamble());

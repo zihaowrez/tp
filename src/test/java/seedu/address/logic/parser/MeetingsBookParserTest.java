@@ -21,6 +21,7 @@ import seedu.address.logic.commands.meetingcommands.EditMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor;
 import seedu.address.logic.commands.meetingcommands.FindMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.ListMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.MeetingTarget;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingContainsKeywordsPredicate;
@@ -49,7 +50,7 @@ public class MeetingsBookParserTest {
     public void parseCommand_deleteIndex() throws Exception {
         DeleteMeetingCommand command = (DeleteMeetingCommand) parser.parseCommand(
                 DeleteMeetingCommand.COMMAND_WORD + " " + INDEX_FIRST_MEETING.getOneBased(), commandBox);
-        assertEquals(new DeleteMeetingCommand(INDEX_FIRST_MEETING), command);
+        assertEquals(new DeleteMeetingCommand(new MeetingTarget(INDEX_FIRST_MEETING)), command);
     }
 
     @Test
@@ -59,7 +60,7 @@ public class MeetingsBookParserTest {
         EditMeetingCommand command = (EditMeetingCommand) parser.parseCommand(EditMeetingCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_MEETING.getOneBased() + " "
                 + MeetingUtil.getEditMeetingDescriptorDetails(descriptor), commandBox);
-        assertEquals(new EditMeetingCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditMeetingCommand(new MeetingTarget(INDEX_FIRST_PERSON), descriptor), command);
     }
 
     @Test

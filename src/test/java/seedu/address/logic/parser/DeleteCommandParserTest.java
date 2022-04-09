@@ -23,12 +23,12 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validIndex_returnsIndexedDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeletePersonCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new DeletePersonCommand(new Target(INDEX_FIRST_PERSON)));
     }
 
     @Test
     public void parse_validName_returnsNamedDeleteCommand() {
-        assertParseSuccess(parser, "Alice Pauline", new DeletePersonCommand(ALICE.getName()));
+        assertParseSuccess(parser, "Alice Pauline", new DeletePersonCommand(new Target(ALICE.getName())));
     }
 
     @Test

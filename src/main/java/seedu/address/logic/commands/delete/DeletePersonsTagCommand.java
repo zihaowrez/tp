@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Email;
@@ -36,26 +36,17 @@ public class DeletePersonsTagCommand extends DeleteCommand {
      * @param target the {@code Index} or {@code Name} being targetted in the addressbook list
      * @param tagToDelete the tag to delete
      */
-    public DeletePersonsTagCommand(Object target, Tag tagToDelete) {
-        assert target instanceof Name || target instanceof Index;
+    public DeletePersonsTagCommand(Target target, Tag tagToDelete) {
 
         this.tagToDelete = tagToDelete;
-
-        if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);
-        } else if (target instanceof Index) {
-            this.target = Target.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
+        this.target = target;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
-        target.setTargetList(lastShownList);
-        Person targetPerson = target.targetPerson();
+        Person targetPerson = target.targetPerson(lastShownList);
 
         if (targetPerson instanceof EmergencyContact) {
             throw new CommandException(MESSAGE_CANNOT_DELETE_EMERGENCY_TAG);
