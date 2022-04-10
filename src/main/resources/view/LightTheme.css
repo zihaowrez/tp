@@ -149,6 +149,12 @@
     -fx-background-color: #ededed
 }
 
+.list-cell:filled:selected #meetingCardPane {
+    -fx-border-color: #003882;
+    -fx-border-width: 4;
+    -fx-background-color: #ededed
+}
+
 .list-cell .label {
     -fx-text-fill: black;
 }
@@ -244,14 +250,14 @@
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: #ededed;
+    -fx-border-color: #ededed;
     -fx-border-width: 1px;
 }
 
@@ -266,7 +272,7 @@
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#ededed, 30%);
+    -fx-background-color: derive(#ededed,30%);
 }
 
 .context-menu {

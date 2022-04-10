@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":PersonListView" as PersonListView UI_COLOR
+participant ":PersonListPanel" as PersonListPanel UI_COLOR
+participant ":ContactDetailPanel" as ContactDetailPanel UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "currentlySelectedPerson\n:SimpleObjectProperty<Person>" as currentlySelectedPerson MODEL_COLOR
+end box
+
+[-> PersonListView : selectItem()
+activate PersonListView
+
+PersonListView -> PersonListPanel : handleSelectionChange()
+note right : This runs on\na separate thread\nfrom the caller
+deactivate PersonListView
+activate PersonListPanel
+
+PersonListPanel -> Logic : setCurrentlySelectedPerson()
+activate Logic
+
+Logic -> currentlySelectedPerson : setCurrentlySelectedPerson(person)
+activate currentlySelectedPerson
+
+currentlySelectedPerson -> ContactDetailPanel : handleSelectionChange(newPerson)
+note left : This runs on\na separate thread\nfrom the caller
+activate ContactDetailPanel
+
+currentlySelectedPerson [hidden]-> ContactDetailPanel
+deactivate currentlySelectedPerson
+deactivate PersonListPanel
+deactivate Logic
+
+ContactDetailPanel -> ContactDetailPanel : setPanel(new contactDetailCard(newPerson))
+
+activate ContactDetailPanel
+
+ContactDetailPanel -> ResultDisplay : setFeedbackToUser("Details of [name] shown!")
+deactivate ContactDetailPanel
+activate ResultDisplay
+
+ResultDisplay --> ContactDetailPanel
+deactivate ResultDisplay
+
+deactivate ContactDetailPanel
+
+deactivate Logic
+
+deactivate PersonListPanel
+
+
+
+
+
+
+@enduml

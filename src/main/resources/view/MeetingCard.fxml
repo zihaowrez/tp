@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Hyperlink?>
 <HBox id="meetingCardPane" fx:id="meetingCardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -29,7 +28,7 @@
         <Label fx:id="title" style="-fx-text-fill: black;" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <Label fx:id="time" styleClass="cell_small_title" style="-fx-font-size:16px;" />
-      <Hyperlink fx:id="link" style="-fx-visited: blue" />
+      <Label fx:id="link" style="-fx-font-size:16px; -fx-text-fill: #003882" />
       <FlowPane fx:id="tags" />
 
     </VBox>

@@ -10,7 +10,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ### Ong Weng Qi
 <img src="images/chriswengqi.png" width="200px">
 
-[[github](https://github.com/chriswengqi)] [[portfolio](team/chriswengqi.md)]
+[[github](https://github.com/chriswengqi)] [[portfolio](https://ay2122s2-cs2103-w16-2.github.io/tp/team/chriswengqi.html)]
 - Role: Team Lead
 - Responsibilities: Deliverables and Deadlines
 
@@ -18,7 +18,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/kavxya.png" width="200px">
 
-[[github](http://github.com/kavxya)] [[portfolio](team/kavxya.md)]
+[[github](http://github.com/kavxya)] [[portfolio](https://ay2122s2-cs2103-w16-2.github.io/tp/team/kavxya.html)]
 
 * Role: Documentation
 * Responsibilities: UI design
@@ -27,7 +27,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/reignnz.png" width="200px">
 
-[[github](http://github.com/reignnz)] [[portfolio](team/reignnz.md)]
+[[github](http://github.com/reignnz)] [[portfolio](https://ay2122s2-cs2103-w16-2.github.io/tp/team/reignnz.html)]
 
 * Role: Testing
 
@@ -35,7 +35,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/cheehongw.png" width="200px">
 
-[[github](http://github.com/cheehongw)] [[portfolio](team/cheehongw.md)]
+[[github](http://github.com/cheehongw)] [[portfolio](https://ay2122s2-cs2103-w16-2.github.io/tp/team/cheehongw.html)]
 
 * Role: Code Quality
 
@@ -43,7 +43,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/zihaowrez.png" width="200px">
 
-[[github](http://github.com/zihaowrez)] [[portfolio](team/zihaowrez.md)]
+[[github](http://github.com/zihaowrez)] [[portfolio](https://ay2122s2-cs2103-w16-2.github.io/tp/team/zihaowrez.html)]
 
 * Role: Integration
 
