@@ -175,7 +175,17 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 ## **Implementation**
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented or any features that we have in mind.
+
+|Overview                                                                     |
+|-----------------------------------------------------------------------------|
+|[Specifying targets by name or index](#specifying-targets-by-name-or-index)  |
+|[Split-panel display](#split-panel-display)                                  |
+|[Clickable Tags](#clickable-tags)                                            |
+|[Dynamic Command Text Field](#dynamic-command-text-field)                    |
+|[Copy Feature](#copy-feature)                                                |
+|[Adding Meetings](#adding-meetings)                                          |
+|[[Proposed] Undo/redo feature](#proposed-undoredo-feature)                   |
 
 
 
@@ -251,13 +261,14 @@ The user input and instance of commandBox object is then passed to `LogicManager
 
 The above is assuming that the user inputs a string not included in the list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy", "clear", "exit", "help".
 
-![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
+![Dynamic Command Diagram](images/DynamicInputFindDiagram.png)
 
 #### Alternatives considered
 * **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
     * Pros: No changes needed.
     * Cons: May have performance issues in terms of responsiveness.
 
+-------------------------------
 
 ### Copy feature
 
@@ -288,6 +299,8 @@ Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is 
     * Cons: There must be an additional input from the user after the `copy` command with the field name.
 
 _{more aspects and alternatives to be added}_
+
+--------------------------------------------------
 
 ### Adding Meetings 
 
