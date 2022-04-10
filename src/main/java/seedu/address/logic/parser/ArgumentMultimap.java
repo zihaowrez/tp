@@ -77,7 +77,6 @@ public class ArgumentMultimap {
         Set<Prefix> excludedPrefixes = Set.of(prefixes);
         Set<Prefix> allRemainingPrefixes = new HashSet<>(argMultimap.keySet());
         allRemainingPrefixes.removeAll(excludedPrefixes);
-        System.out.println(allRemainingPrefixes);
         return allRemainingPrefixes.size() == 1; //I have no idea why there is an extra item
     }
 

@@ -11,14 +11,12 @@ import javafx.collections.ObservableList;
 import seedu.address.model.ClipboardManager;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
  * A meeting is considered unique by comparing using {@code Meeting#isSameMeeting(Meeting)}. As such, adding and
- * updating of persons uses Meeting#isSameMeeting(Meeting) for equality so as to ensure that the person being added or
- * updated is unique in terms of identity in the UniqueMeetingList. However, the removal of a person uses
+ * updating of meetings uses Meeting#isSameMeeting(Meeting) for equality so as to ensure that the meeting being added or
+ * updated is unique in terms of identity in the UniqueMeetingList. However, the removal of a meeting uses
  * Meeting#equals(Object) so as to ensure that the meeting with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -48,7 +46,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public void add(Meeting toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateMeetingException();
         }
         internalList.add(toAdd);
     }
@@ -56,7 +54,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     /**
      * Replaces the meeting {@code target} in the list with {@code editedMeeting}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedMeeting} must not be the same as another existing meeting in the list.
+     * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting in the list.
      */
     public void setMeeting(Meeting target, Meeting editedMeeting) {
         requireAllNonNull(target, editedMeeting);
@@ -80,7 +78,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public void remove(Meeting toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new MeetingNotFoundException();
         }
     }
 
@@ -91,7 +89,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public void copy(Meeting toCopy) {
         requireNonNull(toCopy);
         if (!internalList.contains(toCopy)) {
-            throw new PersonNotFoundException();
+            throw new MeetingNotFoundException();
         } else {
             clipboard.copy(toCopy);
         }
@@ -108,8 +106,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
      */
     public void setMeetings(List<Meeting> meetings) {
         requireAllNonNull(meetings);
-        if (!personsAreUnique(meetings)) {
-            throw new DuplicatePersonException();
+        if (!meetingsAreUnique(meetings)) {
+            throw new DuplicateMeetingException();
         }
 
         internalList.setAll(meetings);
@@ -142,7 +140,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     /**
      * Returns true if {@code meetings} contains only unique meetings.
      */
-    private boolean personsAreUnique(List<Meeting> meetings) {
+    private boolean meetingsAreUnique(List<Meeting> meetings) {
         for (int i = 0; i < meetings.size() - 1; i++) {
             for (int j = i + 1; j < meetings.size(); j++) {
                 if (meetings.get(i).isSameMeeting(meetings.get(j))) {

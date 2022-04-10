@@ -20,7 +20,7 @@
    * Type any keywords, and uMessage will live search the list.
 
    * **`add`**`n/Aaron` to the Address Book.
-   
+
    * **`edit`**`1 e/aaron@example.com`: Adds an email to Aaron.
 
    * **`delete`**`alex`: Deletes Alex if the person exists.
@@ -100,7 +100,7 @@ Note that tags cannot be added to emergency contacts.
 NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer. </br>
 
-Note that social medias cannot be added to emergency contacts.
+Note that social media cannot be added to emergency contacts.
 
 **Examples:**
 
@@ -160,7 +160,7 @@ Note that emergency contacts cannot be edited.
 
 **Format:** `copy NAME`
 
-NAME is case sensitive and must match the full name. 
+NAME is case sensitive and must match the full name.
 
 **Examples:**
 
@@ -222,7 +222,7 @@ Note that tags of emergency contacts cannot be deleted.
 NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer. </br>
 
-Note that social medias of emergency contacts cannot be deleted.
+Note that social media of emergency contacts cannot be deleted.
 
 **Examples:**
 > `delete kaaviya d/Telegram, @uNivUS`</br>
@@ -406,7 +406,7 @@ If your changes to the data file makes its format invalid, the data will be disc
 |---------|-------------------------------------------------|----------|
 | help    | display the `Help` tab                          | `help`   |
 | list    | displays all persons/meetings                   | `list`   |
-| clear   | deletes all non-emergency contacts and meetings | `clear`  | 
+| clear   | deletes all non-emergency contacts and meetings | `clear`  |
 | exit    | exits the program                               | `exit`   |
 
 ---------------------------------------------------------------------------------------------------------------------

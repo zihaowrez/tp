@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.meetings;
+package seedu.address.logic.commands.meetingcommands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +21,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.meetingcommands.AddMeetingCommand;
 import seedu.address.model.MeetingsBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;

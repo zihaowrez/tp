@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -84,6 +85,24 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public CommandResult[] clickTag(Tag tag) {
+        assert tag != null;
+        updateFilteredPersonList(person -> {
+            Set<Tag> tagSet = person.getTags();
+            return tagSet.contains(tag);
+        });
+        updateFilteredMeetingList(meeting -> {
+            Set<Tag> meetingTagSet = meeting.getTags();
+            return meetingTagSet.contains(tag);
+        });
+        return new CommandResult[] {
+            new CommandResult(getSortedAndFilteredPersonList().size()
+                    + " persons with tag " + tag + " listed!"),
+            new CommandResult(getSortedAndFilteredMeetingList().size()
+                    + " meetings with tag " + tag + " listed!")};
     }
 
     public ObservableObjectValue<Person> getCurrentlySelectedPerson() {

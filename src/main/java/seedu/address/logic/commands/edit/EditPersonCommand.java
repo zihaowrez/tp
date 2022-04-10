@@ -19,6 +19,7 @@ import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 public class EditPersonCommand extends EditCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
@@ -77,6 +78,12 @@ public class EditPersonCommand extends EditCommand {
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        for (Tag tag: editedPerson.getTags()) {
+            if (!model.hasTag(tag)) {
+                model.addTag(tag);
+            }
         }
 
         model.setPerson(personToEdit, editedPerson);

@@ -8,7 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.MeetingContainsKeywordsPredicate;
 import seedu.address.model.meeting.MeetingKeywordMatchnessComparator;
-import seedu.address.model.meeting.MeetingTimeSorter;
+import seedu.address.model.meeting.MeetingStartTimeSorter;
 
 /**
  * Finds and lists all meetings in meetings book whose title contains any of the argument keywords.
@@ -42,7 +42,7 @@ public class FindMeetingCommand extends Command {
         requireNonNull(model);
         model.updateFilteredMeetingList(predicate);
         model.sortFilteredMeetingList(comparator);
-        model.sortFilteredMeetingList(new MeetingTimeSorter());
+        model.sortFilteredMeetingList(new MeetingStartTimeSorter());
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW,
                         model.getSortedAndFilteredMeetingList().size()));

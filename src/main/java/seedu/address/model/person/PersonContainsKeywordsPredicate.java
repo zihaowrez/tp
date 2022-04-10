@@ -18,6 +18,11 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     @Override
+    public String toString() {
+        return String.join(" ", keywords);
+    }
+
+    @Override
     public boolean test(Person person) {
         return testName(person) || testPhone(person) || testEmail(person) || testSocialMedias(person)
                 || testTags(person);
