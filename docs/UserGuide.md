@@ -65,15 +65,15 @@ title: uMessage User Guide
 
 
 --------------------------------------------------------------------------------------------------------------------
-## Managing Contacts
+# Managing Contacts
 
 The contacts are listed alphabetically. The contacts list is navigable using the arrow keys.
 
 There cannot be duplicated contacts. Two contacts are the same if both have the same name (case-sensitive).
 
-### 1. Adding: `add`
+## 1. Adding: `add`
 
-#### 1.1 Adding a person
+### 1.1 Adding a person
 
 **Format:** `add n/NAME [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
@@ -83,7 +83,7 @@ There cannot be duplicated contacts. Two contacts are the same if both have the 
 > `add n/Betsy Crowe e/e0123456@gmail.com`</br>
 > `add n/Potter`
 
-#### 1.2 Adding new tag to a person
+### 1.2 Adding new tag to a person
 
 **Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
@@ -98,7 +98,7 @@ Note that tags cannot be added to emergency contacts.
 > `add John Doe t/friend`</br>
 > `add 2 t/friend`
 
-#### 1.3 Adding new social media to a person
+### 1.3 Adding new social media to a person
 
 **Format:** `add INDEX sm/{SOCIAL MEDIA PLATFORM}, {ID}` or `add NAME sm/{SOCIAL MEDIA PLATFORM}, {ID}`
 
@@ -115,7 +115,7 @@ Note that social media cannot be added to emergency contacts.
 
 
 
-### 2. Searching persons by keywords: `[find]`
+## 2. Searching persons by keywords: `[find]`
 
 **Format:** `[find] KEYWORD [MORE_KEYWORDS]`
 
@@ -138,7 +138,7 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 
 
-### 3. Viewing details of a person
+## 3. Viewing details of a person
 
 **Format:** `view INDEX` or click the Contact/Meeting under the list.
 
@@ -149,9 +149,9 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 
 
-### 4. Editing details of a person: `edit`
+## 4. Editing details of a person: `edit`
 
-#### 4.1 Editing a person
+### 4.1 Editing a person
 
 **Format:** `edit NAME [n/NAME] [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…` or `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
@@ -162,7 +162,7 @@ Note that emergency contacts cannot be edited.
 > `edit 1 n/Aaron sm/Telegram, @aaron`</br>
 > `edit Alex n/Aaron p/52873618`
 
-#### 4.2 Editing a person's social media
+### 4.2 Editing a person's social media
 
 Edits a social media found in a person's list of social media.
 
@@ -179,9 +179,9 @@ SOCIAL_MEDIA_INDEX refers to the index of the social media in the person's list 
 > `edit Alex Yeoh i/1 sm/@alexxy`
 
 
-### 5. Copying: `copy`
+## 5. Copying: `copy`
 
-#### 5.1 Copying all details of a person
+### 5.1 Copying all details of a person
 
 **Format:** `copy NAME`
 
@@ -192,7 +192,7 @@ NAME is case sensitive and must match the full name.
 > `copy David Li`</br>
 > `copy Bernice Yu`
 
-#### 5.2 Copying one detail under the Contacts
+### 5.2 Copying one detail under the Contacts
 
 **Format:**
 
@@ -210,9 +210,9 @@ Note that clicking the email and telegram fields will trigger a unique response.
 
 
 
-### 6. Deleting: `delete`
+## 6. Deleting: `delete`
 
-#### 6.1 Deleting a person
+### 6.1 Deleting a person
 
 **Format:** `delete NAME` or `delete INDEX`
 
@@ -229,7 +229,7 @@ Note that emergency contacts cannot be deleted.
 > `delete Alex Yeoh` deletes the contact `Alex Yeoh` </br>
 > `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
-#### 6.2 Deleting tag from a Person
+### 6.2 Deleting tag from a Person
 
 **Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
 
@@ -260,15 +260,15 @@ Note that social media of emergency contacts cannot be deleted.
 
 
 --------------------------------------------------------------------------------------------------------------------
-## Managing Meetings
+# Managing Meetings
 
 The meetings in the future are listed first with ascending starting time, followed by past meetings with descending starting time.
 
 There cannot be duplicated meetings. Two meetings are the same if both have the same title (case-sensitive) and same start time.
 
-### 1. Adding: `add`
+## 1. Adding: `add`
 
-#### 1.1 Adding a meeting
+### 1.1 Adding a meeting
 
 **Format:** `add n/TITLE l/LINK s/START_TIME d/DURATION [t/TAG]…`
 
@@ -280,7 +280,7 @@ DURATION is in minutes and must be an integer between 1 and 10000.
 > `add n/CS2040 PE l/https://www.google.com s/2022-3-20 0900 d/120 t/Alex`</br>
 > `add n/CS2103 Tutorial l/https://www.google.com s/2022-3-20 1200 d/60`
 
-#### 1.2 Adding new tag to a meeting
+### 1.2 Adding new tag to a meeting
 
 **Format:** `add INDEX t/NEWTAG`
 
@@ -291,7 +291,7 @@ INDEX must be a positive integer.
 > `add 1 t/urgent`
 
 
-### 2. Searching meetings by keyword: `[find]`
+## 2. Searching meetings by keyword: `[find]`
 
 Finds meetings with the given keywords.
 
@@ -313,7 +313,7 @@ The order of the keywords does not matter. e.g. `2040 CS` will match `CS 2040`.
 
 
 
-### 3. Editing details of a meeting: `edit`
+## 3. Editing details of a meeting: `edit`
 
 **Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/DURATION] [t/TAG]…`
 
@@ -327,9 +327,9 @@ DURATION is in minutes and must be an integer between 1 and 10000 (inclusive).
 
 
 
-### 4. Deleting: `delete`
+## 4. Deleting: `delete`
 
-#### 4.1 Deleting a meeting
+### 4.1 Deleting a meeting
 
 **Format:** `delete INDEX`
 INDEX must be a positive integer.
@@ -337,7 +337,7 @@ INDEX must be a positive integer.
 **Example:**
 > `delete 2` deletes the meeting at index 2
 
-#### 4.2 Deleting tag from a meeting
+### 4.2 Deleting tag from a meeting
 
 **Format:** `delete INDEX t/TAG`
 
@@ -348,54 +348,54 @@ Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Manage Global Tags
+# Manage Global Tags
 
 Global tags helps you organise relevant contacts and meetings together. 
 
-### 1. Adding a global tag
+## 1. Adding a global tag
 
 **Format:** `add t/TAG`
 
 **Example:**
 > `add t/CS2100`
 
-### 2. Deleting a global tag
+## 2. Deleting a global tag
 
 **Format:** `delete t/TAG`
 
 **Example:**
 > `delete t/CS2100`
 
-### 3. Filter by tag
+## 3. Filter by tag
 
 **Format:** click on a tag in the tag panel. This filters both contacts and meetings with the tag.
 
 
 
 --------------------------------------------------------------------------------------------------------------------
-## Universal Features
+# Universal Features
 
-### 1. Viewing help: `help`
+## 1. Viewing help: `help`
 
 Displays the `Help` tab.
 
-### 2. Listing all persons/meetings: `list`
+## 2. Listing all persons/meetings: `list`
 
 Shows a list of all persons/meetings in the book.
 
-### 3. Clearing all entries: `clear`
+## 3. Clearing all entries: `clear`
 
 Clears all non-Emergency Contacts entries and meetings from the address book.
 
-### 4. Exiting the program: `exit`
+## 4. Exiting the program: `exit`
 
 Exits the program.
 
-### 5. Saving the data
+## 5. Saving the data
 
 uMessage's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### 6. Editing the data file
+## 6. Editing the data file
 
 uMessage's data are saved as two JSON files: `[JAR file location]/data/addressbook.json` and `[JAR file location]/data/meetingsbook.json`. Advanced users are welcome to update data directly by editing those data files.
 
