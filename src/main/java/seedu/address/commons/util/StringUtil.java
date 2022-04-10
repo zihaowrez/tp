@@ -67,18 +67,14 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if {@code str} represents an integer.
+     * Returns true if {@code str} represents an mathematical integer.
+     * A mathematical integer is any number from infinity to neg-infinity, and not the primitive type {@code int}.
      * Will return false for any other non-null string input.
      *
      * @throws NullPointerException if {@code str} is null.
      */
     public static boolean isInt(String str) {
         requireNonNull(str);
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        return str.matches("-?(0|[1-9]\\d*)");
     }
 }

@@ -73,7 +73,13 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of three tabs: `Contacts`, `Meetings`, and `Help`.
+
+![Structure of the Contacts Tab](images/ContactsTab.png)
+
+Each tab has different components. `Meetings` has a similar structure as `Contacts` except that there are no `MeetingDetailPanel` and `MeetingDetailCard`. `Help` contains only a `MarkdownView`.
+
+All components and the `MainWindow` inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -381,6 +387,29 @@ If the start/time is in the past, a `CommandException` error will be thrown.
 Below is a diagram of the sequence of actions that occur when the user inputs a start time in the past and a 
 start time not in the past:
 ![StartTimeUMLDiagram](images/StartTimeDiagram.png)
+
+### [Implemented] Clickable contacts and tags
+
+This implementation makes the contacts and tags in the GUI clickable. When clicked, relevant information will be shown.
+
+#### Clickable contacts
+
+When the user clicks a contact in the list, the detailed information will be displayed in the `ContactDetailPanel`, and the message in the `ResultDisplay` will be updated.
+
+![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChangeDiagram.png)
+
+The `ContactDetailPanel` is responsible for informing the user through the corresponding `ResultDisplay` when the details have been shown successfully.
+
+#### Clickable tags
+
+When the user clicks a tag in the `TagPanel`, both the contact list and the meeting list will be filtered: only items that has the tag will be displayed. The number of matching items will then be updated in both `contactsResultDisplay` and `meetingsResultDisplay`.
+
+This implementation helps the user to filter both contacts and meetings by tag easily.
+
+![Sequence Diagram when a Tag is Clicked](images/ClickTagDiagram.png)
+
+Since the effect of clicking a tag is global, each tag (displayed using a `Label`) will call the `clickTag` method in `MainWindow`. The `clickTag` method is then responsible for calling `Logic` to update the filtered list and updating both `ResultDisplay`s when filtering is done.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -461,50 +490,51 @@ Precondition - User has started up the uMessage application
 
 ### Use case 1: Add a contact
 
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 **MSS**
 1. User types in the command to add a person into the address book
 2. uMessage adds the person into the list of contacts and updates it to the user
 
 Use case ends
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 **Extensions**
 * 1a. Incorrect syntax is used
     * 1a1. uMessage displays an error message
     * 1a2. Use case resumes at step 1
       
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 
 ### Use case 2: Delete a contact
 
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 **MSS**
 1. User types in the command to delete a contact from the list
 2. uMessage removes the specified contact in the list and displays the updated list to the user
 
 Use case ends
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 **Extensions**
 * 1a. User enters an invalid syntax / a target index greater than the size of the list / a non-existing target name
     * 1a1. uMessage shows an error
     * 1a2. Use case resumes at step 1
-//@@author zihaowrez
+
+<!-- @@author zihaowrez -->
 
 ### Use case 3: Find Contact
 
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 **MSS**
 1. User types keyword(s) in the searchbar
 2. uMessage updates the contact list to display matching contacts
 
 Use case ends
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 **Extensions**
 * 1a. The first word the user types is a command word
     * 1a1. uMessage displays the full list
@@ -513,7 +543,7 @@ Use case ends
     * 1b1. uMessage displays the full list
     * 1b2. Use case resumes at step 1
 
-//@@author zihaowrez
+<!-- @@author zihaowrez -->
 
 ### Use case 4: Copies a contact
 

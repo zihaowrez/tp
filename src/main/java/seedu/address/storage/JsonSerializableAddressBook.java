@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.util.EmergencyContactsDataUtil.getEmergencyContactTag;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import seedu.address.model.EmergencyContact;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -69,6 +72,11 @@ class JsonSerializableAddressBook {
         }
         for (JsonAdaptedTag jsonAdaptedTag : tags) {
             Tag tag = jsonAdaptedTag.toModelType();
+
+            if (tag.equals(getEmergencyContactTag())) {
+                continue;
+            }
+
             if (addressBook.hasTag(tag)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
             }

@@ -11,10 +11,9 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.delete.Target;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.socialmedia.PlatformDescription;
 import seedu.address.model.socialmedia.PlatformName;
@@ -43,17 +42,9 @@ public class EditSocialMediaCommand extends EditCommand {
      * @param newDetails The new details of the socialMedia
      * @param editPlatformNameflag decides whether to edit the platform name or description
      */
-    public EditSocialMediaCommand(Object target, Index index, String newDetails, boolean editPlatformNameflag) {
-        assert target instanceof Name || target instanceof Index;
+    public EditSocialMediaCommand(Target target, Index index, String newDetails, boolean editPlatformNameflag) {
 
-        if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);
-        } else if (target instanceof Index) {
-            this.target = Target.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
-
+        this.target = target;
         this.index = index;
         this.newDetails = newDetails;
         this.editPlatformNameflag = editPlatformNameflag;
@@ -64,9 +55,8 @@ public class EditSocialMediaCommand extends EditCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
-        target.setTargetList(lastShownList);
 
-        Person targetPersonToEdit = target.targetPerson();
+        Person targetPersonToEdit = target.targetPerson(lastShownList);
         List<SocialMedia> socialsToEdit = new ArrayList<>(targetPersonToEdit.getSocialMedias());
         SocialMedia socialMediaToEdit = socialsToEdit.get(index.getZeroBased());
         SocialMedia updatedSocialMedia;

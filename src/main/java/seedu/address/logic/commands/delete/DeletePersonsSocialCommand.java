@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Target;
 import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.person.Email;
@@ -26,9 +26,9 @@ import seedu.address.model.tag.Tag;
  * The person in the list is identified using it's displayed index or name in the address book.
  */
 public class DeletePersonsSocialCommand extends DeleteCommand {
-    private static final String MESSAGE_SOCIALS_NOT_FOUND = "Social %s not found in %s!";
-    private static final String MESSAGE_DELETE_SOCIAL_SUCCESS = "Deleted Social Media Handle: %1$s";
-    private static final String MESSAGE_CANNOT_DELETE_SOCIALS_OF_EMERGENCY =
+    public static final String MESSAGE_SOCIALS_NOT_FOUND = "Social %s not found in %s!";
+    public static final String MESSAGE_DELETE_SOCIAL_SUCCESS = "Deleted Social Media Handle: %1$s";
+    public static final String MESSAGE_CANNOT_DELETE_SOCIALS_OF_EMERGENCY =
             "Socials of Emergency Contacts cannot be deleted";
 
     private Target target;
@@ -38,26 +38,16 @@ public class DeletePersonsSocialCommand extends DeleteCommand {
      * @param target the {@code Index} or {@code Name} being targetted in the addressbook list
      * @param socialsToDelete the social media handle to delete
      */
-    public DeletePersonsSocialCommand(Object target, SocialMedia socialsToDelete) {
-        assert target instanceof Name || target instanceof Index;
-
+    public DeletePersonsSocialCommand(Target target, SocialMedia socialsToDelete) {
         this.socialsToDelete = socialsToDelete;
-
-        if (target instanceof Name) {
-            this.target = Target.of((Name) target, null);
-        } else if (target instanceof Index) {
-            this.target = Target.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
+        this.target = target;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
         List<Person> lastShownList = model.getSortedAndFilteredPersonList();
-        target.setTargetList(lastShownList);
-        Person targetPerson = target.targetPerson();
+        Person targetPerson = target.targetPerson(lastShownList);
 
         if (targetPerson instanceof EmergencyContact) {
             throw new CommandException(MESSAGE_CANNOT_DELETE_SOCIALS_OF_EMERGENCY);

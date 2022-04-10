@@ -7,6 +7,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.delete.DeleteTagOnlyCommand;
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingCommand;
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingsTagCommand;
+import seedu.address.logic.commands.meetingcommands.MeetingTarget;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -15,7 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteMeetingCommand object
  */
 public class DeleteMeetingCommandParser implements Parser<DeleteCommand> {
 
@@ -37,7 +38,7 @@ public class DeleteMeetingCommandParser implements Parser<DeleteCommand> {
             return new DeleteTagOnlyCommand(targetTag);
         }
 
-        Object target = ParserUtil.parseTarget(preamble);
+        MeetingTarget target = ParserUtil.parseMeetingTarget(preamble);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             return new DeleteMeetingCommand(target) {

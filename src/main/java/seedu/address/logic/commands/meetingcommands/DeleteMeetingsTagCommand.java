@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,8 +20,8 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Deletes a Tag from a person.
- * The person in the list is identified using it's displayed index or name in the address book.
+ * Deletes a Tag from a meeting.
+ * The meeting in the list is identified using it's displayed index in the meetings book.
  */
 public class DeleteMeetingsTagCommand extends DeleteCommand {
     private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
@@ -34,26 +33,17 @@ public class DeleteMeetingsTagCommand extends DeleteCommand {
      * @param target the {@code Index} or {@code Name} being targetted in the MeetingsBook list
      * @param tagToDelete the tag to delete
      */
-    public DeleteMeetingsTagCommand(Object target, Tag tagToDelete) {
-        assert target instanceof Title || target instanceof Index;
-
+    public DeleteMeetingsTagCommand(MeetingTarget target, Tag tagToDelete) {
         this.tagToDelete = tagToDelete;
-
-        if (target instanceof Title) {
-            this.target = MeetingTarget.of((Title) target, null);
-        } else if (target instanceof Index) {
-            this.target = MeetingTarget.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
+        this.target = target;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
         List<Meeting> lastShownList = model.getSortedAndFilteredMeetingList();
-        target.setTargetList(lastShownList);
-        Meeting targetMeeting = target.targetMeeting();
+
+        Meeting targetMeeting = target.targetMeeting(lastShownList);
 
         Set<Tag> meetingTags = targetMeeting.getTags();
         Set<Tag> updatedTags = new HashSet<>(meetingTags);

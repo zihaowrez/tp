@@ -8,7 +8,7 @@
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `uMessage.jar` from
+1. Download the latest `uMessage.jar` from [this website](https://github.com/AY2122S2-CS2103-W16-2/tp/releases/tag/v1.3.1)
 
 1. Copy the file to the folder you want to use as the _home folder_ for *uMessage*.
 
@@ -143,6 +143,8 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 ## 4. Editing details of a person: `edit`
 
+### 4.1 Editing a person
+
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 Note that emergency contacts cannot be edited.
@@ -152,6 +154,21 @@ Note that emergency contacts cannot be edited.
 > `edit 1 n/Aaron d/Telegram, @aaron`</br>
 > `edit Alex n/Aaron p/52873618`
 
+### 4.2 Editing a person's social media
+
+Edits a social media found in a person's list of social media.
+
+**Format:**  `edit NAME i/SOCIAL_MEDIA_INDEX [f/] d/NEW_DETAILS` or `edit INDEX i/SOCIAL_MEDIA_INDEX [f/] d/NEW_DETAILS`
+
+NAME is case sensitive and must match the full name.
+INDEX refers to the index of the person you want to edit, and must be a positive integer.
+SOCIAL_MEDIA_INDEX refers to the index of the social media in the person's list of social media, and must be a positive integer.
+`f/` is an optional parameter, include it to edit the name of the social media instead of the social media description.
+
+**Examples:**
+
+> `edit 1 i/2 -f d/Telegram`
+> `edit Alex Yeoh i/1 d/@alexxy`
 
 
 ## 5. Copying: `copy`
@@ -320,6 +337,11 @@ Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 --------------------------------------------------------------------------------------------------------------------
 
 # Manage Global Tags
+
+Global tags are tags that may or may not be associated with any contacts and/or meetings. </br>
+
+For example, adding a global tag will store that tag in the system. However, it will not be associated with any 
+contacts/meetings until it is explicitly added to them. 
 
 ## 1. Adding a global tag
 

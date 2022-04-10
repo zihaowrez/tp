@@ -10,17 +10,17 @@
       HBox.hgrow = "ALWAYS">
     <GridPane HBox.hgrow="ALWAYS">
 
-        <HBox alignment="CENTER_LEFT" minHeight="105" spacing="10" GridPane.columnIndex="0">
+        <HBox alignment="CENTER_LEFT" minHeight="105" spacing="10" GridPane.columnIndex="0" style="-fx-background-color: #ededed" >
             <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
+                <Insets top="5" right="10" bottom="5" left="10" />
             </padding>
-
             <VBox spacing="5">
-                <FlowPane fx:id="tags" />
+                <HBox HBox.hgrow="ALWAYS" style="-fx-background-color: #ededed" >
+                    <children>
+                        <FlowPane fx:id="tags" prefWidth= "630" style="-fx-background-color: #ededed" />
+                    </children>
+                </HBox>
             </VBox>
-
-
-
         </HBox>
 
     </GridPane>

@@ -9,14 +9,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.meetingcommands.EditMeetingCommand.EditMeetingDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 
 public class AddTagToMeetingCommand extends AddCommand {
@@ -39,25 +37,18 @@ public class AddTagToMeetingCommand extends AddCommand {
      * @param target The target meeting in the list
      * @param newTag the new tag to be added
      */
-    public AddTagToMeetingCommand(Object target, Tag newTag) {
-        assert target instanceof Title || target instanceof Index;
-
+    public AddTagToMeetingCommand(MeetingTarget target, Tag newTag) {
         this.newTag = newTag;
-        if (target instanceof Title) {
-            this.target = MeetingTarget.of((Title) target, null);
-        } else if (target instanceof Index) {
-            this.target = MeetingTarget.of((Index) target, null);
-        } else {
-            this.target = null;
-        }
+        this.target = target;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Objects.requireNonNull(model);
         List<Meeting> lastShownList = model.getSortedAndFilteredMeetingList();
-        target.setTargetList(lastShownList);
-        Meeting targetMeeting = target.targetMeeting();
+
+        Meeting targetMeeting = target.targetMeeting(lastShownList);
+
         EditMeetingDescriptor editMeetingDescriptor = new EditMeetingDescriptor();
 
         Set<Tag> meetingTags = targetMeeting.getTags();
@@ -83,9 +74,9 @@ public class AddTagToMeetingCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand
-                && target.equals(((seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand) other).target)
-                && newTag.equals(((seedu.address.logic.commands.meetingcommands.AddTagToMeetingCommand) other).newTag));
+                || (other instanceof AddTagToMeetingCommand
+                && target.equals(((AddTagToMeetingCommand) other).target)
+                && newTag.equals(((AddTagToMeetingCommand) other).newTag));
     }
 
 
