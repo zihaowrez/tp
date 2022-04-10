@@ -149,9 +149,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        rightHandSidePanel = new ContactDetailPanel(logic.getCurrentlySelectedPerson());
-        contactDetailPanelPlaceholder.getChildren().add(rightHandSidePanel.getRoot());
-
         personListPanel = new PersonListPanel(logic);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -160,6 +157,9 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        rightHandSidePanel = new ContactDetailPanel(logic.getCurrentlySelectedPerson(), resultDisplay);
+        contactDetailPanelPlaceholder.getChildren().add(rightHandSidePanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
