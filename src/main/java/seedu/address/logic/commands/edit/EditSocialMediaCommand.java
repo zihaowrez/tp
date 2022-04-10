@@ -58,7 +58,13 @@ public class EditSocialMediaCommand extends EditCommand {
 
         Person targetPersonToEdit = target.targetPerson(lastShownList);
         List<SocialMedia> socialsToEdit = new ArrayList<>(targetPersonToEdit.getSocialMedias());
+
+        if (index.getZeroBased() >= socialsToEdit.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SOCIAL_MEDIA_DISPLAYED_INDEX);
+        }
+
         SocialMedia socialMediaToEdit = socialsToEdit.get(index.getZeroBased());
+
         SocialMedia updatedSocialMedia;
 
         if (editPlatformNameflag) {
