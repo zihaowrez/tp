@@ -201,26 +201,19 @@ To prevent prematurely rejecting these strings as invalid indices, the validatio
 ### Split panel display
 <img src="images/Ui.png" width=450 />
 
-uMessage has a split view design for the contacts tab, as seen in the diagram above. On the left, there is a UI component `PersonListPanel` where users can choose and select from the list of contacts available. On the right, users can see expanded, detailed information about the currently selected user, in a UI component called `ContactListPanel` and this panel changes based on who is currently selected on the left.
+uMessage has a split view design for the contacts tab, as seen in the diagram above. On the top, we have a `ResultDisplay`, which displays the result of various commands and actions performed on the application. On the left, there is a UI component `PersonListPanel` where users can choose and select from the list of contacts available. On the right, users can see expanded, detailed information about the currently selected user, in a UI component called `ContactDetailPanel` and this panel changes based on who is currently selected on the left.
 
-Internally, `ContactListPanel` observes a `SimpleObjectProperty<Person> currentlySelectedPerson` observable in the `ModelManager` object, and will update to display the information of the new `Person` whenever the value in the observable changes. 
+Internally, `ContactDetailPanel` observes a `SimpleObjectProperty<Person> currentlySelectedPerson` observable in the `ModelManager` object, and will update to display the information of the new `Person` whenever the value in the observable changes. 
 
 There are only a few situations that can update the observable:
-1. The user changes what they select on the `PersonListPanel` on the left
-2. The user enters a `view INDEX` command through the command box.
+1. The user enters a `view INDEX` command through the command box.
+2. The user changes what they select on the `PersonListPanel` on the left.
 
-In the first case, the `ListView` within `PersonListPanel` has an inbuilt Selection API provided by the javafx library itself. This exposes an observable which contains the currently selected item of the `ListView`. `PersonListPanel` listens for changes to this value, and updates the `SimpleObjectProperty<Person>` in `ModelManager` whenever the selector on the `ListView` changes.
+In the first case, the `view` command will retrieve the `Person` at the specified `INDEX` of the `ListView`, and then set this `Person` object as the new value for `SimpleObjectProperty<Person>`, and also update the `ResultDisplay` as well.
 
-In the second case, the `view` command will retrieve the `Person` at the specified `INDEX` of the `ListView`, and then set this `Person` object as the new value for `SimpleObjectProperty<Person>`.
+In the second case, the `ListView` within `PersonListPanel` has an inbuilt Selection API provided by the javafx library itself. This exposes an observable which contains the currently selected item of the `ListView`. `PersonListPanel` listens for changes to this value, and updates the `SimpleObjectProperty<Person>` in `ModelManager` whenever the selector on the `ListView` changes. 
 
-
---------------------------------
 <!-- @@author zihaowrez -->
-### Clickable contacts and tags
-
-This implementation makes the contacts and tags in the GUI clickable. When clicked, relevant information will be shown.
-
-#### Clickable contacts
 
 When the user clicks a contact in the list, the detailed information will be displayed in the `ContactDetailPanel`, and the message in the `ResultDisplay` will be updated.
 
@@ -228,7 +221,9 @@ When the user clicks a contact in the list, the detailed information will be dis
 
 The `ContactDetailPanel` is responsible for informing the user through the corresponding `ResultDisplay` when the details have been shown successfully.
 
-#### Clickable tags
+--------------------------------
+
+### Clickable tags
 
 When the user clicks a tag in the `TagPanel`, both the contact list and the meeting list will be filtered: only items that has the tag will be displayed. The number of matching items will then be updated in both `contactsResultDisplay` and `meetingsResultDisplay`.
 
