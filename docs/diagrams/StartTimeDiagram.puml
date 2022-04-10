@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant “:AddMeetingCommandParser” as AddMeetingCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant “:AddMeetingCommand” as AddMeetingCommand LOGIC_COLOR
+participant “startTime:StartTime” as StartTime LOGIC_COLOR
+participant “:CommandException” as CommandException LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add...")
+activate LogicManager
+
+LogicManager -> AddMeetingCommandParser : parseCommand("n/...", \n commandBox)
+activate AddMeetingCommandParser
+
+AddMeetingCommandParser -> ParserUtil : ParseStartTime("...")
+activate ParserUtil
+
+create StartTime
+ParserUtil -> StartTime : StartTime("...")
+activate StartTime
+
+StartTime --> ParserUtil : startTime
+deactivate StartTime
+
+ParserUtil --> AddMeetingCommandParser : startTime
+deactivate ParserUtil
+
+create AddMeetingCommand
+AddMeetingCommandParser -> AddMeetingCommand : AddMeetingCommand(meeting)
+activate AddMeetingCommand
+AddMeetingCommand --> AddMeetingCommandParser
+deactivate AddMeetingCommand
+
+AddMeetingCommandParser --> LogicManager : commandResult
+deactivate AddMeetingCommandParser
+
+LogicManager -> AddMeetingCommand : execute(model)
+activate AddMeetingCommand
+
+AddMeetingCommand -> StartTime : isInThePast("...")
+activate StartTime
+StartTime --> AddMeetingCommand
+deactivate StartTime
+
+alt In the past
+    create CommandException
+    AddMeetingCommand -> CommandException : CommandException("Start Time cannot be in the past")
+    activate CommandException
+
+    CommandException --> AddMeetingCommand : exception
+    deactivate CommandException
+    AddMeetingCommand --> LogicManager : exception
+
+else Not in the past
+    AddMeetingCommand -> ModelManager : addMeeting(meeting)
+    activate ModelManager
+
+    ModelManager --> AddMeetingCommand
+    deactivate ModelManager
+
+    AddMeetingCommand --> LogicManager : commandResult
+    deactivate AddMeetingCommand
+
+    [<-- LogicManager : commandResult
+    deactivate LogicManager
+end alt
+
+@enduml

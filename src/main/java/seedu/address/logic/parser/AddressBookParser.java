@@ -107,10 +107,17 @@ public class AddressBookParser {
      * @return true if command is a valid command and false otherwise
      */
     public boolean isCommand(String command, String[] splitCommand) {
-        return (command.equals("") || command.equals("add")
-                || splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
-                || command.equals("edit") || splitCommand[0].equals("edit")) || command.equals("delete")
-                || splitCommand[0].equals("delete") || command.equals("view") || splitCommand[0].equals("view")
-                || command.equals("copy") || splitCommand[0].equals("copy");
+        return (command.equals("") || command.equals(AddCommand.COMMAND_WORD)
+                || splitCommand[0].equals(AddCommand.COMMAND_WORD) || command.equals(FindCommand.COMMAND_WORD)
+                || splitCommand[0].equals(FindCommand.COMMAND_WORD)
+                || command.equals(EditCommand.COMMAND_WORD) || splitCommand[0].equals(EditCommand.COMMAND_WORD)
+                || command.equals(DeleteCommand.COMMAND_WORD)
+                || splitCommand[0].equals(DeleteCommand.COMMAND_WORD) || command.equals(ViewCommand.COMMAND_WORD)
+                || splitCommand[0].equals(ViewCommand.COMMAND_WORD)
+                || command.equals(CopyCommand.COMMAND_WORD) || splitCommand[0].equals(CopyCommand.COMMAND_WORD)
+                || command.equals(ClearCommand.COMMAND_WORD) || splitCommand[0].equals(ClearCommand.COMMAND_WORD)
+                || command.equals(HelpCommand.COMMAND_WORD) || splitCommand[0].equals(HelpCommand.COMMAND_WORD)
+                || command.equals(ExitCommand.COMMAND_WORD) || splitCommand[0].equals(ExitCommand.COMMAND_WORD))
+                || command.equals(ListCommand.COMMAND_WORD) || splitCommand[0].equals(ListCommand.COMMAND_WORD);
     }
 }

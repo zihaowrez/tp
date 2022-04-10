@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -27,7 +27,7 @@ public class TagPanel extends UiPart<Region> {
     private HBox tagListPlaceholder;
 
     @FXML
-    private Pane panel;
+    private ScrollPane panel;
 
     /**
      * Creates a {@code TagListPanel} with the given {@code ObservableList}.
@@ -38,16 +38,18 @@ public class TagPanel extends UiPart<Region> {
         this.tagList = tagList;
 
         setPanel(new TagCard(tagList, logic, mainWindow).getRoot());
+        panel.setStyle("-fx-background: #ededed; -fx-border-color: #ededed;");
 
     }
 
     public void setPanel(Node childPanel) {
+        panel.setStyle("-fx-background: #ededed; -fx-border-color: #ededed;");
         if (childPanel != null) {
             logger.info(String.format("Setting tag panel to %s", childPanel));
-            panel.getChildren().setAll(childPanel);
+            panel.setContent(childPanel);
         } else {
             logger.info("Clearing tag panel");
-            panel.getChildren().clear();
+            panel.setContent(null);
         }
     }
 

@@ -7,7 +7,6 @@ import java.net.URISyntaxException;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -44,7 +43,7 @@ public class MeetingCard extends UiPart<Region> {
     private Label time;
 
     @FXML
-    private Hyperlink link;
+    private Label link;
 
     @FXML
     private FlowPane tags;
@@ -59,7 +58,8 @@ public class MeetingCard extends UiPart<Region> {
         time.setText(meeting.getTimeString());
         title.setText(meeting.getTitle().title);
         link.setText(meeting.getLink().link);
-        link.setOnAction(event -> {
+        link.setOnMouseClicked(event -> {
+            link.setStyle("-fx-text-fill:#ADD8E6; -fx-font-size:16px;");
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 try {
                     Desktop.getDesktop().browse(new URI(meeting.getLink().link));

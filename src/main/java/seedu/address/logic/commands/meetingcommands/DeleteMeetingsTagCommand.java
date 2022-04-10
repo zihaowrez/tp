@@ -20,8 +20,8 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Deletes a Tag from a person.
- * The person in the list is identified using it's displayed index or name in the address book.
+ * Deletes a Tag from a meeting.
+ * The meeting in the list is identified using it's displayed index in the meetings book.
  */
 public class DeleteMeetingsTagCommand extends DeleteCommand {
     private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
