@@ -3,7 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
@@ -83,13 +82,13 @@
 
           <VBox style="-fx-background-color: #ededed;">
 
-            <StackPane VBox.vgrow="NEVER" fx:id="meetingsCommandBoxPlaceholder" styleClass="pane-with-border" style="-fx-background-color: #ededed; -fx-border-color: #ededed;" >
+            <StackPane VBox.vgrow="NEVER" fx:id="meetingsCommandBoxPlaceholder" styleClass="stack-pane" style="-fx-background-color: #ededed; -fx-border-color: #ededed;" >
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
 
-            <StackPane VBox.vgrow="NEVER" fx:id="meetingsResultDisplayPlaceholder" styleClass="pane-with-border"
+            <StackPane VBox.vgrow="NEVER" fx:id="meetingsResultDisplayPlaceholder" styleClass="stack-pane"
                        style="-fx-background-color: #ededed; -fx-border-color: #ededed;"
                        minHeight="100" prefHeight="100" maxHeight="100">
               <padding>
@@ -104,7 +103,7 @@
                   </padding>
               </StackPane>
 
-            <SplitPane VBox.vgrow="ALWAYS">
+            <SplitPane style="-fx-background-color: #ededed;" VBox.vgrow="ALWAYS">
 
               <VBox fx:id="meetingList" styleClass="pane-with-border" VBox.vgrow="ALWAYS" style="-fx-background-color: #ededed; -fx-border-color: #ededed;">
                 <padding>

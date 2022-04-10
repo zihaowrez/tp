@@ -7,10 +7,9 @@
 <?import javafx.scene.control.Label?>
 
 <VBox style="-fx-background-color: #ededed; -fx-border-color: #ededed; " xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <Label prefHeight="20.0" prefWidth="200.0" styleClass="panel-label-header" stylesheets="@LightTheme.css" text="Meetings" style="-fx-text-fill: #003882; -fx-font-size: 30; -fx-background-color: transparent; -fx-underline:false">
-  <font>
-      <Font name="System Font" size="13.0" />
-    </font>
-  </Label>
+  <Label text="Meetings" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="280.0" style="-fx-text-fill: #003882; -fx-font-size: 30; -fx-background-color: transparent; -fx-underline:false" styleClass="cell_view_title_label">
+    <font>
+      <Font size="34.0" />
+    </font></Label>
   <ListView fx:id="meetingListView" VBox.vgrow="ALWAYS" />
 </VBox>

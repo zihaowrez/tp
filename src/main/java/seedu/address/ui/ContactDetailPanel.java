@@ -35,9 +35,11 @@ public class ContactDetailPanel extends UiPart<Region> {
         this.resultDisplay = resultDisplay;
         observableSelectedPerson = observableObjectValue;
         observableSelectedPerson.addListener(this::handleSelectionChange);
+        panel.setStyle("-fx-background: #ededed; -fx-border-color: #ededed;");
     }
 
     private void handleSelectionChange(ObservableValue<? extends Person> ov, Person oldPerson, Person newPerson) {
+        panel.setStyle("-fx-background: #ededed; -fx-border-color: #ededed;");
         if (newPerson != null) {
             ContactDetailCard contactDetailCard = new ContactDetailCard(newPerson);
             resultDisplay.setFeedbackToUser("Details of " + newPerson.getName().fullName + " shown!");
@@ -48,6 +50,7 @@ public class ContactDetailPanel extends UiPart<Region> {
     }
 
     public void setPanel(Node childPanel) {
+        panel.setStyle("-fx-background: #ededed; -fx-border-color: #ededed;");
         if (childPanel != null) {
             logger.info(String.format("Setting RHS panel to: %s", childPanel));
             panel.setContent(childPanel);

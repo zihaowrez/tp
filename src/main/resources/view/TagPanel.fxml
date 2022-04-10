@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
 
-<Pane fx:id="panel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label prefHeight="20.0" prefWidth="0.0">
-        <opaqueInsets>
-            <Insets />
-        </opaqueInsets>
-    </Label>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.ScrollPane?>
+<ScrollPane fx:id="panel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
-<children>
-<HBox fx:id="tagListPlaceholder" style="-fx-background-color: #ededed#ededed #ededed#ededed;"
-      prefHeight="200.0" prefWidth="100.0" HBox.hgrow = "ALWAYS" />
-</children>
-</Pane>
+    <content>
+<HBox fx:id="tagListPlaceholder" style="-fx-background-color: #ededed;"
+      prefHeight="200.0" prefWidth="600.0" HBox.hgrow = "ALWAYS" />
+    </content>
+</ScrollPane>
