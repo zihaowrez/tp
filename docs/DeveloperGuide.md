@@ -365,7 +365,10 @@ duration of a meeting respectively. The `Title.java` class simply stores the tit
 `Duration` class stores the duration as an int. The remaining two classes will be explained in more detail. 
 
 Firstly, the `Link` class. In `Link.java`, a link/url for the meeting is stored as a String.
-Following the convention by 
+Following the international convention, the Link Validation Regex was structured such that the domain name can contain 
+the English alphabet A-Z (not case-sensitive), the digits 0-9 and hyphens. However, hyphens cannot be added to the 
+start or the end of a domain name. In addition, to adopt a stricter position, the user will be required to add 
+the protocol, http:// or https:// at the front of the link.
 
 Secondly, the `StartTime.java` class. `StartTime` represents the starting date and time of a meeting. 
 The time and date is contained within the Java Class `LocalDateTime`. When a meeting is created with the relevant start
