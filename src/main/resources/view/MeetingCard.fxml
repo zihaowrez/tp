@@ -28,7 +28,7 @@
         <Label fx:id="title" style="-fx-text-fill: black;" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <Label fx:id="time" styleClass="cell_small_title" style="-fx-font-size:16px;" />
-      <Label fx:id="link" style="-fx-font-size:16px;" />
+      <Label fx:id="link" style="-fx-font-size:16px; -fx-text-fill: #003882" />
       <FlowPane fx:id="tags" />
 
     </VBox>
