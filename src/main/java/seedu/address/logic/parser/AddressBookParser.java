@@ -109,8 +109,11 @@ public class AddressBookParser {
     public boolean isCommand(String command, String[] splitCommand) {
         return (command.equals("") || command.equals("add")
                 || splitCommand[0].equals("add") || command.equals("find") || splitCommand[0].equals("find")
-                || command.equals("edit") || splitCommand[0].equals("edit")) || command.equals("delete")
+                || command.equals("edit") || splitCommand[0].equals("edit") || command.equals("delete")
                 || splitCommand[0].equals("delete") || command.equals("view") || splitCommand[0].equals("view")
-                || command.equals("copy") || splitCommand[0].equals("copy");
+                || command.equals("copy") || splitCommand[0].equals("copy") || command.equals("clear")
+                || splitCommand[0].equals("clear")
+                || command.equals("exit") || splitCommand[0].equals("exit")
+                || command.equals("help") || splitCommand[0].equals("help"));
     }
 }
