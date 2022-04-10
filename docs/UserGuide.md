@@ -8,7 +8,7 @@
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `uMessage.jar` from
+1. Download the latest `uMessage.jar` from [this website](https://github.com/AY2122S2-CS2103-W16-2/tp/releases/tag/v1.3.1)
 
 1. Copy the file to the folder you want to use as the _home folder_ for *uMessage*.
 
@@ -337,6 +337,11 @@ Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 --------------------------------------------------------------------------------------------------------------------
 
 # Manage Global Tags
+
+Global tags are tags that may or may not be associated with any contacts and/or meetings. </br>
+
+For example, adding a global tag will store that tag in the system. However, it will not be associated with any 
+contacts/meetings until it is explicitly added to them. 
 
 ## 1. Adding a global tag
 
