@@ -221,7 +221,7 @@ In the second case, the `view` command will retrieve the `Person` at the specifi
 
 -----------------
 
-//@@author reignnz
+<!-- @@author reignnz -->
 ### Dynamic Command Text Field
 
 #### Implementation
@@ -288,7 +288,7 @@ Firstly, the `Link` class. In `Link.java`, a link/url for the meeting is stored 
 Following the international convention, the `Link` Validation Regex was structured such that the domain name can 
 contain the English alphabet A-Z (not case-sensitive), the digits 0-9 and hyphens. However, hyphens cannot be added to 
 the start or the end of a domain name. In addition, users will be required to add the protocol, 
-http:// or https:// at the front of the link.
+`http://` or `https://` at the front of the link.
 
 Secondly, the `StartTime.java` class. `StartTime` represents the starting date and time of a meeting. 
 The time and date is contained within the Java Class `LocalDateTime`. When a meeting is created with the relevant start
@@ -302,7 +302,7 @@ Below is a diagram of the sequence of actions that occur when the user inputs a 
 start time not in the past:
 ![StartTimeUMLDiagram](images/StartTimeDiagram.png)
 
-//author
+<!-- @@author -->
 
 
 -------------------------------------------
@@ -384,14 +384,6 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
-
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -407,6 +399,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ## **Appendix: Requirements**
 
+<!-- @@author cheehongw -->
 ### Product scope
 
 **Target user profile**:
@@ -420,6 +413,7 @@ A university student who:
 
 **Value proposition**: organise contacts and meetings across various social media platforms so that they can be retrieved more conveniently when needed
 
+<!-- @@author -->
 
 ### User stories
 
