@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Deletes a Tag from a person.
+ * Deletes {@code Tag} from a person.
  * The person in the list is identified using it's displayed index or name in the address book.
  */
 public class DeletePersonsTagCommand extends DeleteCommand {

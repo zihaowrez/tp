@@ -38,7 +38,7 @@ public class AddSocialsToPersonCommand extends AddCommand {
 
     /**
      * @param target The target person in the list
-     * @param newSocials new tag to be added
+     * @param newSocials new social media to be added
      */
     public AddSocialsToPersonCommand(Target target, SocialMedia newSocials) {
 
