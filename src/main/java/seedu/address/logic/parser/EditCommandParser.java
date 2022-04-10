@@ -38,7 +38,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_SOCIAL_MEDIA, PREFIX_TAG, PREFIX_PLATFORM_NAME_FLAG, PREFIX_INDEX);
 
-        Object target;
+        Target target;
 
         try {
             target = ParserUtil.parseTarget(argMultimap.getPreamble());

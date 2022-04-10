@@ -123,6 +123,7 @@ public class UniqueTagList implements Iterable<Tag> {
 
     public void setEmergencyContactTag(Tag tag) {
         requireAllNonNull(tag);
+        internalList.add(tag);
     }
 
     /**

@@ -11,6 +11,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.meetingcommands.MeetingTarget;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Link;
@@ -30,7 +31,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX =
+        "Index provided is invalid. It has a valid range of 1 to 2147483647 inclusive.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -243,17 +245,28 @@ public class ParserUtil {
 
     /**
      * Parses {@code String args} into a {@code Object target}.
-     * The runtime type of {@code Object} is guaranteed to be a {@code Name} or {@code Index}
+     * A valid target is either a valid Name or valid Index
+     *
      * @param args The index or name to be parsed.
      * @throws ParseException if the given Index/Name is invalid
      */
-    public static Object parseTarget(String args) throws ParseException {
+    public static Target parseTarget(String args) throws ParseException {
 
-        if (StringUtil.isInt(args)) {
-            return ParserUtil.parseIndex(args);
-        } else {
-            return ParserUtil.parseName(args);
-        }
+        Target target = new Target(args);
+        return target;
+    }
+
+    /**
+     * Parses {@code String args} into a {@code Object target}.
+     * A valid target is either a valid Title or valid Index
+     * @param args The index or title to be parsed
+     *
+     * @throws ParseException if the given Index/Title is invalid
+     */
+    public static MeetingTarget parseMeetingTarget(String args) throws ParseException {
+
+        MeetingTarget target = new MeetingTarget(args);
+        return target;
     }
 
     /**

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.edit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,8 +19,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.edit.EditPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Target;
 import seedu.address.model.AddressBook;
@@ -35,7 +36,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
-public class EditCommandTest {
+public class EditPersonCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalMeetingsBook(), new UserPrefs());
 
@@ -183,7 +184,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditPersonCommand(new Target(INDEX_SECOND_PERSON), DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditPersonCommand(new Target(INDEX_SECOND_PERSON), DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditPersonCommand(new Target(INDEX_FIRST_PERSON), DESC_BOB)));
     }
 
 }
