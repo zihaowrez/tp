@@ -299,22 +299,21 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+//@@author reignnz
 ### [Implemented] Dynamic Command Text Field
 
 #### Implementation
-
-Implementation
-This implementation involves enabling the CommandText Field to read input as it is typed in
-the Command Line Interface (CLI). In the CommandBox.java, a listener function named
+This implementation involves enabling the CommandTextField to read input as it is typed in
+the Command Line Interface (CLI). In the `CommandBox.java`, a listener function named
 handleDynamicInput(), reads the user input at each deletion or addition of the command in the
-CLI and calls MainWindow#executeCommand. It passes the command inputted by the user with the
+CLI and calls `MainWindow#executeCommand`. It passes the command inputted by the user with the
 string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
 
-The user input and instance of commandBox object is then passed to LogicManager#execute and
-subsequently AddressBookParser#parseCommand and FindCommandParser#parse(arguments).
+The user input and instance of commandBox object is then passed to `LogicManager#execute` and
+subsequently `AddressBookParser#parseCommand` and `FindCommandParser#parse(arguments)`.
 
 The above is assuming that the user inputs a string not included in the
-list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy".
+list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy", "clear", "exit", "help".
 
 ![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
 
@@ -356,7 +355,38 @@ Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is 
     * Pros: Will be easier for the user to copy information needed.
     * Cons: There must be an additional input from the user after the `copy` command with the field name.
 
-_{more aspects and alternatives to be added}_
+### [Implemented] Adding Meetings 
+
+In our meetings tab, users can store information about meetings. Meetings consist of the following
+information: 
+1. Meeting Title
+2. Meeting Link 
+3. Start Time
+4. Duration 
+
+#### Implementation
+The `Meeting.java` class contains a reference to five separate classes, each of which encapsulate the information 
+about Meetings mentioned above. The `Title.java` class and `Duration.java` class stores the title and 
+duration of a meeting respectively. The `Title.java` class simply stores the title as a `String` while the 
+`Duration` class stores the duration as an `int`. The remaining two classes will be explained in more detail. 
+
+Firstly, the `Link` class. In `Link.java`, a link/url for the meeting is stored as a String.
+Following the international convention, the `Link` Validation Regex was structured such that the domain name can 
+contain the English alphabet A-Z (not case-sensitive), the digits 0-9 and hyphens. However, hyphens cannot be added to 
+the start or the end of a domain name. In addition, users will be required to add the protocol, 
+http:// or https:// at the front of the link.
+
+Secondly, the `StartTime.java` class. `StartTime` represents the starting date and time of a meeting. 
+The time and date is contained within the Java Class `LocalDateTime`. When a meeting is created with the relevant start
+time, a `StartTime` object will be created inside the `AddMeetingCommandParser#parse` regardless of whether the start 
+time given is in the past, present or future.
+Only when the `AddMeetingCommand#execute` method is executed, then the method `StartTime#isInThePast` will be invoked 
+to check if the start/time given by the user is in the past or not by comparing it with `LocalDateTime#now`. 
+If the start/time is in the past, a `CommandException` error will be thrown. 
+
+Below is a diagram of the sequence of actions that occur when the user inputs a start time in the past and a 
+start time not in the past:
+![StartTimeUMLDiagram](images/StartTimeDiagram.png)
 
 ### [Implemented] Clickable contacts and tags
 
@@ -545,6 +575,59 @@ Use case ends
 * 1a. Incorrect syntax is used
     * 1a1. uMessage displays an error message
     * 1a2. Use case resumes at step 1
+
+### Use case 6 : Add a meeting
+**MSS**
+1. User types in the command to add a person into the meetings book
+2. uMessage adds the meeting into the list of meetings and updates it to the user
+
+Use case ends
+
+**Extensions**
+* 1a. Incorrect syntax is used
+    * 1a1. uMessage displays an error message
+    * 1a2. Use case resumes at step 1
+
+### Use case 7: Delete a meeting
+
+**MSS**
+1. User types in the command to delete a meeting from the list
+2. uMessage removes the specified meeting in the list and displays the updated list to the user
+
+Use case ends
+
+**Extensions**
+* 1a. User enters an invalid syntax / a target index greater than the size of the list / a non-existing target name
+    * 1a1. uMessage shows an error
+    * 1a2. Use case resumes at step 1
+
+### Use case 8: Find a meeting
+**MSS**
+1. User types keyword(s) in the searchbar
+2. uMessage updates the meeting list to display matching meetings
+
+Use case ends
+
+**Extensions**
+* 1a. The first word the user types is a command word
+    * 1a1. uMessage displays the full list
+
+* 1b. User deletes all keywords
+    * 1b1. uMessage displays the full list
+    * 1b2. Use case resumes at step 1
+
+### Use case 9: Edit a meeting
+
+**MSS**
+1. User types in the command to edit a meeting from the list
+2. uMessage edits the specified meeting in the list and displays the updated meeting and meeting list to the user
+
+Use case ends
+
+**Extensions**
+* 1a. User enters an invalid syntax/ a target index greater than size of the list / a non-existing target name
+  * 1a1. uMessage shows an error
+  * 1a2. Use case resumes at step 1
 
 
 ### Non-Functional Requirements
