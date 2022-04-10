@@ -198,10 +198,12 @@ To prevent prematurely rejecting these strings as invalid indices, the validatio
 
 ----------------------
 
-### Split panel display
-<img src="images/Ui.png" width=450 />
+### Split-panel display
+![Labeled UI components](images/Ui_labeled.png)
 
-uMessage has a split view design for the contacts tab, as seen in the diagram above. On the top, we have a `ResultDisplay`, which displays the result of various commands and actions performed on the application. On the left, there is a UI component `PersonListPanel` where users can choose and select from the list of contacts available. On the right, users can see expanded, detailed information about the currently selected user, in a UI component called `ContactDetailPanel` and this panel changes based on who is currently selected on the left.
+uMessage has a split view design for the contacts tab, as seen in the diagram above. On the top, we have a `ResultDisplay`, 
+which displays the result of various commands and actions performed on the application. On the left, there is a UI component `PersonListPanel` where users can choose and select from the list of contacts available. 
+On the right, users can see expanded, detailed information about the currently selected user, in a UI component called `ContactDetailPanel` and this panel changes based on who is currently selected on the left.
 
 Internally, `ContactDetailPanel` observes a `SimpleObjectProperty<Person> currentlySelectedPerson` observable in the `ModelManager` object, and will update to display the information of the new `Person` whenever the value in the observable changes. 
 
@@ -211,7 +213,7 @@ There are only a few situations that can update the observable:
 
 In the first case, the `view` command will retrieve the `Person` at the specified `INDEX` of the `ListView`, and then set this `Person` object as the new value for `SimpleObjectProperty<Person>`, and also update the `ResultDisplay` as well.
 
-In the second case, the `ListView` within `PersonListPanel` has an inbuilt Selection API provided by the javafx library itself. This exposes an observable which contains the currently selected item of the `ListView`. `PersonListPanel` listens for changes to this value, and updates the `SimpleObjectProperty<Person>` in `ModelManager` whenever the selector on the `ListView` changes. 
+In the second case, the `ListView` within `PersonListPanel` has an inbuilt [Selection API](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ListView.html#:~:text=ListView%20Selection%20/%20Focus%20APIs) provided by the javafx library itself. This exposes an observable which contains the currently selected item of the `ListView`. `PersonListPanel` listens for changes to this value, and updates the `SimpleObjectProperty<Person>` in `ModelManager` whenever the selector on the `ListView` changes. 
 
 <!-- @@author zihaowrez -->
 
