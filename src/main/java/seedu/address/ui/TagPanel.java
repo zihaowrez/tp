@@ -39,10 +39,12 @@ public class TagPanel extends UiPart<Region> {
         this.tagList = tagList;
 
         setPanel(new TagCard(tagList, logic, mainWindow).getRoot());
+        panel.setStyle("-fx-background: #ededed; -fx-border-color: #ededed;");
 
     }
 
     public void setPanel(Node childPanel) {
+        panel.setStyle("-fx-background: #ededed; -fx-border-color: #ededed;");
         if (childPanel != null) {
             logger.info(String.format("Setting tag panel to %s", childPanel));
             panel.setContent(childPanel);

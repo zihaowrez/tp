@@ -42,7 +42,6 @@ public class TagCard extends UiPart<Region> {
     public TagCard(List<Tag> tagList, Logic logic, MainWindow mainWindow) {
         super(FXML);
         this.tagList = tagList;
-        tags.prefWidthProperty().bind(cardPane.widthProperty());
 
         if (tagList.size() != 0) {
             tagList.stream()

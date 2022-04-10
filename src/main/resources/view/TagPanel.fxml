@@ -10,6 +10,6 @@
 
     <content>
 <HBox fx:id="tagListPlaceholder" style="-fx-background-color: #ededed;"
-      prefHeight="200.0" prefWidth="100.0" HBox.hgrow = "ALWAYS" />
+      prefHeight="200.0" prefWidth="600.0" HBox.hgrow = "ALWAYS" />
     </content>
 </ScrollPane>
