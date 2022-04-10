@@ -293,22 +293,21 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+//@@author reignnz
 ### [Implemented] Dynamic Command Text Field
 
 #### Implementation
-
-Implementation
-This implementation involves enabling the CommandText Field to read input as it is typed in
-the Command Line Interface (CLI). In the CommandBox.java, a listener function named
+This implementation involves enabling the CommandTextField to read input as it is typed in
+the Command Line Interface (CLI). In the `CommandBox.java`, a listener function named
 handleDynamicInput(), reads the user input at each deletion or addition of the command in the
-CLI and calls MainWindow#executeCommand. It passes the command inputted by the user with the
+CLI and calls `MainWindow#executeCommand`. It passes the command inputted by the user with the
 string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
 
-The user input and instance of commandBox object is then passed to LogicManager#execute and
-subsequently AddressBookParser#parseCommand and FindCommandParser#parse(arguments).
+The user input and instance of commandBox object is then passed to `LogicManager#execute` and
+subsequently `AddressBookParser#parseCommand` and `FindCommandParser#parse(arguments)`.
 
 The above is assuming that the user inputs a string not included in the
-list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy".
+list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy", "clear", "exit", "help".
 
 ![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
 
