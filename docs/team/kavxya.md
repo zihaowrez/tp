@@ -49,11 +49,11 @@ Given below are my contributions to the project.
         * Update README: [\#8](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/8)
         * Restructure UG into Contacts, Meetings and Universal commands: [\#147](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/143)
         * Added documentation for the feature `copy` [\#147](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/143)
-        * Added screenshots to show usage of the application [\#245](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/245)
+        * Added screenshots to show usage of the application [\#245](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/245)
 
     * Developer Guide:
         * Added implementation details of the `copy` feature [\#126](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/126)
         
 **Community**:
-    * PRs reviewed (with non-trivial review comments): [\#132](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/132), [\#165](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/165)
+    * PRs reviewed (with non-trivial review comments): [\#132](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/132)
   
