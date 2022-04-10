@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyMeetingsBook;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access MeetingsBook data stored as a json file on the hard disk.
  */
 public class JsonMeetingsBookStorage implements MeetingsBookStorage {
 
