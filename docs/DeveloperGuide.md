@@ -544,6 +544,59 @@ Use case ends
     * 1a1. uMessage displays an error message
     * 1a2. Use case resumes at step 1
 
+### Use case 6 : Add a meeting
+**MSS**
+1. User types in the command to add a person into the meetings book
+2. uMessage adds the meeting into the list of meetings and updates it to the user
+
+Use case ends
+
+**Extensions**
+* 1a. Incorrect syntax is used
+    * 1a1. uMessage displays an error message
+    * 1a2. Use case resumes at step 1
+
+### Use case 7: Delete a meeting
+
+**MSS**
+1. User types in the command to delete a meeting from the list
+2. uMessage removes the specified meeting in the list and displays the updated list to the user
+
+Use case ends
+
+**Extensions**
+* 1a. User enters an invalid syntax / a target index greater than the size of the list / a non-existing target name
+    * 1a1. uMessage shows an error
+    * 1a2. Use case resumes at step 1
+
+### Use case 8: Find a meeting
+**MSS**
+1. User types keyword(s) in the searchbar
+2. uMessage updates the meeting list to display matching meetings
+
+Use case ends
+
+**Extensions**
+* 1a. The first word the user types is a command word
+    * 1a1. uMessage displays the full list
+
+* 1b. User deletes all keywords
+    * 1b1. uMessage displays the full list
+    * 1b2. Use case resumes at step 1
+
+### Use case 9: Edit a meeting
+
+**MSS**
+1. User types in the command to edit a meeting from the list
+2. uMessage edits the specified meeting in the list and displays the updated meeting and meeting list to the user
+
+Use case ends
+
+**Extensions**
+* 1a. User enters an invalid syntax/ a target index greater than size of the list / a non-existing target name
+  * 1a1. uMessage shows an error
+  * 1a2. Use case resumes at step 1
+
 
 ### Non-Functional Requirements
 
