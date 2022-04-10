@@ -17,7 +17,7 @@
             <VBox spacing="5">
                 <HBox HBox.hgrow="ALWAYS" style="-fx-background-color: #ededed" >
                     <children>
-                        <FlowPane fx:id="tags" prefWidth= "500" style="-fx-background-color: #ededed" />
+                        <FlowPane fx:id="tags" prefWidth= "630" style="-fx-background-color: #ededed" />
                     </children>
                 </HBox>
             </VBox>
