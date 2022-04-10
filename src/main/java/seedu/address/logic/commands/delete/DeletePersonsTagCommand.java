@@ -26,9 +26,9 @@ import seedu.address.model.tag.Tag;
  * The person in the list is identified using it's displayed index or name in the address book.
  */
 public class DeletePersonsTagCommand extends DeleteCommand {
-    private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
-    private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
-    private static final String MESSAGE_CANNOT_DELETE_EMERGENCY_TAG = "Tags of emergency contacts cannot be deleted!";
+    public static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
+    public static final String MESSAGE_CANNOT_DELETE_EMERGENCY_TAG = "Tags of emergency contacts cannot be deleted!";
     private Target target;
     private Tag tagToDelete;
 
