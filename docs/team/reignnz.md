@@ -19,15 +19,17 @@ Given below are my contributions to the project.
 
 **Features implemented**: 
 1. Implemented framework for Meetings 
-   - Overview: Added the `Meeting` class which contains a Meeting Name, Link, StartTime and Duration. The above properties are encapsulated by the `Title`, `Link`, `StartTime` and `Duration` classes respectively. Updated Storage to include Meetings by adding: `JsonAdaptedMeeting`, `JsonMeetingsBookStorage` and `JsonSerializableMeetingsBook`
+   - Overview: Added the `Meeting` class which contains a Meeting Name, Link, StartTime and Duration. 
+   The above properties are encapsulated by the `Title`, `Link`, `StartTime` and `Duration` classes respectively. 
+   Updated Storage to include Meetings by adding: `JsonAdaptedMeeting`, `JsonMeetingsBookStorage` 
+   and `JsonSerializableMeetingsBook`
 
    - What it does: Builds the foundation for the meetings tab. To subsequently support features 2-5 below. 
    - Justification: Necessary so that when a user adds a meeting, the relevant information will be parsed and stored
    correctly
    - Highlights: This feature requires understanding of the flow of logic, starting from when the user inputs the
    command to the creation and storage of meetings. 
-
-
+   
 
 2. Implemented adding of meetings 
    - Overview: Added `AddMeetingCommand` and `AddMeetingCommandParser`
@@ -68,10 +70,28 @@ Given below are my contributions to the project.
    - Highlights: This enhancement requires the understanding of JavaFx elements and how to add different listeners to 
      the TextField 
 
+2. Implemented default Emergency Contacts in Address Book 
+   - Overview: Added the `EmergencyContact` class. Refactored `AddressBook` to load emergency contacts upon creation. 
+   - What it does: Ensures that the address book contains emergency contacts that is immutable. This means that 
+     commands such as `edit`, `delete`, `add` and `clear` should not affect the emergency contacts.
+   - Justification: Users will not be able to change the authenticity of an Emergency Contact.
+   - Highlights: This enhancement requires the understanding of how the person contacts are loaded into the AddressBook
+     and the flow of address book commands 
+
 
 **Contributions to the UG**:
 1. Fixed errors related to the user guide found after PE-D
 
 **Contributions to the DG**:
-1. Added Implementation for Dynamic User Input
+1. Added Implementation for Dynamic User Input [#125](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/125)
+
 - Created a PUML Diagram 
+
+2. Added Implementation for Meeting [#249](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/249)
+
+- Created the StartTime PUML Diagram
+
+**Community**  
+   *PRs reviewed (with non-trivial review comments): 
+   [\#76](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/76),
+   [\#87](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/87)
