@@ -10,7 +10,7 @@ title: zihaowrez's Project Portfolio Page
 Given below are my contributions to the project.
 
 * **New Feature: Search optimisation**
-  * What it does: When searching, the person/meeting that matches the most number of keywords will be placed first. Names and titles are matched first, followed by tags and other fields.
+  * What it does: When searching, the person / meeting that matches the most number of keywords will be placed first. Names / titles are matched first, followed by tags and other fields.
   * Justification: This feature improves the product by listing the most relevant information to the user when searching.
   * Highlights: The feature is implemented using a Comparator. This enhancement required an in-depth analysis of design alternatives, as the displayed list needs to be sorted as well. This is achieved by wrapping the filtered list into a sorted list which takes the comparator.
 
@@ -42,9 +42,8 @@ Given below are my contributions to the project.
     * Updated use cases for `add`, `delete`, and `find` (PR [\#124](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/124))
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#232](), [\#223](), [\#125](), [\#77]()
-  * Contributed to forum discussions: [256]()
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
+  * PRs reviewed (with non-trivial review comments): [\#232](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/232), [\#223](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/223), [\#125](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/125), [\#77](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/77)
+  * Contributed to forum discussions: [256](https://github.com/nus-cs2103-AY2122S2/forum/issues/256)
+  * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/AY2122S2-CS2103T-T09-1/tp/issues/238), [2](https://github.com/AY2122S2-CS2103T-T09-1/tp/issues/229))
 
 
