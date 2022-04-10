@@ -56,21 +56,25 @@ Given below are my contributions to the project.
 
 * **Documentation**:
   * User Guide:
-    * Update the User Guide with `help` and `view` command: [#90]((https://github.com/AY2122S2-CS2103-W16-2/tp/pull/90))
+    * Update the User Guide with `help` and `view` command: [#90](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/90)
 
   * Developer Guide:
     * Add User Stories: [#14](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/14)
     * Add Glossary: [#16](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/16)
 
-* **Contribution to team-based tasks**
-  * Set clear deadlines of deliverables for each member.
-  * Allocate issues/bugs to be solved for all team members.
-  * Fix miscellaneous bugs. [#221](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/221)
-  * Improve test coverage of test cases. [#222](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/222)
+  * Help Guide:
+    * Initialized Help Guide in the `HelpWindow`: [#83](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/83)
+
+* **Project Management**
+  * As the team lead, I set clear deadlines of deliverables for each member.
+  * Initialise 11 issues about bugs/improvements.
+  * Fix miscellaneous bugs. [#176](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/176), [#165](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/165), [#201](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/201), [#187](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/187), [#188](https://github.com/AY2122S2-CS2103-W16-2/tp/issues/188) and etc.
+  * Create test cases for `add`, `delete` and `edit`. [#222](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/222)
 
 
 * **Review/mentoring contributions**:
-  * PRs reviewed (with non-trivial review comments): [#230](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/230), [#112](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/112)
+  * Reviewed 27 pull requests and provided suggestions to teammates about code.
+
 
 * **Community**
-  * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/chriswengqi/ped/issues/9), [2](https://github.com/chriswengqi/ped/issues/8))
+  * Reported 9 bugs and suggestions for other teams in the class (examples: [1](https://github.com/chriswengqi/ped/issues/9), [2](https://github.com/chriswengqi/ped/issues/8))
