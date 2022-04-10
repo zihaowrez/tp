@@ -60,6 +60,7 @@ public class MeetingCard extends UiPart<Region> {
         title.setText(meeting.getTitle().title);
         link.setText(meeting.getLink().link);
         link.setOnMouseClicked(event -> {
+            link.setStyle("-fx-text-fill:#003882; -fx-font-size:16px;");
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 try {
                     Desktop.getDesktop().browse(new URI(meeting.getLink().link));
