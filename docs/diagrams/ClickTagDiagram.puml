@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant "tag:Label" as tag UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":ContactDetailPanel" as ContactDetailPanel UI_COLOR
+participant "contactsResultDiplay\n:ResultDisplay" as contactsResultDisplay UI_COLOR
+participant "meetingsResultDiplay\n:ResultDisplay" as meetingsResultDisplay UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+[-> tag : onMouseClicked()
+activate tag
+
+tag -> MainWindow : clickTag()
+activate MainWindow
+
+MainWindow -> Logic : clickTag()
+activate Logic
+Logic -> Logic : updateFilteredPersonList()
+activate Logic
+deactivate Logic
+Logic -> Logic : updateFilteredMeetingList()
+activate Logic
+deactivate Logic
+
+Logic --> MainWindow : CommandResult[2]
+deactivate Logic
+
+MainWindow -> contactsResultDisplay : setFeedbackToUser("x persons listed!")
+activate contactsResultDisplay
+contactsResultDisplay --> MainWindow
+deactivate contactsResultDisplay
+
+MainWindow -> meetingsResultDisplay : setFeedbackToUser("x meetings listed!")
+activate meetingsResultDisplay
+meetingsResultDisplay --> MainWindow
+deactivate meetingsResultDisplay
+
+MainWindow --> tag
+deactivate MainWindow
+
+[<-- tag
+deactivate tag
+
+
+
+@enduml
