@@ -272,7 +272,7 @@
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#ededed, 30%);
+    -fx-background-color: derive(#ededed,30%);
 }
 
 .context-menu {

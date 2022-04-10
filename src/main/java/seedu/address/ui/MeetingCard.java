@@ -44,7 +44,7 @@ public class MeetingCard extends UiPart<Region> {
     private Label time;
 
     @FXML
-    private Hyperlink link;
+    private Label link;
 
     @FXML
     private FlowPane tags;
@@ -59,7 +59,7 @@ public class MeetingCard extends UiPart<Region> {
         time.setText(meeting.getTimeString());
         title.setText(meeting.getTitle().title);
         link.setText(meeting.getLink().link);
-        link.setOnAction(event -> {
+        link.setOnMouseClicked(event -> {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 try {
                     Desktop.getDesktop().browse(new URI(meeting.getLink().link));
