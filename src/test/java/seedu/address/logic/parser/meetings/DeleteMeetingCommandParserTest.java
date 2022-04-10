@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEETING;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.meetingcommands.DeleteMeetingCommand;
+import seedu.address.logic.commands.meetingcommands.MeetingTarget;
 import seedu.address.logic.parser.meetingcommands.DeleteMeetingCommandParser;
 
 /**
@@ -23,7 +24,7 @@ public class DeleteMeetingCommandParserTest {
 
     @Test
     public void parse_validIndex_returnsIndexedDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteMeetingCommand(INDEX_FIRST_MEETING));
+        assertParseSuccess(parser, "1", new DeleteMeetingCommand(new MeetingTarget(INDEX_FIRST_MEETING)));
     }
 
 

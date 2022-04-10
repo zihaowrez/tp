@@ -32,7 +32,7 @@ public class DeleteMeetingCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Meeting meetingToDelete = model.getSortedAndFilteredMeetingList().get(INDEX_FIRST_MEETING.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteMeetingCommand(INDEX_FIRST_MEETING);
+        DeleteCommand deleteCommand = new DeleteMeetingCommand(new MeetingTarget(INDEX_FIRST_MEETING));
 
         String expectedMessage = String.format(DeleteMeetingCommand.MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete);
 
@@ -45,7 +45,7 @@ public class DeleteMeetingCommandTest {
     @Test
     public void execute_validNameUnfilteredList_success() {
         Meeting meetingToDelete = CS2103_MEETING;
-        DeleteCommand deleteCommand = new DeleteMeetingCommand(meetingToDelete.getTitle());
+        DeleteCommand deleteCommand = new DeleteMeetingCommand(new MeetingTarget(meetingToDelete.getTitle()));
 
         String expectedMessage = String.format(DeleteMeetingCommand.MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete);
 
@@ -59,7 +59,7 @@ public class DeleteMeetingCommandTest {
     public void execute_incompleteNameUnfilteredList_throwsCommandException() {
         Meeting meetingToDelete = CS2103_MEETING;
         Title targetName = new Title("CS210");
-        DeleteCommand deleteCommand = new DeleteMeetingCommand(targetName);
+        DeleteCommand deleteCommand = new DeleteMeetingCommand(new MeetingTarget(targetName));
 
         String expectedMessage = String.format(MeetingTarget.MESSAGE_MEETING_NOT_EXIST, targetName);
 
@@ -73,7 +73,7 @@ public class DeleteMeetingCommandTest {
     public void execute_nameNotExistUnfilteredList_throwsCommandException() {
         Meeting meetingToDelete = CS2103_MEETING;
         Title targetName = new Title("CS3230");
-        DeleteCommand deleteCommand = new DeleteMeetingCommand(targetName);
+        DeleteCommand deleteCommand = new DeleteMeetingCommand(new MeetingTarget(targetName));
 
         String expectedMessage = String.format(MeetingTarget.MESSAGE_MEETING_NOT_EXIST, targetName);
 
@@ -86,21 +86,21 @@ public class DeleteMeetingCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getSortedAndFilteredMeetingList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteMeetingCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteMeetingCommand(new MeetingTarget(outOfBoundIndex));
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteMeetingCommand(INDEX_FIRST_MEETING);
-        DeleteCommand deleteSecondCommand = new DeleteMeetingCommand(INDEX_SECOND_MEETING);
+        DeleteCommand deleteFirstCommand = new DeleteMeetingCommand(new MeetingTarget(INDEX_FIRST_MEETING));
+        DeleteCommand deleteSecondCommand = new DeleteMeetingCommand(new MeetingTarget(INDEX_SECOND_MEETING));
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteMeetingCommand(INDEX_FIRST_MEETING);
+        DeleteCommand deleteFirstCommandCopy = new DeleteMeetingCommand(new MeetingTarget(INDEX_FIRST_MEETING));
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
