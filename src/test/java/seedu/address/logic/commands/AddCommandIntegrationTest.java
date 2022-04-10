@@ -8,7 +8,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.commands.add.AddPersonCommand;
+import seedu.address.model.EmergencyContact;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -40,7 +42,13 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
+        ObservableList<Person> personList = model.getAddressBook().getPersonList();
+        Person personInList = personList.get(0);
+        for (Person person : personList) {
+            if (!(person instanceof EmergencyContact)) {
+                personInList = person;
+            }
+        }
         assertCommandFailure(new AddPersonCommand(personInList), model, AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
