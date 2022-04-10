@@ -91,4 +91,18 @@ public class EditSocialMediaCommand extends EditCommand {
                 updatedPerson.getName(), socialMediaToEdit, updatedSocialMedia));
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof EditSocialMediaCommand) {
+            EditSocialMediaCommand other = (EditSocialMediaCommand) obj;
+
+            return this.editPlatformNameflag == other.editPlatformNameflag
+                && this.index.equals(other.index)
+                && this.newDetails.equals(other.newDetails)
+                && this.target.equals(other.target);
+        }
+
+        return false;
+    }
+
 }

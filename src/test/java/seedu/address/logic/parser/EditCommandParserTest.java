@@ -55,13 +55,11 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
-        //TODO: can now specify by name so obsolete?
         // no index specified
-        // assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
 
-        //TODO:
         // no field specified
-        //assertParseFailure(parser, "1", EditPersonCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
