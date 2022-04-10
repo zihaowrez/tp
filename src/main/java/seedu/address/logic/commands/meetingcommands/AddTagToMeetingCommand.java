@@ -68,7 +68,7 @@ public class AddTagToMeetingCommand extends AddCommand {
         }
         model.setMeeting(targetMeeting, updatedMeeting);
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
-        return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, updatedMeeting));
+        return new CommandResult(String.format(MESSAGE_ADD_NEW_TAG_SUCCESS, newTag, targetMeeting));
     }
 
     @Override
