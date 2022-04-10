@@ -39,7 +39,7 @@ Given below are my contributions to the project.
   * Developer Guide:
     * Added implementation details of the GUI (PR [\#243](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/243)).
     * Added implementation details about updating the `ResultDisplay` when contacts or tags are clicked (PR [\#247](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/247)).
-    * Updated use cases for `add`, `delete`, and `find` (PR [\#246](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/246))
+    * Updated use cases for `add`, `delete`, and `find` (PR [\#124](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/124))
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#232](), [\#223](), [\#125](), [\#77]()
