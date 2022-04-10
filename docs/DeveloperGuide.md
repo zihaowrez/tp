@@ -376,7 +376,9 @@ Only when the `AddMeetingCommand#execute` method is executed, then the method `S
 to check if the start/time given by the user is in the past or not by comparing it with `LocalDateTime#now`. 
 If the start/time is in the past, a `CommandException` error will be thrown. 
 
-
+Below is a diagram of the sequence of actions that occur when the user inputs a start time in the past and a 
+start time not in the past:
+![StartTimeUMLDiagram](images/StartTimeDiagram.png)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
