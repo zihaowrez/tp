@@ -34,7 +34,6 @@ class EditSocialMediaCommandTest {
     @Test
     public void execute_editPlatformName_success() throws CommandException {
         Person editedPerson = model.getSortedAndFilteredPersonList().get(0);
-        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         SocialMedia socialMediaToEdit = editedPerson.getSocialMedias().get(0);
         EditCommand editCommand = new EditSocialMediaCommand(new Target(INDEX_FIRST_PERSON),
                 INDEX_FIRST_PERSON, validPlatformName.getValue(), true);
@@ -54,7 +53,6 @@ class EditSocialMediaCommandTest {
     @Test
     public void execute_editPlatformDescription_success() throws CommandException {
         Person editedPerson = model.getSortedAndFilteredPersonList().get(0);
-        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         SocialMedia socialMediaToEdit = editedPerson.getSocialMedias().get(0);
         EditCommand editCommand = new EditSocialMediaCommand(new Target(INDEX_FIRST_PERSON),
                 INDEX_FIRST_PERSON, validPlatformDescription.getValue(), false);
@@ -81,6 +79,18 @@ class EditSocialMediaCommandTest {
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+
+    @Test
+    public void execute_invalidSocialMediaIndex_failure() {
+        Person person = model.getSortedAndFilteredPersonList().get(0);
+        Index outOfBoundIndex = Index.fromZeroBased(person.getSocialMedias().size());
+
+        EditSocialMediaCommand editCommand = new EditSocialMediaCommand(new Target(INDEX_FIRST_PERSON),
+                outOfBoundIndex, validPlatformName.getValue(), true);
+
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SOCIAL_MEDIA_DISPLAYED_INDEX);
+
+    }
 
 
 }
