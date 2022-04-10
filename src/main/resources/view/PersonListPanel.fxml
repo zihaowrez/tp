@@ -18,5 +18,5 @@
                 <Font size="34.0" />
             </font></Label>
     </HBox>
-  <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+  <ListView fx:id="personListView" VBox.vgrow="ALWAYS"  />
 </VBox>
