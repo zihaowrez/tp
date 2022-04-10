@@ -117,6 +117,7 @@ public class AddressBookParser {
                 || command.equals(CopyCommand.COMMAND_WORD) || splitCommand[0].equals(CopyCommand.COMMAND_WORD)
                 || command.equals(ClearCommand.COMMAND_WORD) || splitCommand[0].equals(ClearCommand.COMMAND_WORD)
                 || command.equals(HelpCommand.COMMAND_WORD) || splitCommand[0].equals(HelpCommand.COMMAND_WORD)
-                || command.equals(ExitCommand.COMMAND_WORD) || splitCommand[0].equals(ExitCommand.COMMAND_WORD));
+                || command.equals(ExitCommand.COMMAND_WORD) || splitCommand[0].equals(ExitCommand.COMMAND_WORD))
+                || command.equals(ListCommand.COMMAND_WORD) || splitCommand[0].equals(ListCommand.COMMAND_WORD);
     }
 }
