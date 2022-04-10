@@ -28,6 +28,10 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private static final Prefix[] ALL_EDIT_PARSER_PREFIXES =
+            new Prefix[]{PREFIX_EMAIL, PREFIX_INDEX, PREFIX_NAME, PREFIX_PHONE,
+                PREFIX_PLATFORM_NAME_FLAG, PREFIX_SOCIAL_MEDIA, PREFIX_TAG};
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -46,10 +50,13 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
+        if (!argMultimap.atLeastOnePrefix(ALL_EDIT_PARSER_PREFIXES)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        if (argMultimap.arePrefixesPresent(PREFIX_INDEX)
-                && argMultimap.noOtherPrefixes(PREFIX_INDEX, PREFIX_PLATFORM_NAME_FLAG, PREFIX_SOCIAL_MEDIA)) {
+        if (argMultimap.noOtherPrefixes(PREFIX_INDEX, PREFIX_PLATFORM_NAME_FLAG, PREFIX_SOCIAL_MEDIA)) {
             return new EditSocialMediaCommandParser().parse(args);
         }
 

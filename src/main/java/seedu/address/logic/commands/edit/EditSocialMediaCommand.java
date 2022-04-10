@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SOCIAL_MEDIA;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
@@ -23,13 +24,17 @@ public class EditSocialMediaCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_SOCIALS_SUCCESS = "Edited social media of %s: From %s to %s";
     public static final String MESSAGE_SOCIALS_ALREADY_EXISTS = "Socials %s already exists in %s!";
+    public static final String EDIT_SOCIAL_MEDIA_COMMAND_PARAMS = "<PERSON_NAME or INDEX> "
+            + PREFIX_INDEX + "INDEX_NUM "
+            + PREFIX_SOCIAL_MEDIA + "UPDATED_VALUE "
+            + "[" + PREFIX_PLATFORM_NAME_FLAG + " ]\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the targeted social media of a given person. "
             + "The social media is specified by the index of list of socials of the given person.\n"
-            + "Parameters:"
-            + "PERSON_NAME/INDEX"
-            + PREFIX_INDEX + "INDEX_NUM"
-            + "[" + PREFIX_PLATFORM_NAME_FLAG + "]"
-            + PREFIX_SOCIAL_MEDIA + "UPDATED_VALUE";
+            + "Parameters: "
+            + EDIT_SOCIAL_MEDIA_COMMAND_PARAMS
+            + "Example: "
+            + COMMAND_WORD + " Alex Yeoh " + PREFIX_INDEX + "1 " + PREFIX_PLATFORM_NAME_FLAG
+            + " " + PREFIX_SOCIAL_MEDIA + "Telegram";
 
     private Target target;
     private Index index;

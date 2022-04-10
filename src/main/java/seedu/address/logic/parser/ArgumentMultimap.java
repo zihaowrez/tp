@@ -81,14 +81,14 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns true if the prefix was used and placed in the argMultiMap
+     * Returns true if the all the {@code prefixes} were used and placed in the argMultiMap.
      */
     public boolean doesPrefixesExist(Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.containsKey(prefix));
     }
 
     /**
-     * Returns true if at least one prefix was used and placed in the argMultiMap
+     * Returns true if at least one prefix was used and placed in the argMultiMap.
      */
     public boolean atLeastOnePrefix(Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argMultimap.containsKey(prefix));
