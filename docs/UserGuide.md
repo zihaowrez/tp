@@ -11,7 +11,7 @@ title: uMessage User Guide
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `uMessage.jar` from
+1. Download the latest `uMessage.jar` from 
 
 1. Copy the file to the folder you want to use as the _home folder_ for *uMessage*.
 
@@ -69,15 +69,17 @@ title: uMessage User Guide
 
 The contacts are listed alphabetically. The contacts list is navigable using the arrow keys.
 
+There cannot be duplicated contacts. Two contacts are the same if both have the same name (case-sensitive).
+
 ### 1. Adding: `add`
 
 #### 1.1 Adding a person
 
-**Format:** `add n/NAME [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+**Format:** `add n/NAME [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 **Examples:**
 
-> `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`</br>
+> `add n/John Doe p/91020111 e/JohnDoe@outlook.com sm/Telegram, @johnnydoe t/friend`</br>
 > `add n/Betsy Crowe e/e0123456@gmail.com`</br>
 > `add n/Potter`
 
@@ -98,7 +100,7 @@ Note that tags cannot be added to emergency contacts.
 
 #### 1.3 Adding new social media to a person
 
-**Format:** `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}`
+**Format:** `add INDEX sm/{SOCIAL MEDIA PLATFORM}, {ID}` or `add NAME sm/{SOCIAL MEDIA PLATFORM}, {ID}`
 
 INDEX will be matched if it is valid. </br>
 NAME is case sensitive and must match the full name. </br>
@@ -108,8 +110,8 @@ Note that social media cannot be added to emergency contacts.
 
 **Examples:**
 
-> `add John Doe d/telegram, @johndoe23`</br>
-> `add 2 d/telegram, @johndoe23`
+> `add John Doe sm/telegram, @johndoe23`</br>
+> `add 2 sm/telegram, @johndoe23`
 
 
 
@@ -151,13 +153,13 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 #### 4.1 Editing a person
 
-**Format:** `edit NAME [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…` or `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+**Format:** `edit NAME [n/NAME] [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…` or `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 Note that emergency contacts cannot be edited.
 
 **Examples:**
 
-> `edit 1 n/Aaron d/Telegram, @aaron`</br>
+> `edit 1 n/Aaron sm/Telegram, @aaron`</br>
 > `edit Alex n/Aaron p/52873618`
 
 #### 4.2 Editing a person's social media
@@ -244,7 +246,7 @@ Note that tags of emergency contacts cannot be deleted.
 
 ### 6.3 Deleting social media from a Person
 
-**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+**Format:** `delete NAME sm/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX sm/{SOCIAL MEDIA PLATFORM}, {ID}`
 
 INDEX will be matched if it is valid. </br>
 NAME is case sensitive and must match the full name.</br>
@@ -253,14 +255,16 @@ INDEX must be a positive integer. </br>
 Note that social media of emergency contacts cannot be deleted.
 
 **Examples:**
-> `delete kaaviya d/Telegram, @uNivUS`</br>
-> `delete 1 d/Telegram, @uNivUS`
+> `delete kaaviya sm/Telegram, @uNivUS`</br>
+> `delete 1 sm/Telegram, @uNivUS`
 
 
 --------------------------------------------------------------------------------------------------------------------
 ## Managing Meetings
 
 The meetings in the future are listed first with ascending starting time, followed by past meetings with descending starting time.
+
+There cannot be duplicated meetings. Two meetings are the same if both have the same title (case-sensitive) and same start time.
 
 ### 1. Adding: `add`
 
@@ -285,7 +289,6 @@ INDEX must be a positive integer.
 **Examples:**
 
 > `add 1 t/urgent`
-
 
 
 ### 2. Searching meetings by keyword: `[find]`
