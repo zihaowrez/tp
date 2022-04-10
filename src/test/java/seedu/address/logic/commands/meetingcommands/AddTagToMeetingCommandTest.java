@@ -12,16 +12,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.add.AddTagToPersonCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Target;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.MeetingBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 class AddTagToMeetingCommandTest {
 
@@ -59,10 +55,10 @@ class AddTagToMeetingCommandTest {
 
     @Test
     void testEquals() {
-        Meeting CS2103 = new MeetingBuilder().withTitle("CS2103 Meeting").build();
-        Meeting CS3230 = new MeetingBuilder().withTitle("CS3230 Meeting").build();
-        AddCommand addCS2103Command = new AddTagToMeetingCommand(new MeetingTarget(CS2103.getTitle()), FRIENDS);
-        AddCommand addCS3230Command = new AddTagToMeetingCommand(new MeetingTarget(CS3230.getTitle()), FRIENDS);
+        Meeting cS2103 = new MeetingBuilder().withTitle("CS2103 Meeting").build();
+        Meeting cS3230 = new MeetingBuilder().withTitle("CS3230 Meeting").build();
+        AddCommand addCS2103Command = new AddTagToMeetingCommand(new MeetingTarget(cS2103.getTitle()), FRIENDS);
+        AddCommand addCS3230Command = new AddTagToMeetingCommand(new MeetingTarget(cS3230.getTitle()), FRIENDS);
 
         // same object -> returns true
         assertTrue(addCS2103Command.equals(addCS2103Command));
@@ -73,7 +69,7 @@ class AddTagToMeetingCommandTest {
         // null -> returns false
         assertFalse(addCS2103Command.equals(null));
 
-        // different person -> returns false
+        // different meeting -> returns false
         assertFalse(addCS2103Command.equals(addCS3230Command));
     }
 
