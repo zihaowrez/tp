@@ -59,7 +59,7 @@ class DeleteTagOnlyCommandTest {
         // null -> returns false
         assertFalse(deleteFriendsCommand.equals(null));
 
-        // different person -> returns false
+        // different tag -> returns false
         assertFalse(deleteFriendsCommand.equals(deleteEnemiesCommand));
     }
 
