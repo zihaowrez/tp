@@ -20,6 +20,7 @@ end box
 activate PersonListView
 
 PersonListView -> PersonListPanel : handleSelectionChange()
+note right : This runs on\na separate thread\nfrom the caller
 deactivate PersonListView
 activate PersonListPanel
 
@@ -30,10 +31,16 @@ Logic -> currentlySelectedPerson : setCurrentlySelectedPerson(person)
 activate currentlySelectedPerson
 
 currentlySelectedPerson -> ContactDetailPanel : handleSelectionChange(newPerson)
-deactivate currentlySelectedPerson
+note left : This runs on\na separate thread\nfrom the caller
 activate ContactDetailPanel
 
+currentlySelectedPerson [hidden]-> ContactDetailPanel
+deactivate currentlySelectedPerson
+deactivate PersonListPanel
+deactivate Logic
+
 ContactDetailPanel -> ContactDetailPanel : setPanel(new contactDetailCard(newPerson))
+
 activate ContactDetailPanel
 
 ContactDetailPanel -> ResultDisplay : setFeedbackToUser("Details of [name] shown!")
@@ -43,19 +50,11 @@ activate ResultDisplay
 ResultDisplay --> ContactDetailPanel
 deactivate ResultDisplay
 
-ContactDetailPanel --> currentlySelectedPerson
 deactivate ContactDetailPanel
 
-currentlySelectedPerson --> Logic
-
-Logic --> PersonListPanel
 deactivate Logic
 
-PersonListPanel --> PersonListView
 deactivate PersonListPanel
-
-[<-- PersonListView
-deactivate PersonListView
 
 
 
