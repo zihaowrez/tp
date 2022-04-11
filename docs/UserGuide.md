@@ -342,7 +342,7 @@ INDEX must be a positive integer.
 
 **Format:** `delete INDEX t/TAG`
 
-Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
+Deletes tag `TAG` from a meeting specified using `TITLE` or `INDEX`.
 
 **Example:**
 > `delete 1 t/urgent`
@@ -417,10 +417,10 @@ If your changes to the data file makes its format invalid, the data will be disc
 | add     | add a new person                    | `add n/NAME [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]... [t/TAG]`                   |
 | add     | add a tag to an existing person     | `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`                                                     |
 | add     | add a new social media to a person  | `add NAME sm/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX sm/{SOCIAL MEDIA PLATFORM}, {ID}`       |
-| find    | search for a person                 | `[find] KEYWORD [MORE_KEYWORDS]`                                                                |
+| [find]  | search for a person                 | `[find] KEYWORD [MORE_KEYWORDS]`                                                                |
 | view    | view the details of a person        | `view INDEX` or click the Contact/Meeting under the list.                                       |
 | edit    | edit details of a person            | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`           |
-| edit    | edit a person's social media        | `edit INDEX/NAME i/INDEX_SOCIAL_MEDIA [f/] sm/{SOCIAL MEDIA PLATFORM}, {ID}          |
+| edit    | edit a person's social media        | `edit INDEX/NAME i/INDEX_SOCIAL_MEDIA f/ sm/{SOCIAL MEDIA PLATFORM}` or </br> `edit INDEX/NAME i/INDEX_SOCIAL_MEDIA sm/{SOCIAL MEDIA ID}`          |
 | copy    | copy all details of a person        | `copy NAME`                                                                                     |
 | copy    | copy one detail of a person         | perform the `view` command and click on the relevant label values to copy                       |
 | delete  | delete a person                     | `delete NAME` or `delete INDEX`                                                                 |
@@ -431,12 +431,12 @@ If your changes to the data file makes its format invalid, the data will be disc
 
 | Command | Intention                                  | Format                                                                                         |
 |---------|--------------------------------------------|------------------------------------------------------------------------------------------------|
-| add     | add a new meeting                          | `add n/MEETING NAME l/LINK s/START TIME d/DURATION`                                            |
-| add     | add a tag to an existing meeting           | `add MEETING NAME t/NEWTAG` or `add INDEX t/NEWTAG`                                            |
+| add     | add a new meeting                          | `add n/TITLE l/LINK s/STARTTIME d/DURATION`                                            |
+| add     | add a tag to an existing meeting           | `add TITLE t/NEWTAG` or `add INDEX t/NEWTAG`                                            |
 | find    | search for a meeting                       | `[find] KEYWORD [MORE_KEYWORDS]`                                                               |
-| edit    | edit details of a meeting                  | `edit INDEX [n/MEETING NAME] [l/LINK] [s/START TIME] [d/DURATION] [t/TAG]…`                    |
-| delete  | delete a meeting                           | `delete MEETING NAME` or `delete INDEX`                                                        |
-| delete  | delete a tag from a meeting                | `delete MEETING NAME t/TAG` `delete INDEX t/TAG`                                               |
+| edit    | edit details of a meeting                  | `edit INDEX [n/TITLE] [l/LINK] [s/START TIME] [d/DURATION] [t/TAG]…`                    |
+| delete  | delete a meeting                           | `delete TITLE` or `delete INDEX`                                                        |
+| delete  | delete a tag from a meeting                | `delete TITLE t/TAG` `delete INDEX t/TAG`                                               |
 
 ## Universal
 
