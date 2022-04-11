@@ -53,6 +53,16 @@ Given below are my contributions to the project.
 
     - Highlights: Markdown view was supported for `HelpWindow` which required the importing of external libraries.
 
+    - Credits: Github user [JPro](https://github.com/JPro-one/markdown-javafx-renderer) for the markdown library.
+
+* **Enhanced Feature:** Addition and deletion of SocialMedia directly [#109](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/109)
+
+  - What it does: Supports the addition and deletion of specific `SocialMedia` from `Person`.
+
+  - Justification: This feature allows users to add and delete `SocialMedia` directly from `Person`.
+
+ 
+
 
 * **Documentation**:
   * User Guide:
