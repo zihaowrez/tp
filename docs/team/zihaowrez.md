@@ -1,6 +1,6 @@
 ---
 layout: page
-title: zihaowrez's Project Portfolio Page
+title: Wu Zihao's Project Portfolio Page
 ---
 
 ### Project: *uMessage*
