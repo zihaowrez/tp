@@ -24,7 +24,7 @@ Given below are my contributions to the project.
   * Highlights: This enhancement required substantial changes in the GUI. In order for different windows to work independently, they need to be implemented separately, with different sets of commands.
 
 * **Enhancements to existing features**:
-  * Improved the display of GUI (PRs [\#237](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237), [\#146](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237),[\#94](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/94))
+  * Improved the display of GUI (PRs [\#237](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237), [\#146](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237), [\#94](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/94))
   * Wrote tests for `model.meeting` package and search optimisation comparators (PR [\#222](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/222))
   * Wrote tests for the designed sequences of contact and meeting list (PR [\#222](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/222))
   * Wrote tests for meetings' storage (PR [\#262](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/262))
