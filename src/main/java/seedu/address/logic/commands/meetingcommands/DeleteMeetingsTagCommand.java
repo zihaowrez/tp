@@ -24,8 +24,8 @@ import seedu.address.model.tag.Tag;
  * The meeting in the list is identified using it's displayed index in the meetings book.
  */
 public class DeleteMeetingsTagCommand extends DeleteCommand {
-    private static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
-    private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
+    public static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
     private MeetingTarget target;
     private Tag tagToDelete;
 

@@ -17,6 +17,8 @@ public class TypicalTags {
     public static final Tag NEIGHBOURS = new TagBuilder().withName("neighbours").build();
     public static final Tag CLASSMATES = new TagBuilder().withName("classmates").build();
 
+    public static final Tag CS2103 = new TagBuilder().withName("cs2103").build();
+
     public static final String KEYWORD_MATCHING_FRIENDS = "friends"; // A keyword that matches MEIER
 
     private TypicalTags() {} // prevents instantiation
