@@ -340,8 +340,7 @@ Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 
 Global tags are tags that may or may not be associated with any contacts and/or meetings. </br>
 
-For example, adding a global tag will store that tag in the system. However, it will not be associated with any 
-contacts/meetings until it is explicitly added to them. 
+For example, adding a global tag will store that tag in the system. However, it will not be associated with any contacts/meetings until it is explicitly added to them.
 
 ## 1. Adding a global tag
 

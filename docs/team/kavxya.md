@@ -17,7 +17,7 @@ This project is part of the [CS2103T](https://nus-cs2103-ay2122s2.github.io/webs
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added `copy` command to the Contacts tab. 
+* **New Feature**: Added `copy` command to the Contacts tab.
     * What it does: allows the user to copy details of an individual contact using CLI commands.
     * Justification: This feature improves the product significantly because a user is able to copy information quickly and with ease.
     * Highlights: The implementation was challenging as it requires an in-depth analysis of how commands interact and are displayed in order to come up with the most suited implementation.
@@ -29,7 +29,7 @@ Given below are my contributions to the project.
     * Justification: This feature improves the product significantly because a user can conveniently get important information and use it elsewhere without having to manually copy the fields.
     * Highlights: This enhancement requires understanding of GUI framework.
     * PR : [\#139](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/139)
-  
+
 
 * **New Feature**: Improved GUI of the application.
     * What it does: Updates the GUI to fit the NUS ecosystem of applications.
@@ -42,7 +42,7 @@ Given below are my contributions to the project.
 
 * **Project management**:
     * Moved user case stories from shared document to GitHub.
-    
+
 
 * **Documentation**:
     * User Guide:
@@ -53,7 +53,7 @@ Given below are my contributions to the project.
 
     * Developer Guide:
         * Added implementation details of the `copy` feature [\#126](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/126)
-        
+
 **Community**:
     * PRs reviewed (with non-trivial review comments): [\#132](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/132)
-  
+
