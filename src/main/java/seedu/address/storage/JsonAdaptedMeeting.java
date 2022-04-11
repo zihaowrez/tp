@@ -15,7 +15,6 @@ import seedu.address.model.meeting.Link;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.StartTime;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 /**
