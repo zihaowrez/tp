@@ -93,7 +93,7 @@ public class SampleDataUtil {
     public static Tag[] getSampleTags() {
         return new Tag[] {
             new Tag("neighbours"), new Tag("colleagues"), new Tag("friends"),
-            new Tag("EmergencyContacts"), new Tag("family")
+            new Tag("family")
         };
     }
 
