@@ -32,6 +32,7 @@ Given below are my contributions to the project.
 
 * **Project management**:
   * Proposed how to evolve AB3 and came up with a work division for the team
+  * Created group PR
   * Handled communication with the tutor / grader about project deliverables
 
 * **Documentation**:
