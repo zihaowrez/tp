@@ -22,12 +22,12 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Deletes a Tag from a person.
+ * Deletes {@code Tag} from a person.
  * The person in the list is identified using it's displayed index or name in the address book.
  */
 public class DeletePersonsTagCommand extends DeleteCommand {
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag %s not found in %s!";
-    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag %s from %s successfully!";
     public static final String MESSAGE_CANNOT_DELETE_EMERGENCY_TAG = "Tags of emergency contacts cannot be deleted!";
     private Target target;
     private Tag tagToDelete;
@@ -56,14 +56,15 @@ public class DeletePersonsTagCommand extends DeleteCommand {
         Set<Tag> updatedTags = new HashSet<>(personsTags);
 
         if (!updatedTags.remove(tagToDelete)) {
-            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete, targetPerson.getName()));
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToDelete, targetPerson));
         }
 
         Person updatedPerson = createUpdatedPerson(targetPerson, updatedTags);
 
         model.setPerson(targetPerson, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS,
+                tagToDelete, updatedPerson.getName()));
     }
 
     @Override

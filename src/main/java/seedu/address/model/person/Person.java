@@ -121,8 +121,10 @@ public class Person {
 
         List<SocialMedia> socialMedias = getSocialMedias();
         if (!socialMedias.isEmpty()) {
-            builder.append("; Social Media: ");
-            socialMedias.forEach(builder::append);
+            builder.append("; Social Media:");
+            socialMedias.forEach(socialMedia -> {
+                builder.append(" ").append(socialMedia);
+            });
         }
 
         Set<Tag> tags = getTags();

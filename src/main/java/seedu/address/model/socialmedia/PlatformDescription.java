@@ -3,7 +3,7 @@ package seedu.address.model.socialmedia;
 import java.util.Optional;
 
 public class PlatformDescription {
-    //TODO provide actual platform description constraints
+
     public static final String MESSAGE_CONSTRAINTS = "PLATFORM DESCRIPTION CONSTRAINTS!";
     private final String description;
 
@@ -11,7 +11,7 @@ public class PlatformDescription {
      * Every field must be present and not null.
      */
     public PlatformDescription(String description) {
-        //TODO note that empty string might cause parser to behave strangely...
+
         this.description = Optional.of(description).orElse("");
     }
 

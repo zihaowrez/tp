@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person from the addressbook.
+ * Deletes {@code Person} from the address book.
  * The person in the list is identified using it's displayed index or name in the address book.
  */
 public class DeletePersonCommand extends DeleteCommand {

@@ -9,7 +9,12 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* This project is based on the AddressBook-Level3 project created by the SE-EDU initiative.
+* The following libraries were also used in the project.
+    - JavaFX for the Graphical User Interface (GUI).
+    - Jackson for JSON Parsing.
+    - JUnit5 for Testing.
+    - [markdown-javafx-renderer](https://github.com/JPro-one/markdown-javafx-renderer) for rendering the markdown.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -122,15 +127,27 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="600" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Person` objects and `Meeting` objects (which are contained in a `UniquePersonList` object and `UniqueMeetingList` object respectively).
+* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered and sorted_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+  * the same is done for `Meeting` objects.v
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
+Internally, the `Model` component also contains other classes that model the attributes of `Person` and `Meeting`, as shown:
+
+The `Person` class:
+<img src="images/PersonModel.png" width="450"> 
+
+
+The `Meeting` class:
+<img src="images/MeetingModel.png" width="450"> 
+
+
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
@@ -146,8 +163,8 @@ The `Model` component,
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save address book data, meetings book data and user preference data in json format, and read them back into corresponding objects.
+* inherits from `AddressBookStorage`, `MeetingsBookStorage` and `UserPrefStorage`, which means it can be treated as any one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -233,6 +250,183 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
+
+|Overview                                                                     |
+|-----------------------------------------------------------------------------|
+|[Specifying targets by name or index](#specifying-targets-by-name-or-index)  |
+|[Split-panel display](#split-panel-display)                                  |
+|[Clickable Tags](#clickable-tags)                                            |
+|[Dynamic Command Text Field](#dynamic-command-text-field)                    |
+|[Copy Feature](#copy-feature)                                                |
+|[Adding Meetings](#adding-meetings)                                          |
+|[[Proposed] Undo/redo feature](#proposed-undoredo-feature)                   |
+
+
+
+-------------------------------------------------
+
+### Specifying targets by name or index
+
+uMessage allows users to perform certain indexed-based operations by specifying the index of the contact/meeting in the application. However, it is noted that users may find referring to the contact/meeting **by name** to be more natural, and hence uMessage also exposes certain indexed based operations to work with names as well. Some examples of indexed-based operations include:
+
+- Adding/removing new tags from a particular person in the list.
+- Deleting a person/meeting from the list.
+- Adding/removing new social media information from a person in the list.
+
+The syntax of these commands are typically:
+`<command_word> <INDEX or NAME> <relevant_options>`
+
+To reduce code duplication and to differentiate between `INDEX` and `NAME`, a `Target` class is created to handle the parsing of the `INDEX/NAME` string, and commands that take in a `Index`/`Name` instance will now take in a `Target` instance instead.
+
+At parsing time, before the command instances are instantiated, a `Target` instance is instantianted with the user input. Internally, the class checks first if the input is a valid `Index`, failing which, it checks if it is a valid `Name`. If it fails both checks, then the Target class will throw a `ParseException`, to be caught by `execute`.
+
+At this point, note that certain invalid indices are still considered valid names since names are allowed to be alphanumeric. These are the string representations of `0` and any integer greater than `MAX_INT`. 
+
+To prevent prematurely rejecting these strings as invalid indices, the validation for these input class will be deferred to command execution time, where the string is checked against the existing list of persons/meetings. If no person/meeting exists with the same name, then these set of inputs are treated as an invalid index and a `CommandException` is thrown accordingly.
+
+----------------------
+
+### Split-panel display
+![Labeled UI components](images/Ui_labeled.png)
+
+uMessage has a split view design for the contacts tab, as seen in the diagram above. On the top, we have a `ResultDisplay`, 
+which displays the result of various commands and actions performed on the application. On the left, there is a UI component `PersonListPanel` where users can choose and select from the list of contacts available. 
+On the right, users can see expanded, detailed information about the currently selected user, in a UI component called `ContactDetailPanel` and this panel changes based on who is currently selected on the left.
+
+Internally, `ContactDetailPanel` observes a `SimpleObjectProperty<Person> currentlySelectedPerson` observable in the `ModelManager` object, and will update to display the information of the new `Person` whenever the value in the observable changes. 
+
+There are only a few situations that can update the observable:
+1. The user enters a `view INDEX` command through the command box.
+2. The user changes what they select on the `PersonListPanel` on the left.
+
+In the first case, the `view` command will retrieve the `Person` at the specified `INDEX` of the `ListView`, and then set this `Person` object as the new value for `SimpleObjectProperty<Person>`, and also update the `ResultDisplay` as well.
+
+In the second case, the `ListView` within `PersonListPanel` has an inbuilt [Selection API](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ListView.html#:~:text=ListView%20Selection%20/%20Focus%20APIs) provided by the javafx library itself. This exposes an observable which contains the currently selected item of the `ListView`. `PersonListPanel` listens for changes to this value, and updates the `SimpleObjectProperty<Person>` in `ModelManager` whenever the selector on the `ListView` changes. 
+
+<!-- @@author zihaowrez -->
+
+When the user clicks a contact in the list, the detailed information will be displayed in the `ContactDetailPanel`, and the message in the `ResultDisplay` will be updated.
+
+![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChangeDiagram.png)
+
+The `ContactDetailPanel` is responsible for informing the user through the corresponding `ResultDisplay` when the details have been shown successfully.
+
+--------------------------------
+
+### Clickable tags
+
+When the user clicks a tag in the `TagPanel`, both the contact list and the meeting list will be filtered: only items that has the tag will be displayed. The number of matching items will then be updated in both `contactsResultDisplay` and `meetingsResultDisplay`.
+
+This implementation helps the user to filter both contacts and meetings by tag easily.
+
+![Sequence Diagram when a Tag is Clicked](images/ClickTagDiagram.png)
+
+Since the effect of clicking a tag is global, each tag (displayed using a `Label`) will call the `clickTag` method in `MainWindow`. The `clickTag` method is then responsible for calling `Logic` to update the filtered list and updating both `ResultDisplay`s when filtering is done.
+
+-----------------
+
+<!-- @@author reignnz -->
+### Dynamic Command Text Field
+
+#### Implementation
+This implementation involves enabling the CommandTextField to read input as it is typed in the Command Line Interface (CLI). In the `CommandBox.java`, a listener function named handleDynamicInput(), reads the user input at each deletion or addition of the command in the CLI and calls `MainWindow#executeCommand`. It passes the command inputted by the user with the string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
+
+The user input and instance of commandBox object is then passed to `LogicManager#execute` and subsequently `AddressBookParser#parseCommand` and `FindCommandParser#parse(arguments)`.
+
+The above is assuming that the user inputs a string not included in the list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy", "clear", "exit", "help".
+
+![Dynamic Command Diagram](images/DynamicInputFindDiagram.png)
+
+#### Alternatives considered
+* **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
+    * Pros: No changes needed.
+    * Cons: May have performance issues in terms of responsiveness.
+
+-------------------------------
+
+### Copy feature
+
+#### Implementation
+The copy mechanism is facilitated by `ClipboardManager`. It implements the following operation of copying the `Person` to the clipboard.
+
+These operations are exposed in the `Model` interface as `Model#copyPerson()`.
+
+Given below is an example usage scenario and how the copy mechanism behaves.
+
+Step 1. The user launches the application.
+
+Step 2. The user call the inputs copy [PERSON]
+
+Step 3. The `CopyCommandParser` implements `Parser<CopyCommand>` parses the command and initalizes the CopyCommand with the name of the [PERSON]
+
+Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is called from the model.
+
+#### Design Considerations:
+**Aspect: Ease of copying data from uMessage:**
+
+* **Alternative 1 (current choice):** Saves the entire contact book.
+    * Pros: Easy to implement.
+    * Cons: User may have to manually delete unwanted information from the contact.
+
+* **Alternative 2:** Individual copy command to copy individual information stored in the contact
+    * Pros: Will be easier for the user to copy information needed.
+    * Cons: There must be an additional input from the user after the `copy` command with the field name.
+
+_{more aspects and alternatives to be added}_
+
+--------------------------------------------------
+
+### Adding Meetings 
+
+In our meetings tab, users can store information about meetings. Meetings consist of the following
+information: 
+1. Meeting Title
+2. Meeting Link 
+3. Start Time
+4. Duration 
+
+#### Implementation
+The `Meeting.java` class contains a reference to five separate classes, each of which encapsulate the information 
+about Meetings mentioned above. The `Title.java` class and `Duration.java` class stores the title and 
+duration of a meeting respectively. The `Title.java` class simply stores the title as a `String` while the 
+`Duration` class stores the duration as an `int`. The remaining two classes will be explained in more detail. 
+
+Firstly, the `Link` class. In `Link.java`, a link/url for the meeting is stored as a String.
+Following the international convention, the `Link` Validation Regex was structured such that the domain name can 
+contain the English alphabet A-Z (not case-sensitive), the digits 0-9 and hyphens. However, hyphens cannot be added to 
+the start or the end of a domain name. In addition, users will be required to add the protocol, 
+`http://` or `https://` at the front of the link.
+
+Secondly, the `StartTime.java` class. `StartTime` represents the starting date and time of a meeting. 
+The time and date is contained within the Java Class `LocalDateTime`. When a meeting is created with the relevant start
+time, a `StartTime` object will be created inside the `AddMeetingCommandParser#parse` regardless of whether the start 
+time given is in the past, present or future.
+Only when the `AddMeetingCommand#execute` method is executed, then the method `StartTime#isInThePast` will be invoked 
+to check if the start/time given by the user is in the past or not by comparing it with `LocalDateTime#now`. 
+If the start/time is in the past, a `CommandException` error will be thrown. 
+
+Below is a diagram of the sequence of actions that occur when the user inputs a start time in the past and a 
+start time not in the past:
+![StartTimeUMLDiagram](images/StartTimeDiagram.png)
+
+<!-- @@author -->
+
+
+-------------------------------------------
+### \[Proposed\] Undo/redo feature
+
+#### Proposed Implementation
+
+The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+
+* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
@@ -297,118 +491,6 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
-//@@author reignnz
-### [Implemented] Dynamic Command Text Field
-
-#### Implementation
-This implementation involves enabling the CommandTextField to read input as it is typed in
-the Command Line Interface (CLI). In the `CommandBox.java`, a listener function named
-handleDynamicInput(), reads the user input at each deletion or addition of the command in the
-CLI and calls `MainWindow#executeCommand`. It passes the command inputted by the user with the
-string "dynamic" concatted to the front, and a reference of itself (a CommandBox object).
-
-The user input and instance of commandBox object is then passed to `LogicManager#execute` and
-subsequently `AddressBookParser#parseCommand` and `FindCommandParser#parse(arguments)`.
-
-The above is assuming that the user inputs a string not included in the
-list of commands: “add”, “delete”, “list”, “find”, “view”, “edit”, "copy", "clear", "exit", "help".
-
-![Dynamic Command Diagram](images/DynamicInputFindDiagram.png);
-
-#### Alternatives considered
-* **Alternative 1 (current choice):** Continue to enable logging even during dynamic searching
-    * Pros: No changes needed.
-    * Cons: May have performance issues in terms of responsiveness.
-
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-### Copy feature
-
-#### Implementation
-The copy mechanism is facilitated by `ClipboardManager`. It implements the following operation of copying the `Person` to the clipboard.
-
-These operations are exposed in the `Model` interface as `Model#copyPerson()`.
-
-Given below is an example usage scenario and how the copy mechanism behaves.
-
-Step 1. The user launches the application.
-
-Step 2. The user call the inputs copy [PERSON]
-
-Step 3. The `CopyCommandParser` implements `Parser<CopyCommand>` parses the command and initalizes the CopyCommand with the name of the [PERSON]
-
-Step 4. Finally the copy command is executed and the `ClipboardManager#copy` is called from the model.
-
-#### Design Considerations:
-**Aspect: Ease of copying data from uMessage:**
-
-* **Alternative 1 (current choice):** Saves the entire contact book.
-    * Pros: Easy to implement.
-    * Cons: User may have to manually delete unwanted information from the contact.
-
-* **Alternative 2:** Individual copy command to copy individual information stored in the contact
-    * Pros: Will be easier for the user to copy information needed.
-    * Cons: There must be an additional input from the user after the `copy` command with the field name.
-
-### [Implemented] Adding Meetings 
-
-In our meetings tab, users can store information about meetings. Meetings consist of the following
-information: 
-1. Meeting Title
-2. Meeting Link 
-3. Start Time
-4. Duration 
-
-#### Implementation
-The `Meeting.java` class contains a reference to five separate classes, each of which encapsulate the information 
-about Meetings mentioned above. The `Title.java` class and `Duration.java` class stores the title and 
-duration of a meeting respectively. The `Title.java` class simply stores the title as a `String` while the 
-`Duration` class stores the duration as an `int`. The remaining two classes will be explained in more detail. 
-
-Firstly, the `Link` class. In `Link.java`, a link/url for the meeting is stored as a String.
-Following the international convention, the `Link` Validation Regex was structured such that the domain name can 
-contain the English alphabet A-Z (not case-sensitive), the digits 0-9 and hyphens. However, hyphens cannot be added to 
-the start or the end of a domain name. In addition, users will be required to add the protocol, 
-http:// or https:// at the front of the link.
-
-Secondly, the `StartTime.java` class. `StartTime` represents the starting date and time of a meeting. 
-The time and date is contained within the Java Class `LocalDateTime`. When a meeting is created with the relevant start
-time, a `StartTime` object will be created inside the `AddMeetingCommandParser#parse` regardless of whether the start 
-time given is in the past, present or future.
-Only when the `AddMeetingCommand#execute` method is executed, then the method `StartTime#isInThePast` will be invoked 
-to check if the start/time given by the user is in the past or not by comparing it with `LocalDateTime#now`. 
-If the start/time is in the past, a `CommandException` error will be thrown. 
-
-Below is a diagram of the sequence of actions that occur when the user inputs a start time in the past and a 
-start time not in the past:
-![StartTimeUMLDiagram](images/StartTimeDiagram.png)
-
-### [Implemented] Clickable contacts and tags
-
-This implementation makes the contacts and tags in the GUI clickable. When clicked, relevant information will be shown.
-
-#### Clickable contacts
-
-When the user clicks a contact in the list, the detailed information will be displayed in the `ContactDetailPanel`, and the message in the `ResultDisplay` will be updated.
-
-![Sequence Diagram when a Contact is Clicked](images/ContactListSelectionChangeDiagram.png)
-
-The `ContactDetailPanel` is responsible for informing the user through the corresponding `ResultDisplay` when the details have been shown successfully.
-
-#### Clickable tags
-
-When the user clicks a tag in the `TagPanel`, both the contact list and the meeting list will be filtered: only items that has the tag will be displayed. The number of matching items will then be updated in both `contactsResultDisplay` and `meetingsResultDisplay`.
-
-This implementation helps the user to filter both contacts and meetings by tag easily.
-
-![Sequence Diagram when a Tag is Clicked](images/ClickTagDiagram.png)
-
-Since the effect of clicking a tag is global, each tag (displayed using a `Label`) will call the `clickTag` method in `MainWindow`. The `clickTag` method is then responsible for calling `Logic` to update the filtered list and updating both `ResultDisplay`s when filtering is done.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -424,6 +506,7 @@ Since the effect of clicking a tag is global, each tag (displayed using a `Label
 
 ## **Appendix: Requirements**
 
+<!-- @@author cheehongw -->
 ### Product scope
 
 **Target user profile**:
@@ -437,6 +520,7 @@ A university student who:
 
 **Value proposition**: organise contacts and meetings across various social media platforms so that they can be retrieved more conveniently when needed
 
+<!-- @@author -->
 
 ### User stories
 

@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Deletes a Social from a person.
+ * Deletes a targetted social media from a person.
  * The person in the list is identified using it's displayed index or name in the address book.
  */
 public class DeletePersonsSocialCommand extends DeleteCommand {
