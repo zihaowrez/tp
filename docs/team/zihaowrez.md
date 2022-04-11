@@ -19,18 +19,20 @@ Given below are my contributions to the project.
   * Highlights: The implementation makes use of the sorted list defined in the previous feature. A comparator for alphabetical list is put to the sorted list when executing a `ListCommand`.
 
 * **New Feature: Use tabs to replace the menu bar**
-  * What it does: Arrange the contents of the app into three Windows: Contacts, Meetings, and Help.
+  * What it does: Arrange the contents of the app into three windows: Contacts, Meetings, and Help.
   * Justification: This feature enables the user to navigate different contents in the app easily (by clicking on the tab).
   * Highlights: This enhancement required substantial changes in the GUI. In order for different windows to work independently, they need to be implemented separately, with different sets of commands.
 
 * **Enhancements to existing features**:
-  * Improved the display of GUI (PRs [\#237](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237)), [#\146](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237),[\#94](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/94))
+  * Improved the display of GUI (PRs [\#237](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237), [\#146](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/237),[\#94](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/94))
   * Wrote tests for `model.meeting` package and search optimisation comparators (PR [\#222](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/222))
-  * Wrote tests for the designed sequences of contact and meeting list.
+  * Wrote tests for the designed sequences of contact and meeting list (PR [\#222](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/222))
+  * Wrote tests for meetings' storage (PR [\#262](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/262))
+  * Wrote tests for `ListMeetingCommand` and `FindMeetingCommand` (PR [\#262](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/262))
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=zihaowrez&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2022-02-18&tabOpen=true&tabType=authorship&tabAuthor=zihaowrez&tabRepo=AY2122S2-CS2103-W16-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 
-* **Project management**:
+* **Project management and Team-based tasks**:
   * Proposed how to evolve AB3 and came up with a work division for the team
   * Created group PR to the upstream repo
   * Handled communication with the tutor / grader about project deliverables
@@ -38,6 +40,7 @@ Given below are my contributions to the project.
 * **Documentation**:
   * User Guide:
     * Updated documentation for all features in v1.3 (PR [\#144](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/144))
+    * Improved documentation for v1.4 (PR [\#258](PR [\#258](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/258))
   * Developer Guide:
     * Added implementation details of the GUI (PR [\#243](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/243)).
     * Added implementation details about updating the `ResultDisplay` when contacts or tags are clicked (PR [\#247](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/247)).
