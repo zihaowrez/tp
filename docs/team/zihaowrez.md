@@ -18,7 +18,7 @@ Given below are my contributions to the project.
   * Justification: This feature helps the user locate the index of contacts easily, which makes edition and deletion faster.
   * Highlights: The implementation makes use of the sorted list defined in the previous feature. A comparator for alphabetical list is put to the sorted list when executing a `ListCommand`.
 
-* **New Feature: Use tabs to replace the menu bar** (Multiple commits under [#\132](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/132))
+* **New Feature: Use tabs to replace the menu bar** (Multiple commits under [\#132](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/132))
   * What it does: Arrange the contents of the app into three windows: Contacts, Meetings, and Help.
   * Justification: This feature enables the user to navigate different contents in the app easily (by clicking on the tab).
   * Highlights: This enhancement required substantial changes in the GUI. In order for different windows to work independently, they need to be implemented separately, with different sets of commands.
