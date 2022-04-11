@@ -102,7 +102,7 @@ public class MeetingsBook implements ReadOnlyMeetingsBook {
 
     @Override
     public String toString() {
-        return meetings.asUnmodifiableObservableList().size() + " persons";
+        return meetings.asUnmodifiableObservableList().size() + " meetings";
         // TODO: refine later
     }
 

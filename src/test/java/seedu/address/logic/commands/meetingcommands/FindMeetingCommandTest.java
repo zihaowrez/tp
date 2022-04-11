@@ -1,7 +1,12 @@
 package seedu.address.logic.commands.meetingcommands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalMeetings.CS2103_MEETING;
+import static seedu.address.testutil.TypicalMeetings.CS3230_MEETING;
 import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingsBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -56,31 +61,18 @@ public class FindMeetingCommandTest {
         assertFalse(findFirstMeetingCommand.equals(findSecondMeetingCommand));
     }
 
-    /*
-    @Test
-    public void execute_zeroKeywords_noMeetingFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        MeetingContainsKeywordsPredicate predicate = preparePredicate(" ");
-        MeetingKeywordMatchnessComparator comparator  = prepareComparator(" ");
-        FindMeetingCommand command = new FindMeetingCommand(predicate, comparator);
-        expectedModel.updateFilteredMeetingList(predicate);
-        expectedModel.sortFilteredMeetingList(comparator);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getSortedAndFilteredMeetingList());
-    }
-
     @Test
     public void execute_multipleKeywords_multipleMeetingsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_MEETINGS_LISTED_OVERVIEW, 2);
         MeetingContainsKeywordsPredicate predicate = preparePredicate("CS2103 CS3230");
-        MeetingKeywordMatchnessComparator comparator  = prepareComparator(" ");
+        MeetingKeywordMatchnessComparator comparator = prepareComparator(" ");
         FindMeetingCommand command = new FindMeetingCommand(predicate, comparator);
         expectedModel.updateFilteredMeetingList(predicate);
         expectedModel.sortFilteredMeetingList(comparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103_MEETING, CS3230_PE), model.getSortedAndFilteredMeetingList());
+        assertEquals(Arrays.asList(CS2103_MEETING, CS3230_MEETING), model.getSortedAndFilteredMeetingList());
     }
-     */
+
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.

@@ -1,0 +1,9 @@
+{
+  "meetings" : [ {
+    "title" : "CS2103 Meeting",
+    "link" : "invalid link",
+    "startTime" : "2022-03-14 1700",
+    "duration" : "120",
+    "tagged" : [ "friends" ]
+  } ]
+}

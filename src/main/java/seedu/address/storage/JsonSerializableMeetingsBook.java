@@ -17,7 +17,7 @@ import seedu.address.model.meeting.Meeting;
  * An Immutable MeetingsBook that is serializable to JSON format.
  */
 @JsonRootName(value = "meetingsBook")
-class JsonSerializableMeetingsBook {
+public class JsonSerializableMeetingsBook {
 
     public static final String MESSAGE_DUPLICATE_MEETINGS = "Meetings list contains duplicate person(s).";
 

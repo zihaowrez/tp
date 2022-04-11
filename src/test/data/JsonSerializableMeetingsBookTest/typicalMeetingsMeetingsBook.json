@@ -1,0 +1,21 @@
+{
+  "meetings" : [ {
+    "title" : "CS2103 Meeting",
+    "link" : "https://zoom.sg",
+    "startTime" : "2022-10-10 1800",
+    "duration" : "60",
+    "tagged" : [ "cs2103" ]
+  }, {
+    "title" : "CS3230 Meeting",
+    "link" : "https://nus-sg.zoom.us/j/92307270969?pwd=VVMvNWFPWFpyVHRIcXR0VkJlNkg0dz09",
+    "startTime" : "2022-01-10 0900",
+    "duration" : "60",
+    "tagged" : [ "cs3230" ]
+  }, {
+    "title" : "Project Meeting",
+    "link" : "https://teams.sg",
+    "startTime" : "2024-10-10 1800",
+    "duration" : "50",
+    "tagged" : [ "project" ]
+  } ]
+}

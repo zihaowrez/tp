@@ -100,9 +100,9 @@ public class LogicManager implements Logic {
         });
         return new CommandResult[] {
             new CommandResult(getSortedAndFilteredPersonList().size()
-                    + " persons with tag " + tag + " listed!"),
+                    + Logic.getClickTagFeedbackToContacts(tag)),
             new CommandResult(getSortedAndFilteredMeetingList().size()
-                    + " meetings with tag " + tag + " listed!")};
+                    + Logic.getClickTagFeedbackToMeetings(tag))};
     }
 
     public ObservableObjectValue<Person> getCurrentlySelectedPerson() {

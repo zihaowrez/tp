@@ -18,7 +18,7 @@ public class TypicalMeetings {
             .withDuration(60)
             .withTags("cs2103").build();
     public static final Meeting CS3230_MEETING = new MeetingBuilder().withTitle("CS3230 Meeting")
-            .withLink("https://zoom.sg")
+            .withLink("https://nus-sg.zoom.us/j/92307270969?pwd=VVMvNWFPWFpyVHRIcXR0VkJlNkg0dz09")
             .withStartTime("2022-1-10 0900")
             .withDuration(60)
             .withTags("cs3230").build();
@@ -27,6 +27,21 @@ public class TypicalMeetings {
             .withStartTime("2024-10-10 1800")
             .withDuration(50)
             .withTags("project").build();
+    public static final Meeting CS2030_PE = new MeetingBuilder().withTitle("CS2030 PE")
+            .withLink("https://zoom.sg")
+            .withStartTime("2022-4-1 0900")
+            .withDuration(120)
+            .withTags("PE").build();
+    public static final Meeting CS2040_PE = new MeetingBuilder().withTitle("CS2040 PE")
+            .withLink("https://zoom.sg")
+            .withStartTime("2022-4-23 0900")
+            .withDuration(120)
+            .withTags("PE").build();
+    public static final Meeting CS2103_FINAL = new MeetingBuilder().withTitle("CS2103 FINAL")
+            .withLink("https://zoom.sg")
+            .withStartTime("2022-5-5 0900")
+            .withDuration(150)
+            .withTags("FINAL").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "cs2103"; // A keyword that matches cs2103
 

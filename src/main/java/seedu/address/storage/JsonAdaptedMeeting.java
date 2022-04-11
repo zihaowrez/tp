@@ -76,6 +76,9 @@ class JsonAdaptedMeeting {
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        }
         final Title modelName = new Title(title);
 
         if (link == null) {
@@ -95,7 +98,7 @@ class JsonAdaptedMeeting {
 
         if (duration == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    StartTime.class.getSimpleName()));
+                    Duration.class.getSimpleName()));
         }
         if (!Duration.isValidDuration(Integer.parseInt(duration))) {
             throw new IllegalValueException(Duration.MESSAGE_CONSTRAINTS);
