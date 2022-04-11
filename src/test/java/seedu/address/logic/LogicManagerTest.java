@@ -3,12 +3,21 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_STRING_60;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK_ZOOM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS2103;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMeetings.CS2103_MEETING;
 import static seedu.address.testutil.TypicalMeetings.PROJECT_MEETING;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,7 +27,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,7 +38,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyMeetingsBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -80,8 +87,8 @@ public class LogicManagerTest {
         model.addMeeting(CS2103_MEETING);
         CommandResult[] actualCommandResults = logic.clickTag(tag);
         CommandResult[] expectedCommandResults = {
-                new CommandResult("1" + Logic.getClickTagFeedbackToContacts(tag)),
-                new CommandResult("0" + Logic.getClickTagFeedbackToMeetings(tag))
+            new CommandResult("1" + Logic.getClickTagFeedbackToContacts(tag)),
+            new CommandResult("0" + Logic.getClickTagFeedbackToMeetings(tag))
         };
         assertEquals(expectedCommandResults[0], actualCommandResults[0]);
         assertEquals(expectedCommandResults[1], actualCommandResults[1]);
@@ -127,7 +134,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_contacts_storageThrowsIoException_throwsCommandException() {
+    public void execute_contactsStorageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
@@ -149,7 +156,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_meetings_storageThrowsIoException_throwsCommandException() {
+    public void execute_meetingsStorageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
@@ -181,7 +188,8 @@ public class LogicManagerTest {
 
     @Test
     public void getSortedAndFilteredMeetingList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getSortedAndFilteredMeetingList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                logic.getSortedAndFilteredMeetingList().remove(0));
     }
 
     /**
@@ -213,23 +221,8 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command for contacts, confirms that a ParseException is thrown and that the result message is correct.
-     * @see #assertContactsCommandFailure(String, CommandBox, Class, String, Model)
-     */
-    private void assertContactsParseException(String inputCommand, CommandBox commandBox, String expectedMessage) {
-        assertContactsCommandFailure(inputCommand, commandBox, ParseException.class, expectedMessage);
-    }
-
-    /**
-     * Executes the command for meetings, confirms that a ParseException is thrown and that the result message is correct.
-     * @see #assertMeetingsCommandFailure(String, CommandBox, Class, String, Model)
-     */
-    private void assertMeetingsParseException(String inputCommand, CommandBox commandBox, String expectedMessage) {
-        assertMeetingsCommandFailure(inputCommand, commandBox, ParseException.class, expectedMessage);
-    }
-
-    /**
-     * Executes the command for contacts, confirms that a CommandException is thrown and that the result message is correct.
+     * Executes the command for contacts,
+     * confirms that a CommandException is thrown and that the result message is correct.
      * @see #assertContactsCommandFailure(String, CommandBox, Class, String, Model)
      */
     private void assertContactsCommandException(String inputCommand, CommandBox commandBox, String expectedMessage) {
@@ -237,31 +230,14 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
-     * @see #assertMeetingsCommandFailure(String, CommandBox, Class, String, Model)
-     */
-    private void assertMeetingsCommandException(String inputCommand, CommandBox commandBox, String expectedMessage) {
-        assertMeetingsCommandFailure(inputCommand, commandBox, CommandException.class, expectedMessage);
-    }
-
-    /**
-     * Executes the command for contacts, confirms that the exception is thrown and that the result message is correct.
+     * Executes the command for contacts,
+     * confirms that the exception is thrown and that the result message is correct.
      * @see #assertContactsCommandFailure(String, CommandBox, Class, String, Model)
      */
     private void assertContactsCommandFailure(String inputCommand, CommandBox commandBox,
-                                       Class<? extends Throwable> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getMeetingsBook(), new UserPrefs());
-        assertContactsCommandFailure(inputCommand, commandBox, expectedException, expectedMessage, expectedModel);
-    }
-
-    /**
-     * Executes the command for meetings, confirms that the exception is thrown and that the result message is correct.
-     * @see #assertContactsCommandFailure(String, CommandBox, Class, String, Model)
-     */
-    private void assertMeetingsCommandFailure(String inputCommand, CommandBox commandBox,
                                               Class<? extends Throwable> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getMeetingsBook(), new UserPrefs());
-        assertMeetingsCommandFailure(inputCommand, commandBox, expectedException, expectedMessage, expectedModel);
+        assertContactsCommandFailure(inputCommand, commandBox, expectedException, expectedMessage, expectedModel);
     }
 
     /**
@@ -272,10 +248,30 @@ public class LogicManagerTest {
      * @see #assertContactsCommandSuccess(String, CommandBox, String, Model)
      */
     private void assertContactsCommandFailure(String inputCommand, CommandBox commandBox,
-                                      Class<? extends Throwable> expectedException, String expectedMessage,
-                                      Model expectedModel) {
+                                              Class<? extends Throwable> expectedException, String expectedMessage,
+                                              Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.executeForContacts(inputCommand, commandBox));
         assertEquals(expectedModel, model);
+    }
+
+    /**
+     * Executes the command for meetings,
+     * confirms that a CommandException is thrown and that the result message is correct.
+     * @see #assertMeetingsCommandFailure(String, CommandBox, Class, String, Model)
+     */
+    private void assertMeetingsCommandException(String inputCommand, CommandBox commandBox, String expectedMessage) {
+        assertMeetingsCommandFailure(inputCommand, commandBox, CommandException.class, expectedMessage);
+    }
+
+    /**
+     * Executes the command for meetings,
+     * confirms that the exception is thrown and that the result message is correct.
+     * @see #assertContactsCommandFailure(String, CommandBox, Class, String, Model)
+     */
+    private void assertMeetingsCommandFailure(String inputCommand, CommandBox commandBox,
+                                              Class<? extends Throwable> expectedException, String expectedMessage) {
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getMeetingsBook(), new UserPrefs());
+        assertMeetingsCommandFailure(inputCommand, commandBox, expectedException, expectedMessage, expectedModel);
     }
 
     /**

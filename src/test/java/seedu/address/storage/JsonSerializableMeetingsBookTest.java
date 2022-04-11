@@ -1,18 +1,18 @@
 package seedu.meeting.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.MeetingsBook;
 import seedu.address.storage.JsonSerializableMeetingsBook;
 import seedu.address.testutil.TypicalMeetings;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
-
 
 public class JsonSerializableMeetingsBookTest {
 
