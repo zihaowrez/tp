@@ -86,7 +86,7 @@ The contacts list is navigable using the arrow keys.
 NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer. </br>
 
-Note that tags cannot be added to emergency contacts.
+Note that tags cannot be added to pre-installed emergency contacts.
 
 **Examples:**
 
@@ -100,7 +100,7 @@ Note that tags cannot be added to emergency contacts.
 NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer. </br>
 
-Note that social media cannot be added to emergency contacts.
+Note that social media cannot be added to pre-installed emergency contacts.
 
 **Examples:**
 
@@ -147,7 +147,7 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
-Note that emergency contacts cannot be edited.
+Note that pre-installed emergency contacts cannot be edited.
 
 **Examples:**
 
@@ -208,7 +208,7 @@ Note that clicking the email and telegram fields will trigger a unique response.
 NAME is case sensitive and must match the full name. </br>
 INDEX must be a positive integer. </br>
 
-Note that emergency contacts cannot be deleted.
+Note that pre-installed emergency contacts cannot be deleted.
 
 
 **Examples:**
@@ -224,7 +224,7 @@ Note that emergency contacts cannot be deleted.
 NAME is case sensitive and must match the full name. </br>
 INDEX must be a positive integer. </br>
 
-Note that tags of emergency contacts cannot be deleted.
+Note that tags of pre-installed emergency contacts cannot be deleted.
 
 
 **Examples:**
@@ -239,7 +239,7 @@ Note that tags of emergency contacts cannot be deleted.
 NAME is case sensitive and must match the full name.</br>
 INDEX must be a positive integer. </br>
 
-Note that social media of emergency contacts cannot be deleted.
+Note that social media of pre-installed emergency contacts cannot be deleted.
 
 **Examples:**
 > `delete kaaviya d/Telegram, @uNivUS`</br>
