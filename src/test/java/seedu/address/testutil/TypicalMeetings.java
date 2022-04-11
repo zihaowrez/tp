@@ -18,7 +18,7 @@ public class TypicalMeetings {
             .withDuration(60)
             .withTags("cs2103").build();
     public static final Meeting CS3230_MEETING = new MeetingBuilder().withTitle("CS3230 Meeting")
-            .withLink("https://zoom.sg")
+            .withLink("https://nus-sg.zoom.us/j/92307270969?pwd=VVMvNWFPWFpyVHRIcXR0VkJlNkg0dz09")
             .withStartTime("2022-1-10 0900")
             .withDuration(60)
             .withTags("cs3230").build();
