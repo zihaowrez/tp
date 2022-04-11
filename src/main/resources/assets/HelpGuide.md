@@ -28,18 +28,19 @@
 
 # Managing Contacts
 
-The contacts are listed alphabetically. The header displays the size of the current contact list in the brackets.</br>
-The contacts list is navigable using the arrow keys.
+The contacts are listed alphabetically. The contacts list is navigable using the arrow keys.
+
+There cannot be duplicated contacts. Two contacts are the same if both have the same name (case-sensitive).
 
 ## 1. Adding: `add`
 
 ### 1.1 Adding a person
 
-**Format:** `add n/NAME [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+**Format:** `add n/NAME [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
 
 **Examples:**
 
-> `add n/John Doe p/91020111 e/JohnDoe@outlook.com d/Telegram, @johnnydoe t/friend`</br>
+> `add n/John Doe p/91020111 e/JohnDoe@outlook.com sm/Telegram, @johnnydoe t/friend`</br>
 > `add n/Betsy Crowe e/e0123456@gmail.com`</br>
 > `add n/Potter`
 
@@ -47,8 +48,11 @@ The contacts list is navigable using the arrow keys.
 
 **Format:** `add NAME t/NEWTAG` or `add INDEX t/NEWTAG`
 
-NAME is case sensitive and must match the full name.</br>
-INDEX must be a positive integer.
+INDEX will be matched if it is valid. </br>
+NAME is case sensitive and must match the full name. </br>
+INDEX must be a positive integer. </br>
+
+Note that tags cannot be added to pre-installed emergency contacts.
 
 **Examples:**
 
@@ -57,21 +61,26 @@ INDEX must be a positive integer.
 
 ### 1.3 Adding new social media to a person
 
-**Format:** `add NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `add INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+**Format:** `add INDEX sm/{SOCIAL MEDIA PLATFORM}, {ID}` or `add NAME sm/{SOCIAL MEDIA PLATFORM}, {ID}`
 
-NAME is case sensitive and must match the full name.</br>
-INDEX must be a positive integer.
+INDEX will be matched if it is valid. </br>
+NAME is case sensitive and must match the full name. </br>
+INDEX must be a positive integer. </br>
+
+Note that social media cannot be added to pre-installed emergency contacts.
 
 **Examples:**
 
-> `add John Doe d/telegram, @johndoe23`</br>
-> `add 2 d/telegram, @johndoe23`
+> `add John Doe sm/telegram, @johndoe23`</br>
+> `add 2 sm/telegram, @johndoe23`
 
 
 
 ## 2. Searching persons by keywords: `[find]`
 
 **Format:** `[find] KEYWORD [MORE_KEYWORDS]`
+
+Note that the command word is optional, i.e., uMessage searches for whatever entered by default, unless a command is detected.
 
 Results are listed according to how much they match the keywords. Names are matched first, then tags, then other fields.
 
@@ -96,20 +105,39 @@ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 
 **Examples:**
 
-> `view 2`
-> clicking on the second contact does the same as above.
+> `view 2` </br>
+>  clicking on the second contact does the same as above.
 
 
 
 ## 4. Editing details of a person: `edit`
 
-**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+### 4.1 Editing a person
+
+**Format:** `edit NAME [n/NAME] [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…` or `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [sm/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+
+Note that pre-installed emergency contacts cannot be edited.
 
 **Examples:**
 
-> `edit 1 n/Aaron d/Telegram, @aaron`</br>
+> `edit 1 n/Aaron sm/Telegram, @aaron`</br>
 > `edit Alex n/Aaron p/52873618`
 
+### 4.2 Editing a person's social media
+
+Edits a social media found in a person's list of social media.
+
+**Format:**  `edit NAME i/SOCIAL_MEDIA_INDEX [f/] sm/NEW_DETAILS` or `edit INDEX i/SOCIAL_MEDIA_INDEX [f/] sm/NEW_DETAILS`
+
+NAME is case sensitive and must match the full name.
+INDEX refers to the index of the person you want to edit, and must be a positive integer.
+SOCIAL_MEDIA_INDEX refers to the index of the social media in the person's list of social media, and must be a positive integer.
+`f/` is an optional parameter, include it to edit the name of the social media instead of the social media description.
+
+**Examples:**
+
+> `edit 1 i/2 f/ sm/Telegram`
+> `edit Alex Yeoh i/1 sm/@alexxy`
 
 
 ## 5. Copying: `copy`
@@ -134,8 +162,11 @@ Note that clicking the email and telegram fields will trigger a unique response.
 
 **Examples:**
 
-**Copying email:** Clicking the email will trigger the local Mail application to create a new email to the aforementioned address.
+**Copying Phone:** Clicking the phone, and the phone number will be copied.
 
+**For Email and Telegram:**
+
+**Copying email:** Clicking the email will trigger the local Mail application to create a new email to the aforementioned address. </br>
 **Copying a telegram handle:** Clicking the telegram handle will open the Telegram link to contact the person at the aforementioned handle name.
 
 
@@ -146,45 +177,55 @@ Note that clicking the email and telegram fields will trigger a unique response.
 
 **Format:** `delete NAME` or `delete INDEX`
 
-NAME is case sensitive and must match the full name.</br>
-INDEX must be a positive integer.
+INDEX will be matched if it is valid. </br>
+NAME is case sensitive and must match the full name. </br>
+INDEX must be a positive integer. </br>
+
+Note that pre-installed emergency contacts cannot be deleted.
+
 
 **Examples:**
 
-> `delete 2` deletes the contact at index 2</br>
-> `delete Alex Yeoh` deletes the contact `Alex Yeoh`</br>
+> `delete 2` deletes the contact at index 2 </br>
+> `delete Alex Yeoh` deletes the contact `Alex Yeoh` </br>
 > `delete Alex` or `delete alex yeoh` will not delete `Alex Yeoh`
 
 ### 6.2 Deleting tag from a Person
 
 **Format:** `delete NAME t/TAG` `delete INDEX t/TAG`
 
-NAME is case sensitive and must match the full name.
-INDEX must be a positive integer.
+INDEX will be matched if it is valid. </br>
+NAME is case sensitive and must match the full name. </br>
+INDEX must be a positive integer. </br>
+
+Note that tags of pre-installed emergency contacts cannot be deleted.
 
 **Examples:**
 
-> `delete kaaviya t/friend`</br>
+> `delete kaaviya t/friend` </br>
 > `delete 1 t/colleague`
 
 ### 6.3 Deleting social media from a Person
 
-**Format:** `delete NAME d/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX d/{SOCIAL MEDIA PLATFORM}, {ID}`
+**Format:** `delete NAME sm/{SOCIAL MEDIA PLATFORM}, {ID}` or `delete INDEX sm/{SOCIAL MEDIA PLATFORM}, {ID}`
 
+INDEX will be matched if it is valid. </br>
 NAME is case sensitive and must match the full name.</br>
-INDEX must be a positive integer.
+INDEX must be a positive integer. </br>
+
+Note that social media of pre-installed emergency contacts cannot be deleted.
 
 **Examples:**
-> `delete kaaviya d/Telegram, @uNivUS`</br>
-> `delete 1 d/Telegram, @uNivUS`
+> `delete kaaviya sm/Telegram, @uNivUS`</br>
+> `delete 1 sm/Telegram, @uNivUS`
 
 
 --------------------------------------------------------------------------------------------------------------------
-# Manage Meetings
+# Managing Meetings
 
-The meetings in the future are listed first with ascending starting time, followed by past meetings with descending starting time.</br>
+The meetings in the future are listed first with ascending starting time, followed by past meetings with descending starting time.
 
-The header displays the size of the current meeting list in the brackets.
+There cannot be duplicated meetings. Two meetings are the same if both have the same title (case-sensitive) and same start time.
 
 ## 1. Adding: `add`
 
@@ -197,8 +238,8 @@ DURATION is in minutes and must be an integer between 1 and 10000.
 
 **Examples:**
 
-> `add n/CS2040 PE l/www.google.com s/2022-3-20 0900 d/120 t/Alex`</br>
-> `add n/CS2103 Tutorial l/www.google.com s/2022-3-20 1200 d/60`
+> `add n/CS2040 PE l/https://www.google.com s/2022-3-20 0900 d/120 t/Alex`</br>
+> `add n/CS2103 Tutorial l/https://www.google.com s/2022-3-20 1200 d/60`
 
 ### 1.2 Adding new tag to a meeting
 
@@ -211,8 +252,7 @@ INDEX must be a positive integer.
 > `add 1 t/urgent`
 
 
-
-## 3. Searching meetings by keyword: `[find]`
+## 2. Searching meetings by keyword: `[find]`
 
 Finds meetings with the given keywords.
 
@@ -236,14 +276,14 @@ The order of the keywords does not matter. e.g. `2040 CS` will match `CS 2040`.
 
 ## 3. Editing details of a meeting: `edit`
 
-**Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/{SOCIAL MEDIA PLATFORM}, {ID}]… [t/TAG]…`
+**Format:** `edit INDEX [n/TITLE] [l/LINK] [s/START_TIME] [d/DURATION] [t/TAG]…`
 
 START_TIME must follow the format `yyyy-M-d HHmm` (e.g. `2022-3-20 0900`) and must not be in the past.</br>
-DURATION is in minutes and must be an integer between 1 and 10000.
+DURATION is in minutes and must be an integer between 1 and 10000 (inclusive).
 
 **Examples:**
 
-> `edit 1 n/CS2030 PE`</br>
+> `edit 1 n/CS2030 PE` </br>
 > `edit 2 s/2022-4-1 1600`
 
 
@@ -262,14 +302,16 @@ INDEX must be a positive integer.
 
 **Format:** `delete INDEX t/TAG`
 
-Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
+Deletes tag `TAG` from a meeting specified using `TITLE` or `INDEX`.
 
 **Example:**
 > `delete 1 t/urgent`
 
 --------------------------------------------------------------------------------------------------------------------
 
-# Manage Global Tags
+# Managing Global Tags
+
+Global tags helps you organise relevant contacts and meetings together.
 
 ## 1. Adding a global tag
 
@@ -284,6 +326,10 @@ Deletes tag `TAG` from a person specified using `NAME` or `INDEX`.
 
 **Example:**
 > `delete t/CS2100`
+
+## 3. Filter by tag
+
+**Format:** click on a tag in the tag panel. This filters both contacts and meetings with the tag.
 
 
 
@@ -300,7 +346,7 @@ Shows a list of all persons/meetings in the book.
 
 ## 3. Clearing all entries: `clear`
 
-Clears all non-Emergency Contacts entries from the address book.
+Clears all non-Emergency Contacts entries and meetings from the address book.
 
 ## 4. Exiting the program: `exit`
 
@@ -314,9 +360,6 @@ uMessage's data are saved in the hard disk automatically after any command that 
 
 uMessage's data are saved as two JSON files: `[JAR file location]/data/addressbook.json` and `[JAR file location]/data/meetingsbook.json`. Advanced users are welcome to update data directly by editing those data files.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, the data will be discarded and uMessage start with an empty data file at the next run.
-</div>
 
 
 
