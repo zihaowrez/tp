@@ -3,7 +3,7 @@ package seedu.address.logic.commands.meetingcommands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalMeetings.CS2103_MEETING;
 import static seedu.address.testutil.TypicalMeetings.CS3230_MEETING;
@@ -63,7 +63,7 @@ public class FindMeetingCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleMeetingsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_MEETINGS_LISTED_OVERVIEW, 2);
         MeetingContainsKeywordsPredicate predicate = preparePredicate("CS2103 CS3230");
         MeetingKeywordMatchnessComparator comparator = prepareComparator(" ");
         FindMeetingCommand command = new FindMeetingCommand(predicate, comparator);
