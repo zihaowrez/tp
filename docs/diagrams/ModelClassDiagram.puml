@@ -6,45 +6,65 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
+Class "<<interface>>\nReadOnlyMeetingsBook" as ReadOnlyMeetingsBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
 Class AddressBook
+Class MeetingsBook
 Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
+Class UniqueMeetingList
+
+
+Class Meeting
+
+
 Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class Tag
+' Class Email
+' Class Name
+' Class Phone
+' Class Tag
+' Class SocialMedia
+
+
 
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
+Class HiddenInside #FFFFFF
 
 AddressBook .up.|> ReadOnlyAddressBook
-
+MeetingsBook .up.|> ReadOnlyMeetingsBook
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
+Model .right.> ReadOnlyMeetingsBook
 Model .left.> ReadOnlyAddressBook
 ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
+ModelManager -right-> "1" MeetingsBook
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+MeetingsBook *--> "1" UniqueMeetingList
+UniquePersonList ---> "~*" Person : all
+UniqueMeetingList ---> "~*" Meeting : all
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+' Person *--> Name
+' Person *--> Phone
+' Person *--> Email
+' Person *--> "*" SocialMedia
+' Person *--> "*" Tag
 
-ModelManager -->"~* filtered" Person
+' Name -[hidden]right-> Phone
+' Phone -[hidden]right-> Email
+' Email -[hidden]right-> SocialMedia
+' SocialMedia -[hidden]right--> Tag
+Person ---[hidden]right---> HiddenInside
+HiddenInside ---[hidden]right---> Meeting
+
+ModelManager --> "~*" Person : sorted and\n filtered
+ModelManager ----> "~*" Meeting: sorted and\n filtered
 @enduml
