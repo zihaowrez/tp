@@ -90,7 +90,7 @@ public class MeetingTarget {
             try {
                 targetIndex = ParserUtil.parseIndex(target);
             } catch (ParseException p) {
-                throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+                throw new CommandException(p.getMessage());
             }
 
             if (targetIndex.getZeroBased() >= targetList.size()) {
