@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.edit.EditPersonCommand;
+import seedu.address.logic.commands.edit.EditSocialMediaCommand;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -21,9 +23,12 @@ import seedu.address.model.tag.Tag;
 public abstract class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified.\n"
             + "Specify the person to edit by their fullname or "
-            + "by the index number used in the displayed person list.";
+            + "by the index number used in the displayed person list. Try either:\n"
+            + "1. Editing a person: " + COMMAND_WORD + " " + EditPersonCommand.EDIT_PERSON_COMMAND_PARAMS
+            + "2. Editing a person's social media: "
+            + COMMAND_WORD + " " + EditSocialMediaCommand.EDIT_SOCIAL_MEDIA_COMMAND_PARAMS;
 
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
