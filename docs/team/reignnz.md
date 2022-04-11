@@ -74,22 +74,25 @@ Given below are my contributions to the project.
    - Overview: Added the `EmergencyContact` class. Refactored `AddressBook` to load emergency contacts upon creation. 
    - What it does: Ensures that the address book contains emergency contacts that is immutable. This means that 
      commands such as `edit`, `delete`, `add` and `clear` should not affect the emergency contacts.
-   - Justification: Users will not be able to change the authenticity of an Emergency Contact.
+   - Justification: Users will not be able to change the authenticity of a pre-installed Emergency Contact.
    - Highlights: This enhancement requires the understanding of how the person contacts are loaded into the AddressBook
      and the flow of address book commands 
 
 
 **Contributions to the UG**:
-1. Fixed errors related to the user guide found after PE-D
+1. Fixed errors related to the user guide found after PE-D [#209](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/209)
+2. Added explanation about Global Tags [#228](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/228)
+3. Created a table containing the summary of commands  [#209](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/209)
 
 **Contributions to the DG**:
 1. Added Implementation for Dynamic User Input [#125](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/125)
+- Created the DynamicInputFind PUML Diagram 
 
-- Created a PUML Diagram 
-
-2. Added Implementation for Meeting [#249](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/249)
-
+2. Added Implementation for Meeting [#253](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/253)
 - Created the StartTime PUML Diagram
+
+3. Added use cases for Meeting [#253](https://github.com/AY2122S2-CS2103-W16-2/tp/pull/253)
+
 
 **Community**  
    *PRs reviewed (with non-trivial review comments): 
