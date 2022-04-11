@@ -48,7 +48,7 @@ class AddTagOnlyCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateTag_throwsCommandException() {
         AddCommand addCommand = new AddTagOnlyCommand(ENEMIES);
         AddTagOnlyCommandTest.ModelStub modelStub = new AddTagOnlyCommandTest.ModelStubWithTag(ENEMIES);
 
@@ -75,7 +75,7 @@ class AddTagOnlyCommandTest {
         // null -> returns false
         assertFalse(addFriendsCommand.equals(null));
 
-        // different person -> returns false
+        // different tag -> returns false
         assertFalse(addFriendsCommand.equals(addEnemiesCommand));
     }
 

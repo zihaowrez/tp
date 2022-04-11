@@ -46,7 +46,8 @@ public class DeletePersonsTagCommandTest {
         CommandResult commandResult = new DeletePersonsTagCommand(new Target(personToDelete.getName()), FRIENDS)
                 .execute(model);
 
-        String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS, FRIENDS);
+        String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS,
+                FRIENDS, personToDelete.getName());
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
@@ -59,7 +60,8 @@ public class DeletePersonsTagCommandTest {
         CommandResult commandResult = new DeletePersonsTagCommand(new Target(personToDelete.getName()), FRIENDS)
                 .execute(model);
 
-        String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS, FRIENDS);
+        String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS,
+                FRIENDS, personToDelete.getName());
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
@@ -107,7 +109,8 @@ public class DeletePersonsTagCommandTest {
         CommandResult commandResult = new DeletePersonsTagCommand(new Target(personToDelete.getName()), FRIENDS)
                 .execute(model);
 
-        String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS, FRIENDS);
+        String expectedMessage = String.format(DeletePersonsTagCommand.MESSAGE_DELETE_TAG_SUCCESS,
+                FRIENDS, personToDelete.getName());
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }

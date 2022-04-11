@@ -9,7 +9,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 public class EmergencyContact extends Person {
-
     public EmergencyContact(Name name, Phone phone, Email email) {
         super(name, phone, email, getSocialMediaSet("NIL"), getTagSet("EmergencyContacts"));
     }
